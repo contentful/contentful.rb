@@ -17,8 +17,17 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^spec/})
   gem.require_paths = ['lib']
 
+  gem.add_dependency 'http', '~> 0'
+  gem.add_dependency 'multi_json', '~> 1'
+
   gem.add_development_dependency 'bundler', '~> 1.5'
   gem.add_development_dependency 'rake', '~> 10'
-  gem.add_development_dependency 'rspec', '~> 2.14'
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
+
+  gem.add_development_dependency 'rspec', '~> 2'
+  gem.add_development_dependency 'rr'
+  gem.add_development_dependency 'vcr'
+  gem.add_development_dependency 'webmock'
+  gem.add_development_dependency 'debugging'
+  gem.add_development_dependency 'binding_of_caller'
 end
