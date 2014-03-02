@@ -1,0 +1,13 @@
+{
+  "sys": {
+    "type": "Error",
+    "id": "NotFound"
+  },
+  "details": {
+    "type": "Entry",
+    "space": "cfexampleapi",
+    "id": "not found"
+  },
+  "message": "The resource could not be found.",
+  "requestId": "85f-351076632"
+}

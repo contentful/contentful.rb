@@ -27,7 +27,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 2'
   gem.add_development_dependency 'rr'
   gem.add_development_dependency 'vcr'
-  gem.add_development_dependency 'webmock'
+  gem.add_development_dependency 'webmock', '~> 1', '>= 1.17.3'
   gem.add_development_dependency 'debugging'
   gem.add_development_dependency 'binding_of_caller'
 end

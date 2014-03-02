@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/not%20found
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyHTTPGem/0.5.0
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Sat, 01 Mar 2014 23:57:59 GMT
+      Server:
+      - nginx/1.1.19
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Length:
+      - '234'
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-fra1227-FRA
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Error",
+            "id": "NotFound"
+          },
+          "details": {
+            "type": "Entry",
+            "space": "cfexampleapi",
+            "id": "not found"
+          },
+          "message": "The resource could not be found.",
+          "requestId": "85f-351076632"
+        }
+    http_version: 
+  recorded_at: Sat, 01 Mar 2014 23:57:59 GMT
+recorded_with: VCR 2.8.0
