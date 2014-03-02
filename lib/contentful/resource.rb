@@ -1,4 +1,4 @@
 module Contentful
-  class Object
+  class Resource
   end
 end

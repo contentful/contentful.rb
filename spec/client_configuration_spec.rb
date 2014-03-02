@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'contentful'
 
 
 describe 'Client Configuration Options' do

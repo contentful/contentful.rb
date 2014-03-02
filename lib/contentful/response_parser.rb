@@ -1,4 +1,5 @@
 require_relative 'error'
+require_relative 'resource'
 
 
 module Contentful
