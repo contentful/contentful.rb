@@ -43,18 +43,26 @@ module Contentful
     end
 
     def request_headers
-      {
-        "Content-Type" => "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json",
-        "Authorization" => "Bearer #{configuration[:access_token]}",
-        "User-Agent" => "RubyContentfulGem/#{Contentful::VERSION}"
-      }
+      headers = { "User-Agent" => "RubyContentfulGem/#{Contentful::VERSION}" }
+      headers["Authorization"] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
+      headers["Content-Type"]  = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
+
+      headers
+    end
+
+    def request_query(query)
+      if configuration[:authentication_mechanism] == :query_string
+        query["access_token"] = configuration[:access_token]
+      end
+
+      query
     end
 
     def get(request)
       response = Response.new(
         get_http(
           base_url + request.url,
-          request.query,
+          request_query(request.query),
           request_headers,
         )
       )
@@ -79,23 +87,23 @@ module Contentful
 
     def validate_configuration!
       if configuration[:space].empty?
-        raise ArgumentError "You will need to initialize a client with a :space"
+        raise ArgumentError, "You will need to initialize a client with a :space"
       end
 
       if configuration[:access_token].empty?
-        raise ArgumentError "You will need to initialize a client with an :access_token"
+        raise ArgumentError, "You will need to initialize a client with an :access_token"
       end
 
       if configuration[:api_url].empty?
-        raise ArgumentError "The client configuration needs to contain an :api_url"
+        raise ArgumentError, "The client configuration needs to contain an :api_url"
       end
 
-      unless configuration[:api_version].to_i > 0
-        raise ArgumentError "The :api_version must be a positive number"
+      unless configuration[:api_version].to_i >= 0
+        raise ArgumentError, "The :api_version must be a positive number or nil"
       end
 
       unless %I[header query_string].include? configuration[:authentication_mechanism]
-        raise ArgumentError "The authentication mechanism must be :header or :query_string"
+        raise ArgumentError, "The authentication mechanism must be :header or :query_string"
       end
     end
   end
