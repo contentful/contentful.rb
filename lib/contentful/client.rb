@@ -39,7 +39,7 @@ module Contentful
     end
 
     def base_url
-      "http#{configuration[:secure] && :s}://#{configuration[:api_url]}/spaces/#{configuration[:space]}"
+      "http#{configuration[:secure] ? 's' : ''}://#{configuration[:api_url]}/spaces/#{configuration[:space]}"
     end
 
     def request_headers
