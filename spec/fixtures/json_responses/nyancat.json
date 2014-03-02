@@ -1,0 +1,48 @@
+{
+  "fields": {
+    "name": "Nyan Cat",
+    "likes": [
+      "rainbows",
+      "fish"
+    ],
+    "color": "rainbow",
+    "bestFriend": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Entry",
+        "id": "happycat"
+      }
+    },
+    "birthday": "2011-04-04T22:00:00+00:00",
+    "lives": 1337,
+    "image": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Asset",
+        "id": "nyancat"
+      }
+    }
+  },
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "cfexampleapi"
+      }
+    },
+    "type": "Entry",
+    "contentType": {
+      "sys": {
+        "type": "Link",
+        "linkType": "ContentType",
+        "id": "cat"
+      }
+    },
+    "id": "nyancat",
+    "revision": 5,
+    "createdAt": "2013-06-27T22:46:19.513Z",
+    "updatedAt": "2013-09-04T09:19:39.027Z",
+    "locale": "en-US"
+  }
+}
