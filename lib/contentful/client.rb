@@ -17,11 +17,12 @@ module Contentful
 
     def default_configuration
       {
-        api_url: 'cdn.contentful.com',
-        authentication_mechanism: :header,
         secure: true,
         raise_errors: true,
-        response_parser: ResponseParser
+        response_parser: ResponseParser,
+        api_url: 'cdn.contentful.com',
+        api_version: 1,
+        authentication_mechanism: :header,
       }
     end
 
@@ -41,12 +42,20 @@ module Contentful
       "http#{configuration[:secure] && :s}://#{configuration[:api_url]}/spaces/#{configuration[:space]}"
     end
 
+    def request_headers
+      {
+        "Content-Type" => "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json",
+        "Authorization" => "Bearer #{configuration[:access_token]}",
+        "User-Agent" => "RubyContentfulGem/#{Contentful::VERSION}"
+      }
+    end
+
     def get(request)
       response = Response.new(
         get_http(
           base_url + request.url,
           request.query,
-          { Authorization: "Bearer #{configuration[:access_token]}" },
+          request_headers,
         )
       )
 
@@ -70,15 +79,19 @@ module Contentful
 
     def validate_configuration!
       if configuration[:space].empty?
-        raise ArgumentError "You'll need to initialize a Contentful::Client with a :space"
+        raise ArgumentError "You will need to initialize a client with a :space"
       end
 
       if configuration[:access_token].empty?
-        raise ArgumentError "You'll need to initialize a Contentful::Client with an :access_token"
+        raise ArgumentError "You will need to initialize a client with an :access_token"
       end
 
       if configuration[:api_url].empty?
-        raise ArgumentError "The Contentful::Client configuration needs to contain an :api_url"
+        raise ArgumentError "The client configuration needs to contain an :api_url"
+      end
+
+      unless configuration[:api_version].to_i > 0
+        raise ArgumentError "The :api_version must be a positive number"
       end
 
       unless %I[header query_string].include? configuration[:authentication_mechanism]

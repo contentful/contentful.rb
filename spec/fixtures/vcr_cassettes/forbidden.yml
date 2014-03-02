@@ -8,7 +8,9 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - RubyHTTPGem/0.5.0
+      - RubyContentfulGem/0.1.0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
       Authorization:
       - Bearer credentials
       Host:
@@ -19,7 +21,7 @@ http_interactions:
       message: Unauthorized
     headers:
       Date:
-      - Sun, 02 Mar 2014 11:09:00 GMT
+      - Sun, 02 Mar 2014 12:03:31 GMT
       Server:
       - nginx/1.1.19
       Content-Type:
@@ -41,7 +43,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-am71-AMS
+      - cache-fra1235-FRA
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -55,8 +57,8 @@ http_interactions:
             "id": "AccessTokenInvalid"
           },
           "message": "The access token you sent could not be found or is invalid.",
-          "requestId": "85f-351081992"
+          "requestId": "85f-351082324"
         }
     http_version: 
-  recorded_at: Sun, 02 Mar 2014 11:09:00 GMT
+  recorded_at: Sun, 02 Mar 2014 12:03:31 GMT
 recorded_with: VCR 2.8.0
