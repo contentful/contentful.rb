@@ -33,6 +33,20 @@ describe 'Client Configuration Options' do
     end
   end
 
+  describe ':api_url' do
+    it 'is "cdn.contentful.com" [default]' do
+      expect(
+        create_client.configuration[:api_url]
+      ).to eq "cdn.contentful.com"
+    end
+
+    it 'will be used as base url' do
+      expect(
+        create_client(api_url: "cdn2.contentful.com").base_url
+      ).to start_with "https://cdn2.contentful.com"
+    end
+  end
+
   describe ':api_version' do
     it 'is 1 [default]' do
       expect(
@@ -46,5 +60,6 @@ describe 'Client Configuration Options' do
       ).to eq "application/vnd.contentful.delivery.v2+json"
     end
   end
+
 
 end
