@@ -18,7 +18,11 @@ module Contentful
 
     def parse
       if response.status == :contentful_error
-        Error[response.raw.response.status].new(response) # TODO do not base on http code
+        if %w[NotFound BadRequest AccessDenied Unauthorized ServerError].include?(response.error_id)
+          Contentful.const_get(response.error_id).new(response)
+        else
+          Error.new(response)
+        end
       elsif response.status == :unparsable_json
         UnparsableJson.new(response)
       else

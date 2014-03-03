@@ -5,12 +5,13 @@ require 'multi_json'
 
 module Contentful
   class Response
-    attr_reader :raw, :object, :status, :error_message
+    attr_reader :raw, :object, :status, :error_id, :error_message
 
 
     def initialize(raw)
       @raw = raw
       @status = :ok
+      @error_code = nil
       @error_message = false
 
       if parse_json!
@@ -35,6 +36,7 @@ module Contentful
       if object && object["sys"] && object["sys"]["type"] == 'Error'
         @status = :contentful_error
         @error_message = object['message']
+        @error_id = object["sys"]["id"]
         true
       else
         false
