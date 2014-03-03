@@ -1,0 +1,147 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types/cat
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.1.0
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 13:43:40 GMT
+      Server:
+      - nginx/1.1.19
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      X-Contentful-Request-Id:
+      - 85f-351084865
+      Etag:
+      - "\"311dab6ef7fafc9f223a427ddd896e3e\""
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Length:
+      - '1578'
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      Age:
+      - '55700'
+      X-Served-By:
+      - cache-fra1230-FRA
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - '1'
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "fields": [
+            {
+              "id": "name",
+              "name": "Name",
+              "type": "Text",
+              "required": true,
+              "localized": true
+            },
+            {
+              "id": "likes",
+              "name": "Likes",
+              "type": "Array",
+              "required": false,
+              "localized": false,
+              "items": {
+                "type": "Symbol"
+              }
+            },
+            {
+              "id": "color",
+              "name": "Color",
+              "type": "Symbol",
+              "required": false,
+              "localized": false
+            },
+            {
+              "id": "bestFriend",
+              "name": "Best Friend",
+              "type": "Link",
+              "required": false,
+              "localized": false,
+              "linkType": "Entry"
+            },
+            {
+              "id": "birthday",
+              "name": "Birthday",
+              "type": "Date",
+              "required": false,
+              "localized": false
+            },
+            {
+              "id": "lifes",
+              "name": "Lifes left",
+              "type": "Integer",
+              "required": false,
+              "localized": false,
+              "disabled": true
+            },
+            {
+              "id": "lives",
+              "name": "Lives left",
+              "type": "Integer",
+              "required": false,
+              "localized": false
+            },
+            {
+              "id": "image",
+              "name": "Image",
+              "required": false,
+              "localized": false,
+              "type": "Link",
+              "linkType": "Asset"
+            }
+          ],
+          "name": "Cat",
+          "displayField": "name",
+          "description": "Meow.",
+          "sys": {
+            "space": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "cfexampleapi"
+              }
+            },
+            "type": "ContentType",
+            "id": "cat",
+            "revision": 2,
+            "createdAt": "2013-06-27T22:46:12.852Z",
+            "updatedAt": "2013-09-02T13:14:47.863Z"
+          }
+        }
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 13:43:40 GMT
+recorded_with: VCR 2.8.0

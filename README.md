@@ -18,3 +18,5 @@ client = Contentful::Client.new(
 )
 
 [...]
+
+### Resource

@@ -1,6 +1,6 @@
 require_relative 'request'
 require_relative 'response'
-require_relative 'response_parser'
+require_relative 'resource_builder'
 
 require 'http'
 
@@ -19,7 +19,7 @@ module Contentful
       {
         secure: true,
         raise_errors: true,
-        response_parser: ResponseParser,
+        resource_builder: ResourceBuilder,
         api_url: 'cdn.contentful.com',
         api_version: 1,
         authentication_mechanism: :header,
@@ -27,10 +27,26 @@ module Contentful
     end
 
     def space
-      Request.new(self, '')
+      Request.new(self, '').get
     end
 
-    def entry!(id)
+    # def space!
+    #   Request.new(self, '').get
+    # end
+
+    def content_type(id)
+      Request.new(self, '/content_types', id).get
+    end
+
+    # def content_type!(id)
+    #   Request.new(self, '/content_types', id)
+    # end
+
+    def asset(id)
+      Request.new(self, '/assets', id).get # , Contentul::Asset
+    end
+
+    def entry(id)
       Request.new(self, '/entries', id).get # , Contentul::Entry
     end
 
@@ -67,7 +83,7 @@ module Contentful
         )
       )
 
-      result = configuration[:response_parser].new(response).parse
+      result = configuration[:resource_builder].new(response).parse
       raise result if result.is_a?(Error) && configuration[:raise_errors]
 
       result

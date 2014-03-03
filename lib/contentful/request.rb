@@ -19,7 +19,7 @@ module Contentful
     end
 
     def url
-      "#{endpoint}/#{ type == :single &&id  }"
+      "#{endpoint}/#{ type == :single ? id : '' }"
     end
 
     def get

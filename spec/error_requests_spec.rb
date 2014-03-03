@@ -6,7 +6,7 @@ describe 'Error Requests' do
     client = create_client
 
     expect_vcr("not found"){
-      client.entry! 'not found'
+      client.entry 'not found'
     }.to raise_error(Contentful::NotFound)
   end
 
@@ -22,7 +22,7 @@ describe 'Error Requests' do
     client = Contentful::Client.new(space: "wrong", access_token: "credentials")
 
     expect_vcr("forbidden"){
-      client.entry! 'nyancat'
+      client.entry 'nyancat'
     }.to raise_error(Contentful::Unauthorized)
   end
 
