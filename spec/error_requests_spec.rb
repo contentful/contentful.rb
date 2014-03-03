@@ -19,9 +19,10 @@ describe 'Error Requests' do
   end
 
   it 'will return 401 (Unauthorized) if no credentials given' do
+    pending
     client = Contentful::Client.new(space: "wrong", access_token: "credentials")
 
-    expect_vcr("forbidden"){
+    expect_vcr("unauthorized"){
       client.entry 'nyancat'
     }.to raise_error(Contentful::Unauthorized)
   end
