@@ -16,12 +16,14 @@ module Contentful
     private
 
     def extract_from_object(keys, object)
-      keys.each.with_object({}){ |name, res|
-        res[name.to_sym] = coerce_value(
-          object.is_a?(Array) ? object : object[name.to_s],
-          self.class.property_coercions[name.to_sym],
-        )
-      }
+      if object
+        keys.each.with_object({}){ |name, res|
+          res[name.to_sym] = coerce_value(
+            object.is_a?(Array) ? object : object[name.to_s],
+            self.class.property_coercions[name.to_sym],
+          )
+        }
+      end
     end
 
     def coerce_value(value, property_class = nil)

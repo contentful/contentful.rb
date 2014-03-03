@@ -7,7 +7,7 @@ module Contentful
       # to deal with fields
       def initialize(object)
         super
-        @fields = extract_from_object object["fields"].keys, object["fields"]
+        @fields = extract_from_object object["fields"] && object["fields"].keys, object["fields"]
       end
 
       def inspect(info = nil)

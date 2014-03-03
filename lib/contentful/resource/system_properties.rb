@@ -7,7 +7,7 @@ module Contentful
 
       def initialize(object)
         super
-        @sys = extract_from_object object["sys"].keys, object["sys"]
+        @sys = extract_from_object object["sys"] && object["sys"].keys, object["sys"]
       end
 
       def type
