@@ -97,7 +97,7 @@ module Contentful
     private
 
     def normalize_configuration!
-      %I[space access_token api_url].each{ |s| configuration[s] = configuration[s].to_s }
+      [:space, :access_token, :api_url].each{ |s| configuration[s] = configuration[s].to_s }
       configuration[:authentication_mechanism] = configuration[:authentication_mechanism].to_sym
     end
 
@@ -118,7 +118,7 @@ module Contentful
         raise ArgumentError, "The :api_version must be a positive number or nil"
       end
 
-      unless %I[header query_string].include? configuration[:authentication_mechanism]
+      unless [:header, :query_string].include? configuration[:authentication_mechanism]
         raise ArgumentError, "The authentication mechanism must be :header or :query_string"
       end
     end
