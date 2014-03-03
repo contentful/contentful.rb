@@ -74,3 +74,19 @@ module Contentful
     end
   end
 end
+
+__END__
+
+Symbol  String  Basic list of characters.
+Text  String  Same as String, but can be filtered via Full-Text Search.
+Date  String  See Date & Time Format.
+
+Integer Number  Number type without decimals. Values from -2^53 to 2^53.
+Float Number  Number type with decimals.
+
+Boolean Boolean Flag, true or false.
+
+
+Link  Object  See Links
+Array Array List of values. Value type depends on field.items.type.
+Object  Object  Arbitrary Object.
