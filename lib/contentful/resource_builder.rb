@@ -22,8 +22,7 @@ module Contentful
       elsif response.status == :unparsable_json
         UnparsableJson.new(response)
       else
-        create_resource response.json
-        # create_resources([response.json]).first
+        create_resource response.object
       end
     end
 

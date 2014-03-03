@@ -11,9 +11,9 @@ describe Contentful::Response do
     end
   end
 
-  describe "#json" do
+  describe "#object" do
     it "returns the repsonse's parsed json" do
-      expect( successful_response.json ).to eq json_fixture('nyancat')
+      expect( successful_response.object ).to eq json_fixture('nyancat')
     end
   end
 

@@ -5,7 +5,7 @@ require 'multi_json'
 
 module Contentful
   class Response
-    attr_reader :raw, :json, :status, :error_message
+    attr_reader :raw, :object, :status, :error_message
 
 
     def initialize(raw)
@@ -22,19 +22,19 @@ module Contentful
     private
 
     def parse_json!
-      @json = MultiJson.load(raw.to_s)
+      @object = MultiJson.load(raw.to_s)
       true
     rescue MultiJson::LoadError => e
       @status = :unparsable_json
       @error_message = e.message
-      @json = e
+      @object = e
       false
     end
 
     def parse_contentful_error!
-      if json && json["sys"] && json["sys"]["type"] == 'Error'
+      if object && object["sys"] && object["sys"]["type"] == 'Error'
         @status = :contentful_error
-        @error_message = json['message']
+        @error_message = object['message']
         true
       else
         false
