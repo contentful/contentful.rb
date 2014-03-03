@@ -5,9 +5,10 @@ module Contentful
 
       # Include this module into your resource class to enable it
       # to deal with fields
+      # TODO coercions
       def initialize(object)
         super
-        @fields = extract_from_object object["fields"] && object["fields"].keys, object["fields"]
+        @fields = extract_from_object object["fields"], :fields
       end
 
       def inspect(info = nil)
@@ -16,6 +17,15 @@ module Contentful
         )
       end
 
+      module ClassMethods
+        def fields_coercions
+          {}
+        end
+      end
+
+      def self.included(base)
+        base.extend(ClassMethods)
+      end
     end
   end
 end

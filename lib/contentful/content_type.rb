@@ -7,9 +7,9 @@ module Contentful
     include Contentful::Resource::SystemProperties
 
 
-    property :name
-    property :description
+    property :name, :string
+    property :description, :string
     property :fields, Field
-    property :displayField
+    property :displayField, :string
   end
 end

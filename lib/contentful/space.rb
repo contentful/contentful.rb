@@ -6,7 +6,7 @@ module Contentful
     include Contentful::Resource
     include Contentful::Resource::SystemProperties
 
-    property :name
+    property :name, :string
     property :locales, Locale
   end
 end

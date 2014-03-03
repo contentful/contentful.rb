@@ -2,10 +2,16 @@ require_relative 'resource/system_properties'
 
 module Contentful
   module Resource
+    COERCIONS = {
+      string:  ->(v){ v.to_s },
+      integer: ->(v){ v.to_i },
+      boolean: ->(v){ !!v },
+    }
+
     attr_reader :properties
 
     def initialize(object)
-      @properties = extract_from_object self.class.property_coercions.keys, object
+      @properties = extract_from_object object, :property, self.class.property_coercions.keys
     end
 
     def inspect(info = nil)
@@ -15,26 +21,34 @@ module Contentful
 
     private
 
-    def extract_from_object(keys, object)
+    def extract_from_object(object, namespace, keys = nil)
       if object
+        keys ||= object.keys
         keys.each.with_object({}){ |name, res|
-          res[name.to_sym] = coerce_value(
+          res[name.to_sym] = coerce_value_or_array(
             object.is_a?(Array) ? object : object[name.to_s],
-            self.class.property_coercions[name.to_sym],
+            self.class.public_send(:"#{namespace}_coercions")[name.to_sym],
           )
         }
       end
     end
 
-    def coerce_value(value, property_class = nil)
-      if !property_class
-        value
+    def coerce_value_or_array(value, what = nil)
+      if value.is_a? Array
+        value.map{ |v| coerce_or_create_class(v, what) }
       else
-        if value.is_a? Array
-          value.map{ |v| property_class.new(v) }
-        else
-          property_class.new(value)
-        end
+        coerce_or_create_class(value, what)
+      end
+    end
+
+    def coerce_or_create_class(value, what)
+      case what
+      when Symbol
+        COERCIONS[what] ? COERCIONS[what][value] : value
+      when Class
+        what.new(value)
+      else
+        value
       end
     end
 

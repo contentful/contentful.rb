@@ -4,11 +4,11 @@ module Contentful
   class Field
     include Contentful::Resource
 
-    property :id
-    property :name
-    property :type
+    property :id, :string
+    property :name, :string
+    property :type, :string
     property :items
-    property :required
-    property :localized
+    property :required, :boolean
+    property :localized, :boolean
   end
 end
