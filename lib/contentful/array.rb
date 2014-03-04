@@ -1,7 +1,7 @@
 require_relative 'resource'
 
 module Contentful
-  class Collection
+  class Array
     include Contentful::Resource
     include Contentful::Resource::SystemProperties
     include Enumerable

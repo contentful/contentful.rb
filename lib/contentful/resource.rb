@@ -30,7 +30,7 @@ module Contentful
         keys ||= object.keys
         keys.each.with_object({}){ |name, res|
           res[name.to_sym] = coerce_value_or_array(
-            object.is_a?(Array) ? object : object[name.to_s],
+            object.is_a?(::Array) ? object : object[name.to_s],
             self.class.public_send(:"#{namespace}_coercions")[name.to_sym],
           )
         }
@@ -38,7 +38,7 @@ module Contentful
     end
 
     def coerce_value_or_array(value, what = nil)
-      if value.is_a? Array
+      if value.is_a? ::Array
         value.map{ |v| coerce_or_create_class(v, what) }
       else
         coerce_or_create_class(value, what)

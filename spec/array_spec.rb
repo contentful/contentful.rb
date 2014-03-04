@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Contentful::Collection do
+describe Contentful::Array do
   let(:array){ vcr('array'){ create_client.content_types } }
 
   describe 'Properties' do

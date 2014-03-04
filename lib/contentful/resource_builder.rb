@@ -5,7 +5,7 @@ require_relative 'content_type'
 require_relative 'entry'
 require_relative 'dynamic_entry'
 require_relative 'asset'
-require_relative 'collection'
+require_relative 'array'
 require_relative 'link'
 
 
@@ -42,7 +42,7 @@ module Contentful
       when 'Asset'
         Contentful::Asset
       when 'Array'
-        Contentful::Collection
+        Contentful::Array
       when 'Link'
         Contentful::Link
       else
