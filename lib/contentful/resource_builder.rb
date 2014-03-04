@@ -42,13 +42,15 @@ module Contentful
       when 'Asset'
         Contentful::Asset
       when 'Array'
-        Contentful::Array
+        Contentful::Collection
       when 'Link'
         Contentful::Link
       else
         fail # TODO
       end
     end
+
+    # TODO improve / refactor
 
     def detect_child_objects(object)
       if object.is_a?(Hash)
@@ -66,9 +68,17 @@ module Contentful
       }
     end
 
+    def replace_children_array(res, array_field)
+      items = res.public_send(array_field)
+      items.map!{ |resource_object| create_resource(resource_object) }
+    end
+
     def create_resource(object)
       res = detect_resource_class(object).new(object)
       replace_children res, object
+      if res.array?
+        replace_children_array(res, :items)
+      end
 
       res
     end

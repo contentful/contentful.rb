@@ -18,6 +18,9 @@ module Contentful
       "#<#{self.class}:#{object_id} @properties=#{properties.inspect}#{info}>"
     end
 
+    def array?
+      false
+    end
 
     private
 

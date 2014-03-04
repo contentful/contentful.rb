@@ -14,7 +14,7 @@ module Contentful
         @id = URI.escape(query_or_id)
       else
         @type = :multi
-        @query = query_or_id.empty? ? nil : query_or_id
+        @query = !query_or_id || query_or_id.empty? ? nil : query_or_id
         @id = nil
       end
     end

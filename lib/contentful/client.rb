@@ -38,6 +38,10 @@ module Contentful
       Request.new(self, '/content_types', id).get
     end
 
+    def content_types(query = nil)
+      Request.new(self, '/content_types', query).get
+    end
+
     # def content_type!(id)
     #   Request.new(self, '/content_types', id)
     # end
