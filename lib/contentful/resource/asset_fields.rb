@@ -13,7 +13,7 @@ module Contentful
         file: File,
       }
 
-      def initialize(object)
+      def initialize(object, *)
         super
         @fields = extract_from_object object["fields"], :fields
       end

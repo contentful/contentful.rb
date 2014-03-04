@@ -16,7 +16,7 @@ module Contentful
         locale: :string,
       }
 
-      def initialize(object)
+      def initialize(object, *)
         super
         @sys = extract_from_object object["sys"], :sys
       end

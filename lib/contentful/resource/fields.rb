@@ -6,7 +6,7 @@ module Contentful
       # Include this module into your resource class to enable it
       # to deal with fields
       # TODO coercions
-      def initialize(object)
+      def initialize(object, *)
         super
         @fields = extract_from_object object["fields"], :fields
       end

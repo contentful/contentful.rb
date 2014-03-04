@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Contentful::Link do
-  let(:link){ vcr('link'){ create_client.content_type('cat').space } }
+  let(:entry){ vcr('entry'){ create_client.entry('nyancat') } }
+  let(:link){ entry.space }
+  let(:content_type_link){ entry.content_type }
 
   describe 'SystemProperties' do
     it 'has a #sys getter returning a hash with symbol keys' do
@@ -19,6 +21,20 @@ describe Contentful::Link do
 
     it 'has #link_type' do
       expect( link.link_type ).to eq "Space"
+    end
+  end
+
+  describe '#resolve' do
+    it 'queries the api for the resource' do
+      vcr('space'){
+        expect( link.resolve ).to be_a Contentful::Space
+      }
+    end
+
+    it 'queries the api for the resource (different link object)' do
+      vcr('content_type'){
+        expect( content_type_link.resolve ).to be_a Contentful::ContentType
+      }
     end
   end
 end

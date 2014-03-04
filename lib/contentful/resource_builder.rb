@@ -88,7 +88,7 @@ module Contentful
     end
 
     def create_resource(object)
-      res = detect_resource_class(object).new(object)
+      res = detect_resource_class(object).new(object, client)
       replace_children res, object
       if res.array?
         replace_children_array(res, :items)

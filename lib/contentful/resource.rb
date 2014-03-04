@@ -9,10 +9,11 @@ module Contentful
       date: ->(v){ DateTime.parse(v) },
     }
 
-    attr_reader :properties
+    attr_reader :properties, :client
 
-    def initialize(object)
+    def initialize(object, client = nil)
       @properties = extract_from_object object, :property, self.class.property_coercions.keys
+      @client = client
     end
 
     def inspect(info = nil)
@@ -50,7 +51,7 @@ module Contentful
       when Symbol
         COERCIONS[what] ? COERCIONS[what][value] : value
       when Class
-        what.new(value)
+        what.new(value, client)
       else
         value
       end
