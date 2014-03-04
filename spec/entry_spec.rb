@@ -26,11 +26,11 @@ describe Contentful::ContentType do
     end
 
     it 'has #created_at' do
-      pending
+      expect( entry.created_at ).to be_a DateTime
     end
 
     it 'has #updated_at' do
-      pending
+      expect( entry.updated_at ).to be_a DateTime
     end
 
     it 'has #revision' do

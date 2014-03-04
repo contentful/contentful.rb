@@ -1,9 +1,9 @@
 module Contentful
   module Resource
 
-    # Include this module into your resource class to add "sys" property accessors
-    # TODO coercions
     module SystemProperties
+      attr_reader :sys
+
       SYS_COERCIONS = {
         type: :string,
         id: :string,
@@ -15,7 +15,6 @@ module Contentful
         updatedAt: :date,
         locale: :string,
       }
-      attr_reader :sys
 
       def initialize(object)
         super
