@@ -54,7 +54,7 @@ module Contentful
     end
 
     def entries(query_options)
-      Request.new(self, '/entries', query_options) # , Contentul::Entry
+      Request.new(self, '/entries', query_options).get # , Contentul::Entry
     end
 
     def base_url
@@ -77,7 +77,7 @@ module Contentful
       query
     end
 
-    def get(request)
+    def get(request, build_resources = true)
       response = Response.new(
         get_http(
           base_url + request.url,
@@ -86,9 +86,10 @@ module Contentful
         )
       )
 
+      return response unless build_resources
+
       result = configuration[:resource_builder].new(self, response).parse
       raise result if result.is_a?(Error) && configuration[:raise_errors]
-
       result
     end
 
