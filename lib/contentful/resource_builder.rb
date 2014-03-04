@@ -11,10 +11,11 @@ require_relative 'link'
 
 module Contentful
   class ResourceBuilder
-    attr_reader :response
+    attr_reader :client, :response
 
-    def initialize(given_response)
-      @response = given_response
+    def initialize(client, response)
+      @response = response
+      @client = client
     end
 
     def parse
@@ -32,13 +33,17 @@ module Contentful
     end
 
     def detect_resource_class(object)
-      case object["sys"]["type"]
+      case object["sys"] && object["sys"]["type"]
       when 'Space'
         Contentful::Space
       when 'ContentType'
         Contentful::ContentType
       when 'Entry'
-        Contentful::Entry
+        if @client.configuration[:dynamic_entries]
+          get_dynamic_entry(object) || Contentful::Entry
+        else
+          Contentful::Entry
+        end
       when 'Asset'
         Contentful::Asset
       when 'Array'
@@ -47,6 +52,15 @@ module Contentful
         Contentful::Link
       else
         fail # TODO
+      end
+    end
+
+    def get_dynamic_entry(object)
+      if id = object["sys"] &&
+          object["sys"]["contentType"] &&
+          object["sys"]["contentType"]["sys"] &&
+          object["sys"]["contentType"]["sys"]["id"]
+        client.dynamic_entry_cache[id.to_sym]
       end
     end
 
@@ -84,19 +98,3 @@ module Contentful
     end
   end
 end
-
-__END__
-
-Symbol  String  Basic list of characters.
-Text  String  Same as String, but can be filtered via Full-Text Search.
-Date  String  See Date & Time Format.
-
-Integer Number  Number type without decimals. Values from -2^53 to 2^53.
-Float Number  Number type with decimals.
-
-Boolean Boolean Flag, true or false.
-
-
-Link  Object  See Links
-Array Array List of values. Value type depends on field.items.type.
-Object  Object  Arbitrary Object.

@@ -41,10 +41,77 @@ describe 'Client Configuration Options' do
 
     it 'will not raise response errors if set to false' do
       res = nil
+
       expect_vcr('not found'){
         res = create_client(raise_errors: false).entry "not found"
       }.not_to raise_error
       expect( res ).to be_instance_of Contentful::NotFound
+    end
+  end
+
+  describe ':dynamic_entries' do
+    it 'will create static entries if set to false [default]' do
+      entry = nil
+      client = create_client
+
+      vcr('nyancat'){
+        entry = client.entry('nyancat')
+      }
+      expect( entry ).not_to be_a Contentful::DynamicEntry
+    end
+
+    describe 'true value' do
+      it 'will create dynamic entries' do
+        entry = nil
+        client = create_client(dynamic_entries: true)
+
+        vcr('entry_cache'){
+          client.update_dynamic_entry_cache!
+        }
+        vcr('nyancat'){
+          entry = client.entry('nyancat')
+        }
+        expect( entry ).to be_a Contentful::DynamicEntry
+      end
+
+      context ':auto' do
+        it 'will call update dynamic_entry_cache on start-up' do
+          client = nil
+
+          vcr('entry_cache'){
+            client = create_client(dynamic_entries: :auto)
+          }
+          expect( client.dynamic_entry_cache ).not_to be_empty
+          expect( client.dynamic_entry_cache.values.first.ancestors ).to \
+              include Contentful::DynamicEntry
+        end
+      end
+
+      context ':manual' do
+        it 'will not call #update_dynamic_entry_cache! on start-up' do
+          client = create_client(dynamic_entries: :manual)
+          expect( client.dynamic_entry_cache ).to be_empty
+        end
+      end
+    end
+
+    describe '#update_dynamic_entry_cache!' do
+      let(:client){ create_client(dynamic_entries: :manual) }
+
+      it 'will fetch all content_types' do
+        stub(client).content_types{{}}
+        client.update_dynamic_entry_cache!
+        expect( client ).to have_received.content_types
+      end
+
+      it 'will save content_types in @dynamic_entry_cache' do
+        vcr('entry_cache'){
+          client.update_dynamic_entry_cache!
+        }
+        expect( client.dynamic_entry_cache ).not_to be_empty
+        expect( client.dynamic_entry_cache.values.first.ancestors ).to \
+            include Contentful::DynamicEntry
+      end
     end
   end
 

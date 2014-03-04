@@ -44,15 +44,15 @@ Entry fields usually don't have direct method accessors, since they are based on
 
     ...
 
-However, you can set :entry_mode to :dynamic in your client. If using this option, the client will fetch all available content types and use them to create dynamic entries on the fly.
+However, you can set :dynamic_entries to :auto in your client configuration. If using this option, the client will fetch all available content types and use them to create dynamic entries on the fly.
 
     client = Contentful::Client.new(
       # credentials
-      entry_mode: :dynamic,
+      dynamic_entries: :auto
     )
     # example entry
 
-To update your ContentType cache manually, you can call `client.update_content_types!`
+The previous example fetches all content_types on initialization. If you want to do it by hand, set the option to :manual and call `client.update_dynamic_entry_cache!` to fetch all content types.
 
 
 

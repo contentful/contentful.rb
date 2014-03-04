@@ -7,18 +7,25 @@ require 'http'
 
 module Contentful
   class Client
-    attr_reader :configuration
+    attr_reader :configuration, :dynamic_entry_cache
 
     def initialize(given_configuration = {})
       @configuration = default_configuration.merge(given_configuration)
       normalize_configuration!
       validate_configuration!
+
+      if configuration[:dynamic_entries] == :auto
+        update_dynamic_entry_cache!
+      else
+        @dynamic_entry_cache = {}
+      end
     end
 
     def default_configuration
       {
         secure: true,
         raise_errors: true,
+        dynamic_entries: false,
         resource_builder: ResourceBuilder,
         api_url: 'cdn.contentful.com',
         api_version: 1,
@@ -30,10 +37,6 @@ module Contentful
       Request.new(self, '').get
     end
 
-    # def space!
-    #   Request.new(self, '').get
-    # end
-
     def content_type(id)
       Request.new(self, '/content_types', id).get
     end
@@ -41,10 +44,6 @@ module Contentful
     def content_types(query = nil)
       Request.new(self, '/content_types', query).get
     end
-
-    # def content_type!(id)
-    #   Request.new(self, '/content_types', id)
-    # end
 
     def asset(id)
       Request.new(self, '/assets', id).get # , Contentul::Asset
@@ -87,7 +86,7 @@ module Contentful
         )
       )
 
-      result = configuration[:resource_builder].new(response).parse
+      result = configuration[:resource_builder].new(self, response).parse
       raise result if result.is_a?(Error) && configuration[:raise_errors]
 
       result
@@ -97,6 +96,17 @@ module Contentful
       HTTP[headers].get(url, params: query)
     end
 
+
+    def update_dynamic_entry_cache!
+      @dynamic_entry_cache = Hash[
+        content_types.map{ |ct|
+          [
+            ct.id.to_sym,
+            DynamicEntry.create(ct),
+          ]
+        }
+      ]
+    end
 
     private
 
@@ -133,15 +143,3 @@ $client = Contentful::Client.new(
   space: 'cfexampleapi',
   access_token: 'b4c0n73n7fu1',
 )
-
-
-__END__
-
-GET /spaces/:space_id Getting a Space
-GET /spaces/:space_id/content_types Searching Content Types
-GET /spaces/:space_id/content_types/:id Getting a Content Type
-GET /spaces/:space_id/entries Searching Entries
-GET /spaces/:space_id/entries/:id Getting an Entry
-GET /spaces/:space_id/assets  Searching Assets
-GET /spaces/:space_id/assets/:id  Getting an Asset
-GET /spaces/:space_id/sync
