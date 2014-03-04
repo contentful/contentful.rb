@@ -6,6 +6,7 @@ module Contentful
       string:  ->(v){ v.to_s },
       integer: ->(v){ v.to_i },
       boolean: ->(v){ !!v },
+      date: ->(v){ DateTime.parse(v) },
     }
 
     attr_reader :properties
