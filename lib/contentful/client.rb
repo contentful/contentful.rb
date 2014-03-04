@@ -45,16 +45,20 @@ module Contentful
       Request.new(self, '/content_types', query).get
     end
 
-    def asset(id)
-      Request.new(self, '/assets', id).get # , Contentul::Asset
-    end
-
     def entry(id)
       Request.new(self, '/entries', id).get # , Contentul::Entry
     end
 
     def entries(query_options)
       Request.new(self, '/entries', query_options).get # , Contentul::Entry
+    end
+
+    def asset(id)
+      Request.new(self, '/assets', id).get # , Contentul::Asset
+    end
+
+    def assets(query = nil)
+      Request.new(self, '/assets', query).get
     end
 
     def base_url
