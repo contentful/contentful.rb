@@ -5,7 +5,7 @@ describe Contentful::Request do
     it 'calls client' do
       client = create_client
       stub(client).get
-      request = Contentful::Request.new(client, '/content_types', 'nyancat')
+      request = Contentful::Request.new(client, '/content_types', nil, 'nyancat')
       request.get
       expect( client ).to have_received.get(request)
     end
@@ -13,14 +13,8 @@ describe Contentful::Request do
 
   context '[single resource]' do
     let(:request){
-      Contentful::Request.new(create_client, '/content_types', 'nyancat')
+      Contentful::Request.new(create_client, '/content_types', nil, 'nyancat')
     }
-
-    describe '#query' do
-      it 'is empty' do
-        expect( request.query ).to be_nil
-      end
-    end
 
     describe '#url' do
       it 'contais endpoint' do

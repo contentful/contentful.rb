@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 04 Mar 2014 12:40:55 GMT
+      - Wed, 05 Mar 2014 21:16:37 GMT
       Server:
       - nginx/1.1.19
       Content-Type:
@@ -47,13 +47,13 @@ http_interactions:
       Via:
       - 1.1 varnish
       Age:
-      - '0'
+      - '117342'
       X-Served-By:
-      - cache-fra1232-FRA
+      - cache-fra1223-FRA
       X-Cache:
-      - MISS
+      - HIT
       X-Cache-Hits:
-      - '0'
+      - '1'
       Vary:
       - Accept-Encoding
     body:
@@ -92,5 +92,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Tue, 04 Mar 2014 12:40:55 GMT
+  recorded_at: Wed, 05 Mar 2014 21:16:37 GMT
 recorded_with: VCR 2.8.0

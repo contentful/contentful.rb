@@ -1,26 +1,24 @@
 module Contentful
   class Request
-    attr_reader :client, :type, :id, :query
+    attr_reader :client, :type, :query, :id
 
-    # TODO no query_or_id magic
-    def initialize(client, endpoint, query_or_id = {}, response_class = nil)
+    def initialize(client, endpoint, query = {}, id = nil, response_class = nil)
       @client = client
       @endpoint = endpoint
+      @query = !query || query.empty? ? nil : query
       @response_class = response_class
 
-      if query_or_id.is_a?(String)
+      if id
         @type = :single
-        @query = nil
-        @id = URI.escape(query_or_id)
+        @id = URI.escape(id)
       else
         @type = :multi
-        @query = !query_or_id || query_or_id.empty? ? nil : query_or_id
         @id = nil
       end
     end
 
     def url
-      "#{@endpoint}/#{ @type == :single ? id : '' }"
+      "#{@endpoint}#{ @type == :single ? "/#{id}" : '' }"
     end
 
     def get

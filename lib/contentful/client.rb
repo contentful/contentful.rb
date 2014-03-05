@@ -33,31 +33,31 @@ module Contentful
       }
     end
 
-    def space
-      Request.new(self, '').get
+    def space(query = {})
+      Request.new(self, '', query).get
     end
 
-    def content_type(id)
-      Request.new(self, '/content_types', id).get
+    def content_type(id, query = {})
+      Request.new(self, '/content_types', query, id).get
     end
 
-    def content_types(query = nil)
+    def content_types(query = {})
       Request.new(self, '/content_types', query).get
     end
 
-    def entry(id)
-      Request.new(self, '/entries', id).get # , Contentul::Entry
+    def entry(id, query = {})
+      Request.new(self, '/entries', query, id).get # , Contentul::Entry
     end
 
-    def entries(query_options)
-      Request.new(self, '/entries', query_options).get # , Contentul::Entry
+    def entries(query = {})
+      Request.new(self, '/entries', query).get # , Contentul::Entry
     end
 
-    def asset(id)
-      Request.new(self, '/assets', id).get # , Contentul::Asset
+    def asset(id, query = {})
+      Request.new(self, '/assets', query, id).get # , Contentul::Asset
     end
 
-    def assets(query = nil)
+    def assets(query = {})
       Request.new(self, '/assets', query).get
     end
 

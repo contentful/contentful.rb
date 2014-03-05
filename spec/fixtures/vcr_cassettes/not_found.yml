@@ -9,10 +9,10 @@ http_interactions:
     headers:
       User-Agent:
       - RubyContentfulGem/0.1.0
-      Content-Type:
-      - application/vnd.contentful.delivery.v1+json
       Authorization:
       - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
       Host:
       - cdn.contentful.com
   response:
@@ -21,7 +21,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sun, 02 Mar 2014 12:03:30 GMT
+      - Wed, 05 Mar 2014 21:16:39 GMT
       Server:
       - nginx/1.1.19
       Content-Type:
@@ -45,7 +45,7 @@ http_interactions:
       Age:
       - '0'
       X-Served-By:
-      - cache-fra1233-FRA
+      - cache-fra1235-FRA
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -64,8 +64,8 @@ http_interactions:
             "id": "not found"
           },
           "message": "The resource could not be found.",
-          "requestId": "85f-351082322"
+          "requestId": "85f-830831809"
         }
     http_version: 
-  recorded_at: Sun, 02 Mar 2014 12:03:30 GMT
+  recorded_at: Wed, 05 Mar 2014 21:16:39 GMT
 recorded_with: VCR 2.8.0

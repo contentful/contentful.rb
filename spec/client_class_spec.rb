@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Contentful::Client do
   describe '#get' do
     let(:request){
-      Contentful::Request.new(self, '/content_types', 'cat')
+      Contentful::Request.new(self, '/content_types', nil, 'cat')
     }
 
     it 'uses #base_url'

@@ -5,11 +5,11 @@ module Contentful
     include Contentful::Resource
     include Contentful::Resource::SystemProperties
 
-    def resolve(query = nil)
-      # TODO add query after request refact
+    def resolve(query = {})
+      id_and_query = [(id unless link_type == "Space")].compact + [query]
       client.public_send(
-        Contentful::Support.client_method_for_type(link_type),
-        *[(id unless link_type == "Space")].compact
+        Contentful::Support.snakify(link_type).to_sym,
+        *id_and_query
       )
     end
   end

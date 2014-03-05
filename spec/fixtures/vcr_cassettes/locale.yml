@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/
+    uri: https://cdn.contentful.com/spaces/cfexampleapi
     body:
       encoding: US-ASCII
       string: ''
@@ -21,13 +21,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 03 Mar 2014 12:43:37 GMT
+      - Wed, 05 Mar 2014 21:15:55 GMT
       Server:
       - nginx/1.1.19
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       X-Contentful-Request-Id:
-      - 85f-351087525
+      - 85f-830831773
       Etag:
       - "\"23e4b3361b063c545fdd9f7f4f97d825\""
       Access-Control-Allow-Origin:
@@ -47,13 +47,13 @@ http_interactions:
       Via:
       - 1.1 varnish
       Age:
-      - '3428'
+      - '0'
       X-Served-By:
-      - cache-am69-AMS
+      - cache-fra1234-FRA
       X-Cache:
-      - HIT
+      - MISS
       X-Cache-Hits:
-      - '1'
+      - '0'
       Vary:
       - Accept-Encoding
     body:
@@ -77,5 +77,5 @@ http_interactions:
           ]
         }
     http_version: 
-  recorded_at: Mon, 03 Mar 2014 12:43:37 GMT
+  recorded_at: Wed, 05 Mar 2014 21:15:56 GMT
 recorded_with: VCR 2.8.0

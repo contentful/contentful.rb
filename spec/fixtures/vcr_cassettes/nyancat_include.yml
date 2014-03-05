@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/nyancat/?include=1
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/nyancat?include=1
     body:
       encoding: US-ASCII
       string: ''
@@ -21,13 +21,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 04 Mar 2014 17:02:05 GMT
+      - Wed, 05 Mar 2014 21:15:55 GMT
       Server:
       - nginx/1.1.19
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       X-Contentful-Request-Id:
-      - 85f-830803178
+      - 85f-830831771
       Etag:
       - "\"a9e11c59bf73598894bf05d4db7700cb\""
       Access-Control-Allow-Origin:
@@ -49,7 +49,7 @@ http_interactions:
       Age:
       - '0'
       X-Served-By:
-      - cache-fra1228-FRA
+      - cache-fra1227-FRA
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -108,5 +108,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Tue, 04 Mar 2014 17:02:05 GMT
+  recorded_at: Wed, 05 Mar 2014 21:15:55 GMT
 recorded_with: VCR 2.8.0
