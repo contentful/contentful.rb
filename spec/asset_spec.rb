@@ -47,4 +47,16 @@ describe Contentful::Asset do
       expect( asset.file ).to be_a Contentful::File
     end
   end
+
+  describe '#image_url' do
+    it 'returns #url of #file without parameter' do
+      expect( asset.image_url ).to eq asset.file.url
+    end
+
+    it 'adds image options if given' do
+      url = asset.image_url(width: 100, format: 'jpg', quality: 50)
+      expect(url).to include asset.file.url
+      expect(url).to include "?w=100&fm=jpg&q=50"
+    end
+  end
 end
