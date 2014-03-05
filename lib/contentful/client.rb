@@ -26,10 +26,11 @@ module Contentful
         secure: true,
         raise_errors: true,
         dynamic_entries: false,
-        resource_builder: ResourceBuilder,
         api_url: 'cdn.contentful.com',
         api_version: 1,
         authentication_mechanism: :header,
+        resource_builder: ResourceBuilder,
+        raw_mode: false,
       }
     end
 
@@ -81,7 +82,7 @@ module Contentful
       query
     end
 
-    def get(request, build_resources = true)
+    def get(request, build_resource = true)
       response = Response.new(
         get_http(
           base_url + request.url,
@@ -90,7 +91,7 @@ module Contentful
         )
       )
 
-      return response unless build_resources
+      return response if !build_resource || configuration[:raw_mode]
 
       result = configuration[:resource_builder].new(self, response).parse
       raise result if result.is_a?(Error) && configuration[:raise_errors]
