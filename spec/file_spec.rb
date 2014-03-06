@@ -22,7 +22,7 @@ describe Contentful::File do
     end
 
     it 'has #details' do
-      pending
+      expect( file.details ).to be_instance_of Hash
     end
   end
 end

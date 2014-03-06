@@ -39,8 +39,8 @@ describe Contentful::Asset do
       expect( asset.title ).to eq "Nyan Cat"
     end
 
-    it 'has #description' do
-      pending 'has none'
+    it 'could have #description' do
+      expect( asset ).to respond_to :description
     end
 
     it 'has #file' do

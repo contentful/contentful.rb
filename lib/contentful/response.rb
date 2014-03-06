@@ -33,13 +33,18 @@ module Contentful
     end
 
     def parse_contentful_error!
-      if object && object["sys"] && object["sys"]["type"] == 'Error'
-        @status = :contentful_error
-        @error_message = object['message']
-        @error_id = object["sys"]["id"]
-        true
+      if @object && @object["sys"]
+        if @object["sys"]["type"] == 'Error'
+          @status = :contentful_error
+          @error_message = object['message']
+          @error_id = object["sys"]["id"]
+          true
+        else
+          false
+        end
       else
-        false
+        @status = :not_contentful
+        @error_message = "No contentful system properties found in object"
       end
     end
 

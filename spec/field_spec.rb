@@ -21,16 +21,16 @@ describe Contentful::Field do
       expect( field.type ).to eq "Text"
     end
 
-    it 'has #items' do
-      pending
+    it 'could have #items' do
+      expect( field ).to respond_to :items
     end
 
     it 'has #required' do
-      pending
+      expect( field.required ).to be_true
     end
 
     it 'has #localized' do
-      pending
+      expect( field.required ).to be_true
     end
   end
 end

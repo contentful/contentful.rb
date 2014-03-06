@@ -26,6 +26,4 @@ describe Contentful::DynamicEntry do
       expect( nyancat.color ).to eq "rainbow"
     end
   end
-
-  pending 'more'
 end
