@@ -93,7 +93,7 @@ module Contentful
 
       return response if !build_resource || configuration[:raw_mode]
 
-      result = configuration[:resource_builder].new(self, response).parse
+      result = configuration[:resource_builder].new(self, response).run
       raise result if result.is_a?(Error) && configuration[:raise_errors]
       result
     end

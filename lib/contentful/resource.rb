@@ -24,6 +24,15 @@ module Contentful
       false
     end
 
+    def sys
+      nil
+    end
+
+    def fields
+      nil
+    end
+
+
     private
 
     def extract_from_object(object, namespace, keys = nil)
