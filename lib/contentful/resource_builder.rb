@@ -10,20 +10,26 @@ require_relative 'link'
 
 
 module Contentful
-  # PARSING MECHANISM
-  # - raise error if response not valid
-  # - look for included objects and parse them to resources
-  # - parse main object to resource
-  # - replace links in included resources with included resources
-  # - replace links in main resource with included resources
-  # - return main resource
+  # Transforms a Contentful::Response into a Contentful::Resource or Contentful::Error
   class ResourceBuilder
-    attr_reader :client, :response
+    attr_reader :client, :response, :resource_mapping
 
-    def initialize(client, response)
+    def initialize(client, response, resource_mapping = {})
       @response = response
       @client = client
       @included_resources = {}
+      @resource_mapping = default_resource_mapping.merge(resource_mapping)
+    end
+
+    def default_resource_mapping
+      {
+        'Space' => Space,
+        'ContentType' => ContentType,
+        'Entry' => :try_dynamic_entry,
+        'Asset' => Asset,
+        'Array' => Array,
+        'Link' => Link,
+      }
     end
 
     def run
@@ -39,11 +45,22 @@ module Contentful
       when :not_contentful
         Error.new(response)
       else
-        create_all_resources! response
+        begin
+          create_all_resources!
+        rescue UnparsableResource => error
+          error
+        end
       end
     end
 
-    def create_all_resources!(response)
+    # PARSING MECHANISM
+    # - raise error if response not valid
+    # - look for included objects and parse them to resources
+    # - parse main object to resource
+    # - replace links in included resources with included resources
+    # - replace links in main resource with included resources
+    # - return main resource
+    def create_all_resources!
       create_included_resources! response.object["includes"]
       res = create_resource(response.object)
 
@@ -53,35 +70,23 @@ module Contentful
       res
     end
 
-    def detect_resource_class(object)
-      case object["sys"] && object["sys"]["type"]
-      when 'Space'
-        Contentful::Space
-      when 'ContentType'
-        Contentful::ContentType
-      when 'Entry'
-        if @client.configuration[:dynamic_entries]
-          get_dynamic_entry(object) || Contentful::Entry
-        else
-          Contentful::Entry
-        end
-      when 'Asset'
-        Contentful::Asset
-      when 'Array'
-        Contentful::Array
-      when 'Link'
-        Contentful::Link
-      else
-        fail # TODO
-      end
+    def create_resource(object)
+      res = detect_resource_class(object).new(object, client)
+      replace_children res, object
+      replace_children_array(res, :items) if res.array?
+
+      res
     end
 
-    def get_dynamic_entry(object)
-      if id = object["sys"] &&
-          object["sys"]["contentType"] &&
-          object["sys"]["contentType"]["sys"] &&
-          object["sys"]["contentType"]["sys"]["id"]
-        client.dynamic_entry_cache[id.to_sym]
+    def detect_resource_class(object)
+      type = object["sys"] && object["sys"]["type"]
+      case res_class = resource_mapping[type]
+      when Symbol
+        public_send(res_class, object)
+      when nil
+        raise UnsparsableResource.new(response)
+      else
+        res_class
       end
     end
 
@@ -94,9 +99,9 @@ module Contentful
     end
 
     def replace_children(res, object)
-      object.keys.each{ |which|
-        detect_child_objects(object[which.to_s]).each{ |name, child_object|
-          res.public_send(which)[name.to_sym] = create_resource(child_object)
+      object.each{ |name, potential_objects|
+        detect_child_objects(potential_objects).each{ |child_name, child_object|
+          res.public_send(name)[child_name.to_sym] = create_resource(child_object)
         }
       }
     end
@@ -106,14 +111,21 @@ module Contentful
       items.map!{ |resource_object| create_resource(resource_object) }
     end
 
-    def create_resource(object)
-      res = detect_resource_class(object).new(object, client)
-      replace_children res, object
-      if res.array?
-        replace_children_array(res, :items)
+    def try_dynamic_entry(object)
+      if @client.configuration[:dynamic_entries]
+        get_dynamic_entry(object) || Entry
+      else
+        Entry
       end
+    end
 
-      res
+    def get_dynamic_entry(object)
+      if id = object["sys"] &&
+          object["sys"]["contentType"] &&
+          object["sys"]["contentType"]["sys"] &&
+          object["sys"]["contentType"]["sys"]["id"]
+        client.dynamic_entry_cache[id.to_sym]
+      end
     end
 
     def create_included_resources!(included_objects)
@@ -168,6 +180,5 @@ module Contentful
         parent[index] = @included_resources[resource.link_type][resource.id]
       end
     end
-
   end
 end

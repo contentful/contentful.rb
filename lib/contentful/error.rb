@@ -36,5 +36,5 @@ module Contentful
   class ServerError < Error; end
 
   class UnparsableJson < Error; end
-  # class HttpError < Error; end
+  class UnparsableResource < Error; end
 end
