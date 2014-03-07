@@ -38,9 +38,9 @@ describe Contentful::Client do
     end
 
     it 'calls #get_http' do
-      stub(client).get_http{ raw_fixture('content_type') }
+      stub(client.class).get_http{ raw_fixture('content_type') }
       client.get(request)
-      expect( client ).to have_received.get_http(client.base_url + request.url, request.query, client.request_headers)
+      expect( client.class ).to have_received.get_http(client.base_url + request.url, request.query, client.request_headers)
     end
 
     describe 'build_resources parameter' do

@@ -10,6 +10,10 @@ module Contentful
   class Client
     attr_reader :configuration, :dynamic_entry_cache
 
+    def self.get_http(url, query, headers = {})
+      HTTP[headers].get(url, params: query)
+    end
+
     def initialize(given_configuration = {})
       @configuration = default_configuration.merge(given_configuration)
       normalize_configuration!
@@ -86,7 +90,7 @@ module Contentful
 
     def get(request, build_resource = true)
       response = Response.new(
-        get_http(
+        self.class.get_http(
           base_url + request.url,
           request_query(request.query),
           request_headers,
@@ -98,10 +102,6 @@ module Contentful
       result = configuration[:resource_builder].new(self, response).run
       raise result if result.is_a?(Error) && configuration[:raise_errors]
       result
-    end
-
-    def get_http(url, query, headers = {})
-      HTTP[headers].get(url, params: query)
     end
 
     # Use this method together with the client's :dynamic_entries configuration.
