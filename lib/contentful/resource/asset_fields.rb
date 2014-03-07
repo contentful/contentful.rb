@@ -3,8 +3,12 @@ require_relative '../file'
 module Contentful
   module Resource
     # Special fields for Asset. Don't include together wit Contentful::Resource::Fields
+    #
+    # It depends on system properties being available
     module AssetFields
-      attr_reader :fields
+      def fields
+        @fields[locale]
+      end
 
       FIELDS_COERCIONS = {
         title: :string,
@@ -14,7 +18,8 @@ module Contentful
 
       def initialize(object, *)
         super
-        @fields = extract_from_object object["fields"], :fields
+        @fields = {}
+        @fields[locale] = extract_from_object object["fields"], :fields
       end
 
       def inspect(info = nil)
