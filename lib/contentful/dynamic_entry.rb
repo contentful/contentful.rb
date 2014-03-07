@@ -14,6 +14,10 @@ module Contentful
             fields[f.id.to_sym]
           end
         }
+
+        define_singleton_method :inspect do
+          "#<Contentful::DynamicEntry[#{content_type.id}]>"
+        end
       end
     end
   end
