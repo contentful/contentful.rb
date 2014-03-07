@@ -1,6 +1,8 @@
 require_relative 'resource'
 
 module Contentful
+  # Resource Class for Links
+  # https://www.contentful.com/developers/documentation/content-delivery-api/#links
   class Link
     include Contentful::Resource
     include Contentful::Resource::SystemProperties

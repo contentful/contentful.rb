@@ -1,6 +1,7 @@
 require_relative 'resource'
 
 module Contentful
+  # A ContentType's field schema
   class Field
     include Contentful::Resource
 

@@ -1,11 +1,12 @@
 require_relative 'request'
 require_relative 'response'
 require_relative 'resource_builder'
-
 require 'http'
 
-
 module Contentful
+  # The client object is initialized with a space and a key and then used
+  # for querying resources from this space.
+  # See README for details
   class Client
     attr_reader :configuration, :dynamic_entry_cache
 
@@ -62,6 +63,7 @@ module Contentful
       Request.new(self, '/assets', query).get
     end
 
+
     def base_url
       "http#{configuration[:secure] ? 's' : ''}://#{configuration[:api_url]}/spaces/#{configuration[:space]}"
     end
@@ -102,7 +104,8 @@ module Contentful
       HTTP[headers].get(url, params: query)
     end
 
-
+    # Use this method together with the client's :dynamic_entries configuration.
+    # See README for details.
     def update_dynamic_entry_cache!
       @dynamic_entry_cache = Hash[
         content_types.map{ |ct|

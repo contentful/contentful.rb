@@ -2,8 +2,7 @@ require_relative '../file'
 
 module Contentful
   module Resource
-
-    # Special Fields for Assets. Don't include together wit Contentful::Resource::Fields
+    # Special fields for Asset. Don't include together wit Contentful::Resource::Fields
     module AssetFields
       attr_reader :fields
 

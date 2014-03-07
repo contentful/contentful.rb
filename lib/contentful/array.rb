@@ -1,6 +1,9 @@
 require_relative 'resource'
 
 module Contentful
+  # Resource Class for Arrays (e.g. search results)
+  # https://www.contentful.com/developers/documentation/content-delivery-api/#arrays
+  # It also provides an #each method and includes Ruby's Enumerable module (gives you methods like #min, #first, etc)
   class Array
     include Contentful::Resource
     include Contentful::Resource::SystemProperties

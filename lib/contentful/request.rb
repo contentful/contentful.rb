@@ -1,4 +1,7 @@
 module Contentful
+  # This object represents a request that is to be made
+  # The client uses it's #url and #client method to build the final url
+  # The actual request is made by the client object
   class Request
     attr_reader :client, :type, :query, :id
 

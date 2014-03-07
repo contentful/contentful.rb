@@ -1,6 +1,6 @@
 module Contentful
   module Resource
-
+    # Adds the feature to have system properties to a Resource.
     module SystemProperties
       attr_reader :sys
 

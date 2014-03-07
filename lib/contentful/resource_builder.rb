@@ -8,7 +8,6 @@ require_relative 'asset'
 require_relative 'array'
 require_relative 'link'
 
-
 module Contentful
   # Transforms a Contentful::Response into a Contentful::Resource or Contentful::Error
   class ResourceBuilder

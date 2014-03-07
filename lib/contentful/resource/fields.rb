@@ -1,11 +1,10 @@
 module Contentful
   module Resource
+    # Include this module into your Resource class to enable it
+    # to deal with entry fields (but not asset fields)
     module Fields
       attr_reader :fields
 
-      # Include this module into your resource class to enable it
-      # to deal with fields
-      # TODO coercions
       def initialize(object, *)
         super
         @fields = extract_from_object object["fields"], :fields

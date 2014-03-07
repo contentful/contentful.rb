@@ -1,6 +1,8 @@
 require_relative 'resource/system_properties'
 
 module Contentful
+  # Include this module to tranform a class into a contentful resource.
+  # It
   module Resource
     COERCIONS = {
       string:  ->(v){ v.to_s },
@@ -66,11 +68,23 @@ module Contentful
       end
     end
 
+    # Register the resources properties on class level by using the #property method
     module ClassMethods
       def property_coercions
         @property_coercions ||= {}
       end
 
+      # Defines which properties of a resource your class expects
+      # Define them in :camelCase, they will be available as #snake_cased methods
+      #
+      # You can pass in a second "type" argument:
+      # - If it is a class, it will be initialized for the property
+      # - Symbols are looked up in the COERCION constant for a lambda that
+      #   defines a type conversion to apply
+      #
+      # Note: This second argument is not meant for contentful sub-resources,
+      # but for structured objects (like locales in a space)
+      # Sub-resources are handled by the resource builder
       def property(name, property_class = nil)
         property_coercions[name.to_sym] = property_class
         define_method Contentful::Support.snakify(name) do
