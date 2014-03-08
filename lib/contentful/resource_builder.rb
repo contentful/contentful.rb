@@ -34,11 +34,7 @@ module Contentful
     def run
       case response.status
       when :contentful_error
-        if %w[NotFound BadRequest AccessDenied Unauthorized ServerError].include?(response.error_id)
-          Contentful.const_get(response.error_id).new(response)
-        else
-          Error.new(response)
-        end
+        Error[response.raw.response.status].new(response)
       when :unparsable_json
         UnparsableJson.new(response)
       when :not_contentful

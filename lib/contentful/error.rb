@@ -24,7 +24,7 @@ module Contentful
       when 500
         ServerError
       else
-        self
+        Error
       end
     end
   end
