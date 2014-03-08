@@ -15,8 +15,12 @@ module Contentful
           end
         }
 
+        define_singleton_method :to_s do
+          "Contentful::DynamicEntry[#{content_type.id}]"
+        end
+
         define_singleton_method :inspect do
-          "#<Contentful::DynamicEntry[#{content_type.id}]>"
+          "Contentful::DynamicEntry[#{content_type.id}]"
         end
       end
     end
