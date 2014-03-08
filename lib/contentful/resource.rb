@@ -46,6 +46,8 @@ module Contentful
             self.class.public_send(:"#{namespace}_coercions")[name.to_sym],
           )
         }
+      else
+        {}
       end
     end
 
