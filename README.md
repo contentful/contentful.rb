@@ -23,26 +23,26 @@ You can query for entries, assets, etc. very similar as described in the
     client.content_types
     client.entry 'nyancat'
 
-You can pass query options:
+You can pass filter options to the query:
 
     client.entries('sys.id[ne]' => 'nyancat')
 
 
-The results are returned as Contentful::Resource objects. You can access the resource's properties via Ruby methods or access all properties at once as a hash:
+The results are returned as Contentful::Resource objects. The properties of the resource can be accessed through Ruby methods. Alternatively the data can be accessed as Ruby Hash.
 
     content_type = client.content_type 'cat'
     content_type.description # "Meow."
     content_type.properties # { name: '...', description: '...' }
 
 
-System Properties behave in the same way. However they are stored in `@sys`:
+System Properties behave in the same way and can be accessed with the `#sys` method.
 
     content_type.id # => 'cat'
     entry.type # => 'Entry'
     asset.sys # { id: '...', type: '...' }
 
 
-Entry Fields usually don't have direct method accessors, since they are based on individual content types. You can access the fields via a hash called `@fields`:
+Entry Fields usually don't have direct method accessors, since they are based on individual content types. These fields can be accessed through the `#fields` method.
 
     entry = client.entry 'nyancat'
     entry.fields[:color] # rainbow
@@ -99,7 +99,7 @@ In `:dynamic_entries` mode (see above), all entries are returned as specialized 
     content_type = client.content_type 'nyancat'
     MyEntry = Contentful::DynamicEntry.create(content_type)
 
-It is also possible to pass in the raw content_type json string, as returned from the api.
+It is also possible to pass in the raw content_type JSON string, as returned from the api.
 
 ## License
 
