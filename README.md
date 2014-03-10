@@ -14,7 +14,7 @@ Add to your Gemfile and bundle:
 
     client = Contentful::Client.new(
       access_token: 'b4c0n73n7fu1',
-      space: 'cfexampleapi',
+      space: 'cfexampleapi'
     )
 
 You can query for entries, assets, etc. very similar as described in the
