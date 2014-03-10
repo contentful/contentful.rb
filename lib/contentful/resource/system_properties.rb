@@ -21,11 +21,12 @@ module Contentful
         @sys = extract_from_object object["sys"], :sys
       end
 
-
       def inspect(info = nil)
-        super(
-          "#{info} @sys=#{sys.inspect}"
-        )
+        if sys.empty?
+          super(info)
+        else
+          super("#{info} @sys=#{sys.inspect}")
+        end
       end
 
       module ClassMethods

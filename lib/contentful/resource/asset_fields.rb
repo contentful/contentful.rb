@@ -23,9 +23,11 @@ module Contentful
       end
 
       def inspect(info = nil)
-        super(
-          "#{info} @fields=#{fields.inspect}"
-        )
+        if fields.empty?
+          super(info)
+        else
+          super("#{info} @fields=#{fields.inspect}")
+        end
       end
 
       module ClassMethods

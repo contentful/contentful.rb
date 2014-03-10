@@ -19,7 +19,8 @@ module Contentful
     end
 
     def inspect(info = nil)
-      "#<#{self.class}:#{object_id} @properties=#{properties.inspect}#{info}>"
+      properties_info = properties.empty? ? "" : " @properties=#{properties.inspect}"
+      "#<#{self.class}:#{properties_info}#{info}>"
     end
 
     def array?
