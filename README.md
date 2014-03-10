@@ -20,16 +20,19 @@ Add to your Gemfile and bundle:
 You can query for entries, assets, etc. very similar as described in the
 [Delivery API Documentation](https://www.contentful.com/developers/documentation/content-delivery-api/). Please note, that all methods of the Ruby client library are snake_cased, instead of JavaScript's camelCase:
 
-    # ...
+    client.content_types
+    client.entry 'nyancat'
 
-You can pass many different query options:
+You can pass query options:
 
-    # ...
+    client.entries('sys.id[ne]' => 'nyancat')
 
 
 The results are returned as Contentful::Resource objects. You can access the resource's properties via Ruby methods or access all properties at once as a hash:
 
-    # ...
+    content_type = client.content_type 'cat'
+    content_type.description # "Meow."
+    content_type.properties # { name: '...', description: '...' }
 
 
 System Properties behave in the same way. However they are stored in `@sys`:
@@ -39,10 +42,10 @@ System Properties behave in the same way. However they are stored in `@sys`:
     asset.sys # { id: '...', type: '...' }
 
 
-
 Entry Fields usually don't have direct method accessors, since they are based on individual content types. You can access the fields via a hash called `@fields`:
 
-    # ...
+    entry = client.entry 'nyancat'
+    entry.fields[:color] # rainbow
 
 
 However, you can set `:dynamic_entries` to `:auto` in your client configuration (see below). If using this option, the client will fetch all available content types and use them to create dynamic entries on the fly.
@@ -52,7 +55,8 @@ However, you can set `:dynamic_entries` to `:auto` in your client configuration 
       space: 'cfexampleapi',
       dynamic_entries: :auto,
     )
-    # ... example entry
+    client.entry 'nyancat' # => #<Contentful::DynamicEntry[cat]: ...>
+
 
 The previous example fetches all content_types on initialization. If you want to do it by hand, you will need to set the option to `:manual` and call `client.update_dynamic_entry_cache!` to fetch all content types.
 
