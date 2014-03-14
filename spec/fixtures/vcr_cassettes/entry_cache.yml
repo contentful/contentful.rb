@@ -1,0 +1,288 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types?limit=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.1.0
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 13 Mar 2014 23:02:28 GMT
+      Server:
+      - nginx/1.1.19
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      X-Contentful-Request-Id:
+      - 85f-830985787
+      Etag:
+      - "\"778046e039e4dd6e58f657a600dd10f1\""
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Length:
+      - '4973'
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      Age:
+      - '493'
+      X-Served-By:
+      - cache-fra1230-FRA
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - '1'
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 4,
+          "skip": 0,
+          "limit": 0,
+          "items": [
+            {
+              "fields": [
+                {
+                  "id": "name",
+                  "name": "Name",
+                  "type": "Text",
+                  "required": true,
+                  "localized": true
+                },
+                {
+                  "id": "likes",
+                  "name": "Likes",
+                  "type": "Array",
+                  "required": false,
+                  "localized": false,
+                  "items": {
+                    "type": "Symbol"
+                  }
+                },
+                {
+                  "id": "color",
+                  "name": "Color",
+                  "type": "Symbol",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "bestFriend",
+                  "name": "Best Friend",
+                  "type": "Link",
+                  "required": false,
+                  "localized": false,
+                  "linkType": "Entry"
+                },
+                {
+                  "id": "birthday",
+                  "name": "Birthday",
+                  "type": "Date",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "lifes",
+                  "name": "Lifes left",
+                  "type": "Integer",
+                  "required": false,
+                  "localized": false,
+                  "disabled": true
+                },
+                {
+                  "id": "lives",
+                  "name": "Lives left",
+                  "type": "Integer",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "image",
+                  "name": "Image",
+                  "required": false,
+                  "localized": false,
+                  "type": "Link",
+                  "linkType": "Asset"
+                }
+              ],
+              "name": "Cat",
+              "displayField": "name",
+              "description": "Meow.",
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "type": "ContentType",
+                "id": "cat",
+                "revision": 2,
+                "createdAt": "2013-06-27T22:46:12.852Z",
+                "updatedAt": "2013-09-02T13:14:47.863Z"
+              }
+            },
+            {
+              "fields": [
+                {
+                  "id": "name",
+                  "name": "Name",
+                  "type": "Text",
+                  "required": true,
+                  "localized": false
+                },
+                {
+                  "id": "description",
+                  "name": "Description",
+                  "type": "Text",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "image",
+                  "name": "Image",
+                  "required": false,
+                  "localized": false,
+                  "type": "Link",
+                  "linkType": "Asset"
+                }
+              ],
+              "name": "Dog",
+              "description": "Bark!",
+              "displayField": "name",
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "type": "ContentType",
+                "id": "dog",
+                "revision": 2,
+                "createdAt": "2013-06-27T22:46:13.498Z",
+                "updatedAt": "2013-09-02T14:32:11.837Z"
+              }
+            },
+            {
+              "fields": [
+                {
+                  "id": "name",
+                  "name": "Name",
+                  "type": "Text",
+                  "required": true,
+                  "localized": false
+                },
+                {
+                  "id": "description",
+                  "name": "Description",
+                  "type": "Text",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "likes",
+                  "name": "Likes",
+                  "type": "Array",
+                  "required": false,
+                  "localized": false,
+                  "items": {
+                    "type": "Symbol"
+                  }
+                },
+                {
+                  "id": "image",
+                  "name": "Image",
+                  "required": false,
+                  "localized": false,
+                  "type": "Array",
+                  "items": {
+                    "type": "Link",
+                    "linkType": "Asset"
+                  },
+                  "disabled": true
+                }
+              ],
+              "name": "Human",
+              "displayField": "name",
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "type": "ContentType",
+                "id": "human",
+                "revision": 3,
+                "createdAt": "2013-06-27T22:46:14.133Z",
+                "updatedAt": "2013-09-02T15:10:26.818Z"
+              }
+            },
+            {
+              "fields": [
+                {
+                  "name": "Name",
+                  "id": "name",
+                  "type": "Text",
+                  "required": true
+                },
+                {
+                  "name": "Center",
+                  "id": "center",
+                  "type": "Location",
+                  "required": true
+                }
+              ],
+              "name": "City",
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "type": "ContentType",
+                "id": "1t9IbcfdCk6m04uISSsaIK",
+                "revision": 1,
+                "createdAt": "2014-02-21T13:42:33.009Z",
+                "updatedAt": "2014-02-21T13:42:33.009Z"
+              },
+              "displayField": "name"
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Thu, 13 Mar 2014 23:02:28 GMT
+recorded_with: VCR 2.8.0

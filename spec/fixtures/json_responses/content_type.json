@@ -1,0 +1,83 @@
+{
+  "fields": [
+    {
+      "id": "name",
+      "name": "Name",
+      "type": "Text",
+      "required": true,
+      "localized": true
+    },
+    {
+      "id": "likes",
+      "name": "Likes",
+      "type": "Array",
+      "required": false,
+      "localized": false,
+      "items": {
+        "type": "Symbol"
+      }
+    },
+    {
+      "id": "color",
+      "name": "Color",
+      "type": "Symbol",
+      "required": false,
+      "localized": false
+    },
+    {
+      "id": "bestFriend",
+      "name": "Best Friend",
+      "type": "Link",
+      "required": false,
+      "localized": false,
+      "linkType": "Entry"
+    },
+    {
+      "id": "birthday",
+      "name": "Birthday",
+      "type": "Date",
+      "required": false,
+      "localized": false
+    },
+    {
+      "id": "lifes",
+      "name": "Lifes left",
+      "type": "Integer",
+      "required": false,
+      "localized": false,
+      "disabled": true
+    },
+    {
+      "id": "lives",
+      "name": "Lives left",
+      "type": "Integer",
+      "required": false,
+      "localized": false
+    },
+    {
+      "id": "image",
+      "name": "Image",
+      "required": false,
+      "localized": false,
+      "type": "Link",
+      "linkType": "Asset"
+    }
+  ],
+  "name": "Cat",
+  "displayField": "name",
+  "description": "Meow.",
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "cfexampleapi"
+      }
+    },
+    "type": "ContentType",
+    "id": "cat",
+    "revision": 2,
+    "createdAt": "2013-06-27T22:46:12.852Z",
+    "updatedAt": "2013-09-02T13:14:47.863Z"
+  }
+}

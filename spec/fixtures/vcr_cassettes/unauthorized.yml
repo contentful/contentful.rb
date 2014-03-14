@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/wrong/entries/nyancat
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.1.0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Authorization:
+      - Bearer credentials
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 02 Mar 2014 12:03:31 GMT
+      Server:
+      - nginx/1.1.19
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Length:
+      - '179'
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-fra1235-FRA
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Error",
+            "id": "AccessTokenInvalid"
+          },
+          "message": "The access token you sent could not be found or is invalid.",
+          "requestId": "85f-351082324"
+        }
+    http_version:
+  recorded_at: Sun, 02 Mar 2014 12:03:31 GMT
+recorded_with: VCR 2.8.0
