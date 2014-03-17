@@ -1,6 +1,5 @@
 # contentful.rb
-
-[![Build Status](https://travis-ci.org/contentful/contentful.rb.png)](https://travis-ci.org/contentful/contentful.rb)
+[![Gem Version](https://badge.fury.io/rb/contentful.png)](http://badge.fury.io/rb/contentful)[![Build Status](https://travis-ci.org/contentful/contentful.rb.png)](https://travis-ci.org/contentful/contentful.rb)[![Coverage Status](https://coveralls.io/repos/contentful/contentful.rb/badge.png)](https://coveralls.io/r/contentful/contentful.rb)
 
 Ruby client for the [Contentful](https://www.contentful.com) Content Delivery API.
 
