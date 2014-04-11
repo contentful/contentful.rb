@@ -73,7 +73,7 @@ module Contentful
     def create_resource(object)
       res = detect_resource_class(object).new(object, response.request, client)
       replace_children res, object
-      replace_children_array(res, :items) if res.array?
+      replace_child_array res.items if res.array?
 
       res
     end
@@ -123,8 +123,21 @@ module Contentful
     private
 
     def detect_child_objects(object)
-      if object.is_a?(Hash)
-        object.select{ |k,v| v.is_a?(Hash) && v.has_key?("sys") }
+      if object.is_a? Hash
+        object.select{ |_,v| v.is_a?(Hash) && v.has_key?("sys") }
+      else
+        {}
+      end
+    end
+
+    def detect_child_arrays(object)
+      if object.is_a? Hash
+        object.select{ |_,v|
+          v.is_a?(::Array) &&
+          v.first &&
+          v.first.is_a?(Hash) &&
+          v.first.has_key?("sys")
+        }
       else
         {}
       end
@@ -135,12 +148,15 @@ module Contentful
         detect_child_objects(potential_objects).each{ |child_name, child_object|
           res.public_send(name)[child_name.to_sym] = create_resource(child_object)
         }
+        next if name == "includes"
+        detect_child_arrays(potential_objects).each{ |child_name, child_array|
+          replace_child_array res.public_send(name)[child_name.to_sym]
+        }
       }
     end
 
-    def replace_children_array(res, array_field)
-      items = res.public_send(array_field)
-      items.map!{ |resource_object| create_resource(resource_object) }
+    def replace_child_array(child_array)
+      child_array.map!{ |resource_object| create_resource(resource_object) }
     end
 
     def create_included_resources!(included_objects)
