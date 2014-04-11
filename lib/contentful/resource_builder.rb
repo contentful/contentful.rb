@@ -173,25 +173,40 @@ module Contentful
     end
 
     def replace_links_with_included_resources(res)
-      [:properties, :sys, :fields].each{ |_what|
-        if what = res.public_send(_what)
-          what.each{ |name, child_res|
-            replace_link_or_check_recursively child_res, what, name, res
+      [:properties, :sys, :fields].each{ |property_container_name|
+        if property_container = res.public_send(property_container_name)
+          property_container.each{ |property_name, property_value|
+            if property_value.is_a? ::Array
+              sub_property_container = property_value
+              sub_property_container.each.with_index{ |sub_property_value, sub_property_index|
+                replace_link_or_check_recursively sub_property_value, sub_property_container, sub_property_index
+              }
+            else
+              replace_link_or_check_recursively property_value, property_container, property_name
+            end
           }
         end
       }
       if res.array?
-        res.each.with_index{ |child_res, index|
-          replace_link_or_check_recursively child_res, res.items, index, child_res
+        property_container = res.items
+        property_container.each.with_index{ |child_property, property_index|
+          replace_link_or_check_recursively child_property, property_container, property_index
         }
       end
     end
 
-    def replace_link_or_check_recursively(res, what, name, resource_to_replace)
-      if res.is_a? Link
-        maybe_replace_link(res, what, name)
-      elsif res.is_a?(Resource) && res.sys
-        replace_links_with_included_resources(resource_to_replace)
+    def replace_link_or_check_recursively(property_value, property_container, property_name)
+      if property_value.is_a? Link
+        maybe_replace_link(property_value, property_container, property_name)
+      elsif property_value.is_a?(Resource) && property_value.sys
+        replace_links_with_included_resources(property_value)
+      end
+    end
+
+    def maybe_replace_link(link, parent, key)
+      if  @included_resources[link.link_type] &&
+          @included_resources[link.link_type].has_key?(link.id)
+        parent[key] = @included_resources[link.link_type][link.id]
       end
     end
 
@@ -201,13 +216,6 @@ module Contentful
           replace_links_with_included_resources(res)
         }
       }
-    end
-
-    def maybe_replace_link(resource, parent, index)
-      if  @included_resources[resource.link_type] &&
-          @included_resources[resource.link_type].has_key?(resource.id)
-        parent[index] = @included_resources[resource.link_type][resource.id]
-      end
     end
   end
 end
