@@ -58,7 +58,7 @@ module Contentful
     # - replace links in main resource with included resources
     # - return main resource
     def create_all_resources!
-      create_included_resources! response.object["includes"]
+      create_included_resources! response.object['includes']
       res = create_resource(response.object)
 
       unless @included_resources.empty?
@@ -124,7 +124,7 @@ module Contentful
 
     def detect_child_objects(object)
       if object.is_a? Hash
-        object.select{ |_,v| v.is_a?(Hash) && v.has_key?("sys") }
+        object.select { |_, v| v.is_a?(Hash) && v.key?('sys') }
       else
         {}
       end
@@ -132,66 +132,66 @@ module Contentful
 
     def detect_child_arrays(object)
       if object.is_a? Hash
-        object.select{ |_,v|
+        object.select do |_, v|
           v.is_a?(::Array) &&
           v.first &&
           v.first.is_a?(Hash) &&
-          v.first.has_key?("sys")
-        }
+          v.first.key?('sys')
+        end
       else
         {}
       end
     end
 
     def replace_children(res, object)
-      object.each{ |name, potential_objects|
-        detect_child_objects(potential_objects).each{ |child_name, child_object|
+      object.each do |name, potential_objects|
+        detect_child_objects(potential_objects).each do |child_name, child_object|
           res.public_send(name)[child_name.to_sym] = create_resource(child_object)
-        }
-        next if name == "includes"
-        detect_child_arrays(potential_objects).each{ |child_name, child_array|
+        end
+        next if name == 'includes'
+        detect_child_arrays(potential_objects).each do |child_name, child_array|
           replace_child_array res.public_send(name)[child_name.to_sym]
-        }
-      }
+        end
+      end
     end
 
     def replace_child_array(child_array)
-      child_array.map!{ |resource_object| create_resource(resource_object) }
+      child_array.map! { |resource_object| create_resource(resource_object) }
     end
 
     def create_included_resources!(included_objects)
       if included_objects
-        included_objects.each{ |type, objects|
+        included_objects.each do |type, objects|
           @included_resources[type] = Hash[
-            objects.map{ |object|
+            objects.map do |object|
               res = create_resource(object)
               [res.id, res]
-            }
+            end
           ]
-        }
+        end
       end
     end
 
     def replace_links_with_included_resources(res)
-      [:properties, :sys, :fields].each{ |property_container_name|
+      [:properties, :sys, :fields].each do |property_container_name|
         if property_container = res.public_send(property_container_name)
-          property_container.each{ |property_name, property_value|
+          property_container.each do |property_name, property_value|
             if property_value.is_a? ::Array
               sub_property_container = property_value
-              sub_property_container.each.with_index{ |sub_property_value, sub_property_index|
+              sub_property_container.each.with_index do |sub_property_value, sub_property_index|
                 replace_link_or_check_recursively sub_property_value, sub_property_container, sub_property_index
-              }
+              end
             else
               replace_link_or_check_recursively property_value, property_container, property_name
             end
-          }
+          end
         end
-      }
+      end
       if res.array?
         property_container = res.items
-        property_container.each.with_index{ |child_property, property_index|
+        property_container.each.with_index do|child_property, property_index|
           replace_link_or_check_recursively child_property, property_container, property_index
-        }
+        end
       end
     end
 
@@ -205,17 +205,17 @@ module Contentful
 
     def maybe_replace_link(link, parent, key)
       if  @included_resources[link.link_type] &&
-          @included_resources[link.link_type].has_key?(link.id)
+          @included_resources[link.link_type].key?(link.id)
         parent[key] = @included_resources[link.link_type][link.id]
       end
     end
 
     def replace_links_in_included_resources_with_included_resources
-      @included_resources.each{ |_, for_type|
-        for_type.each{ |_, res|
+      @included_resources.each do |_, for_type|
+        for_type.each do |_, res|
           replace_links_with_included_resources(res)
-        }
-      }
+        end
+      end
     end
   end
 end

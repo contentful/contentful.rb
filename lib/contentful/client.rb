@@ -17,11 +17,10 @@ module Contentful
       authentication_mechanism: :header,
       resource_builder: ResourceBuilder,
       resource_mapping: {},
-      raw_mode: false,
+      raw_mode: false
     }
 
     attr_reader :configuration, :dynamic_entry_cache
-
 
     # Wraps the actual HTTP request
     def self.get_http(url, query, headers = {})
@@ -101,9 +100,9 @@ module Contentful
 
     # Returns the headers used for the HTTP requests
     def request_headers
-      headers = { "User-Agent" => "RubyContentfulGem/#{Contentful::VERSION}" }
-      headers["Authorization"] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
-      headers["Content-Type"]  = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
+      headers = { 'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}" }
+      headers['Authorization'] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
+      headers['Content-Type']  = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
 
       headers
     end
@@ -125,7 +124,7 @@ module Contentful
         self.class.get_http(
           base_url + request.url,
           request_query(request.query),
-          request_headers,
+          request_headers
         ), request
       )
 
@@ -140,12 +139,12 @@ module Contentful
     # See README for details.
     def update_dynamic_entry_cache!
       @dynamic_entry_cache = Hash[
-        content_types(limit: 0).map{ |ct|
+        content_types(limit: 0).map do |ct|
           [
             ct.id.to_sym,
-            DynamicEntry.create(ct),
+            DynamicEntry.create(ct)
           ]
-        }
+        end
       ]
     end
 
@@ -155,39 +154,37 @@ module Contentful
       @dynamic_entry_cache[key.to_sym] = klass
     end
 
-
     private
 
     def normalize_configuration!
-      [:space, :access_token, :api_url].each{ |s| configuration[s] = configuration[s].to_s }
+      [:space, :access_token, :api_url].each { |s| configuration[s] = configuration[s].to_s }
       configuration[:authentication_mechanism] = configuration[:authentication_mechanism].to_sym
     end
 
     def validate_configuration!
       if configuration[:space].empty?
-        raise ArgumentError, "You will need to initialize a client with a :space"
+        raise ArgumentError, 'You will need to initialize a client with a :space'
       end
 
       if configuration[:access_token].empty?
-        raise ArgumentError, "You will need to initialize a client with an :access_token"
+        raise ArgumentError, 'You will need to initialize a client with an :access_token'
       end
 
       if configuration[:api_url].empty?
-        raise ArgumentError, "The client configuration needs to contain an :api_url"
+        raise ArgumentError, 'The client configuration needs to contain an :api_url'
       end
 
       unless configuration[:api_version].to_i >= 0
-        raise ArgumentError, "The :api_version must be a positive number or nil"
+        raise ArgumentError, 'The :api_version must be a positive number or nil'
       end
 
       unless [:header, :query_string].include? configuration[:authentication_mechanism]
-        raise ArgumentError, "The authentication mechanism must be :header or :query_string"
+        raise ArgumentError, 'The authentication mechanism must be :header or :query_string'
       end
 
       unless [:auto, :manual].include? configuration[:dynamic_entries]
-        raise ArgumentError, "The :dynamic_entries mode must be :auto or :manual"
+        raise ArgumentError, 'The :dynamic_entries mode must be :auto or :manual'
       end
     end
   end
 end
-

@@ -4,13 +4,15 @@ module Contentful
     class << self
       # Transforms CamelCase into snake_case (taken from zucker)
       def snakify(object)
-        object.to_s.gsub(/(?<!^)[A-Z]/) do "_#$&" end.downcase
+        snake = String(object).gsub(/(?<!^)[A-Z]/) { "_#$&" }
+        snake.downcase
       end
 
       # Transforms each hash key into a symbol (like in AS)
-      def symbolize_keys(h)
+      def symbolize_keys(hash)
         result = {}
-        h.each_key{ |key| result[(key.to_sym rescue key)] = h[key] }
+        # XXX remove inline rescue
+        hash.each_key { |key| result[(key.to_sym rescue key)] = hash[key] }
         result
       end
     end

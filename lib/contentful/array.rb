@@ -42,6 +42,5 @@ module Contentful
     def empty?
       items.empty?
     end
-
   end
 end
