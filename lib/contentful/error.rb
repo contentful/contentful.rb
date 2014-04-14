@@ -11,8 +11,8 @@ module Contentful
 
     # Shortcut for creating specialized error classes
     # USAGE rescue Contentful::Error[404]
-    def self.[](no)
-      case no
+    def self.[](error_status_code)
+      case error_status_code
       when 404
         NotFound
       when 400

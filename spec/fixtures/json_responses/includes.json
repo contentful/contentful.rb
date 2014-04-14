@@ -1,0 +1,111 @@
+{
+  "sys": {
+    "type": "Array"
+  },
+  "total": 1,
+  "skip": 0,
+  "limit": 100,
+  "items": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "6yahkaf5ehkk"
+          }
+        },
+        "type": "Entry",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "tSFLnCNqvuyoMA6SKkQ2W"
+          }
+        },
+        "id": "2fCmT4nxtO6eI6usgoEkQG",
+        "revision": 1,
+        "createdAt": "2014-04-11T10:59:40.249Z",
+        "updatedAt": "2014-04-11T10:59:40.249Z",
+        "locale": "en-US"
+      },
+      "fields": {
+        "foo": "dog",
+        "links": [
+          {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "5ulKc1zdg4ES0oAKuCe8yA"
+            }
+          },
+          {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "49fzjGhfBCAu6iOqIeg8yQ"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "includes": {
+    "Entry": [
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "6yahkaf5ehkk"
+            }
+          },
+          "type": "Entry",
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "tSFLnCNqvuyoMA6SKkQ2W"
+            }
+          },
+          "id": "49fzjGhfBCAu6iOqIeg8yQ",
+          "revision": 1,
+          "createdAt": "2014-04-11T10:58:58.286Z",
+          "updatedAt": "2014-04-11T10:58:58.286Z",
+          "locale": "en-US"
+        },
+        "fields": {
+          "foo": "nyancat"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "6yahkaf5ehkk"
+            }
+          },
+          "type": "Entry",
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "tSFLnCNqvuyoMA6SKkQ2W"
+            }
+          },
+          "id": "5ulKc1zdg4ES0oAKuCe8yA",
+          "revision": 1,
+          "createdAt": "2014-04-11T10:59:17.658Z",
+          "updatedAt": "2014-04-11T10:59:17.658Z",
+          "locale": "en-US"
+        },
+        "fields": {
+          "foo": "happycat"
+        }
+      }
+    ]
+  }
+}

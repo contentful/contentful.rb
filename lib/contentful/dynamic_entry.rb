@@ -12,7 +12,7 @@ module Contentful
       'Float'    => :float,
       'Boolean'  => :boolean,
       'Date'     => :date,
-      'Location' => Location,
+      'Location' => Location
     }
 
     def self.create(content_type)
@@ -21,17 +21,17 @@ module Contentful
       end
 
       fields_coercions = Hash[
-        content_type.fields.map{ |field|
+        content_type.fields.map do |field|
           [field.id.to_sym, KNOWN_TYPES[field.type]]
-        }
+        end
       ]
 
       Class.new DynamicEntry do
-        content_type.fields.each{ |f|
+        content_type.fields.each do |f|
           define_method Support.snakify(f.id).to_sym do
             fields[f.id.to_sym]
           end
-        }
+        end
 
         define_singleton_method :fields_coercions do
           fields_coercions

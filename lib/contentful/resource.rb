@@ -12,11 +12,11 @@ module Contentful
   # by the client by default
   module Resource
     COERCIONS = {
-      string:  ->(v){ v.to_s },
-      integer: ->(v){ v.to_i },
-      float:   ->(v){ v.to_f },
-      boolean: ->(v){ !!v },
-      date:    ->(v){ DateTime.parse(v) },
+      string:  ->(v) { v.to_s },
+      integer: ->(v) { v.to_i },
+      float:   ->(v) { v.to_f },
+      boolean: ->(v) { !!v },
+      date:    ->(v) { DateTime.parse(v) }
     }
 
     attr_reader :properties, :request, :client
@@ -30,7 +30,7 @@ module Contentful
     end
 
     def inspect(info = nil)
-      properties_info = properties.empty? ? "" : " @properties=#{properties.inspect}"
+      properties_info = properties.empty? ? '' : " @properties=#{properties.inspect}"
       "#<#{self.class}:#{properties_info}#{info}>"
     end
 
@@ -59,18 +59,17 @@ module Contentful
       end
     end
 
-
     private
 
     def extract_from_object(object, namespace, keys = nil)
       if object
         keys ||= object.keys
-        keys.each.with_object({}){ |name, res|
+        keys.each.with_object({}) do |name, res|
           res[name.to_sym] = coerce_value_or_array(
             object.is_a?(::Array) ? object : object[name.to_s],
-            self.class.public_send(:"#{namespace}_coercions")[name.to_sym],
+            self.class.public_send(:"#{namespace}_coercions")[name.to_sym]
           )
-        }
+        end
       else
         {}
       end
@@ -78,7 +77,7 @@ module Contentful
 
     def coerce_value_or_array(value, what = nil)
       if value.is_a? ::Array
-        value.map{ |v| coerce_or_create_class(v, what) }
+        value.map { |v| coerce_or_create_class(v, what) }
       else
         coerce_or_create_class(value, what)
       end
