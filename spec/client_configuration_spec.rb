@@ -87,7 +87,7 @@ describe 'Client Configuration Options' do
       it 'will fetch all content_types' do
         stub(client).content_types{{}}
         client.update_dynamic_entry_cache!
-        expect( client ).to have_received.content_types(limit: 0)
+        expect( client ).to have_received.content_types(limit: 1000)
       end
 
       it 'will save dynamic entries in @dynamic_entry_cache' do

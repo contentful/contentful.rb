@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.0
+      - RubyContentfulGem/0.1.1
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
@@ -21,25 +21,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 05 Mar 2014 21:15:53 GMT
+      - Wed, 16 Apr 2014 09:00:19 GMT
       Server:
       - nginx/1.1.19
-      Content-Type:
-      - application/vnd.contentful.delivery.v1+json
-      X-Contentful-Request-Id:
-      - 85f-830831768
-      Etag:
-      - "\"8d1249fb102065e5e5080d2871e0d05e\""
-      Access-Control-Allow-Origin:
-      - "*"
       Access-Control-Allow-Headers:
       - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
       Access-Control-Max-Age:
       - '86400'
       Cache-Control:
       - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - "\"8d1249fb102065e5e5080d2871e0d05e\""
+      X-Contentful-Request-Id:
+      - 71a-635716406
       Content-Length:
       - '4975'
       Accept-Ranges:
@@ -49,7 +49,7 @@ http_interactions:
       Age:
       - '0'
       X-Served-By:
-      - cache-fra1221-FRA
+      - cache-am76-AMS
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -284,5 +284,5 @@ http_interactions:
           ]
         }
     http_version: 
-  recorded_at: Wed, 05 Mar 2014 21:15:53 GMT
-recorded_with: VCR 2.8.0
+  recorded_at: Wed, 16 Apr 2014 09:00:19 GMT
+recorded_with: VCR 2.9.0
