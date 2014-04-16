@@ -1,0 +1,82 @@
+{
+  "sys": {
+    "type": "Array"
+  },
+  "total": 1,
+  "skip": 0,
+  "limit": 100,
+  "items": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "6yahkaf5ehkk"
+          }
+        },
+        "type": "Entry",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "tSFLnCNqvuyoMA6SKkQ2W"
+          }
+        },
+        "id": "6HM4G3D4iciuoIk6CW2OK6",
+        "revision": 2,
+        "createdAt": "2014-04-16T17:52:42.289Z",
+        "updatedAt": "2014-04-16T17:53:28.780Z",
+        "locale": "en-US"
+      },
+      "fields": {
+        "foo": "777777777",
+        "e": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "55t1gz1JUIQ2s4mcMwQ8cA"
+          }
+        }
+      }
+    }
+  ],
+  "includes": {
+    "Entry": [
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "6yahkaf5ehkk"
+            }
+          },
+          "type": "Entry",
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "tSFLnCNqvuyoMA6SKkQ2W"
+            }
+          },
+          "id": "55t1gz1JUIQ2s4mcMwQ8cA",
+          "revision": 1,
+          "createdAt": "2014-04-16T17:53:15.753Z",
+          "updatedAt": "2014-04-16T17:53:15.753Z",
+          "locale": "en-US"
+        },
+        "fields": {
+          "foo": "88888888888",
+          "e": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "6HM4G3D4iciuoIk6CW2OK6"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

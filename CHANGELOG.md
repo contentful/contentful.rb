@@ -1,3 +1,8 @@
+### 0.1.3
+
+* Better link inclusion processing, prevent "stack level to deep" errors
+
+
 ### 0.1.2
 
 * Fix the way all content types are retrieved
