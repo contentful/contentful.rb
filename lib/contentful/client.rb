@@ -139,7 +139,7 @@ module Contentful
     # See README for details.
     def update_dynamic_entry_cache!
       @dynamic_entry_cache = Hash[
-        content_types(limit: 0).map do |ct|
+        content_types(limit: 1000).map do |ct|
           [
             ct.id.to_sym,
             DynamicEntry.create(ct)
