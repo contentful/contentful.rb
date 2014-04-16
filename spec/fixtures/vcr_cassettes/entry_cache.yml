@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types?limit=0
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types?limit=1000
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.0
+      - RubyContentfulGem/0.1.1
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
@@ -21,39 +21,39 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 13 Mar 2014 23:02:28 GMT
+      - Wed, 16 Apr 2014 09:00:23 GMT
       Server:
       - nginx/1.1.19
-      Content-Type:
-      - application/vnd.contentful.delivery.v1+json
-      X-Contentful-Request-Id:
-      - 85f-830985787
-      Etag:
-      - "\"778046e039e4dd6e58f657a600dd10f1\""
-      Access-Control-Allow-Origin:
-      - "*"
       Access-Control-Allow-Headers:
       - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
       Access-Control-Max-Age:
       - '86400'
       Cache-Control:
       - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - "\"a80e34fcda74e1e96e6c6b50fdbf9c4d\""
+      X-Contentful-Request-Id:
+      - 71a-635716686
       Content-Length:
-      - '4973'
+      - '4976'
       Accept-Ranges:
       - bytes
       Via:
       - 1.1 varnish
       Age:
-      - '493'
+      - '0'
       X-Served-By:
-      - cache-fra1230-FRA
+      - cache-fra1220-FRA
       X-Cache:
-      - HIT
+      - MISS
       X-Cache-Hits:
-      - '1'
+      - '0'
       Vary:
       - Accept-Encoding
     body:
@@ -65,7 +65,7 @@ http_interactions:
           },
           "total": 4,
           "skip": 0,
-          "limit": 0,
+          "limit": 1000,
           "items": [
             {
               "fields": [
@@ -284,5 +284,5 @@ http_interactions:
           ]
         }
     http_version: 
-  recorded_at: Thu, 13 Mar 2014 23:02:28 GMT
-recorded_with: VCR 2.8.0
+  recorded_at: Wed, 16 Apr 2014 09:00:23 GMT
+recorded_with: VCR 2.9.0

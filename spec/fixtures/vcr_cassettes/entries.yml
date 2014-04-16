@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.0
+      - RubyContentfulGem/0.1.1
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
@@ -21,25 +21,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 05 Mar 2014 23:36:42 GMT
+      - Wed, 16 Apr 2014 09:00:21 GMT
       Server:
       - nginx/1.1.19
-      Content-Type:
-      - application/vnd.contentful.delivery.v1+json
-      X-Contentful-Request-Id:
-      - 85f-830835761
-      Etag:
-      - "\"969d4a23d1c51238e2fe52facedac400\""
-      Access-Control-Allow-Origin:
-      - "*"
       Access-Control-Allow-Headers:
       - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
       Access-Control-Max-Age:
       - '86400'
       Cache-Control:
       - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - "\"4fd389dc6eb0344fa98184c811f12f8d\""
+      X-Contentful-Request-Id:
+      - 85f-649640028
       Content-Length:
       - '11939'
       Accept-Ranges:
@@ -47,9 +47,9 @@ http_interactions:
       Via:
       - 1.1 varnish
       Age:
-      - '3758'
+      - '2003'
       X-Served-By:
-      - cache-fra1234-FRA
+      - cache-fra1233-FRA
       X-Cache:
       - HIT
       X-Cache-Hits:
@@ -314,37 +314,6 @@ http_interactions:
                     "id": "1t9IbcfdCk6m04uISSsaIK"
                   }
                 },
-                "id": "7qVBlCjpWE86Oseo40gAEY",
-                "revision": 1,
-                "createdAt": "2014-02-21T13:43:38.258Z",
-                "updatedAt": "2014-02-21T13:43:38.258Z",
-                "locale": "en-US"
-              },
-              "fields": {
-                "name": "San Francisco",
-                "center": {
-                  "lat": 37.7749295,
-                  "lon": -122.41941550000001
-                }
-              }
-            },
-            {
-              "sys": {
-                "space": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Space",
-                    "id": "cfexampleapi"
-                  }
-                },
-                "type": "Entry",
-                "contentType": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "ContentType",
-                    "id": "1t9IbcfdCk6m04uISSsaIK"
-                  }
-                },
                 "id": "4MU1s3potiUEM2G4okYOqw",
                 "revision": 1,
                 "createdAt": "2014-02-21T13:42:45.926Z",
@@ -418,6 +387,37 @@ http_interactions:
                 "center": {
                   "lat": 48.856614,
                   "lon": 2.3522219000000177
+                }
+              }
+            },
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "type": "Entry",
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "1t9IbcfdCk6m04uISSsaIK"
+                  }
+                },
+                "id": "7qVBlCjpWE86Oseo40gAEY",
+                "revision": 2,
+                "createdAt": "2014-02-21T13:43:38.258Z",
+                "updatedAt": "2014-04-15T08:22:22.010Z",
+                "locale": "en-US"
+              },
+              "fields": {
+                "name": "San Francisco",
+                "center": {
+                  "lat": 37.7749295,
+                  "lon": -122.41941550000001
                 }
               }
             }
@@ -557,5 +557,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Wed, 05 Mar 2014 23:36:42 GMT
-recorded_with: VCR 2.8.0
+  recorded_at: Wed, 16 Apr 2014 09:00:21 GMT
+recorded_with: VCR 2.9.0
