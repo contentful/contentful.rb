@@ -1,3 +1,8 @@
+### 0.2.0
+
+* Introduce new :entry_mapping configuration to enable custom Entry classes based on ContentTypes
+
+
 ### 0.1.3
 
 * Better link inclusion processing, prevent "stack level to deep" errors

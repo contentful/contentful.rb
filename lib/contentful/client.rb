@@ -17,6 +17,7 @@ module Contentful
       authentication_mechanism: :header,
       resource_builder: ResourceBuilder,
       resource_mapping: {},
+      entry_mapping: {},
       raw_mode: false
     }
 
@@ -41,7 +42,7 @@ module Contentful
 
     # Returns the default configuration
     def default_configuration
-      DEFAULT_CONFIGURATION
+      DEFAULT_CONFIGURATION.dup
     end
 
     # Gets the client's space
@@ -130,7 +131,12 @@ module Contentful
 
       return response if !build_resource || configuration[:raw_mode]
 
-      result = configuration[:resource_builder].new(self, response, configuration[:resource_mapping]).run
+      result = configuration[:resource_builder].new(
+          self,
+          response, configuration[:resource_mapping],
+          configuration[:entry_mapping]
+      ).run
+
       raise result if result.is_a?(Error) && configuration[:raise_errors]
       result
     end
