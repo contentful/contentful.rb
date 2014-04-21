@@ -2,6 +2,7 @@
 
 * Introduce new :entry_mapping configuration to enable custom Entry classes based on ContentTypes
 * Update HTTP gem dependency to 0.6
+* Convert arrays in query values to strings, separated by comma
 
 
 ### 0.1.3
