@@ -39,7 +39,7 @@ module Contentful
     def run
       case response.status
       when :contentful_error
-        Error[response.raw.response.status].new(response)
+        Error[response.raw.status].new(response)
       when :unparsable_json
         UnparsableJson.new(response)
       when :not_contentful

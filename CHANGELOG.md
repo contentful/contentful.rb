@@ -1,6 +1,7 @@
 ### 0.2.0
 
 * Introduce new :entry_mapping configuration to enable custom Entry classes based on ContentTypes
+* Update HTTP gem dependency to 0.6
 
 
 ### 0.1.3
