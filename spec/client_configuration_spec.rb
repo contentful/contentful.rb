@@ -203,7 +203,7 @@ describe 'Client Configuration Options' do
 
       client = create_client(
         entry_mapping: {
-          'cat' => Cat,
+          'cat' => Cat
         }
       )
 
