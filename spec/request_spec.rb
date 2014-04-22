@@ -11,6 +11,14 @@ describe Contentful::Request do
     end
   end
 
+  describe '#query' do
+    it 'converts arrays given in query to comma strings' do
+      client = create_client
+      request = Contentful::Request.new(client, '/entries', {'fields.likes[in]' => ['jake', 'finn']})
+      expect( request.query[:'fields.likes[in]'] ).to eq 'jake,finn'
+    end
+  end
+
   context '[single resource]' do
     let(:request){
       Contentful::Request.new(create_client, '/content_types', nil, 'nyancat')

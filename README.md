@@ -20,7 +20,7 @@ Add to your Gemfile and bundle:
     )
 
 You can query for entries, assets, etc. very similar as described in the
-[Delivery API Documentation](https://www.contentful.com/developers/documentation/content-delivery-api/). Please note, that all methods of the Ruby client library are snake_cased, instead of JavaScript's camelCase:
+[Delivery API Documentation](https://www.contentful.com/developers/documentation/content-delivery-api/). Please note, that **all methods of the Ruby client library are snake_cased, instead of JavaScript's camelCase**:
 
     client.content_types
     client.entry 'nyancat'
@@ -37,7 +37,7 @@ The results are returned as Contentful::Resource objects. Multiple results will 
     content_type.description # "Meow."
 
 
-Alternatively, the data can be accessed as Ruby `Hash` with symbolized keys:
+Alternatively, the data can be accessed as Ruby `Hash` with symbolized keys (and in camelCase):
 
     content_type.properties # { name: '...', description: '...' }
 
@@ -111,6 +111,7 @@ Resources, that have been requested directly (i.e. no child resources), can be f
     entries = client.entries
     entries.reload # Fetches the array of entries again
 
+
 ### Field Type "Object"
 
 While for known field types, the field data is accessible using methods or the `#fields` hash with symbol keys, it behaves differently for nested data of the type "Object". The client will treat them as arbitrary hashes and will not parse the data inside, which also means, this data is indexed by Ruby strings, not symbols.
@@ -173,21 +174,22 @@ You can register your custom class on client initialization:
 
 More information on `:resource_mapping` can be found in examples/resource_mapping.rb and more on custom classes in examples/custom_classes.rb
 
+You can also register custom entry classes to be used based on the entry's content_type using the :entry_mapping configuration:
 
-### Dynamic Entries
-
-In `dynamic_entries: :auto` mode, all entries are returned as specialized entry classes. However, you can also create these specialized classes by yourself, based on a content type:
+    class Cat < Contentful::Entry
+      # define methods based on :fields, etc
+    end
 
     client = Contentful::Client.new(
       space: 'cfexampleapi',
       access_token: 'b4c0n73n7fu1',
-      dynamice_entries: :manual, # default
+      entry_mapping: {
+        'cat' => Cat
+      }
     )
-    content_type = client.content_type 'cat'
-    MyCat = Contentful::DynamicEntry.create(content_type)
-    client.register_dynamic_entry 'cat', MyCat
 
-More information on dynamic entries are available in examples/dynamic_entries.rb
+    client.entry('nyancat') # is instance of Cat
+
 
 ## License
 

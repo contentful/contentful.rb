@@ -15,21 +15,23 @@ module Contentful
     DEFAULT_RESOURCE_MAPPING = {
       'Space' => Space,
       'ContentType' => ContentType,
-      'Entry' => :try_dynamic_entry,
+      'Entry' => :find_entry_class,
       'Asset' => Asset,
       'Array' => Array,
       'Link' => Link,
     }
+    DEFAULT_ENTRY_MAPPING = {}
 
-    attr_reader :client, :response, :resource_mapping, :resource
+    attr_reader :client, :response, :resource_mapping, :entry_mapping, :resource
 
 
-    def initialize(client, response, resource_mapping = {})
+    def initialize(client, response, resource_mapping = {}, entry_mapping = {})
       @response = response
       @client = client
       @included_resources = {}
       @known_resources = Hash.new{ |h,k| h[k] = {} }
       @resource_mapping = default_resource_mapping.merge(resource_mapping)
+      @entry_mapping = default_entry_mapping.merge(entry_mapping)
     end
 
     # Starts the parsing process.
@@ -37,7 +39,7 @@ module Contentful
     def run
       case response.status
       when :contentful_error
-        Error[response.raw.response.status].new(response)
+        Error[response.raw.status].new(response)
       when :unparsable_json
         UnparsableJson.new(response)
       when :not_contentful
@@ -80,19 +82,28 @@ module Contentful
       res
     end
 
-    # When using Dynamic Entry Mode: Automatically converts Entry to DynamicEntry
+    # Checks in a custom class for an entry was defined in entry_mapping
+    def find_entry_class(object)
+      entry_mapping[content_type_id_for_entry(object)] || try_dynamic_entry(object)
+    end
+
+    # Automatically converts Entry to DynamicEntry if in cache
     def try_dynamic_entry(object)
       get_dynamic_entry(object) || Entry
     end
 
     # Finds the proper DynamicEntry class for an entry
     def get_dynamic_entry(object)
-      if id = object["sys"] &&
-          object["sys"]["contentType"] &&
-          object["sys"]["contentType"]["sys"] &&
-          object["sys"]["contentType"]["sys"]["id"]
-        client.dynamic_entry_cache[id.to_sym]
+      if content_id = content_type_id_for_entry(object)
+        client.dynamic_entry_cache[content_id.to_sym]
       end
+    end
+
+    def content_type_id_for_entry(object)
+      object["sys"] &&
+      object["sys"]["contentType"] &&
+      object["sys"]["contentType"]["sys"] &&
+      object["sys"]["contentType"]["sys"]["id"]
     end
 
     # Uses the resource mapping to find the proper Resource class to initialize
@@ -104,6 +115,7 @@ module Contentful
     # - Symbol: Will be called as method of the ResourceBuilder itself
     def detect_resource_class(object)
       type = object["sys"] && object["sys"]["type"]
+
       case res_class = resource_mapping[type]
       when Symbol
         public_send(res_class, object)
@@ -118,7 +130,12 @@ module Contentful
 
     # The default mapping for #detect_resource_class
     def default_resource_mapping
-      DEFAULT_RESOURCE_MAPPING
+      DEFAULT_RESOURCE_MAPPING.dup
+    end
+
+    # The default entry mapping
+    def default_entry_mapping
+      DEFAULT_ENTRY_MAPPING.dup
     end
 
 

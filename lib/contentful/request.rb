@@ -8,7 +8,9 @@ module Contentful
     def initialize(client, endpoint, query = {}, id = nil)
       @client = client
       @endpoint = endpoint
-      @query = !query || query.empty? ? nil : Support.symbolize_keys(query)
+      @query = if query && !query.empty?
+        normalize_query(query)
+      end
 
       if id
         @type = :single
@@ -32,6 +34,20 @@ module Contentful
     # Returns a new Request object with the same data
     def copy
       Marshal.load(Marshal.dump(self))
+    end
+
+
+    private
+
+    def normalize_query(query)
+      Hash[
+        query.map do |key, value|
+          [
+            key.to_sym,
+            value.is_a?(::Array) ? value.join(',') : value
+          ]
+        end
+      ]
     end
   end
 end

@@ -194,4 +194,23 @@ describe 'Client Configuration Options' do
       expect( nyancat.https_image_url ).to start_with 'https'
     end
   end
+
+  describe ':entry_mapping' do
+    it 'lets you register your own entry classes for certain entry types' do
+      class Cat < Contentful::Entry
+        # define methods based on :fields, etc
+      end
+
+      client = create_client(
+        entry_mapping: {
+          'cat' => Cat
+        }
+      )
+
+      nyancat = vcr('entry'){ client.entry 'nyancat' }
+      finn    = vcr('human'){ client.entry 'finn' }
+      expect( nyancat ).to be_a Cat
+      expect( finn    ).to be_a Contentful::Entry
+    end
+  end
 end
