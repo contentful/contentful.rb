@@ -19,10 +19,12 @@ module Contentful
       date:    ->(v) { DateTime.parse(v) }
     }
 
-    attr_reader :properties, :request, :client
+    attr_reader :properties, :request, :client, :default_locale
 
-    def initialize(object, request = nil, client = nil)
+    def initialize(object, request = nil, client = nil, nested_locale_fields = false, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale] )
       self.class.update_coercions!
+      @nested_locale_fields = nested_locale_fields
+      @default_locale = default_locale
 
       @properties = extract_from_object object, :property, self.class.property_coercions.keys
       @request = request
@@ -37,6 +39,11 @@ module Contentful
     # Returns true for resources that behave like an array
     def array?
       false
+    end
+
+    # By default, fields come flattened in the current locale. This is different for syncs
+    def nested_locale_fields?
+      !! @nested_locale_fields
     end
 
     # Resources that don't include SystemProperties return nil for #sys
@@ -96,6 +103,11 @@ module Contentful
 
     # Register the resources properties on class level by using the #property method
     module ClassMethods
+      # By default, fields come flattened in the current locale. This is different for sync
+      def nested_locale_fields?
+        false
+      end
+
       def property_coercions
         @property_coercions ||= {}
       end

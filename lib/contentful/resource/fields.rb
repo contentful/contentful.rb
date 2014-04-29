@@ -6,14 +6,13 @@ module Contentful
     # It depends on system properties being available
     module Fields
       # Returns all fields of the asset
-      def fields
-        @fields[locale]
+      def fields(wanted_locale = default_locale)
+        @fields[locale || wanted_locale]
       end
 
       def initialize(object, *)
         super
-        @fields = {}
-        @fields[locale] = extract_from_object object["fields"], :fields
+        extract_fields_from_object! object
       end
 
       def inspect(info = nil)
@@ -21,6 +20,26 @@ module Contentful
           super(info)
         else
           super("#{info} @fields=#{fields.inspect}")
+        end
+      end
+
+
+      private
+
+      def extract_fields_from_object!(object)
+        @fields = {}
+
+        if nested_locale_fields?
+          object["fields"].each do |field_name, nested_child_object|
+            nested_child_object.each do |object_locale, real_child_object|
+              @fields[object_locale] ||= {}
+              @fields[object_locale].merge! extract_from_object(
+                { field_name => real_child_object }, :fields
+              )
+            end
+          end
+        else
+          @fields[locale] = extract_from_object object["fields"], :fields
         end
       end
 

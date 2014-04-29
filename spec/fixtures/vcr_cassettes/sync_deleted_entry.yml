@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/sync?initial=true&type=DeletedEntry
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.1.3
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 28 Apr 2014 20:05:35 GMT
+      Server:
+      - nginx/1.1.19
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - '"607d9bfac89f4ae4dadf0bb320de2058"'
+      X-Contentful-Request-Id:
+      - 85f-650106849
+      Content-Length:
+      - '233'
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      Age:
+      - '9941'
+      X-Served-By:
+      - cache-fra1220-FRA
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - '1'
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "items": [
+            {
+              "sys": {
+                "type": "DeletedEntry",
+                "id": "CVebBDcQsSsu6yKKIayy",
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "revision": 1,
+                "createdAt": "2013-06-23T19:21:38.254Z",
+                "updatedAt": "2013-06-23T19:21:38.254Z",
+                "deletedAt": "2013-06-23T19:21:38.254Z"
+              }
+            }
+          ],
+          "nextSyncUrl": "https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=wonDrcKnRgcSOF4-wrDCgcKefWzCgsOxwpIjw6fCr8OKUUphKXnCrE1xw7EXSgzDhcKIXMKfw4XDnAZGw5E7wqAkw6sIwpg"
+        }
+    http_version:
+  recorded_at: Mon, 28 Apr 2014 20:05:35 GMT
+recorded_with: VCR 2.9.0

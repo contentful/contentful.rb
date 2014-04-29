@@ -1,6 +1,7 @@
 require_relative 'request'
 require_relative 'response'
 require_relative 'resource_builder'
+require_relative 'sync'
 require 'http'
 
 module Contentful
@@ -18,6 +19,7 @@ module Contentful
       resource_builder: ResourceBuilder,
       resource_mapping: {},
       entry_mapping: {},
+      default_locale: 'en-US',
       raw_mode: false
     }
 
@@ -121,9 +123,10 @@ module Contentful
     # Set second parameter to false to deactivate Resource building and
     # return Response objects instead
     def get(request, build_resource = true)
+      url = request.absolute? ? request.url : base_url + request.url
       response = Response.new(
         self.class.get_http(
-          base_url + request.url,
+          url,
           request_query(request.query),
           request_headers
         ), request
@@ -133,8 +136,10 @@ module Contentful
 
       result = configuration[:resource_builder].new(
           self,
-          response, configuration[:resource_mapping],
-          configuration[:entry_mapping]
+          response,
+          configuration[:resource_mapping],
+          configuration[:entry_mapping],
+          configuration[:default_locale]
       ).run
 
       raise result if result.is_a?(Error) && configuration[:raise_errors]
@@ -160,10 +165,18 @@ module Contentful
       @dynamic_entry_cache[key.to_sym] = klass
     end
 
+    # Create a new synchronisation object
+    # Takes sync options or a sync_url
+    # You will need to call #each_page or #first_page on it
+    def sync(options = { initial: true })
+      Sync.new(self, options)
+    end
+
+
     private
 
     def normalize_configuration!
-      [:space, :access_token, :api_url].each { |s| configuration[s] = configuration[s].to_s }
+      [:space, :access_token, :api_url, :default_locale].each { |s| configuration[s] = configuration[s].to_s }
       configuration[:authentication_mechanism] = configuration[:authentication_mechanism].to_sym
     end
 
@@ -178,6 +191,10 @@ module Contentful
 
       if configuration[:api_url].empty?
         raise ArgumentError, 'The client configuration needs to contain an :api_url'
+      end
+
+      if configuration[:default_locale].empty?
+        raise ArgumentError, 'The client configuration needs to contain a :default_locale'
       end
 
       unless configuration[:api_version].to_i >= 0

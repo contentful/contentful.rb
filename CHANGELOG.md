@@ -1,3 +1,8 @@
+### 0.3.0
+
+* Support Synchronization
+
+
 ### 0.2.0
 
 * Introduce new :entry_mapping configuration to enable custom Entry classes based on ContentTypes
