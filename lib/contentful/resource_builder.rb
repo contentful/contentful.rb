@@ -29,7 +29,7 @@ module Contentful
     attr_reader :client, :response, :resource_mapping, :entry_mapping, :resource
 
 
-    def initialize(client, response, resource_mapping = {}, entry_mapping = {}, default_locale = default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
+    def initialize(client, response, resource_mapping = {}, entry_mapping = {}, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       @response = response
       @client = client
       @included_resources = {}
