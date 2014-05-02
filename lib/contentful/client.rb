@@ -2,7 +2,10 @@ require_relative 'request'
 require_relative 'response'
 require_relative 'resource_builder'
 require_relative 'sync'
+
 require 'http'
+# see: https://github.com/tarcieri/http/commit/6a2a9d22902572d672dfc7c7b250d022364c8e01#commitcomment-6192269
+require 'cgi'
 
 module Contentful
   # The client object is initialized with a space and a key and then used
