@@ -1,10 +1,7 @@
 language: ruby
 rvm:
   - 2.1.1
-  - 2.1.0
+  - 2.1
   - 2.0.0
   - 1.9.3
   - jruby-19mode
-notifications:
-  flowdock:
-    - secure: "jO51sETvF1Je7jLQibT5P2ty3KAC8Q9/jJKPUKLDHAaz927XhhkrMXVs6tjzVG1BmHc5A+Qhuni26XerFRsocR7CTrqKdmvmXLgWyMtpW5CvUbtUCeApRQE2K4k/fb+7mz3EBAE494AK5Fz8f3vk2WVu5ROj5shuuggiYhoOqHw="

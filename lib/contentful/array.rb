@@ -1,4 +1,5 @@
 require_relative 'resource'
+require_relative 'resource/array_like'
 
 module Contentful
   # Resource Class for Arrays (e.g. search results)
@@ -9,17 +10,12 @@ module Contentful
 
     include Contentful::Resource
     include Contentful::Resource::SystemProperties
-    include Enumerable
+    include Contentful::Resource::ArrayLike
 
     property :total, :integer
     property :limit, :integer
     property :skip, :integer
     property :items
-
-    # Only returns true for Contentful::Array
-    def array?
-      true
-    end
 
     # Simplifies pagination
     def next_page
@@ -33,14 +29,5 @@ module Contentful
       end
     end
 
-    # Delegates to items#each
-    def each(&block)
-      items.each(&block)
-    end
-
-    # Delegates to items#empty?
-    def empty?
-      items.empty?
-    end
   end
 end

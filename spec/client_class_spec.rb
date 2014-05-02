@@ -56,4 +56,10 @@ describe Contentful::Client do
     end
 
   end
+
+  describe '#sync' do
+    it 'creates a new Sync object' do
+      expect( create_client.sync ).to be_a Contentful::Sync
+    end
+  end
 end

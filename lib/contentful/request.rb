@@ -8,6 +8,8 @@ module Contentful
     def initialize(client, endpoint, query = {}, id = nil)
       @client = client
       @endpoint = endpoint
+      @absolute = true if @endpoint.start_with?('http')
+
       @query = if query && !query.empty?
         normalize_query(query)
       end
@@ -29,6 +31,11 @@ module Contentful
     # Delegates the actual HTTP work to the client
     def get
       client.get(self)
+    end
+
+    # Returns true if endpoint is an absolute url
+    def absolute?
+      !! @absolute
     end
 
     # Returns a new Request object with the same data

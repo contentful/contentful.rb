@@ -168,7 +168,7 @@ You can register your custom class on client initialization:
       space: 'cfexampleapi',
       access_token: 'b4c0n73n7fu1',
       resource_mapping: {
-        'Asset' => MyBetterAsset,
+        'Asset' => MyBetterAsset
       }
     )
 
@@ -189,6 +189,46 @@ You can also register custom entry classes to be used based on the entry's conte
     )
 
     client.entry('nyancat') # is instance of Cat
+
+
+## Synchronization
+
+The client also includes a wrapper for the synchronization endpoint. You can initialize it with the options described in the [Delivery API Documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#sync) or an URL you received from a previous sync:
+
+    client = Contentful::Client.new(
+      access_token: 'b4c0n73n7fu1',
+      space: 'cfexampleapi',
+      default_locale: 'en-US'
+    )
+    sync = client.sync(initial: true, type: 'Deletion') # Only returns deleted entries and assets
+    sync = client.sync("https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4gr...sGPg") # Continues a sync
+
+You can access the results either wrapped in `Contentful::SyncPage` objects:
+
+    sync.each_page do |page|
+      # Find resources at: page.items
+    end
+
+    # More explicit version:
+    page = sync.first_page
+    until sync.completed?
+      page = s.next_page
+    end
+
+Or directly iterative over all resources:
+
+    sync.each_item do |resource|
+      # ...
+    end
+
+When a sync is completed, the next sync url can be read from the Sync or SyncPage object:
+
+    sync.next_sync_url
+
+**Please note** that synchronization entries come in all locales, so make sure, you supply a :default_locale property to the client configuration, when using the sync feature. This locale will be returned by default, when you call `Entry#fields`. The other localized data will also be saved and can be accessed by calling the fields method with a locale parameter:
+
+    first_entry = client.sync(initial: true, type: 'Entry').first_page.items.first
+    first_entry.fields('de-DE') # Returns German localizations
 
 
 ## License
