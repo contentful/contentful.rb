@@ -27,13 +27,19 @@ module Contentful
       @request = request
       @status  = :ok
 
-      if parse_json!
+      if no_content_response?
+        @status = :no_content
+        @object = true
+      elsif parse_json!
         parse_contentful_error!
       end
     end
 
-
     private
+
+    def no_content_response?
+      @raw.to_s == '' && @raw.status == 204
+    end
 
     def parse_json!
       @object = MultiJson.load(raw.to_s)

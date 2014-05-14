@@ -35,6 +35,13 @@ describe Contentful::Response do
     it 'returns :unparsable_json for unparsable json responses' do
       expect( unparsable_response.status ).to eq :unparsable_json
     end
+
+    it 'returns :no_content for responses without content' do
+      raw_response = ''
+      mock(raw_response).status {204}
+      no_content_response = Contentful::Response.new raw_response
+      expect( no_content_response.status).to eq :no_content
+    end
   end
 
   describe "#error_message" do
