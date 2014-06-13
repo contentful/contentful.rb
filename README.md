@@ -237,7 +237,7 @@ end
 # More explicit version:
 page = sync.first_page
 until sync.completed?
-  page = s.next_page
+  page = sync.next_page
 end
 ```
 
