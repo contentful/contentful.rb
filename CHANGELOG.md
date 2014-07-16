@@ -1,3 +1,8 @@
+### 0.3.1
+* return nil when a value is not supplied, fixes #18
+* do not parse empty responses
+* remove CGI dependency for http gem
+
 ### 0.3.0
 
 * Support Synchronization
