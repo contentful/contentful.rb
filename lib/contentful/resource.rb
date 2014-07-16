@@ -8,8 +8,8 @@ module Contentful
   # You can define your own classes that behave like contentful resources:
   # See examples/custom_classes.rb to see how.
   #
-  # Take a look at examples/resource_mapping.rb on how to register them to be returned
-  # by the client by default
+  # Take a look at examples/resource_mapping.rb on how to register them
+  # to be returned by the client by default
   module Resource
     COERCIONS = {
       string:  ->(v) { v.to_s },
@@ -26,7 +26,8 @@ module Contentful
       @nested_locale_fields = nested_locale_fields
       @default_locale = default_locale
 
-      @properties = extract_from_object object, :property, self.class.property_coercions.keys
+      @properties = extract_from_object(object, :property,
+                                        self.class.property_coercions.keys)
       @request = request
       @client = client
     end
@@ -72,10 +73,9 @@ module Contentful
       if object
         keys ||= object.keys
         keys.each.with_object({}) do |name, res|
-          res[name.to_sym] = coerce_value_or_array(
-            object.is_a?(::Array) ? object : object[name.to_s],
-            self.class.public_send(:"#{namespace}_coercions")[name.to_sym]
-          )
+          value = object.is_a?(::Array) ? object : object[name.to_s]
+          kind = self.class.public_send(:"#{namespace}_coercions")[name.to_sym]
+          res[name.to_sym] = coerce_value_or_array(value, kind)
         end
       else
         {}
@@ -83,7 +83,9 @@ module Contentful
     end
 
     def coerce_value_or_array(value, what = nil)
-      if value.is_a? ::Array
+      if value.nil?
+        nil
+      elsif value.is_a? ::Array
         value.map { |v| coerce_or_create_class(v, what) }
       else
         coerce_or_create_class(value, what)
