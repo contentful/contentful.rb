@@ -8,5 +8,6 @@ module Contentful
 
     property :code, :string
     property :name, :string
+    property :default, :boolean
   end
 end
