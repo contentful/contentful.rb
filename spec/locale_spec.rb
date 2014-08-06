@@ -16,5 +16,9 @@ describe Contentful::Locale do
     it 'has #name' do
       expect( locale.name ).to eq "English"
     end
+
+    it 'has #default' do
+      expect( locale.default ).to eq true
+    end
   end
 end
