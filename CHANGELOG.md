@@ -1,3 +1,6 @@
+### 0.3.2
+* add default property to locale, #23
+
 ### 0.3.1
 * return nil when a value is not supplied, fixes #18
 * do not parse empty responses
