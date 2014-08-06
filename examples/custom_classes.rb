@@ -2,7 +2,7 @@
 # Contentful::Resource module.
 #
 # You can then define properties of the class. This will create a getter method
-# with this name You can optionally pass a type identifier (Symbol or Class).
+# with this name. You can optionally pass a type identifier (Symbol or Class).
 #
 # Classes will be instantiated for the properties,
 # Symbols will be looked up in Contentful::Resource::COERCIONS
