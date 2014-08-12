@@ -27,7 +27,10 @@ module Contentful
       @request = request
       @status  = :ok
 
-      if no_content_response?
+      if service_unavailable_response?
+        @status = :service_unavailable
+        @error_message = 'Service Unavailable, contenful.com API seems to be down'
+      elsif no_content_response?
         @status = :no_content
         @object = true
       elsif parse_json!
@@ -36,6 +39,10 @@ module Contentful
     end
 
     private
+
+    def service_unavailable_response?
+      @raw.status == 503
+    end
 
     def no_content_response?
       @raw.to_s == '' && @raw.status == 204
