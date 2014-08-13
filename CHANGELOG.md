@@ -1,3 +1,6 @@
+### 0.3.3
+* Fix: handle 503 errors from the api
+
 ### 0.3.2
 * add default property to locale, #23
 
