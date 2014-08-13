@@ -1,7 +1,11 @@
 require 'multi_json'
 
-def raw_fixture(which, as_json = false)
-  File.read File.dirname(__FILE__) + "/../fixtures/json_responses/#{which}.json"
+def raw_fixture(which,status = 200, as_json = false)
+  object = Object.new
+  stub(object).status { status }
+  stub(object).to_s { File.read File.dirname(__FILE__) + "/../fixtures/json_responses/#{which}.json" }
+
+  object
 end
 
 def json_fixture(which, as_json = false)

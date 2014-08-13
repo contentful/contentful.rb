@@ -7,7 +7,7 @@ describe Contentful::Response do
 
   describe "#raw" do
     it "returns the raw response it has been initalized with" do
-      expect( successful_response.raw ).to eq raw_fixture('nyancat')
+      expect( successful_response.raw.to_s ).to eql raw_fixture('nyancat').to_s
     end
   end
 
@@ -38,7 +38,7 @@ describe Contentful::Response do
 
     it 'returns :no_content for responses without content' do
       raw_response = ''
-      mock(raw_response).status {204}
+      stub(raw_response).status {204}
       no_content_response = Contentful::Response.new raw_response
       expect( no_content_response.status).to eq :no_content
     end
@@ -52,6 +52,10 @@ describe Contentful::Response do
     it 'returns json parser error message for json parse errors' do
       expect( unparsable_response.error_message ).to include "unexpected token"
     end
-  end
 
+    it 'returns a ServiceUnavailable error on a 503' do
+      error_response = Contentful::Response.new raw_fixture('not_found', 503)
+      expect(error_response.status).to eql :service_unavailable
+    end
+  end
 end
