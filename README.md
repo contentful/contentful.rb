@@ -13,6 +13,8 @@ Add to your Gemfile and bundle:
 gem 'contentful'
 ```
 
+
+
 ## Usage
 
 ```ruby
@@ -261,6 +263,11 @@ sync.next_sync_url
 first_entry = client.sync(initial: true, type: 'Entry').first_page.items.first
 first_entry.fields('de-DE') # Returns German localizations
 ```
+
+## Ratelimit
+The library does not make assumptions on the rate limit but reacts to `HTTP 429` by returning an error object.
+You should handle this within your code and either do the delay calculation naive (fixed amount of seconds) or more elaborated (exponential increase) depending by the structure of your code.
+
 
 ## License
 
