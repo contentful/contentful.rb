@@ -168,9 +168,9 @@ Defaults to `false`. If enabled, the API responses will not be parsed to resourc
 
 See next paragraph for explanation
 
-### :encoded
+### :gzip_encoded
 
-Enables content encoding, default to: true
+Enables gzip response content encoding, default to: true
 
 ## Advanced Usage
 ### Custom Resource Classes

@@ -22,7 +22,7 @@ module Contentful
       entry_mapping: {},
       default_locale: 'en-US',
       raw_mode: false,
-      encoded: true
+      gzip_encoded: true
     }
 
     attr_reader :configuration, :dynamic_entry_cache
@@ -108,7 +108,7 @@ module Contentful
       headers = { 'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}" }
       headers['Authorization'] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
       headers['Content-Type']  = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
-      headers['Accept-Encoding'] = 'gzip' if configuration[:encoded]
+      headers['Accept-Encoding'] = 'gzip' if configuration[:gzip_encoded]
       headers
     end
 
