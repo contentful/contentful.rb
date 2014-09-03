@@ -22,7 +22,7 @@ module Contentful
       entry_mapping: {},
       default_locale: 'en-US',
       raw_mode: false,
-      gzip_encoded: true
+      gzip_encoded: false
     }
 
     attr_reader :configuration, :dynamic_entry_cache
