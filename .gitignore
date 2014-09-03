@@ -1,3 +1,5 @@
 pkg
 coverage
 Gemfile.lock
+.idea
+*.DS_Store
