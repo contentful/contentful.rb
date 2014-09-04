@@ -1,3 +1,6 @@
+### 0.3.4
+* add optional gzip compression
+
 ### 0.3.3
 * Fix: handle 503 errors from the api
 
