@@ -32,7 +32,7 @@ module Contentful
 
     # Returns false as long as last sync page has not been reached
     def completed?
-      !! next_sync_url
+      !!next_sync_url
     end
 
     # Directly iterates over all resources that have changed
@@ -57,7 +57,6 @@ module Contentful
       page
     end
 
-
     private
 
     def link_page_to_sync!(page)
@@ -67,6 +66,5 @@ module Contentful
     def update_sync_state_from!(page)
       @next_sync_url = page.next_sync_url
     end
-
   end
 end

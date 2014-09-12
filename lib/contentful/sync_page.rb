@@ -22,12 +22,11 @@ module Contentful
     end
 
     def next_page?
-      !! next_page_url
+      !!next_page_url
     end
 
     def last_page?
-      ! next_page_url
+      !next_page_url
     end
-
   end
 end

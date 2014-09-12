@@ -28,12 +28,11 @@ module Contentful
 
     attr_reader :client, :response, :resource_mapping, :entry_mapping, :resource
 
-
     def initialize(client, response, resource_mapping = {}, entry_mapping = {}, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       @response = response
       @client = client
       @included_resources = {}
-      @known_resources = Hash.new{ |h,k| h[k] = {} }
+      @known_resources = Hash.new { |h, k| h[k] = {} }
       @nested_locales = false
       @default_locale = default_locale
       @resource_mapping = default_resource_mapping.merge(resource_mapping)
@@ -110,15 +109,15 @@ module Contentful
 
     # Returns the id of the related ContentType, if there is one
     def content_type_id_for_entry(object)
-      object["sys"] &&
-      object["sys"]["contentType"] &&
-      object["sys"]["contentType"]["sys"] &&
-      object["sys"]["contentType"]["sys"]["id"]
+      object['sys'] &&
+      object['sys']['contentType'] &&
+      object['sys']['contentType']['sys'] &&
+      object['sys']['contentType']['sys']['id']
     end
 
     # Detects if a resource is an Contentful::Array or a SyncPage
     def array_or_sync_page(object)
-      if object["nextPageUrl"] || object["nextSyncUrl"]
+      if object['nextPageUrl'] || object['nextSyncUrl']
         SyncPage
       else
         Array
@@ -133,7 +132,7 @@ module Contentful
     # - Proc: Will be called, expected to return the proper Class
     # - Symbol: Will be called as method of the ResourceBuilder itself
     def detect_resource_class(object)
-      type = object["sys"] && object["sys"]["type"]
+      type = object['sys'] && object['sys']['type']
 
       case res_class = resource_mapping[type]
       when Symbol
@@ -141,7 +140,7 @@ module Contentful
       when Proc
         res_class[object]
       when nil
-        raise UnparsableResource.new(response)
+        fail UnparsableResource.new(response)
       else
         res_class
       end
@@ -156,7 +155,6 @@ module Contentful
     def default_entry_mapping
       DEFAULT_ENTRY_MAPPING.dup
     end
-
 
     private
 
@@ -191,7 +189,7 @@ module Contentful
           res.public_send(name)[child_name.to_sym] = create_resource(child_object)
         end
         next if name == 'includes'
-        detect_child_arrays(potential_objects).each do |child_name, child_array|
+        detect_child_arrays(potential_objects).each do |child_name, _child_array|
           replace_child_array res.public_send(name)[child_name.to_sym]
         end
       end

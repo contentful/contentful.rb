@@ -1,6 +1,6 @@
 require 'multi_json'
 
-def raw_fixture(which,status = 200, as_json = false)
+def raw_fixture(which, status = 200, _as_json = false)
   object = Object.new
   stub(object).status { status }
   stub(object).headers { {} }
@@ -9,7 +9,7 @@ def raw_fixture(which,status = 200, as_json = false)
   object
 end
 
-def json_fixture(which, as_json = false)
+def json_fixture(which, _as_json = false)
   MultiJson.load(
     File.read File.dirname(__FILE__) + "/../fixtures/json_responses/#{which}.json"
   )

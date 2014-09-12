@@ -20,7 +20,7 @@ end
 res = MyResource.new(
   'some' => 'value',
   'age' => '25',
-  'country' => {'code' => 'de', 'name' => 'Deutschland'},
+  'country' => { 'code' => 'de', 'name' => 'Deutschland' },
   'unknown_property' => 'ignored'
 )
 
@@ -28,7 +28,6 @@ p res.some # => "value"
 p res.age # => 25
 p res.country # #<Contentful::Locale: ...
 p res.unknown_property # NoMethodError
-
 
 # Another possibility to create customized resources is to just inherit from an
 # existing one:

@@ -6,7 +6,6 @@
 # - a Proc, that returns the Class to use
 # - a Symbol for a method of the ResourceBuilder object
 
-
 require 'contentful'
 
 class MyBetterArray < Contentful::Array
@@ -18,13 +17,13 @@ end
 
 client = Contentful::Client.new(
   space: 'cfexampleapi',
-  access_token: "b4c0n73n7fu1",
+  access_token: 'b4c0n73n7fu1',
   resource_mapping: {
     'Array' => MyBetterArray,
-    'Asset' => ->(json_object){
+    'Asset' => ->(_json_object)do
       # might return different class if some criteria is matched
       Contentful::Asset
-    },
+    end,
   }
 )
 

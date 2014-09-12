@@ -28,6 +28,5 @@ module Contentful
         false
       end
     end
-
   end
 end

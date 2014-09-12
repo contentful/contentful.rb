@@ -22,7 +22,7 @@ module Contentful
         h:  options[:h]  || options[:height],
         fm: options[:fm] || options[:format],
         q:  options[:q]  || options[:quality]
-      }.reject { |k, v| v.nil? }
+      }.reject { |_k, v| v.nil? }
 
       if query.empty?
         file.url

@@ -14,7 +14,7 @@ module Contentful
       def each_item(&block)
         items.each(&block)
       end
-      alias each each_item
+      alias_method :each, :each_item
 
       # Delegates to items#empty?
       def empty?
@@ -25,8 +25,7 @@ module Contentful
       def size
         items.size
       end
-      alias length size
-
+      alias_method :length, :size
     end
   end
 end

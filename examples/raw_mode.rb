@@ -1,9 +1,8 @@
 require 'contentful'
 
-
 client = Contentful::Client.new(
   space: 'cfexampleapi',
-  access_token: "b4c0n73n7fu1",
+  access_token: 'b4c0n73n7fu1',
   raw_mode: true,
 )
 

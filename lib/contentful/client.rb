@@ -115,7 +115,7 @@ module Contentful
     # Patches a query hash with the client configurations for queries
     def request_query(query)
       if configuration[:authentication_mechanism] == :query_string
-        query["access_token"] = configuration[:access_token]
+        query['access_token'] = configuration[:access_token]
       end
 
       query
@@ -144,7 +144,7 @@ module Contentful
           configuration[:default_locale]
       ).run
 
-      raise result if result.is_a?(Error) && configuration[:raise_errors]
+      fail result if result.is_a?(Error) && configuration[:raise_errors]
       result
     end
 
@@ -174,7 +174,6 @@ module Contentful
       Sync.new(self, options)
     end
 
-
     private
 
     def normalize_configuration!
@@ -184,31 +183,31 @@ module Contentful
 
     def validate_configuration!
       if configuration[:space].empty?
-        raise ArgumentError, 'You will need to initialize a client with a :space'
+        fail ArgumentError, 'You will need to initialize a client with a :space'
       end
 
       if configuration[:access_token].empty?
-        raise ArgumentError, 'You will need to initialize a client with an :access_token'
+        fail ArgumentError, 'You will need to initialize a client with an :access_token'
       end
 
       if configuration[:api_url].empty?
-        raise ArgumentError, 'The client configuration needs to contain an :api_url'
+        fail ArgumentError, 'The client configuration needs to contain an :api_url'
       end
 
       if configuration[:default_locale].empty?
-        raise ArgumentError, 'The client configuration needs to contain a :default_locale'
+        fail ArgumentError, 'The client configuration needs to contain a :default_locale'
       end
 
       unless configuration[:api_version].to_i >= 0
-        raise ArgumentError, 'The :api_version must be a positive number or nil'
+        fail ArgumentError, 'The :api_version must be a positive number or nil'
       end
 
       unless [:header, :query_string].include? configuration[:authentication_mechanism]
-        raise ArgumentError, 'The authentication mechanism must be :header or :query_string'
+        fail ArgumentError, 'The authentication mechanism must be :header or :query_string'
       end
 
       unless [:auto, :manual].include? configuration[:dynamic_entries]
-        raise ArgumentError, 'The :dynamic_entries mode must be :auto or :manual'
+        fail ArgumentError, 'The :dynamic_entries mode must be :auto or :manual'
       end
     end
   end

@@ -19,7 +19,7 @@ module Contentful
       def initialize(object, *)
         super
         @fields = {}
-        @fields[locale] = extract_from_object object["fields"], :fields
+        @fields[locale] = extract_from_object object['fields'], :fields
       end
 
       def inspect(info = nil)

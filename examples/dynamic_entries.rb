@@ -6,7 +6,7 @@ require 'contentful'
 
 client = Contentful::Client.new(
   space: 'cfexampleapi',
-  access_token: "b4c0n73n7fu1",
+  access_token: 'b4c0n73n7fu1',
   dynamic_entries: :manual,
 )
 
@@ -21,7 +21,6 @@ nyancat = client.entry('nyancat')
 p nyancat.is_a? CatEntry # => true
 p nyancat.fields[:name] # => "Nyan Cat" # This would also be possible with a non-dynamic entry
 p nyancat.name # => "Nyan Cat"
-
 
 # You don't need to initialize a ContentType resource to create a DynamicEntry
 # You could also pass the content type's JSON representation:
@@ -112,12 +111,11 @@ SuperCatEntry = Contentful::DynamicEntry.create <<JSON
 }
 JSON
 
-
 # AUTO MODE - All entries will be converted to dynamic entries
 
 client = Contentful::Client.new(
   space: 'cfexampleapi',
-  access_token: "b4c0n73n7fu1",
+  access_token: 'b4c0n73n7fu1',
   dynamic_entries: :auto,
 )
 

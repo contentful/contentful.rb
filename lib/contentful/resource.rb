@@ -21,7 +21,7 @@ module Contentful
 
     attr_reader :properties, :request, :client, :default_locale
 
-    def initialize(object, request = nil, client = nil, nested_locale_fields = false, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale] )
+    def initialize(object, request = nil, client = nil, nested_locale_fields = false, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       self.class.update_coercions!
       @nested_locale_fields = nested_locale_fields
       @default_locale = default_locale
