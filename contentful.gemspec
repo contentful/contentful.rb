@@ -3,17 +3,17 @@
 require File.expand_path('../lib/contentful/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.name          = "contentful"
+  gem.name          = 'contentful'
   gem.version       = Contentful::VERSION
   gem.summary       = 'contentful'
   gem.description   = 'Ruby client for the https://www.contentful.com Content Delivery API'
-  gem.license       = "MIT"
-  gem.authors       = ["Contentful GmbH (Jan Lelis)",'Contentful GmbH (Andreas Tiefenthaler)']
-  gem.email         = "rubygems@contentful.com"
-  gem.homepage      = "https://github.com/contentful/contentful.rb"
+  gem.license       = 'MIT'
+  gem.authors       = ['Contentful GmbH (Jan Lelis)', 'Contentful GmbH (Andreas Tiefenthaler)']
+  gem.email         = 'rubygems@contentful.com'
+  gem.homepage      = 'https://github.com/contentful/contentful.rb'
 
-  gem.files         = Dir['{**/}{.*,*}'].select { |path| File.file?(path) && !path.start_with?("pkg") }
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.files         = Dir['{**/}{.*,*}'].select { |path| File.file?(path) && !path.start_with?('pkg') }
+  gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^spec/})
   gem.require_paths = ['lib']
 

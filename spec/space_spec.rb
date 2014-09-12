@@ -1,36 +1,36 @@
 require 'spec_helper'
 
 describe Contentful::Space do
-  let(:space){ vcr('space'){ create_client.space } }
+  let(:space) { vcr('space') { create_client.space } }
 
   describe 'SystemProperties' do
     it 'has a #sys getter returning a hash with symbol keys' do
-      expect( space.sys ).to be_a Hash
-      expect( space.sys.keys.sample ).to be_a Symbol
+      expect(space.sys).to be_a Hash
+      expect(space.sys.keys.sample).to be_a Symbol
     end
 
     it 'has #id' do
-      expect( space.id ).to eq "cfexampleapi"
+      expect(space.id).to eq 'cfexampleapi'
     end
 
     it 'has #type' do
-      expect( space.type ).to eq "Space"
+      expect(space.type).to eq 'Space'
     end
   end
 
   describe 'Properties' do
     it 'has a #properties getter returning a hash with symbol keys' do
-      expect( space.properties ).to be_a Hash
-      expect( space.properties.keys.sample ).to be_a Symbol
+      expect(space.properties).to be_a Hash
+      expect(space.properties.keys.sample).to be_a Symbol
     end
 
     it 'has #name' do
-      expect( space.name ).to eq "Contentful Example API"
+      expect(space.name).to eq 'Contentful Example API'
     end
 
     it 'has #locales' do
-      expect( space.locales ).to be_a Array
-      expect( space.locales.first ).to be_a Contentful::Locale
+      expect(space.locales).to be_a Array
+      expect(space.locales.first).to be_a Contentful::Locale
     end
   end
 end

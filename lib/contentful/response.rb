@@ -60,8 +60,8 @@ module Contentful
     end
 
     def parse_contentful_error!
-      if @object && @object["sys"]
-        if @object["sys"]["type"] == 'Error'
+      if @object && @object['sys']
+        if @object['sys']['type'] == 'Error'
           @status = :contentful_error
           @error_message = object['message']
           true
@@ -70,7 +70,7 @@ module Contentful
         end
       else
         @status = :not_contentful
-        @error_message = "No contentful system properties found in object"
+        @error_message = 'No contentful system properties found in object'
       end
     end
 
@@ -78,11 +78,10 @@ module Contentful
       if response.headers['Content-Encoding'].eql?('gzip') then
         sio = StringIO.new(response.to_s)
         gz = Zlib::GzipReader.new(sio)
-        gz.read()
+        gz.read
       else
         response.to_s
       end
     end
-
   end
 end

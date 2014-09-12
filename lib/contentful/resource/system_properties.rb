@@ -17,7 +17,7 @@ module Contentful
 
       def initialize(object, *)
         super
-        @sys = extract_from_object object["sys"], :sys
+        @sys = extract_from_object object['sys'], :sys
       end
 
       def inspect(info = nil)

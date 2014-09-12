@@ -11,7 +11,7 @@ module Contentful
       @absolute = true if @endpoint.start_with?('http')
 
       @query = if query && !query.empty?
-        normalize_query(query)
+                 normalize_query(query)
       end
 
       if id
@@ -42,7 +42,6 @@ module Contentful
     def copy
       Marshal.load(Marshal.dump(self))
     end
-
 
     private
 
