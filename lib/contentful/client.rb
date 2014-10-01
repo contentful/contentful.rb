@@ -135,7 +135,7 @@ module Contentful
     # return Response objects instead
     def get(request, build_resource = true)
       url = request.absolute? ? request.url : base_url + request.url
-      logger.info(request: {url: url, header: request_headers}) if logger
+      logger.info(request: {url: url, query: request.query, header: request_headers}) if logger
       response = Response.new(
           self.class.get_http(
               url,
