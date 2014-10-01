@@ -42,19 +42,10 @@ module Contentful
     # Starts the parsing process.
     # Either returns an Error, or the parsed Resource
     def run
-      case response.status
-      when :contentful_error
-        Error[response.raw.status].new(response)
-      when :unparsable_json
-        UnparsableJson.new(response)
-      when :not_contentful
-        Error.new(response)
+      if response.status == :ok
+        create_all_resources!
       else
-        begin
-          create_all_resources!
-        rescue UnparsableResource => error
-          error
-        end
+        response.object
       end
     end
 
@@ -75,6 +66,8 @@ module Contentful
       end
 
       @resource
+    rescue UnparsableResource => error
+      error
     end
 
     # Creates a single resource from the response object

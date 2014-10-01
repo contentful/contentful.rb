@@ -27,60 +27,66 @@ module Contentful
       @request = request
       @status = :ok
 
-      if service_unavailable_response?
-        @status = :service_unavailable
-        @error_message = 'Service Unavailable, contenful.com API seems to be down'
+      if valid_http_response?
+        parse_json!
       elsif no_content_response?
         @status = :no_content
-        @object = true
-      elsif parse_json!
-        parse_contentful_error!
+      elsif no_resource_or_bad_request?
+        parse_contentful_error
+      else
+        parse_http_error
       end
     end
 
     private
 
-    def service_unavailable_response?
-      @raw.status == 503
+    def error_object?
+      object['sys']['type'] == 'Error'
+    end
+
+    def parse_contentful_error
+      @object = load_json
+      @error_message = object['message'] if error_object?
+      parse_http_error
+    end
+
+    def valid_http_response?
+      [200, 201].include?(raw.status)
+    end
+
+    def parse_http_error
+      @status = :error
+      @object = Error[raw.status].new(self)
+    end
+
+    def no_resource_or_bad_request?
+      [400, 404].include?(raw.status)
     end
 
     def no_content_response?
-      @raw.to_s == '' && @raw.status == 204
+      raw.to_s == '' && raw.status == 204
     end
 
     def parse_json!
-      body =  unzip_response(raw)
-      @object = MultiJson.load(body)
-      true
-    rescue MultiJson::LoadError => e
-      @status = :unparsable_json
-      @error_message = e.message
-      @object = e
-      false
+      @object = load_json
+    rescue MultiJson::LoadError => error
+      @error_message = error.message
+      @status = :error
+      UnparsableJson.new(self)
     end
 
-    def parse_contentful_error!
-      if @object && @object['sys']
-        if @object['sys']['type'] == 'Error'
-          @status = :contentful_error
-          @error_message = object['message']
-          true
-        else
-          false
-        end
-      else
-        @status = :not_contentful
-        @error_message = 'No contentful system properties found in object'
-      end
+    def load_json
+      MultiJson.load(unzip_response(raw))
     end
 
     def unzip_response(response)
-      if response.headers['Content-Encoding'].eql?('gzip') then
-        sio = StringIO.new(response.to_s)
+      parsed_response = response.to_s
+      if response.headers['Content-Encoding'].eql?('gzip')
+        sio = StringIO.new(parsed_response)
         gz = Zlib::GzipReader.new(sio)
         gz.read
       else
-        response.to_s
+        parsed_response
       end
     end
   end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Contentful::Response do
   let(:successful_response) { Contentful::Response.new raw_fixture('nyancat'), Contentful::Request.new(nil, '/entries', nil, 'nyancat') }
-  let(:error_response) { Contentful::Response.new raw_fixture('not_found') }
+  let(:error_response) { Contentful::Response.new raw_fixture('not_found', 404) }
   let(:unparsable_response) { Contentful::Response.new raw_fixture('unparsable') }
 
   describe '#raw' do
@@ -28,15 +28,15 @@ describe Contentful::Response do
       expect(successful_response.status).to eq :ok
     end
 
-    it 'returns :contentful_error for error responses' do
-      expect(error_response.status).to eq :contentful_error
+    it 'returns :error for error responses' do
+      expect(error_response.status).to eq :error
     end
 
-    it 'returns :unparsable_json for unparsable json responses' do
-      expect(unparsable_response.status).to eq :unparsable_json
+    it 'returns :error for unparsable json responses' do
+      expect(unparsable_response.status).to eq :error
     end
 
-    it 'returns :no_content for responses without content' do
+    it 'returns :error for responses without content' do
       raw_response = ''
       stub(raw_response).status { 204 }
       no_content_response = Contentful::Response.new raw_response
@@ -55,7 +55,8 @@ describe Contentful::Response do
 
     it 'returns a ServiceUnavailable error on a 503' do
       error_response = Contentful::Response.new raw_fixture('not_found', 503)
-      expect(error_response.status).to eql :service_unavailable
+      expect(error_response.status).to eql :error
+      expect(error_response.object).to be_kind_of Contentful::ServiceUnavailable
     end
   end
 end
