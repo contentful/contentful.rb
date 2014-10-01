@@ -172,6 +172,21 @@ See next paragraph for explanation
 
 Enables gzip response content encoding, default to: true
 
+### :logger
+
+Logging is disabled by default, it can be enabled by setting a logger instance and a logging severity.
+
+Example loggers:
+
+```ruby
+Rails.logger
+Logger.new('logfile.log')
+```
+
+### :log_level
+The default severity is set to INFO and logs only the request attributes (headers, parameters and url). Setting it to DEBUG will also log the raw JSON response.
+
+
 ## Advanced Usage
 ### Custom Resource Classes
 
