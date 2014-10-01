@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Contentful::Error do
-  let(:r) { Contentful::Response.new raw_fixture('not_found') }
+  let(:r) { Contentful::Response.new raw_fixture('not_found',404) }
 
   describe '#response' do
     it 'returns the response the error has been initialized with' do
