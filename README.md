@@ -175,7 +175,14 @@ Enables gzip response content encoding, default to: true
 ### :logger
 
 Logging is disabled by default, it can be enabled by setting a logger instance and a logging severity.
-
+```ruby
+client = Contentful::Client.new(
+  access_token: 'b4c0n73n7fu1',
+  space: 'cfexampleapi',
+  logger: logger_instance,
+  log_level: Logger::DEBUG
+)
+```
 Example loggers:
 
 ```ruby
