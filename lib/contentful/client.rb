@@ -4,6 +4,7 @@ require_relative 'resource_builder'
 require_relative 'sync'
 
 require 'http'
+require 'logger'
 
 module Contentful
   # The client object is initialized with a space and a key and then used
@@ -11,21 +12,23 @@ module Contentful
   # See README for details
   class Client
     DEFAULT_CONFIGURATION = {
-      secure: true,
-      raise_errors: true,
-      dynamic_entries: :manual,
-      api_url: 'cdn.contentful.com',
-      api_version: 1,
-      authentication_mechanism: :header,
-      resource_builder: ResourceBuilder,
-      resource_mapping: {},
-      entry_mapping: {},
-      default_locale: 'en-US',
-      raw_mode: false,
-      gzip_encoded: false
+        secure: true,
+        raise_errors: true,
+        dynamic_entries: :manual,
+        api_url: 'cdn.contentful.com',
+        api_version: 1,
+        authentication_mechanism: :header,
+        resource_builder: ResourceBuilder,
+        resource_mapping: {},
+        entry_mapping: {},
+        default_locale: 'en-US',
+        raw_mode: false,
+        gzip_encoded: false,
+        logger: false,
+        log_level: Logger::INFO
     }
 
-    attr_reader :configuration, :dynamic_entry_cache
+    attr_reader :configuration, :dynamic_entry_cache, :logger
 
     # Wraps the actual HTTP request
     def self.get_http(url, query, headers = {})
@@ -36,12 +39,18 @@ module Contentful
       @configuration = default_configuration.merge(given_configuration)
       normalize_configuration!
       validate_configuration!
+      setup_logger
 
       if configuration[:dynamic_entries] == :auto
         update_dynamic_entry_cache!
       else
         @dynamic_entry_cache = {}
       end
+    end
+
+    def setup_logger
+      @logger = configuration[:logger]
+      logger.level = configuration[:log_level] if logger
     end
 
     # Returns the default configuration
@@ -105,9 +114,9 @@ module Contentful
 
     # Returns the headers used for the HTTP requests
     def request_headers
-      headers = { 'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}" }
+      headers = {'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}"}
       headers['Authorization'] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
-      headers['Content-Type']  = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
+      headers['Content-Type'] = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
       headers['Accept-Encoding'] = 'gzip' if configuration[:gzip_encoded]
       headers
     end
@@ -126,16 +135,17 @@ module Contentful
     # return Response objects instead
     def get(request, build_resource = true)
       url = request.absolute? ? request.url : base_url + request.url
+      logger.info(request: {url: url, header: request_headers}) if logger
       response = Response.new(
-        self.class.get_http(
-          url,
-          request_query(request.query),
-          request_headers
-        ), request
+          self.class.get_http(
+              url,
+              request_query(request.query),
+              request_headers
+          ), request
       )
 
       return response if !build_resource || configuration[:raw_mode]
-
+      logger.debug(response: response) if logger
       result = configuration[:resource_builder].new(
           self,
           response,
@@ -152,12 +162,12 @@ module Contentful
     # See README for details.
     def update_dynamic_entry_cache!
       @dynamic_entry_cache = Hash[
-        content_types(limit: 1000).map do |ct|
-          [
-            ct.id.to_sym,
-            DynamicEntry.create(ct)
-          ]
-        end
+          content_types(limit: 1000).map do |ct|
+            [
+                ct.id.to_sym,
+                DynamicEntry.create(ct)
+            ]
+          end
       ]
     end
 
@@ -170,7 +180,7 @@ module Contentful
     # Create a new synchronisation object
     # Takes sync options or a sync_url
     # You will need to call #each_page or #first_page on it
-    def sync(options = { initial: true })
+    def sync(options = {initial: true})
       Sync.new(self, options)
     end
 
