@@ -195,19 +195,17 @@ The default severity is set to INFO and logs only the request attributes (header
 
 ### :proxy_host
 
-To make request behind proxy, you need to specify ```:post_host``` it might be domain or IP address of your proxy server.
+To be able to perform a request behind a proxy, you need to specify a ```:proxy_host```.  This can be a domain or IP address of the proxy server.
 
 ### :proxy_port
 
-Specify the port number that is used by the proxy server for client connections
+Specify the port number that is used by the proxy server for client connections.
 
-### :port_password
+### :port_password, :port_username
 
-To use proxy with authentication, you need to specify ```port_password``` parameter.
+To use the proxy with authentication, you need to specify ```port_username``` and ```port_password```.
 
-### :port_username
 
-To use proxy with authentication, you need to specify ```port_username``` parameter.
 
 ### Proxy example
 
@@ -215,7 +213,7 @@ To use proxy with authentication, you need to specify ```port_username``` parame
 client = Contentful::Client.new(
   access_token: 'b4c0n73n7fu1',
   space: 'cfexampleapi',
-  proxy_host: '123.456.798.001',
+  proxy_host: '127.0.0.1',
   proxy_port: 8080,
   proxy_username: 'username',
   proxy_password: 'secret_password',
@@ -317,7 +315,7 @@ first_entry = client.sync(initial: true, type: 'Entry').first_page.items.first
 first_entry.fields('de-DE') # Returns German localizations
 ```
 
-## Ratelimit
+## Rate-limit
 The library does not make assumptions on the rate limit but reacts to `HTTP 429` by returning an error object.
 You should handle this within your code and either do the delay calculation naive (fixed amount of seconds) or more elaborated (exponential increase) depending by the structure of your code.
 
