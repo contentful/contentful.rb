@@ -25,14 +25,22 @@ module Contentful
         raw_mode: false,
         gzip_encoded: false,
         logger: false,
-        log_level: Logger::INFO
+        log_level: Logger::INFO,
+        proxy_host: nil,
+        proxy_username: nil,
+        proxy_password: nil,
+        proxy_port: nil
     }
 
-    attr_reader :configuration, :dynamic_entry_cache, :logger
+    attr_reader :configuration, :dynamic_entry_cache, :logger, :proxy
 
-    # Wraps the actual HTTP request
-    def self.get_http(url, query, headers = {})
-      HTTP[headers].get(url, params: query)
+    # Wraps the actual HTTP request via proxy
+    def self.get_http(url, query, headers = {}, proxy = {})
+      if proxy[:host]
+        HTTP[headers].via(proxy[:host], proxy[:port], proxy[:username], proxy[:password]).get(url, params: query)
+      else
+        HTTP[headers].get(url, params: query)
+      end
     end
 
     def initialize(given_configuration = {})
@@ -51,6 +59,15 @@ module Contentful
     def setup_logger
       @logger = configuration[:logger]
       logger.level = configuration[:log_level] if logger
+    end
+
+    def proxy_params
+      {
+          host: configuration[:proxy_host],
+          port: configuration[:proxy_port],
+          username: configuration[:proxy_username],
+          password: configuration[:proxy_password]
+      }
     end
 
     # Returns the default configuration
@@ -126,7 +143,6 @@ module Contentful
       if configuration[:authentication_mechanism] == :query_string
         query['access_token'] = configuration[:access_token]
       end
-
       query
     end
 
@@ -140,7 +156,8 @@ module Contentful
           self.class.get_http(
               url,
               request_query(request.query),
-              request_headers
+              request_headers,
+              proxy_params
           ), request
       )
 
