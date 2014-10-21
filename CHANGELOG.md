@@ -1,4 +1,8 @@
 # Change Log
+## 0.4.0
+### Added
+* Proxy support
+
 ## 0.3.5
 ### Added
 * Logging of requests
