@@ -18,10 +18,12 @@ module Contentful
     # See https://www.contentful.com/developers/documentation/content-delivery-api/#image-asset-resizing
     def image_url(options = {})
       query = {
-        w:  options[:w]  || options[:width],
-        h:  options[:h]  || options[:height],
-        fm: options[:fm] || options[:format],
-        q:  options[:q]  || options[:quality]
+        w:   options[:w]  || options[:width],
+        h:   options[:h]  || options[:height],
+        fm:  options[:fm] || options[:format],
+        q:   options[:q]  || options[:quality],
+        f:   options[:f]  || options[:focus],
+        fit: options[:fit]
       }.reject { |_k, v| v.nil? }
 
       if query.empty?
