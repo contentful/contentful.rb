@@ -1,4 +1,8 @@
 # Change Log
+## Unreleases
+### Added
+* `focus` and `fit` to image handling parameters [#44](https://github.com/contentful/contentful.rb/pull/44)
+
 ## 0.4.0
 ### Added
 * Proxy support
