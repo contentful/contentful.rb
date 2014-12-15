@@ -54,9 +54,9 @@ describe Contentful::Asset do
     end
 
     it 'adds image options if given' do
-      url = asset.image_url(width: 100, format: 'jpg', quality: 50)
+      url = asset.image_url(width: 100, format: 'jpg', quality: 50, focus: 'top_right', fit: 'thumb')
       expect(url).to include asset.file.url
-      expect(url).to include '?w=100&fm=jpg&q=50'
+      expect(url).to include '?w=100&fm=jpg&q=50&f=top_right&fit=thumb'
     end
   end
 end
