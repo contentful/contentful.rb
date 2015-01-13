@@ -21,7 +21,7 @@ describe Contentful::Array do
     end
 
     it 'has #total' do
-      expect(array.total).to eq 4
+      expect(array.total).to eq 5
     end
 
     it 'has #skip' do

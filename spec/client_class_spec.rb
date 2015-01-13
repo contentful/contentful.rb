@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'http'
 
 describe Contentful::Client do
   describe '#get' do
@@ -11,7 +12,7 @@ describe Contentful::Client do
     end
 
     it 'uses #base_url' do
-      stub(client).base_url { 'https://cdn.contentful.com/spaces/cfexampleapi' }
+      stub(client).base_url { 'http://cms.cafewell.com:1337/spaces/cfexampleapi' }
       vcr('content_type') { client.get(request) }
       expect(client).to have_received.base_url
     end
@@ -20,7 +21,6 @@ describe Contentful::Client do
       stub(client).request_headers do
         {
             'User-Agent' => 'RubyContentfulGem/0.1.0',
-            'Authorization' => 'Bearer b4c0n73n7fu1',
             'Content-Type' => 'application/vnd.contentful.delivery.v1+json',
         }
       end
