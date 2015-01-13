@@ -9,18 +9,10 @@ describe 'Client Configuration Options' do
     end
   end
 
-  describe ':access_token' do
-    it 'is required' do
-      expect do
-        Contentful::Client.new(space: 'cfexampleapi')
-      end.to raise_error(ArgumentError)
-    end
-  end
-
   describe ':secure' do
-    it 'will use https [default]' do
+    it 'will use https when secure set to true' do
       expect(
-        create_client.base_url
+        create_client(secure: true).base_url
       ).to start_with 'https://'
     end
 
@@ -33,16 +25,16 @@ describe 'Client Configuration Options' do
 
   describe ':raise_errors' do
     it 'will raise response errors if set to true [default]' do
-      expect_vcr('not found')do
-        create_client.entry 'not found'
+      expect_vcr('notfound')do
+        create_client.entry 'notfound'
       end.to raise_error Contentful::NotFound
     end
 
     it 'will not raise response errors if set to false' do
       res = nil
 
-      expect_vcr('not found')do
-        res = create_client(raise_errors: false).entry 'not found'
+      expect_vcr('notfound')do
+        res = create_client(raise_errors: false).entry 'notfound'
       end.not_to raise_error
       expect(res).to be_instance_of Contentful::NotFound
     end
@@ -115,16 +107,16 @@ describe 'Client Configuration Options' do
   end
 
   describe ':api_url' do
-    it 'is "cdn.contentful.com" [default]' do
+    it 'is "cms.cafewell.com" [default]' do
       expect(
         create_client.configuration[:api_url]
-      ).to eq 'cdn.contentful.com'
+      ).to eq 'cms.cafewell.com'
     end
 
     it 'will be used as base url' do
       expect(
         create_client(api_url: 'cdn2.contentful.com').base_url
-      ).to start_with 'https://cdn2.contentful.com'
+      ).to start_with 'http://cdn2.contentful.com'
     end
   end
 
@@ -139,38 +131,6 @@ describe 'Client Configuration Options' do
       expect(
         create_client(api_version: 2).request_headers['Content-Type']
       ).to eq 'application/vnd.contentful.delivery.v2+json'
-    end
-  end
-
-  describe ':authentication_mechanism' do
-    describe ':header [default]' do
-      it 'will add the :access_token as authorization bearer token request header' do
-        expect(
-          create_client.request_headers['Authorization']
-        ).to eq 'Bearer b4c0n73n7fu1'
-      end
-
-      it 'will not add :access_token to query' do
-        expect(
-          create_client.request_query({})['access_token']
-        ).to be_nil
-      end
-    end
-
-    describe ':query_string' do
-      it 'will add the :access_token to query' do
-        expect(
-          create_client(authentication_mechanism: :query_string).
-              request_query({})['access_token']
-        ).to eq 'b4c0n73n7fu1'
-      end
-
-      it 'will not add the :access_token as authorization bearer token request header' do
-        expect(
-          create_client(authentication_mechanism: :query_string).
-              request_headers['Authorization']
-        ).to be_nil
-      end
     end
   end
 

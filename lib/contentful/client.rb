@@ -12,12 +12,12 @@ module Contentful
   # See README for details
   class Client
     DEFAULT_CONFIGURATION = {
-        secure: true,
+        secure: false,
         raise_errors: true,
         dynamic_entries: :manual,
-        api_url: 'cdn.contentful.com',
+        api_url: 'cms.cafewell.com',
+        api_port: 1337,
         api_version: 1,
-        authentication_mechanism: :header,
         resource_builder: ResourceBuilder,
         resource_mapping: {},
         entry_mapping: {},
@@ -39,6 +39,7 @@ module Contentful
       if proxy[:host]
         HTTP[headers].via(proxy[:host], proxy[:port], proxy[:username], proxy[:password]).get(url, params: query)
       else
+        puts url
         HTTP[headers].get(url, params: query)
       end
     end
@@ -126,24 +127,15 @@ module Contentful
 
     # Returns the base url for all of the client's requests
     def base_url
-      "http#{configuration[:secure] ? 's' : ''}://#{configuration[:api_url]}/spaces/#{configuration[:space]}"
+      "http#{configuration[:secure] ? 's' : ''}://#{configuration[:api_url]}:#{configuration[:api_port]}/spaces/#{configuration[:space]}"
     end
 
     # Returns the headers used for the HTTP requests
     def request_headers
       headers = {'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}"}
-      headers['Authorization'] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
       headers['Content-Type'] = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
       headers['Accept-Encoding'] = 'gzip' if configuration[:gzip_encoded]
       headers
-    end
-
-    # Patches a query hash with the client configurations for queries
-    def request_query(query)
-      if configuration[:authentication_mechanism] == :query_string
-        query['access_token'] = configuration[:access_token]
-      end
-      query
     end
 
     # Get a Contentful::Request object
@@ -155,7 +147,7 @@ module Contentful
       response = Response.new(
           self.class.get_http(
               url,
-              request_query(request.query),
+              request.query,
               request_headers,
               proxy_params
           ), request
@@ -204,17 +196,12 @@ module Contentful
     private
 
     def normalize_configuration!
-      [:space, :access_token, :api_url, :default_locale].each { |s| configuration[s] = configuration[s].to_s }
-      configuration[:authentication_mechanism] = configuration[:authentication_mechanism].to_sym
+      [:space, :api_url, :default_locale].each { |s| configuration[s] = configuration[s].to_s }
     end
 
     def validate_configuration!
       if configuration[:space].empty?
         fail ArgumentError, 'You will need to initialize a client with a :space'
-      end
-
-      if configuration[:access_token].empty?
-        fail ArgumentError, 'You will need to initialize a client with an :access_token'
       end
 
       if configuration[:api_url].empty?
@@ -227,10 +214,6 @@ module Contentful
 
       unless configuration[:api_version].to_i >= 0
         fail ArgumentError, 'The :api_version must be a positive number or nil'
-      end
-
-      unless [:header, :query_string].include? configuration[:authentication_mechanism]
-        fail ArgumentError, 'The authentication mechanism must be :header or :query_string'
       end
 
       unless [:auto, :manual].include? configuration[:dynamic_entries]

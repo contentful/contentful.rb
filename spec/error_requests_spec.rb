@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe 'Error Requests' do
-  it 'will return 404 (Unauthorized) if resource not found' do
-    expect_vcr('not found')do
-      create_client.entry 'not found'
+  it 'will return 404 (Not) if resource not found' do
+    expect_vcr('notfound')do
+      create_client.entry 'notfound'
     end.to raise_error(Contentful::NotFound)
   end
 
   it 'will return 400 (BadRequest) if invalid parameters have been passed' do
-    expect_vcr('bad request')do
+    expect_vcr('badrequest')do
       create_client.entries(some: 'parameter')
     end.to raise_error(Contentful::BadRequest)
   end

@@ -2,60 +2,60 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types?limit=2&skip=3
+    uri: http://cms.cafewell.com:1337/spaces/cfexampleapi/content_types?limit=2&skip=3
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.1
-      Authorization:
-      - Bearer b4c0n73n7fu1
+      - RubyContentfulGem/0.4.0
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Host:
-      - cdn.contentful.com
+      - cms.cafewell.com
   response:
     status:
       code: 200
       message: OK
     headers:
-      Date:
-      - Wed, 16 Apr 2014 09:00:19 GMT
-      Server:
-      - nginx/1.1.19
+      Accept-Ranges:
+      - none
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
-      - "*"
+      - '*'
+      Access-Control-Expose-Headers:
+      - Etag
       Access-Control-Max-Age:
       - '86400'
+      Age:
+      - '0'
       Cache-Control:
       - max-age=0
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
+      Date:
+      - Tue, 13 Jan 2015 21:54:58 GMT
       Etag:
-      - "\"098a04921c0747087815e148a98bcacf\""
-      X-Contentful-Request-Id:
-      - f1c-737716791
-      Content-Length:
-      - '813'
-      Accept-Ranges:
-      - bytes
+      - '"a9932c5343341237fc0fe8ae00b1eb5b"'
+      Server:
+      - nginx
+      Vary:
+      - Accept-Encoding
       Via:
       - 1.1 varnish
-      Age:
-      - '0'
-      X-Served-By:
-      - cache-am72-AMS
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
-      Vary:
-      - Accept-Encoding
+      X-Contentful-Request-Id:
+      - f1c-667330383
+      X-Served-By:
+      - cache-iad2134-IAD
+      Transfer-Encoding:
+      - chunked
     body:
       encoding: UTF-8
       string: |
@@ -63,26 +63,78 @@ http_interactions:
           "sys": {
             "type": "Array"
           },
-          "total": 4,
+          "total": 5,
           "skip": 3,
           "limit": 2,
           "items": [
             {
               "fields": [
                 {
-                  "name": "Name",
                   "id": "name",
+                  "name": "Name",
                   "type": "Text",
-                  "required": true
+                  "required": true,
+                  "localized": true
                 },
                 {
-                  "name": "Center",
-                  "id": "center",
-                  "type": "Location",
-                  "required": true
+                  "id": "likes",
+                  "name": "Likes",
+                  "type": "Array",
+                  "required": false,
+                  "localized": false,
+                  "items": {
+                    "type": "Symbol"
+                  }
+                },
+                {
+                  "id": "color",
+                  "name": "Color",
+                  "type": "Symbol",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "bestFriend",
+                  "name": "Best Friend",
+                  "type": "Link",
+                  "required": false,
+                  "localized": false,
+                  "linkType": "Entry"
+                },
+                {
+                  "id": "birthday",
+                  "name": "Birthday",
+                  "type": "Date",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "lifes",
+                  "name": "Lifes left",
+                  "type": "Integer",
+                  "required": false,
+                  "localized": false,
+                  "disabled": true
+                },
+                {
+                  "id": "lives",
+                  "name": "Lives left",
+                  "type": "Integer",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "image",
+                  "name": "Image",
+                  "required": false,
+                  "localized": false,
+                  "type": "Link",
+                  "linkType": "Asset"
                 }
               ],
-              "name": "City",
+              "name": "Cat",
+              "displayField": "name",
+              "description": "Meow.",
               "sys": {
                 "space": {
                   "sys": {
@@ -92,15 +144,70 @@ http_interactions:
                   }
                 },
                 "type": "ContentType",
-                "id": "1t9IbcfdCk6m04uISSsaIK",
-                "revision": 1,
-                "createdAt": "2014-02-21T13:42:33.009Z",
-                "updatedAt": "2014-02-21T13:42:33.009Z"
-              },
-              "displayField": "name"
+                "id": "cat",
+                "revision": 2,
+                "createdAt": "2013-06-27T22:46:12.852Z",
+                "updatedAt": "2013-09-02T13:14:47.863Z"
+              }
+            },
+            {
+              "fields": [
+                {
+                  "id": "name",
+                  "name": "Name",
+                  "type": "Text",
+                  "required": true,
+                  "localized": false
+                },
+                {
+                  "id": "description",
+                  "name": "Description",
+                  "type": "Text",
+                  "required": false,
+                  "localized": false
+                },
+                {
+                  "id": "likes",
+                  "name": "Likes",
+                  "type": "Array",
+                  "required": false,
+                  "localized": false,
+                  "items": {
+                    "type": "Symbol"
+                  }
+                },
+                {
+                  "id": "image",
+                  "name": "Image",
+                  "required": false,
+                  "localized": false,
+                  "type": "Array",
+                  "items": {
+                    "type": "Link",
+                    "linkType": "Asset"
+                  },
+                  "disabled": true
+                }
+              ],
+              "name": "Human",
+              "displayField": "name",
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "type": "ContentType",
+                "id": "human",
+                "revision": 3,
+                "createdAt": "2013-06-27T22:46:14.133Z",
+                "updatedAt": "2013-09-02T15:10:26.818Z"
+              }
             }
           ]
         }
     http_version: 
-  recorded_at: Wed, 16 Apr 2014 09:00:19 GMT
-recorded_with: VCR 2.9.0
+  recorded_at: Tue, 13 Jan 2015 21:55:01 GMT
+recorded_with: VCR 2.9.3

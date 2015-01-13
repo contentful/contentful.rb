@@ -2,60 +2,60 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/finn
+    uri: http://cms.cafewell.com:1337/spaces/cfexampleapi/entries/finn
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.3
-      Authorization:
-      - Bearer b4c0n73n7fu1
+      - RubyContentfulGem/0.4.0
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Host:
-      - cdn.contentful.com
+      - cms.cafewell.com
   response:
     status:
       code: 200
       message: OK
     headers:
-      Date:
-      - Fri, 18 Apr 2014 17:56:56 GMT
-      Server:
-      - nginx/1.1.19
+      Accept-Ranges:
+      - none
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
-      - "*"
+      - '*'
+      Access-Control-Expose-Headers:
+      - Etag
       Access-Control-Max-Age:
       - '86400'
-      Cache-Control:
-      - max-age=0
-      Content-Type:
-      - application/vnd.contentful.delivery.v1+json
-      Etag:
-      - "\"fcdc41e711c72e3cbc389211fde21287\""
-      X-Contentful-Request-Id:
-      - f1c-737727925
-      Content-Length:
-      - '591'
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
       Age:
       - '0'
-      X-Served-By:
-      - cache-fra1229-FRA
+      Cache-Control:
+      - max-age=0
+      Content-Length:
+      - '591'
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Date:
+      - Tue, 13 Jan 2015 21:55:03 GMT
+      Etag:
+      - '"fcdc41e711c72e3cbc389211fde21287"'
+      Server:
+      - nginx
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 varnish
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
-      Vary:
-      - Accept-Encoding
+      X-Contentful-Request-Id:
+      - f1c-667376724
+      X-Served-By:
+      - cache-iad2122-IAD
     body:
       encoding: UTF-8
       string: |
@@ -91,5 +91,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Fri, 18 Apr 2014 17:56:56 GMT
-recorded_with: VCR 2.9.0
+  recorded_at: Tue, 13 Jan 2015 21:55:06 GMT
+recorded_with: VCR 2.9.3

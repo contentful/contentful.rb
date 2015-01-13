@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://cms.cafewell.com:1337/spaces/cfexampleapi/sync?initial=true&type=DeletedEntry
+    uri: http://cms.cafewell.com:1337/spaces/cfexampleapi/entries/notfound
     body:
       encoding: US-ASCII
       string: ''
@@ -15,19 +15,17 @@ http_interactions:
       - cms.cafewell.com
   response:
     status:
-      code: 200
-      message: OK
+      code: 404
+      message: Not Found
     headers:
       Accept-Ranges:
-      - none
+      - bytes
       Access-Control-Allow-Headers:
       - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
       - '*'
-      Access-Control-Expose-Headers:
-      - Etag
       Access-Control-Max-Age:
       - '86400'
       Age:
@@ -35,55 +33,37 @@ http_interactions:
       Cache-Control:
       - max-age=0
       Content-Length:
-      - '736'
+      - '233'
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Date:
-      - Tue, 13 Jan 2015 21:55:04 GMT
-      Etag:
-      - '"5423afb4be787a02e8cb41c366ca77b9"'
+      - Tue, 13 Jan 2015 22:08:37 GMT
       Server:
       - nginx
-      Vary:
-      - Accept-Encoding
       Via:
       - 1.1 varnish
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
-      X-Contentful-Request-Id:
-      - 71a-1123375141
       X-Served-By:
-      - cache-iad2122-IAD
+      - cache-jfk1020-JFK
     body:
       encoding: UTF-8
       string: |
         {
           "sys": {
-            "type": "Array"
+            "type": "Error",
+            "id": "NotFound"
           },
-          "items": [
-            {
-              "sys": {
-                "type": "DeletedEntry",
-                "id": "4rPdazIwWkuuKEAQgemSmO",
-                "space": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Space",
-                    "id": "cfexampleapi"
-                  }
-                },
-                "revision": 1,
-                "createdAt": "2014-08-11T08:30:42.559Z",
-                "updatedAt": "2014-08-11T08:30:42.559Z",
-                "deletedAt": "2014-08-11T08:30:42.559Z"
-              }
-            }
-          ],
-          "nextSyncUrl": "https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1fj_CoRxbV3kedxTDscKpwr7ClcO7wqvCvsK7w7_DpFvCrcOZWcOgw5PCkMKNwrhCOsK9"
+          "message": "The resource could not be found.",
+          "details": {
+            "type": "Entry",
+            "id": "notfound",
+            "space": "cfexampleapi"
+          },
+          "requestId": "f1c-667383327"
         }
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 21:55:07 GMT
+  recorded_at: Tue, 13 Jan 2015 22:08:40 GMT
 recorded_with: VCR 2.9.3

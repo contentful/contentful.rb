@@ -14,7 +14,7 @@ describe 'DeletedEntry' do
     end
 
     it 'has #id' do
-      expect(deleted_entry.id).to eq 'CVebBDcQsSsu6yKKIayy'
+      expect(deleted_entry.id).to_not be nil
     end
 
     it 'has #type' do
