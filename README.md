@@ -24,6 +24,16 @@ client = Contentful::Client.new(
 )
 ```
 
+If you plan on using the [Preview API](https://www.contentful.com/developers/documentation/content-delivery-api/ruby/#preview-api-usage) you need to specify the `api_url`:
+
+```ruby
+client = Contentful::Client.new(
+  access_token: 'b4c0n73n7fu1',
+  space: 'cfexampleapi',
+  api_url: 'preview.contentful.com'
+)
+```
+
 You can query for entries, assets, etc. very similar as described in the
 [Delivery API Documentation](https://www.contentful.com/developers/documentation/content-delivery-api/). Please note, that **all methods of the Ruby client library are snake_cased, instead of JavaScript's camelCase**:
 
