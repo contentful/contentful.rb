@@ -1,5 +1,5 @@
 # Change Log
-## Unreleases
+## Unreleased
 ### Added
 * `focus` and `fit` to image handling parameters [#44](https://github.com/contentful/contentful.rb/pull/44)
 
