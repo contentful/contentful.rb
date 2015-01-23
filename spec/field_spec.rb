@@ -26,11 +26,11 @@ describe Contentful::Field do
     end
 
     it 'has #required' do
-      expect(field.required).to be_true
+      expect(field.required).to be_truthy
     end
 
     it 'has #localized' do
-      expect(field.required).to be_true
+      expect(field.required).to be_truthy
     end
   end
 end

@@ -63,7 +63,7 @@ describe Contentful::Array do
     end
 
     it 'will return false if #request not available' do
-      expect(Contentful::Array.new({}).reload).to be_false
+      expect(Contentful::Array.new({}).reload).to be_falsey
     end
   end
 end

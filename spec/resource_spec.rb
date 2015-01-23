@@ -46,7 +46,7 @@ describe Contentful::Resource do
     end
 
     it 'will return false if #request not available' do
-      expect(Contentful::ContentType.new({}).reload).to be_false
+      expect(Contentful::ContentType.new({}).reload).to be_falsey
     end
   end
 end

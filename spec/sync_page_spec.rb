@@ -82,21 +82,21 @@ describe Contentful::SyncPage do
 
   describe '#next_page?' do
     it 'will return true if there is a next page' do
-      expect(page_with_more.next_page?).to be_true
+      expect(page_with_more.next_page?).to be_truthy
     end
 
     it 'will return false if last page' do
-      expect(page.next_page?).to be_false
+      expect(page.next_page?).to be_falsey
     end
   end
 
   describe '#last_page?' do
     it 'will return true if no more pages available' do
-      expect(page.last_page?).to be_true
+      expect(page.last_page?).to be_truthy
     end
 
     it 'will return false if more pages available' do
-      expect(page_with_more.last_page?).to be_false
+      expect(page_with_more.last_page?).to be_falsey
     end
   end
 
