@@ -1,5 +1,8 @@
 # Change Log
 ## Unreleased
+### Fixed
+* Better handling of 503 responses from the API [#48](https://github.com/contentful/contentful-management.rb/pull/48)
+
 ### Added
 * `focus` and `fit` to image handling parameters [#44](https://github.com/contentful/contentful.rb/pull/44)
 
