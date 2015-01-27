@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Contentful::Error do
-  let(:r) { Contentful::Response.new raw_fixture('not_found',404) }
+  let(:r) { Contentful::Response.new raw_fixture('not_found', 404) }
 
   describe '#response' do
     it 'returns the response the error has been initialized with' do
@@ -28,24 +28,29 @@ describe Contentful::Error do
   end
 
   describe '.[]' do
-    it 'returns NotFound error class for 404' do
-      expect(Contentful::Error[404]).to eq Contentful::NotFound
-    end
 
     it 'returns BadRequest error class for 400' do
       expect(Contentful::Error[400]).to eq Contentful::BadRequest
-    end
-
-    it 'returns AccessDenied error class for 403' do
-      expect(Contentful::Error[403]).to eq Contentful::AccessDenied
     end
 
     it 'returns Unauthorized error class for 401' do
       expect(Contentful::Error[401]).to eq Contentful::Unauthorized
     end
 
+    it 'returns AccessDenied error class for 403' do
+      expect(Contentful::Error[403]).to eq Contentful::AccessDenied
+    end
+
+    it 'returns NotFound error class for 404' do
+      expect(Contentful::Error[404]).to eq Contentful::NotFound
+    end
+
     it 'returns ServerError error class for 500' do
       expect(Contentful::Error[500]).to eq Contentful::ServerError
+    end
+
+    it 'returns ServiceUnavailable error class for 503' do
+      expect(Contentful::Error[503]).to eq Contentful::ServiceUnavailable
     end
 
     it 'returns generic error class for any other value' do

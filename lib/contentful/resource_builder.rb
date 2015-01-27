@@ -12,7 +12,7 @@ require_relative 'deleted_asset'
 
 module Contentful
   # Transforms a Contentful::Response into a Contentful::Resource or a Contentful::Error
-  # See example/resource_mapping.rb for avanced usage
+  # See example/resource_mapping.rb for advanced usage
   class ResourceBuilder
     DEFAULT_RESOURCE_MAPPING = {
       'Space' => Space,

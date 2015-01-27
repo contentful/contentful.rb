@@ -63,11 +63,11 @@ describe Contentful::Sync do
 
   describe '#completed?' do
     it 'will return true if no more pages to request in the current sync' do
-      expect(first_page.next_sync_url).to be_false
+      expect(first_page.next_sync_url).to be_falsey
     end
 
     it 'will return true if not all pages requested, yet' do
-      expect(last_page.next_sync_url).to be_true
+      expect(last_page.next_sync_url).to be_truthy
     end
   end
 

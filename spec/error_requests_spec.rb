@@ -14,7 +14,7 @@ describe 'Error Requests' do
   end
 
   it 'will return 403 (AccessDenied) if ...' do
-    pending
+    skip
   end
 
   it 'will return 401 (Unauthorized) if wrong credentials given' do
@@ -26,6 +26,14 @@ describe 'Error Requests' do
   end
 
   it 'will return 500 (ServerError) if ...' do
-    pending
+    skip
+  end
+
+  it 'will return 503 (ServiceUnavailable) if connection time out' do
+    client = Contentful::Client.new(space: 'wrong', access_token: 'credentials')
+
+    expect_vcr('unavailable'){
+      client.entry 'nyancat'
+    }.to raise_error(Contentful::ServiceUnavailable)
   end
 end

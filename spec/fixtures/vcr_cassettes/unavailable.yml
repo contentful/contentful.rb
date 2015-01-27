@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/wrong/entries/nyancat
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.1.1
+      Authorization:
+      - Bearer credentials
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 503
+      message: ServiceUnavailable
+    headers:
+      Date:
+      - Wed, 16 Apr 2014 09:00:24 GMT
+      Server:
+      - nginx/1.1.19
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Content-Length:
+      - '179'
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-am72-AMS
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Error",
+            "id": "ServiceUnavailable"
+          },
+          "message": "Service Unavailable, contenful.com API seems to be down",
+          "requestId": "85f-649640521"
+        }
+    http_version: 
+  recorded_at: Wed, 16 Apr 2014 09:00:24 GMT
+recorded_with: VCR 2.9.0

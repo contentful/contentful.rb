@@ -31,8 +31,10 @@ module Contentful
         parse_json!
       elsif no_content_response?
         @status = :no_content
-      elsif no_resource_or_bad_request?
+      elsif invalid_response?
         parse_contentful_error
+      elsif service_unavailable_response?
+        service_unavailable_error
       else
         parse_http_error
       end
@@ -54,12 +56,22 @@ module Contentful
       [200, 201].include?(raw.status)
     end
 
+    def service_unavailable_response?
+      @raw.status == 503
+    end
+
+    def service_unavailable_error
+      @status = :error
+      @error_message = 'Service Unavailable, contenful.com API seems to be down'
+      @object = Error[@raw.status].new(self)
+    end
+
     def parse_http_error
       @status = :error
       @object = Error[raw.status].new(self)
     end
 
-    def no_resource_or_bad_request?
+    def invalid_response?
       [400, 404].include?(raw.status)
     end
 
