@@ -12,24 +12,24 @@ module Contentful
   # See README for details
   class Client
     DEFAULT_CONFIGURATION = {
-        secure: true,
-        raise_errors: true,
-        dynamic_entries: :manual,
-        api_url: 'cdn.contentful.com',
-        api_version: 1,
-        authentication_mechanism: :header,
-        resource_builder: ResourceBuilder,
-        resource_mapping: {},
-        entry_mapping: {},
-        default_locale: 'en-US',
-        raw_mode: false,
-        gzip_encoded: false,
-        logger: false,
-        log_level: Logger::INFO,
-        proxy_host: nil,
-        proxy_username: nil,
-        proxy_password: nil,
-        proxy_port: nil
+      secure: true,
+      raise_errors: true,
+      dynamic_entries: :manual,
+      api_url: 'cdn.contentful.com',
+      api_version: 1,
+      authentication_mechanism: :header,
+      resource_builder: ResourceBuilder,
+      resource_mapping: {},
+      entry_mapping: {},
+      default_locale: 'en-US',
+      raw_mode: false,
+      gzip_encoded: false,
+      logger: false,
+      log_level: Logger::INFO,
+      proxy_host: nil,
+      proxy_username: nil,
+      proxy_password: nil,
+      proxy_port: nil
     }
 
     attr_reader :configuration, :dynamic_entry_cache, :logger, :proxy
@@ -63,10 +63,10 @@ module Contentful
 
     def proxy_params
       {
-          host: configuration[:proxy_host],
-          port: configuration[:proxy_port],
-          username: configuration[:proxy_username],
-          password: configuration[:proxy_password]
+        host: configuration[:proxy_host],
+        port: configuration[:proxy_port],
+        username: configuration[:proxy_username],
+        password: configuration[:proxy_password]
       }
     end
 
@@ -131,7 +131,7 @@ module Contentful
 
     # Returns the headers used for the HTTP requests
     def request_headers
-      headers = {'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}"}
+      headers = { 'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}" }
       headers['Authorization'] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
       headers['Content-Type'] = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
       headers['Accept-Encoding'] = 'gzip' if configuration[:gzip_encoded]
@@ -151,7 +151,7 @@ module Contentful
     # return Response objects instead
     def get(request, build_resource = true)
       url = request.absolute? ? request.url : base_url + request.url
-      logger.info(request: {url: url, query: request.query, header: request_headers}) if logger
+      logger.info(request: { url: url, query: request.query, header: request_headers }) if logger
       response = Response.new(
           self.class.get_http(
               url,
@@ -179,12 +179,12 @@ module Contentful
     # See README for details.
     def update_dynamic_entry_cache!
       @dynamic_entry_cache = Hash[
-          content_types(limit: 1000).map do |ct|
-            [
-                ct.id.to_sym,
-                DynamicEntry.create(ct)
-            ]
-          end
+                             content_types(limit: 1000).map do |ct|
+                               [
+                                 ct.id.to_sym,
+                                 DynamicEntry.create(ct)
+                               ]
+                             end
       ]
     end
 
@@ -197,7 +197,7 @@ module Contentful
     # Create a new synchronisation object
     # Takes sync options or a sync_url
     # You will need to call #each_page or #first_page on it
-    def sync(options = {initial: true})
+    def sync(options = { initial: true })
       Sync.new(self, options)
     end
 

@@ -21,9 +21,9 @@ module Contentful
       end
 
       fields_coercions = Hash[
-        content_type.fields.map do |field|
-          [field.id.to_sym, KNOWN_TYPES[field.type]]
-        end
+                         content_type.fields.map do |field|
+                           [field.id.to_sym, KNOWN_TYPES[field.type]]
+                         end
       ]
 
       Class.new DynamicEntry do

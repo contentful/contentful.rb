@@ -11,7 +11,7 @@ module Contentful
         revision: :integer,
         createdAt: :date,
         updatedAt: :date,
-        locale: :string,
+        locale: :string
       }
       attr_reader :sys
 
@@ -37,11 +37,11 @@ module Contentful
       def self.included(base)
         base.extend(ClassMethods)
 
-        base.sys_coercions.keys.each{ |name|
+        base.sys_coercions.keys.each do |name|
           base.send :define_method, Contentful::Support.snakify(name) do
             sys[name.to_sym]
           end
-        }
+        end
       end
     end
   end

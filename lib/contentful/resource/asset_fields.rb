@@ -9,7 +9,7 @@ module Contentful
       FIELDS_COERCIONS = {
         title: :string,
         description: :string,
-        file: File,
+        file: File
       }
 
       def fields
@@ -39,11 +39,11 @@ module Contentful
       def self.included(base)
         base.extend(ClassMethods)
 
-        base.fields_coercions.keys.each{ |name|
+        base.fields_coercions.keys.each do |name|
           base.send :define_method, Contentful::Support.snakify(name) do
             fields[name.to_sym]
           end
-        }
+        end
       end
     end
   end

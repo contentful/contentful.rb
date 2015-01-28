@@ -22,7 +22,7 @@ module Contentful
       'Array' => :array_or_sync_page,
       'Link' => Link,
       'DeletedEntry' => DeletedEntry,
-      'DeletedAsset' => DeletedAsset,
+      'DeletedAsset' => DeletedAsset
     }
     DEFAULT_ENTRY_MAPPING = {}
 
@@ -103,9 +103,9 @@ module Contentful
     # Returns the id of the related ContentType, if there is one
     def content_type_id_for_entry(object)
       object['sys'] &&
-      object['sys']['contentType'] &&
-      object['sys']['contentType']['sys'] &&
-      object['sys']['contentType']['sys']['id']
+        object['sys']['contentType'] &&
+        object['sys']['contentType']['sys'] &&
+        object['sys']['contentType']['sys']['id']
     end
 
     # Detects if a resource is an Contentful::Array or a SyncPage
@@ -163,9 +163,9 @@ module Contentful
       if object.is_a? Hash
         object.select do |_, v|
           v.is_a?(::Array) &&
-          v.first &&
-          v.first.is_a?(Hash) &&
-          v.first.key?('sys')
+            v.first &&
+            v.first.is_a?(Hash) &&
+            v.first.key?('sys')
         end
       else
         {}
@@ -196,10 +196,10 @@ module Contentful
       if included_objects
         included_objects.each do |type, objects|
           @included_resources[type] = Hash[
-            objects.map do |object|
-              res = create_resource(object)
-              [res.id, res]
-            end
+                                      objects.map do |object|
+                                        res = create_resource(object)
+                                        [res.id, res]
+                                      end
           ]
         end
       end
