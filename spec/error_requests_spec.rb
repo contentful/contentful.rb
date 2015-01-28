@@ -21,7 +21,7 @@ describe 'Error Requests' do
     client = Contentful::Client.new(space: 'wrong', access_token: 'credentials')
 
     expect_vcr('unauthorized'){
-      client.entry 'nyancat'
+      client.entry('nyancat')
     }.to raise_error(Contentful::Unauthorized)
   end
 
@@ -29,11 +29,18 @@ describe 'Error Requests' do
     skip
   end
 
+  it 'will return a 429 if the ratelimit is hit' do
+    client = Contentful::Client.new(space: 'wrong', access_token: 'credentials')
+    expect_vcr('ratelimit') {
+      client.entry('nyancat')
+    }.to raise_error(Contentful::RateLimitExceeded)
+  end
+
   it 'will return 503 (ServiceUnavailable) if connection time out' do
     client = Contentful::Client.new(space: 'wrong', access_token: 'credentials')
 
     expect_vcr('unavailable'){
-      client.entry 'nyancat'
+      client.entry('nyancat')
     }.to raise_error(Contentful::ServiceUnavailable)
   end
 end

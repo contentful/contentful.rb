@@ -21,6 +21,8 @@ module Contentful
         AccessDenied
       when 401
         Unauthorized
+      when 429
+        RateLimitExceeded
       when 500
         ServerError
       when 503
@@ -42,6 +44,9 @@ module Contentful
 
   # 401
   class Unauthorized < Error; end
+
+  # 429
+  class RateLimitExceeded < Error; end
 
   # 500
   class ServerError < Error; end
