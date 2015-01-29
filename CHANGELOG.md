@@ -1,5 +1,5 @@
 # Change Log
-## Unreleased
+## 0.5.0
 ### Fixed
 * Better handling of 503 responses from the API [#48](https://github.com/contentful/contentful-management.rb/pull/48)
 * Better handling of 429 responses from the API [#51](https://github.com/contentful/contentful-management.rb/pull/51)
