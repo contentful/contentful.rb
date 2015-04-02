@@ -1,4 +1,8 @@
 # Change Log
+## Unreleased
+### Other
+* Update http.rb dependency to v0.8.0
+
 ## 0.5.0
 ### Fixed
 * Better handling of 503 responses from the API [#50](https://github.com/contentful/contentful.rb/pull/50)
