@@ -62,7 +62,7 @@ module Contentful
 
     def service_unavailable_error
       @status = :error
-      @error_message = 'Service Unavailable, contenful.com API seems to be down'
+      @error_message = 'Service unavailable, contentful.com API seems to be down (503)'
       @object = Error[@raw.status].new(self)
     end
 
