@@ -3,6 +3,7 @@
 ### Other
 * Update http.rb dependency to v0.8.0
 * Fix typo in service unavailable error message [#61](https://github.com/contentful/contentful.rb/pull/61)
+* Enable gzip encoding by default [#62](https://github.com/contentful/contentful.rb/pull/62)
 
 ## 0.5.0
 ### Fixed
