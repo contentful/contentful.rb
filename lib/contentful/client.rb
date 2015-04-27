@@ -23,7 +23,7 @@ module Contentful
       entry_mapping: {},
       default_locale: 'en-US',
       raw_mode: false,
-      gzip_encoded: false,
+      gzip_encoded: true,
       logger: false,
       log_level: Logger::INFO,
       proxy_host: nil,
