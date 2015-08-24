@@ -1,5 +1,8 @@
 # Change Log
 ## Unreleased
+### Fixed
+* Parse nested locales in `AssetFields` [#66](https://github.com/contentful/contentful.rb/pull/66)
+
 ### Other
 * Update http.rb dependency to v0.8.0
 * Fix typo in service unavailable error message [#61](https://github.com/contentful/contentful.rb/pull/61)
