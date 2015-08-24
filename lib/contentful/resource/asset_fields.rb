@@ -12,14 +12,27 @@ module Contentful
         file: File
       }
 
-      def fields
-        @fields[locale]
+      # Returns all fields of the asset
+      def fields(wanted_locale = default_locale)
+        @fields[locale || wanted_locale]
       end
 
       def initialize(object, *)
         super
         @fields = {}
-        @fields[locale] = extract_from_object object['fields'], :fields
+
+        if nested_locale_fields?
+          object['fields'].each do |field_name, nested_child_object|
+            nested_child_object.each do |object_locale, real_child_object|
+              @fields[object_locale] ||= {}
+              @fields[object_locale].merge! extract_from_object(
+                { field_name => real_child_object }, :fields
+              )
+            end
+          end
+        else
+          @fields[locale] = extract_from_object object['fields'], :fields
+        end
       end
 
       def inspect(info = nil)
