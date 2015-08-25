@@ -330,6 +330,13 @@ The library does not make assumptions on the rate limit but reacts to `HTTP 429`
 You should handle this within your code and either do the delay calculation naive (fixed amount of seconds) or more elaborated (exponential increase) depending by the structure of your code.
 
 
+## Workarounds
+
+- When an entry has related entries that are unpublished, they still end up in the resource as unresolved links. We consider this correct, because it is in line with the API responses and our other SDKs. However, you can use the workaround from [issue #60](/../../issues/60) if you happen to want this working differently.
+
+- While this library doesn't directly allow parsing Contentful webhook responses, you can check out [this code snippet](https://gist.github.com/neonichu/17a987aeeb256d4bf6f3) for a way to do it.
+
+
 ## License
 
 Copyright (c) 2014 Contentful GmbH - Jan Lelis. See LICENSE.txt for further details.
