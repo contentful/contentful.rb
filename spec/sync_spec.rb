@@ -81,4 +81,20 @@ describe Contentful::Sync do
       }}
     end
   end
+
+  describe 'Resource parsing' do
+    it 'will correctly parse the `file` field of an asset' do
+      sync = create_client.sync(initial: true)
+      vcr('sync_page') {
+        asset = sync.first_page.items.select { |item| item.is_a?(Contentful::Asset) }.first
+
+        expect(asset.file.properties[:fileName]).to eq 'doge.jpg'
+        expect(asset.file.properties[:contentType]).to eq 'image/jpeg'
+        expect(asset.file.properties[:details]['image']['width']).to eq 5800
+        expect(asset.file.properties[:details]['image']['height']).to eq 4350
+        expect(asset.file.properties[:details]['size']).to eq 522943
+        expect(asset.file.properties[:url]).to eq '//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg'
+      }
+    end
+  end
 end

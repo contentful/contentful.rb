@@ -12,14 +12,15 @@ module Contentful
         file: File
       }
 
-      def fields
-        @fields[locale]
+      # Returns all fields of the asset
+      def fields(wanted_locale = default_locale)
+        @fields[locale || wanted_locale]
       end
 
       def initialize(object, *)
         super
-        @fields = {}
-        @fields[locale] = extract_from_object object['fields'], :fields
+
+        initialize_fields_for_localized_resource(object)
       end
 
       def inspect(info = nil)
