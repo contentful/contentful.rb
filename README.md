@@ -45,8 +45,10 @@ client.entry 'nyancat'
 You can pass the usual filter options to the query:
 
 ```ruby
+client.entries(content_type: 'cat') # query for a content-type by its ID (not name)
 client.entries('sys.id[ne]' => 'nyancat') # query for all entries except 'nyancat'
 client.entries(include: 1) # include one level of linked resources
+client.entries(content_type: 'cat', include: 1) # you can also combine multiple parameters
 ```
 
 The results are returned as Contentful::Resource objects. Multiple results will be returned as Contentful::Array. The properties of a resource can be accessed through Ruby methods.
