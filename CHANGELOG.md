@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 0.6.0
 ### Fixed
 * Parse nested locales in `AssetFields` [#66](https://github.com/contentful/contentful.rb/pull/66)
 
