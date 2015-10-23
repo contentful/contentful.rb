@@ -51,6 +51,10 @@ module Contentful
         page = Request.new(@client, '/sync', options_or_url).get
       end
 
+      if @client.configuration[:raw_mode]
+        return page
+      end
+
       link_page_to_sync! page
       update_sync_state_from! page
 

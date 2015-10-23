@@ -97,4 +97,62 @@ describe Contentful::Sync do
       }
     end
   end
+
+  describe 'raw_mode' do
+    before do
+      @sync = create_client(raw_mode: true).sync(initial: true)
+    end
+
+    it 'should not fail' do
+      vcr('sync_page_short') {
+        expect { @sync.first_page }.not_to raise_error
+      }
+    end
+
+    it 'should return a raw Response' do
+      vcr('sync_page_short') {
+        expect(@sync.first_page).to be_a Contentful::Response
+      }
+    end
+
+    it 'should return JSON' do
+      expected = {
+        "sys" => {"type" => "Array"},
+        "items" => [
+          {
+            "sys" => {
+              "space" => {
+                "sys" => {
+                  "type" => "Link",
+                  "linkType" => "Space",
+                  "id" => "cfexampleapi"}
+              },
+              "type" => "Entry",
+              "contentType" => {
+                "sys" => {
+                  "type" => "Link",
+                  "linkType" => "ContentType",
+                  "id" => "1t9IbcfdCk6m04uISSsaIK"
+                }
+              },
+              "id" => "5ETMRzkl9KM4omyMwKAOki",
+              "revision" => 2,
+              "createdAt" => "2014-02-21T13:42:57.752Z",
+              "updatedAt" => "2014-04-16T12:44:02.691Z"
+            },
+            "fields" => {
+              "name" => {"en-US"=>"London"},
+              "center" => {
+                "en-US" => {"lat"=>51.508515, "lon"=>-0.12548719999995228}
+              }
+            }
+          }
+        ],
+        "nextSyncUrl" => "https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg"
+      }
+      vcr('sync_page_short') {
+        expect(@sync.first_page.object).to eql expected
+      }
+    end
+  end
 end
