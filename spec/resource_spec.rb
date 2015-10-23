@@ -16,8 +16,35 @@ describe Contentful::Resource do
 
     it 'can deal with invalid objects' do
       expect do
-        Contentful::ContentType.new({})
+        Contentful::ContentType.new
       end.not_to raise_error
+    end
+  end
+
+  describe 'custom resource' do
+    class TestCat
+      include Contentful::Resource
+
+      property :name
+      property :likes
+      property :color
+      property :bestFriend
+      property :birthday
+      property :lives
+      property :image
+    end
+
+    it 'can create a custom resource' do
+      cat = TestCat.new("name" => "foobar")
+      expect(cat).to respond_to(:name)
+      expect(cat.name).to eq "foobar"
+    end
+
+    it 'can create a custom resource from API' do
+      vcr('entry') {
+        cat = TestCat.new create_client(raw_mode: true).entry('nyancat').object["fields"]
+        expect(cat.name).to eq "Nyan Cat"
+      }
     end
   end
 

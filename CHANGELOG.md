@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+### Fixed
+* Fix Custom Resource creation parameters [#69](https://github.com/contentful/contentful.rb/issues/69)
 
 ## 0.6.0
 ### Fixed
