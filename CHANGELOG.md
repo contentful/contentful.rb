@@ -2,6 +2,7 @@
 ## Unreleased
 ### Fixed
 * Fix Custom Resource creation parameters [#69](https://github.com/contentful/contentful.rb/issues/69)
+* `Sync API` now works with `:raw_mode` enabled [#68](https://github.com/contentful/contentful.rb/issues/68)
 
 ## 0.6.0
 ### Fixed
