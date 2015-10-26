@@ -104,9 +104,35 @@ module Contentful
         nil
       elsif value.is_a? ::Array
         value.map { |v| coerce_or_create_class(v, what) }
+      elsif should_coerce_hash?(value)
+        ::Hash[value.map { |k, v|
+          to_coerce = v.is_a?(Hash) ? v : v.to_s
+          coercion = v.is_a?(Numeric) ? v : coerce_or_create_class(to_coerce, what)
+          [k.to_sym, coercion]
+        }]
       else
         coerce_or_create_class(value, what)
       end
+    end
+
+    def should_coerce_hash?(value)
+      value.is_a?(::Hash) &&
+        !self.is_a?(Asset) &&
+        !is_location?(value) &&
+        !is_link?(value) &&
+        !is_image?(value)
+    end
+
+    def is_location?(value)
+      value.has_key?("lat") || value.has_key?("lon")
+    end
+
+    def is_link?(value)
+      value.has_key?("sys") && value["sys"]["type"] == "Link"
+    end
+
+    def is_image?(value)
+      value.has_key?("image")
     end
 
     def coerce_or_create_class(value, what)

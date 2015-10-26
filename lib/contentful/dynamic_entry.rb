@@ -28,8 +28,8 @@ module Contentful
 
       Class.new DynamicEntry do
         content_type.fields.each do |f|
-          define_method Support.snakify(f.id).to_sym do
-            fields[f.id.to_sym]
+          define_method Support.snakify(f.id).to_sym do |wanted_locale = default_locale|
+            fields(wanted_locale)[f.id.to_sym]
           end
         end
 
