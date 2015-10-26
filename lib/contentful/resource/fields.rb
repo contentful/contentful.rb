@@ -10,9 +10,9 @@ module Contentful
         @fields[locale || wanted_locale]
       end
 
-      def initialize(object, *)
+      def initialize(object = nil, *)
         super
-        extract_fields_from_object! object
+        extract_fields_from_object! object if object
       end
 
       def inspect(info = nil)
