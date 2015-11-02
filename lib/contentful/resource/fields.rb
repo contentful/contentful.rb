@@ -7,7 +7,7 @@ module Contentful
     module Fields
       # Returns all fields of the asset
       def fields(wanted_locale = default_locale)
-        @fields[locale || wanted_locale]
+        @fields.has_key?(wanted_locale) ? @fields[wanted_locale] : @fields[locale]
       end
 
       def initialize(object = nil, *)

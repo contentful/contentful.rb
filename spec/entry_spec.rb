@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Contentful::ContentType do
+describe Contentful::Entry do
   let(:entry) { vcr('entry') { create_client.entry 'nyancat' } }
 
   describe 'SystemProperties' do
@@ -47,6 +47,16 @@ describe Contentful::ContentType do
     it "contains the entry's fields" do
       expect(entry.fields[:color]).to eq 'rainbow'
       expect(entry.fields[:bestFriend]).to be_a Contentful::Link
+    end
+  end
+
+  describe 'multiple locales' do
+    it 'can handle multiple locales' do
+      vcr('entry_locales') {
+        cat = create_client.entries(locale: "*").items.first
+        expect(cat.fields[:name][:'en-US']).to eq "Nyan Cat"
+        expect(cat.fields[:name][:'es']).to eq "Gato Nyan"
+      }
     end
   end
 
