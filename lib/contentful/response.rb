@@ -1,5 +1,6 @@
 require_relative 'error'
 require 'multi_json'
+require 'zlib'
 
 module Contentful
   # An object representing an answer by the contentful service. It is later used
