@@ -118,6 +118,7 @@ module Contentful
     def should_coerce_hash?(value)
       value.is_a?(::Hash) &&
         !self.is_a?(Asset) &&
+        !self.is_a?(Field) &&
         !is_location?(value) &&
         !is_link?(value) &&
         !is_image?(value)
