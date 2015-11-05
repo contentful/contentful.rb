@@ -9,6 +9,7 @@ module Contentful
     property :id, :string
     property :name, :string
     property :type, :string
+    property :linkType, :string
     property :items, Field
     property :required, :boolean
     property :localized, :boolean
