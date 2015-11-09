@@ -1,10 +1,14 @@
 # Change Log
 ## Unreleased
+
+## 0.7.0
+### Added
+* Add support for querying a field's `linkType` [#75](https://github.com/contentful/contentful.rb/pull/75)
+* Handles multiple locales when requesting with `locale: "*"` [contentful_middleman/#39](https://github.com/contentful-labs/contentful_middleman/issues/39)
+
 ### Fixed
 * Fix Custom Resource creation parameters [#69](https://github.com/contentful/contentful.rb/issues/69)
 * `Sync API` now works with `:raw_mode` enabled [#68](https://github.com/contentful/contentful.rb/issues/68)
-* Handles multiple locales when requesting with `locale: "*"` [contentful_middleman/#39](https://github.com/contentful-labs/contentful_middleman/issues/39)
-* Add support for querying a field's `linkType` [#75](https://github.com/contentful/contentful.rb/pull/75)
 * Bugfix for `Field.items` [#76](https://github.com/contentful/contentful.rb/pull/76)
 
 ## 0.6.0
