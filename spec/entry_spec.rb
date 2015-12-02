@@ -54,10 +54,32 @@ describe Contentful::Entry do
     it 'can handle multiple locales' do
       vcr('entry_locales') {
         cat = create_client.entries(locale: "*").items.first
-        expect(cat.fields[:name][:'en-US']).to eq "Nyan Cat"
-        expect(cat.fields[:name][:'es']).to eq "Gato Nyan"
+        expect(cat.fields('en-US')[:name]).to eq "Nyan Cat"
+        expect(cat.fields('es')[:name]).to eq "Gato Nyan"
+
+
+        expect(cat.fields(:'en-US')[:name]).to eq "Nyan Cat"
+        expect(cat.fields(:es)[:name]).to eq "Gato Nyan"
       }
     end
-  end
 
+    describe '#fields_with_locales' do
+      it 'can handle entries with just 1 locale' do
+        vcr('entry') {
+          nyancat = create_client.entry('nyancat')
+          expect(nyancat.fields_with_locales[:name].size).to eq(1)
+          expect(nyancat.fields_with_locales[:name][:'en-US']).to eq("Nyan Cat")
+        }
+      end
+
+      it 'can handle entries with multiple locales' do
+        vcr('entry_locales') {
+          nyancat = create_client.entries(locale: "*").items.first
+          expect(nyancat.fields_with_locales[:name].size).to eq(2)
+          expect(nyancat.fields_with_locales[:name][:'en-US']).to eq("Nyan Cat")
+          expect(nyancat.fields_with_locales[:name][:es]).to eq("Gato Nyan")
+        }
+      end
+    end
+  end
 end
