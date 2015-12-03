@@ -1,4 +1,5 @@
 require_relative 'resource/system_properties'
+require 'contentful/constants'
 require 'date'
 
 module Contentful
@@ -21,15 +22,15 @@ module Contentful
 
     attr_reader :properties, :request, :client, :default_locale
 
-    def initialize(object = nil, request = nil, client = nil, nested_locale_fields = false, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
+    def initialize(object = nil, request = nil, client = nil, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       self.class.update_coercions!
-      @nested_locale_fields = nested_locale_fields
       @default_locale = default_locale
 
       @properties = extract_from_object(object, :property,
                                         self.class.property_coercions.keys)
       @request = request
       @client = client
+      @api_object = object
     end
 
     def inspect(info = nil)
@@ -42,9 +43,9 @@ module Contentful
       false
     end
 
-    # By default, fields come flattened in the current locale. This is different for syncs
-    def nested_locale_fields?
-      !! @nested_locale_fields
+    def localized?(value)
+      return false unless value.is_a? ::Hash
+      value.keys.any? { |possible_locale| Contentful::Constants::KNOWN_LOCALES.include?(possible_locale) }
     end
 
     # Resources that don't include SystemProperties return nil for #sys
@@ -72,17 +73,18 @@ module Contentful
     def initialize_fields_for_localized_resource(object)
       @fields = {}
 
-      if nested_locale_fields?
-        object['fields'].each do |field_name, nested_child_object|
+      object['fields'].each do |field_name, nested_child_object|
+        if localized?(nested_child_object)
           nested_child_object.each do |object_locale, real_child_object|
             @fields[object_locale] ||= {}
             @fields[object_locale].merge! extract_from_object(
               { field_name => real_child_object }, :fields
             )
           end
+        else
+          @fields[locale] ||= {}
+          @fields[locale].merge! extract_from_object({ field_name => nested_child_object }, :fields)
         end
-      else
-        @fields[locale] = extract_from_object object['fields'], :fields
       end
     end
 
@@ -150,10 +152,6 @@ module Contentful
     # Register the resources properties on class level by using the #property method
     module ClassMethods
       # By default, fields come flattened in the current locale. This is different for sync
-      def nested_locale_fields?
-        false
-      end
-
       def property_coercions
         @property_coercions ||= {}
       end

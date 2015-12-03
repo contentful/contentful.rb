@@ -13,10 +13,6 @@ module Contentful
     property :nextSyncUrl
     property :nextPageUrl
 
-    def self.nested_locale_fields?
-      true
-    end
-
     def next_page
       sync.get(next_page_url) if next_page?
     end

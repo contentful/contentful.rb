@@ -22,6 +22,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake', '~> 10'
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
 
+  gem.add_development_dependency 'guard'
+  gem.add_development_dependency 'guard-rspec'
   gem.add_development_dependency 'rspec', '~> 2'
   gem.add_development_dependency 'rr'
   gem.add_development_dependency 'vcr'
