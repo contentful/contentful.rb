@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 0.8.0
 ### Changed
 * Unified Locale Handling [#73](https://github.com/contentful/contentful.rb/issues/73)
 
