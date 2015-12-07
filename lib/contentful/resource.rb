@@ -30,7 +30,6 @@ module Contentful
                                         self.class.property_coercions.keys)
       @request = request
       @client = client
-      @api_object = object
     end
 
     def inspect(info = nil)

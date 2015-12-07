@@ -82,4 +82,62 @@ describe Contentful::Entry do
       end
     end
   end
+
+  describe 'custom resources' do
+    class Kategorie < Contentful::Entry
+      include ::Contentful::Resource::CustomResource
+
+      property :title
+      property :slug
+      property :image
+      property :top
+      property :subcategories
+      property :featuredArticles
+      property :catIntroHead
+      property :catIntroduction
+      property :seoText
+      property :metaKeywords
+      property :metaDescription
+      property :metaRobots
+    end
+
+    it 'maps fields properly' do
+      vcr('entry/custom_resource') {
+        entry = create_client(
+          space: 'g2b4ltw00meh',
+          dynamic_entries: :auto,
+          entry_mapping: {
+            'kategorie' => Kategorie
+          }
+        ).entries.first
+
+        expect(entry).to be_a Kategorie
+        expect(entry.title).to eq "Some Title"
+        expect(entry.slug).to eq "/asda.html"
+        expect(entry.featured_articles.first.is_a?(Contentful::Link)).to be_truthy
+        expect(entry.top).to be_truthy
+      }
+    end
+
+    it 'can be marshalled' do
+      class Cat < Contentful::Entry
+        include ::Contentful::Resource::CustomResource
+
+        property :name
+        property :lives
+      end
+
+      vcr('entry/marshall') {
+        nyancat = create_client(entry_mapping: {'cat' => Cat}).entry('nyancat')
+
+        dump = Marshal.dump(nyancat)
+
+        new_cat = Marshal.load(dump)
+
+        expect(new_cat).to be_a Cat
+        expect(new_cat.name).to eq "Nyan Cat"
+        expect(new_cat.lives).to eq 1337
+      }
+    end
+  end
 end

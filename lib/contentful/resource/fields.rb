@@ -10,7 +10,7 @@ module Contentful
       # Returns all fields of the asset
       def fields(wanted_locale = default_locale)
         wanted_locale = wanted_locale.to_s
-        @fields.has_key?(wanted_locale) ? @fields[wanted_locale] : @fields[locale]
+        @fields.key?(wanted_locale) ? @fields[wanted_locale] : @fields[locale]
       end
 
       # Returns all fields of the asset with locales nested by field

@@ -1,5 +1,10 @@
 # Change Log
 ## Unreleased
+### Added
+* Added `Contentful::Resource::CustomResource` to automatically map fields to accessors [#79](https://github.com/contentful/contentful.rb/issues/79)
+
+### Fixed
+* Fixed Marshalling for Custom Resource Classes [#80](https://github.com/contentful/contentful.rb/issues/80)
 
 ## 0.8.0
 ### Changed
