@@ -20,7 +20,7 @@ module Contentful
       date:    ->(v) { DateTime.parse(v) }
     }
 
-    attr_reader :properties, :request, :client, :default_locale
+    attr_reader :properties, :request, :client, :default_locale, :raw
 
     def initialize(object = nil, request = nil, client = nil, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       self.class.update_coercions!
@@ -30,6 +30,7 @@ module Contentful
                                         self.class.property_coercions.keys)
       @request = request
       @client = client
+      @raw = object
     end
 
     def inspect(info = nil)

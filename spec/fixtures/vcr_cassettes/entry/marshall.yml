@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/nyancat
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?include=2&sys.id=nyancat
     body:
       encoding: US-ASCII
       string: ''
@@ -36,145 +36,28 @@ http_interactions:
       - '86400'
       Cache-Control:
       - max-age=0
-      Content-Type:
-      - application/vnd.contentful.delivery.v1+json
-      Etag:
-      - '"a9e11c59bf73598894bf05d4db7700cb"'
-      Server:
-      - nginx
-      X-Contentful-Request-Id:
-      - 90a-2091117458
-      Content-Length:
-      - '882'
-      Accept-Ranges:
-      - bytes
-      Date:
-      - Mon, 07 Dec 2015 21:32:15 GMT
-      Via:
-      - 1.1 varnish
-      Age:
-      - '3674'
-      Connection:
-      - close
-      X-Served-By:
-      - cache-atl6223-ATL
-      X-Cache:
-      - HIT
-      X-Cache-Hits:
-      - '1'
-      Vary:
-      - Accept-Encoding
-    body:
-      encoding: UTF-8
-      string: |
-        {
-          "fields": {
-            "name": "Nyan Cat",
-            "likes": [
-              "rainbows",
-              "fish"
-            ],
-            "color": "rainbow",
-            "bestFriend": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "happycat"
-              }
-            },
-            "birthday": "2011-04-04T22:00:00+00:00",
-            "lives": 1337,
-            "image": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Asset",
-                "id": "nyancat"
-              }
-            }
-          },
-          "sys": {
-            "space": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Space",
-                "id": "cfexampleapi"
-              }
-            },
-            "type": "Entry",
-            "contentType": {
-              "sys": {
-                "type": "Link",
-                "linkType": "ContentType",
-                "id": "cat"
-              }
-            },
-            "id": "nyancat",
-            "revision": 5,
-            "createdAt": "2013-06-27T22:46:19.513Z",
-            "updatedAt": "2013-09-04T09:19:39.027Z",
-            "locale": "en-US"
-          }
-        }
-    http_version: 
-  recorded_at: Mon, 07 Dec 2015 21:32:15 GMT
-- request:
-    method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/nyancat
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - RubyContentfulGem/0.8.0
-      Authorization:
-      - Bearer b4c0n73n7fu1
-      Content-Type:
-      - application/vnd.contentful.delivery.v1+json
-      Accept-Encoding:
+      Content-Encoding:
       - gzip
-      Connection:
-      - close
-      Host:
-      - cdn.contentful.com
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
-      Access-Control-Allow-Methods:
-      - GET,HEAD,OPTIONS
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Expose-Headers:
-      - Etag
-      Access-Control-Max-Age:
-      - '86400'
-      Cache-Control:
-      - max-age=0
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
-      Etag:
-      - '"a9e11c59bf73598894bf05d4db7700cb"'
       Server:
       - nginx
       X-Contentful-Request-Id:
-      - 90a-2091117458
+      - c40-593918282
       Content-Length:
-      - '882'
+      - '1015'
       Accept-Ranges:
       - bytes
       Date:
-      - Mon, 07 Dec 2015 21:32:16 GMT
+      - Wed, 09 Dec 2015 22:59:07 GMT
       Via:
       - 1.1 varnish
       Age:
-      - '3674'
+      - '3851'
       Connection:
       - close
       X-Served-By:
-      - cache-atl6231-ATL
+      - cache-iad2135-IAD
       X-Cache:
       - HIT
       X-Cache-Hits:
@@ -182,56 +65,31 @@ http_interactions:
       Vary:
       - Accept-Encoding
     body:
-      encoding: UTF-8
-      string: |
-        {
-          "fields": {
-            "name": "Nyan Cat",
-            "likes": [
-              "rainbows",
-              "fish"
-            ],
-            "color": "rainbow",
-            "bestFriend": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "happycat"
-              }
-            },
-            "birthday": "2011-04-04T22:00:00+00:00",
-            "lives": 1337,
-            "image": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Asset",
-                "id": "nyancat"
-              }
-            }
-          },
-          "sys": {
-            "space": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Space",
-                "id": "cfexampleapi"
-              }
-            },
-            "type": "Entry",
-            "contentType": {
-              "sys": {
-                "type": "Link",
-                "linkType": "ContentType",
-                "id": "cat"
-              }
-            },
-            "id": "nyancat",
-            "revision": 5,
-            "createdAt": "2013-06-27T22:46:19.513Z",
-            "updatedAt": "2013-09-04T09:19:39.027Z",
-            "locale": "en-US"
-          }
-        }
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+VXW4+bOBR+n18x4rUN+ALh8haNdtWRdquVJlWlqaqRA07i
+        CRAWSKdpNf+9tjFgE0haNU+7CCGMj4/P7fuO+X5ze2tVx8qKbr/zVz6ojwXl
+        I2tRluRo8W+vb4VMva9Jyr9DOap2rOADIAcpy1gtpkAzZjXNhMJPUmGjlout
+        GU2TfiO5WU4yudn7I8lv70htCYXNxdXuaK9GfSwJy1f7l0oTlKqrrTC1uT5r
+        SuJ9ui/FDmqhvsGKVvWfJaN50nmvdtED0tnTBuYvlu+M7WUI8t1SBe6PvC6P
+        QwEm9rC2pCiOMXezs5WHt3uXgVYWrFhZbxOeAL4KAQhnwOX3EqEIAH6/kU8z
+        Wl9ktCDGvqaHZWQjItxmQag38v3L7i2qiup5khob93KexWnvlHOdlydmWFVB
+        4usa+yA19vHQjI3X9CvJipSSgl3OR5v8YXKteJ/XNK9V8q8X5jtN77j9P1NG
+        Zl60uijpF1axfc5Lw9PhUlJS02Qh4CzqDs/AfIZ8UXfuPIKh7UH8qJfdoUiG
+        C0JRqCDk0hEObYB8Y0G6j0kqMU/z2YeHNvINCsRTotdieZweElnRipeayLes
+        0vPKOLNo3PJOgG5ALnx6Ev0TAOGfzzAAn73EAcIryQIjMNFpQDFuB8wxHuS6
+        4i2l31aHckNLvXw18hNCLf1tBJnrdWSZDAPwDIIZCpYITzCM9FBxjKFojGKu
+        EcMxouliOMakgyCO8uops4+yzjXsH+Oezv4p9jlXCFMcJPM8xULX8GSai3p/
+        TDY658agFRq1pNFSYEzEZ4kJARv6UOcZbtgpNfE2CoMl9CIviACyAQwGSybI
+        qfemoSmFMaup0F+gpDWT1Kd3CW6o+PpeHYTaun6xn4vNsHGZWbYk8Jzngp4I
+        JrQmLDXPWupgMY5W2RdfWFJvuXnIx2bHkbNbyjZb0Rdw6GvHFzGnHVzULhX7
+        Jhz1whCHhvBA1DqU4lBpOY60q7KVi+tDyl8zR4eJg/9+/Cd/flzeV7vF/f3u
+        cNhXd1Xl4AARN0jWBMUrOI9dn/A3H639FcKrNQgdM6aaOYYxVs3qpjH1DeM/
+        SyGn3Kp6U8erU7BEl2DJ2z9aQjfy5hF2bTQ32v8oLEGzxIsgjJBr4/kQyZdh
+        2RrVI2vsd4Pv3iV55I9DQfE8QMW6J37IfUIeKL4+rUsOXLvITyA4itURud+E
+        qid/ucyrhyq38WehChGH/dWg6m6KeU0WLx/du+xhc8j+RXT3IXPChIA4gSGe
+        Bz5cBYmPsItpEHoEgGQOoTMZXR21/z9UtifGKVDKn/L2skZ65QCULrjYKxUo
+        OxyfLLkMSmnTZ/58vXm9+QGkRNkyaRAAAA==
     http_version: 
-  recorded_at: Mon, 07 Dec 2015 21:32:16 GMT
+  recorded_at: Wed, 09 Dec 2015 22:59:06 GMT
 recorded_with: VCR 2.9.3

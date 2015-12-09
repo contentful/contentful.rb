@@ -83,6 +83,13 @@ describe Contentful::Entry do
     end
   end
 
+  it '#raw' do
+    vcr('entry/raw') {
+      nyancat = create_client.entry('nyancat')
+      expect(nyancat.raw).to eq(create_client(raw_mode: true).entry('nyancat').object)
+    }
+  end
+
   describe 'custom resources' do
     class Kategorie < Contentful::Entry
       include ::Contentful::Resource::CustomResource
@@ -119,17 +126,16 @@ describe Contentful::Entry do
       }
     end
 
-    it 'can be marshalled' do
+    describe 'can be marshalled' do
       class Cat < Contentful::Entry
         include ::Contentful::Resource::CustomResource
 
         property :name
         property :lives
+        property :bestFriend, Cat
       end
 
-      vcr('entry/marshall') {
-        nyancat = create_client(entry_mapping: {'cat' => Cat}).entry('nyancat')
-
+      def test_dump(nyancat)
         dump = Marshal.dump(nyancat)
 
         new_cat = Marshal.load(dump)
@@ -137,7 +143,27 @@ describe Contentful::Entry do
         expect(new_cat).to be_a Cat
         expect(new_cat.name).to eq "Nyan Cat"
         expect(new_cat.lives).to eq 1337
-      }
+        expect(new_cat.best_friend).to be_a Cat
+      end
+
+      it 'using entry_mapping' do
+        vcr('entry/marshall') {
+          nyancat = create_client(entry_mapping: {'cat' => Cat}).entries(include: 2, 'sys.id' => 'nyancat').first
+          test_dump(nyancat)
+        }
+      end
+
+      it 'using resource_mapping' do
+        vcr('entry/marshall') {
+          nyancat = create_client(resource_mapping: {
+            'Entry' => ->(_json_object) do
+              return Cat if _json_object.fetch('sys', {}).fetch('contentType', {}).fetch('sys', {}).fetch('id', nil) == 'cat'
+              Contentful::Entry
+            end
+          }).entries(include: 2, 'sys.id' => 'nyancat').first
+          test_dump(nyancat)
+        }
+      end
     end
   end
 end
