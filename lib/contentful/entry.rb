@@ -33,8 +33,12 @@ module Contentful
 
     def is_known_link?(name)
       field_name = name.to_sym
-      fields[field_name].is_a?(Contentful::Entry) ||
-        fields[field_name].is_a?(Contentful::Asset)
+      is_known_link ||= is_known_contentful_object?(fields[field_name])
+      is_known_link ||= fields[field_name].is_a?(Enumerable) && is_known_contentful_object?(fields[field_name].first)
+    end
+
+    def is_known_contentful_object?(object)
+      (object.is_a?(Contentful::Entry) || object.is_a?(Contentful::Asset))
     end
 
     def snakify(name)
