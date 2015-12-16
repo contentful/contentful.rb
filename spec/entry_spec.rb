@@ -133,17 +133,40 @@ describe Contentful::Entry do
         property :name
         property :lives
         property :bestFriend, Cat
+        property :catPack
       end
 
       def test_dump(nyancat)
         dump = Marshal.dump(nyancat)
-
         new_cat = Marshal.load(dump)
 
+        # Attributes
         expect(new_cat).to be_a Cat
         expect(new_cat.name).to eq "Nyan Cat"
         expect(new_cat.lives).to eq 1337
+        
+        # Single linked objects
         expect(new_cat.best_friend).to be_a Cat
+        expect(new_cat.best_friend.name).to eq "Happy Cat"
+
+        # Array of linked objects
+        expect(new_cat.cat_pack.count).to eq 2
+        expect(new_cat.cat_pack[0].name).to eq "Happy Cat"
+        expect(new_cat.cat_pack[1].name).to eq "Worried Cat"
+
+        # Nested Links
+        expect(new_cat.best_friend.best_friend).to be_a Cat
+        expect(new_cat.best_friend.best_friend.name).to eq "Worried Cat"
+
+        # Nested array of linked objects
+        expect(new_cat.best_friend.cat_pack.count).to eq 2
+        expect(new_cat.best_friend.cat_pack[0].name).to eq "Nyan Cat"
+        expect(new_cat.best_friend.cat_pack[1].name).to eq "Worried Cat"
+
+        # Array of linked objects in a nested array of linked objects
+        expect(new_cat.cat_pack.first.name).to eq "Happy Cat"
+        expect(new_cat.cat_pack.first.cat_pack[0].name).to eq "Nyan Cat"
+        expect(new_cat.cat_pack.first.cat_pack[1].name).to eq "Worried Cat"
       end
 
       it 'using entry_mapping' do
