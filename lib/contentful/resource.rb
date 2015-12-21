@@ -26,8 +26,15 @@ module Contentful
       self.class.update_coercions!
       @default_locale = default_locale
 
-      @properties = extract_from_object(object, :property,
-                                        self.class.property_coercions.keys)
+      @properties = {}
+      self.class.property_coercions.keys.each do |property_name|
+        @properties[property_name] = nil
+      end
+
+      @properties = @properties.merge(
+        extract_from_object(object, :property,
+                           self.class.property_coercions.keys)
+      )
       @request = request
       @client = client
       @raw = object

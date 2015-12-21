@@ -144,7 +144,7 @@ describe Contentful::Entry do
         expect(new_cat).to be_a Cat
         expect(new_cat.name).to eq "Nyan Cat"
         expect(new_cat.lives).to eq 1337
-        
+
         # Single linked objects
         expect(new_cat.best_friend).to be_a Cat
         expect(new_cat.best_friend.name).to eq "Happy Cat"
@@ -186,6 +186,15 @@ describe Contentful::Entry do
           }).entries(include: 2, 'sys.id' => 'nyancat').first
           test_dump(nyancat)
         }
+      end
+
+      it 'newly created custom resources have property mappings' do
+        entry = Cat.new
+
+        expect(entry).to respond_to :name
+        expect(entry).to respond_to :lives
+        expect(entry).to respond_to :best_friend
+        expect(entry).to respond_to :cat_pack
       end
     end
   end
