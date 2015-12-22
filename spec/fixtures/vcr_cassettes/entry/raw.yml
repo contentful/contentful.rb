@@ -1,0 +1,237 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/nyancat
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.8.0
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - '"a9e11c59bf73598894bf05d4db7700cb"'
+      Server:
+      - nginx
+      X-Contentful-Request-Id:
+      - 405-1394043095
+      Content-Length:
+      - '882'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 09 Dec 2015 21:48:10 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '2558'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-iad2136-IAD
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - '1'
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "fields": {
+            "name": "Nyan Cat",
+            "likes": [
+              "rainbows",
+              "fish"
+            ],
+            "color": "rainbow",
+            "bestFriend": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "happycat"
+              }
+            },
+            "birthday": "2011-04-04T22:00:00+00:00",
+            "lives": 1337,
+            "image": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "nyancat"
+              }
+            }
+          },
+          "sys": {
+            "space": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "cfexampleapi"
+              }
+            },
+            "type": "Entry",
+            "contentType": {
+              "sys": {
+                "type": "Link",
+                "linkType": "ContentType",
+                "id": "cat"
+              }
+            },
+            "id": "nyancat",
+            "revision": 5,
+            "createdAt": "2013-06-27T22:46:19.513Z",
+            "updatedAt": "2013-09-04T09:19:39.027Z",
+            "locale": "en-US"
+          }
+        }
+    http_version: 
+  recorded_at: Wed, 09 Dec 2015 21:48:08 GMT
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/nyancat
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.8.0
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - '"a9e11c59bf73598894bf05d4db7700cb"'
+      Server:
+      - nginx
+      X-Contentful-Request-Id:
+      - 90a-2092510095
+      Content-Length:
+      - '882'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 09 Dec 2015 21:48:11 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '1818'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-jfk1022-JFK
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - '2'
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "fields": {
+            "name": "Nyan Cat",
+            "likes": [
+              "rainbows",
+              "fish"
+            ],
+            "color": "rainbow",
+            "bestFriend": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "happycat"
+              }
+            },
+            "birthday": "2011-04-04T22:00:00+00:00",
+            "lives": 1337,
+            "image": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "nyancat"
+              }
+            }
+          },
+          "sys": {
+            "space": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "cfexampleapi"
+              }
+            },
+            "type": "Entry",
+            "contentType": {
+              "sys": {
+                "type": "Link",
+                "linkType": "ContentType",
+                "id": "cat"
+              }
+            },
+            "id": "nyancat",
+            "revision": 5,
+            "createdAt": "2013-06-27T22:46:19.513Z",
+            "updatedAt": "2013-09-04T09:19:39.027Z",
+            "locale": "en-US"
+          }
+        }
+    http_version: 
+  recorded_at: Wed, 09 Dec 2015 21:48:10 GMT
+recorded_with: VCR 2.9.3

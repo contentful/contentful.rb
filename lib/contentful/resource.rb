@@ -20,17 +20,24 @@ module Contentful
       date:    ->(v) { DateTime.parse(v) }
     }
 
-    attr_reader :properties, :request, :client, :default_locale
+    attr_reader :properties, :request, :client, :default_locale, :raw
 
     def initialize(object = nil, request = nil, client = nil, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       self.class.update_coercions!
       @default_locale = default_locale
 
-      @properties = extract_from_object(object, :property,
-                                        self.class.property_coercions.keys)
+      @properties = {}
+      self.class.property_coercions.keys.each do |property_name|
+        @properties[property_name] = nil
+      end
+
+      @properties = @properties.merge(
+        extract_from_object(object, :property,
+                           self.class.property_coercions.keys)
+      )
       @request = request
       @client = client
-      @api_object = object
+      @raw = object
     end
 
     def inspect(info = nil)

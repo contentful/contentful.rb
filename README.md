@@ -277,6 +277,19 @@ client = Contentful::Client.new(
 client.entry('nyancat') # is instance of Cat
 ```
 
+If you want to use the `property :field_name` syntax, you can do it the following way:
+
+```ruby
+class Cat < Contentful::Entry
+  include Contentful::Resource::CustomResource
+
+  property :name
+  property :lives
+  property :bestFriend
+  # ...
+end
+```
+
 ## Synchronization
 
 The client also includes a wrapper for the synchronization endpoint. You can initialize it with the options described in the [Delivery API Documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#sync) or an URL you received from a previous sync:
