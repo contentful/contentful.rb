@@ -31,12 +31,10 @@ module Contentful
         extract_fields_from_object! object if object
       end
 
-      def inspect(info = nil)
-        if fields.empty?
-          super(info)
-        else
-          super("#{info} @fields=#{fields.inspect}")
-        end
+      def do_inspect(result)
+        super(result)
+
+        inspect_internal('fields', result)
       end
 
       private
