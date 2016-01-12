@@ -40,9 +40,50 @@ module Contentful
       @raw = object
     end
 
+    def format_inspect(value)
+      case value
+      when String
+        "\"#{value}\""
+      when ::Contentful::Entry
+        "#<#{value.class}: id=\"#{value.id}\">"
+      when DateTime
+        "\"#{value}\""
+      else
+        value
+      end
+    end
+
+    def do_inspect(partial)
+      partial
+    end
+
+    def inspect_internal(name, partial)
+      unless self.send(name.to_sym).empty?
+        partial << " @#{name}="
+
+        first = true
+        self.send(name.to_sym).inject(partial) do |partial_result, object|
+          partial_result << "#{first ? "  {" : "   "}#{object[0].to_sym.inspect} => #{format_inspect(object[1])}"
+          first = false
+          partial_result
+        end
+
+        partial[-1] += '}'
+      end
+
+      partial
+    end
+
     def inspect(info = nil)
-      properties_info = properties.empty? ? '' : " @properties=#{properties.inspect}"
-      "#<#{self.class}:#{properties_info}#{info}>"
+      starting_char = "#<"
+      ending_char = ">"
+      result = ["#{self.class}:0x#{(self.object_id << 1).to_s(16)}"]
+
+      inspect_internal('properties', result)
+
+      do_inspect(result)
+
+      "#{starting_char}#{result.join("\n")}#{ending_char}"
     end
 
     # Returns true for resources that behave like an array

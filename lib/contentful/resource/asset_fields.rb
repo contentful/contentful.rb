@@ -23,12 +23,10 @@ module Contentful
         initialize_fields_for_localized_resource(object)
       end
 
-      def inspect(info = nil)
-        if fields.empty?
-          super(info)
-        else
-          super("#{info} @fields=#{fields.inspect}")
-        end
+      def do_inspect(result)
+        super(result)
+
+        inspect_internal('fields', result)
       end
 
       module ClassMethods
