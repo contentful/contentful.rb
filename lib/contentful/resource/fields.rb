@@ -8,12 +8,16 @@ module Contentful
     # It depends on system properties being available
     module Fields
       # Returns all fields of the asset
+      #
+      # @return [Hash] fields for Resource on selected locale
       def fields(wanted_locale = default_locale)
         wanted_locale = wanted_locale.to_s
         @fields.key?(wanted_locale) ? @fields[wanted_locale] : @fields[locale]
       end
 
       # Returns all fields of the asset with locales nested by field
+      #
+      # @return [Hash] fields for Resource grouped by field name
       def fields_with_locales
         remapped_fields = {}
         locales.each do |locale|
@@ -26,11 +30,26 @@ module Contentful
         remapped_fields
       end
 
+      # @private
+      module ClassMethods
+        # No coercions, since no content type available
+        def fields_coercions
+          {}
+        end
+      end
+
+      # @private
+      def self.included(base)
+        base.extend(ClassMethods)
+      end
+
+      # @private
       def initialize(object = nil, *)
         super
         extract_fields_from_object! object if object
       end
 
+      # @private
       def inspect(info = nil)
         if fields.empty?
           super(info)
@@ -47,17 +66,6 @@ module Contentful
 
       def extract_fields_from_object!(object)
         initialize_fields_for_localized_resource(object)
-      end
-
-      module ClassMethods
-        # No coercions, since no content type available
-        def fields_coercions
-          {}
-        end
-      end
-
-      def self.included(base)
-        base.extend(ClassMethods)
       end
     end
   end

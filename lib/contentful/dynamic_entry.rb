@@ -3,7 +3,9 @@ require_relative 'resource/fields'
 require_relative 'location'
 
 module Contentful
+  # Wrapper for Entries with Cached Content Types
   class DynamicEntry < Entry
+    # Coercions from Contentful Types to Ruby native types
     KNOWN_TYPES = {
       'String'   => :string,
       'Text'     => :string,
@@ -15,6 +17,7 @@ module Contentful
       'Location' => Location
     }
 
+    # @private
     def self.create(content_type)
       unless content_type.is_a? ContentType
         content_type = ContentType.new(content_type)

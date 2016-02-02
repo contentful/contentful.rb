@@ -11,6 +11,7 @@ module Contentful
   # for querying resources from this space.
   # See README for details
   class Client
+    # Default configuration for Contentful::Client
     DEFAULT_CONFIGURATION = {
       secure: true,
       raise_errors: true,
@@ -35,6 +36,7 @@ module Contentful
     attr_reader :configuration, :dynamic_entry_cache, :logger, :proxy
 
     # Wraps the actual HTTP request via proxy
+    # @private
     def self.get_http(url, query, headers = {}, proxy = {})
       if proxy[:host]
         HTTP[headers].via(proxy[:host], proxy[:port], proxy[:username], proxy[:password]).get(url, params: query)
@@ -43,6 +45,25 @@ module Contentful
       end
     end
 
+    # @see _ https://github.com/contentful/contentful.rb#client-configuration-options
+    # @param [Hash] given_configuration
+    # @option given_configuration [String] :space Required
+    # @option given_configuration [String] :access_token Required
+    # @option given_configuration [String] :api_url Modifying this to 'preview.contentful.com' gives you access to our Preview API
+    # @option given_configuration [String] :api_version
+    # @option given_configuration [String] :default_locale
+    # @option given_configuration [String] :proxy_host
+    # @option given_configuration [String] :proxy_username
+    # @option given_configuration [String] :proxy_password
+    # @option given_configuration [Number] :proxy_port
+    # @option given_configuration [Boolean] :gzip_encoded
+    # @option given_configuration [Boolean] :raw_mode
+    # @option given_configuration [false, ::Logger] :logger
+    # @option given_configuration [::Logger::DEBUG, ::Logger::INFO, ::Logger::WARN, ::Logger::ERROR] :log_level
+    # @option given_configuration [Boolean] :raise_errors
+    # @option given_configuration [::Array<String>] :dynamic_entries
+    # @option given_configuration [::Hash<String, Contentful::Resource>] :resource_mapping
+    # @option given_configuration [::Hash<String, Contentful::Resource>] :entry_mapping
     def initialize(given_configuration = {})
       @configuration = default_configuration.merge(given_configuration)
       normalize_configuration!
@@ -56,11 +77,13 @@ module Contentful
       end
     end
 
+    # @private
     def setup_logger
       @logger = configuration[:logger]
       logger.level = configuration[:log_level] if logger
     end
 
+    # @private
     def proxy_params
       {
         host: configuration[:proxy_host],
@@ -71,65 +94,85 @@ module Contentful
     end
 
     # Returns the default configuration
+    # @private
     def default_configuration
       DEFAULT_CONFIGURATION.dup
     end
 
     # Gets the client's space
-    # Takes an optional hash of query options
-    # Returns a Contentful::Space
+    #
+    # @param [Hash] query
+    #
+    # @return [Contentful::Space]
     def space(query = {})
       Request.new(self, '', query).get
     end
 
     # Gets a specific content type
-    # Takes an id and an optional hash of query options
-    # Returns a Contentful::ContentType
+    #
+    # @param [String] id
+    # @param [Hash] query
+    #
+    # @return [Contentful::ContentType]
     def content_type(id, query = {})
       Request.new(self, '/content_types', query, id).get
     end
 
     # Gets a collection of content types
-    # Takes an optional hash of query options
-    # Returns a Contentful::Array of Contentful::ContentType
+    #
+    # @param [Hash] query
+    #
+    # @return [Contentful::Array<Contentful::ContentType>]
     def content_types(query = {})
       Request.new(self, '/content_types', query).get
     end
 
     # Gets a specific entry
-    # Takes an id and an optional hash of query options
-    # Returns a Contentful::Entry
+    #
+    # @param [String] id
+    # @param [Hash] query
+    #
+    # @return [Contentful::Entry]
     def entry(id, query = {})
       Request.new(self, '/entries', query, id).get
     end
 
     # Gets a collection of entries
-    # Takes an optional hash of query options
-    # Returns a Contentful::Array of Contentful::Entry
+    #
+    # @param [Hash] query
+    #
+    # @return [Contentful::Array<Contentful::Entry>]
     def entries(query = {})
       Request.new(self, '/entries', query).get
     end
 
     # Gets a specific asset
-    # Takes an id and an optional hash of query options
-    # Returns a Contentful::Asset
+    #
+    # @param [String] id
+    # @param [Hash] query
+    #
+    # @return [Contentful::Asset]
     def asset(id, query = {})
       Request.new(self, '/assets', query, id).get
     end
 
     # Gets a collection of assets
-    # Takes an optional hash of query options
-    # Returns a Contentful::Array of Contentful::Asset
+    #
+    # @param [Hash] query
+    #
+    # @return [Contentful::Array<Contentful::Asset>]
     def assets(query = {})
       Request.new(self, '/assets', query).get
     end
 
     # Returns the base url for all of the client's requests
+    # @private
     def base_url
       "http#{configuration[:secure] ? 's' : ''}://#{configuration[:api_url]}/spaces/#{configuration[:space]}"
     end
 
     # Returns the headers used for the HTTP requests
+    # @private
     def request_headers
       headers = { 'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}" }
       headers['Authorization'] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
@@ -139,6 +182,7 @@ module Contentful
     end
 
     # Patches a query hash with the client configurations for queries
+    # @private
     def request_query(query)
       if configuration[:authentication_mechanism] == :query_string
         query['access_token'] = configuration[:access_token]
@@ -149,26 +193,28 @@ module Contentful
     # Get a Contentful::Request object
     # Set second parameter to false to deactivate Resource building and
     # return Response objects instead
+    #
+    # @private
     def get(request, build_resource = true)
       url = request.absolute? ? request.url : base_url + request.url
       logger.info(request: { url: url, query: request.query, header: request_headers }) if logger
       response = Response.new(
-          self.class.get_http(
-              url,
-              request_query(request.query),
-              request_headers,
-              proxy_params
-          ), request
+        self.class.get_http(
+          url,
+          request_query(request.query),
+          request_headers,
+          proxy_params
+        ), request
       )
 
       return response if !build_resource || configuration[:raw_mode]
       logger.debug(response: response) if logger
       result = configuration[:resource_builder].new(
-          self,
-          response,
-          configuration[:resource_mapping],
-          configuration[:entry_mapping],
-          configuration[:default_locale]
+        self,
+        response,
+        configuration[:resource_mapping],
+        configuration[:entry_mapping],
+        configuration[:default_locale]
       ).run
 
       fail result if result.is_a?(Error) && configuration[:raise_errors]
@@ -177,6 +223,7 @@ module Contentful
 
     # Use this method together with the client's :dynamic_entries configuration.
     # See README for details.
+    # @private
     def update_dynamic_entry_cache!
       @dynamic_entry_cache = Hash[
                              content_types(limit: 1000).map do |ct|
@@ -190,13 +237,18 @@ module Contentful
 
     # Use this method to manually register a dynamic entry
     # See examples/dynamic_entries.rb
+    # @private
     def register_dynamic_entry(key, klass)
       @dynamic_entry_cache[key.to_sym] = klass
     end
 
     # Create a new synchronisation object
-    # Takes sync options or a sync_url
-    # You will need to call #each_page or #first_page on it
+    #
+    # @param [Hash, String] options Options or Sync URL
+    #
+    # @note You will need to call #each_page or #first_page on it
+    #
+    # @return [Contentful::Sync]
     def sync(options = { initial: true })
       Sync.new(self, options)
     end
@@ -209,33 +261,23 @@ module Contentful
     end
 
     def validate_configuration!
-      if configuration[:space].empty?
-        fail ArgumentError, 'You will need to initialize a client with a :space'
-      end
+      fail ArgumentError, 'You will need to initialize a client with a :space' if configuration[:space].empty?
 
-      if configuration[:access_token].empty?
-        fail ArgumentError, 'You will need to initialize a client with an :access_token'
-      end
+      fail ArgumentError, 'You will need to initialize a client with an :access_token' if configuration[:access_token].empty?
 
-      if configuration[:api_url].empty?
-        fail ArgumentError, 'The client configuration needs to contain an :api_url'
-      end
+      fail ArgumentError, 'The client configuration needs to contain an :api_url' if configuration[:api_url].empty?
 
-      if configuration[:default_locale].empty?
-        fail ArgumentError, 'The client configuration needs to contain a :default_locale'
-      end
+      fail ArgumentError, 'The client configuration needs to contain a :default_locale' if configuration[:default_locale].empty?
 
-      unless configuration[:api_version].to_i >= 0
-        fail ArgumentError, 'The :api_version must be a positive number or nil'
-      end
+      fail ArgumentError, 'The :api_version must be a positive number or nil' unless configuration[:api_version].to_i >= 0
 
-      unless [:header, :query_string].include? configuration[:authentication_mechanism]
-        fail ArgumentError, 'The authentication mechanism must be :header or :query_string'
-      end
+      fail ArgumentError, 'The authentication mechanism must be :header or :query_string' unless [:header, :query_string].include?(
+        configuration[:authentication_mechanism]
+      )
 
-      unless [:auto, :manual].include? configuration[:dynamic_entries]
-        fail ArgumentError, 'The :dynamic_entries mode must be :auto or :manual'
-      end
+      fail ArgumentError, 'The :dynamic_entries mode must be :auto or :manual' unless [:auto, :manual].include?(
+        configuration[:dynamic_entries]
+      )
     end
   end
 end

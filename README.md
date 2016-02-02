@@ -100,6 +100,27 @@ Dynamic entries will have getter classes for the fields and do type conversions 
 
 The `:auto` mode will fetch all content types on initialization. If you want to do it by hand later, you will need to set the option to `:manual` and call `client.update_dynamic_entry_cache!` to initialize all dynamic entries.
 
+#### Using different locales
+
+Entries can have multiple locales, by default, the client only fetches the entry with only its default locale.
+If you want to fetch a different locale you can do the following:
+
+```ruby
+entries = client.entries(locale: 'de-DE')
+```
+
+Then all the fields will be fetched for the requested locale.
+
+Contentful Delivery API also allows to fetch all locales, you can do so by doing:
+
+```ruby
+entries = client.entries(content_type: 'cat', locale: '*')
+
+# assuming the entry has a field called name
+my_spanish_name = entries.first.fields('es-AR')[:name]
+```
+
+When requesting multiple locales, the object accessor shortcuts only work for the default locale.
 
 ### Arrays
 
