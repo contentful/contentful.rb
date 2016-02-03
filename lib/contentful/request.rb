@@ -8,11 +8,8 @@ module Contentful
     def initialize(client, endpoint, query = {}, id = nil)
       @client = client
       @endpoint = endpoint
-      @absolute = true if @endpoint.start_with?('http')
 
-      @query = if query && !query.empty?
-                 normalize_query(query)
-      end
+      @query = (normalize_query(query) if query && !query.empty?)
 
       if id
         @type = :single
@@ -25,7 +22,7 @@ module Contentful
 
     # Returns the final URL, relative to a contentful space
     def url
-      "#{@endpoint}#{ @type == :single ? "/#{id}" : '' }"
+      "#{@endpoint}#{@type == :single ? "/#{id}" : ''}"
     end
 
     # Delegates the actual HTTP work to the client
@@ -35,7 +32,7 @@ module Contentful
 
     # Returns true if endpoint is an absolute url
     def absolute?
-      !! @absolute
+      @endpoint.start_with?('http')
     end
 
     # Returns a new Request object with the same data

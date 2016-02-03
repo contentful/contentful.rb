@@ -14,6 +14,8 @@ module Contentful
   # Transforms a Contentful::Response into a Contentful::Resource or a Contentful::Error
   # See example/resource_mapping.rb for advanced usage
   class ResourceBuilder
+    # Default Resource Mapping
+    # @see _ README for more information on Resource Mapping
     DEFAULT_RESOURCE_MAPPING = {
       'Space' => Space,
       'ContentType' => ContentType,
@@ -24,11 +26,17 @@ module Contentful
       'DeletedEntry' => DeletedEntry,
       'DeletedAsset' => DeletedAsset
     }
+    # Default Entry Mapping
+    # @see _ README for more information on Entry Mapping
     DEFAULT_ENTRY_MAPPING = {}
 
     attr_reader :client, :response, :resource_mapping, :entry_mapping, :resource
 
-    def initialize(client, response, resource_mapping = {}, entry_mapping = {}, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
+    def initialize(client,
+                   response,
+                   resource_mapping = {},
+                   entry_mapping = {},
+                   default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       @response = response
       @client = client
       @included_resources = {}
@@ -39,7 +47,7 @@ module Contentful
     end
 
     # Starts the parsing process.
-    # Either returns an Error, or the parsed Resource
+    # @return [Contentful::Resource, Contentful::Error]
     def run
       if response.status == :ok
         create_all_resources!
@@ -93,9 +101,8 @@ module Contentful
 
     # Finds the proper DynamicEntry class for an entry
     def get_dynamic_entry(object)
-      if content_id = content_type_id_for_entry(object)
-        client.dynamic_entry_cache[content_id.to_sym]
-      end
+      content_id = content_type_id_for_entry(object)
+      client.dynamic_entry_cache[content_id.to_sym] if content_id
     end
 
     # Returns the id of the related ContentType, if there is one
@@ -131,7 +138,7 @@ module Contentful
       when Proc
         res_class[object]
       when nil
-        fail UnparsableResource.new(response)
+        fail UnparsableResource, response
       else
         res_class
       end
@@ -194,10 +201,10 @@ module Contentful
       if included_objects
         included_objects.each do |type, objects|
           @included_resources[type] = Hash[
-                                      objects.map do |object|
-                                        res = create_resource(object)
-                                        [res.id, res]
-                                      end
+            objects.map do |object|
+              res = create_resource(object)
+              [res.id, res]
+            end
           ]
         end
       end
@@ -206,15 +213,15 @@ module Contentful
     def replace_links_with_known_resources(res, seen_resource_ids = [])
       seen_resource_ids << res.id
 
-      [:properties, :sys, :fields].map do |property_container_name|
+      property_containers = [:properties, :sys, :fields].map do |property_container_name|
         res.public_send(property_container_name)
-      end.compact.each do |property_container|
+      end.compact
+
+      property_containers.each do |property_container|
         replace_links_in_properties(property_container, seen_resource_ids)
       end
 
-      if res.array?
-        replace_links_in_array res.items, seen_resource_ids
-      end
+      replace_links_in_array res.items, seen_resource_ids if res.array?
     end
 
     def replace_links_in_properties(property_container, seen_resource_ids)
@@ -242,8 +249,8 @@ module Contentful
     end
 
     def maybe_replace_link(link, parent, key)
-      if  @known_resources[link.link_type] &&
-          @known_resources[link.link_type].key?(link.id)
+      if @known_resources[link.link_type] &&
+         @known_resources[link.link_type].key?(link.id)
         parent[key] = @known_resources[link.link_type][link.id]
       end
     end

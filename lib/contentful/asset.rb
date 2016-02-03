@@ -9,20 +9,23 @@ module Contentful
     include Contentful::Resource::SystemProperties
     include Contentful::Resource::AssetFields
 
-    # Returns the image url of an asset
-    # Allows you to pass in the following options for image resizing:
-    #   :width
-    #   :height
-    #   :format
-    #   :quality
-    # See https://www.contentful.com/developers/documentation/content-delivery-api/#image-asset-resizing
+    # Generates a URL for the Contentful Image API
+    #
+    # @param [Hash] options
+    # @option options [Integer] :width
+    # @option options [Integer] :height
+    # @option options [String] :format
+    # @option options [String] :quality
+    # @see _ https://www.contentful.com/developers/documentation/content-delivery-api/#image-asset-resizing
+    #
+    # @return [String] Image API URL
     def image_url(options = {})
       query = {
-        w:   options[:w]  || options[:width],
-        h:   options[:h]  || options[:height],
-        fm:  options[:fm] || options[:format],
-        q:   options[:q]  || options[:quality],
-        f:   options[:f]  || options[:focus],
+        w: options[:w] || options[:width],
+        h: options[:h] || options[:height],
+        fm: options[:fm] || options[:format],
+        q: options[:q] || options[:quality],
+        f: options[:f] || options[:focus],
         fit: options[:fit]
       }.reject { |_k, v| v.nil? }
 

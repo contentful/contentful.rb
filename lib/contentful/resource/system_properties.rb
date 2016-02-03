@@ -2,6 +2,8 @@ module Contentful
   module Resource
     # Adds the feature to have system properties to a Resource.
     module SystemProperties
+      # @private
+      # Coercions for System Properties to native types
       SYS_COERCIONS = {
         type: :string,
         id: :string,
@@ -15,11 +17,13 @@ module Contentful
       }
       attr_reader :sys
 
+      # @private
       def initialize(object = nil, *)
         super
         @sys = object ? extract_from_object(object['sys'], :sys) : {}
       end
 
+      # @private
       def inspect(info = nil)
         if sys.empty?
           super(info)
@@ -28,12 +32,15 @@ module Contentful
         end
       end
 
+      # @private
       module ClassMethods
+        # @private
         def sys_coercions
           SYS_COERCIONS
         end
       end
 
+      # @private
       def self.included(base)
         base.extend(ClassMethods)
 

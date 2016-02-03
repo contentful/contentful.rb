@@ -9,9 +9,14 @@ module Contentful
   # You can define your own classes that behave like contentful resources:
   # See examples/custom_classes.rb to see how.
   #
-  # Take a look at examples/resource_mapping.rb on how to register them
-  # to be returned by the client by default
+  # Take a look at examples/resource_mapping.rb on how to register them to be returned
+  # by the client by default
+  #
+  # @see _ examples/custom_classes.rb Custom Class as Resource
+  # @see _ examples/resource_mapping.rb Mapping a Custom Class
   module Resource
+    # @private
+    # rubocop:disable Style/DoubleNegation
     COERCIONS = {
       string:  ->(v) { v.to_s },
       integer: ->(v) { v.to_i },
@@ -19,10 +24,15 @@ module Contentful
       boolean: ->(v) { !!v },
       date:    ->(v) { DateTime.parse(v) }
     }
+    # rubocop:enable Style/DoubleNegation
 
     attr_reader :properties, :request, :client, :default_locale, :raw
 
-    def initialize(object = nil, request = nil, client = nil, default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
+    # @private
+    def initialize(object = nil,
+                   request = nil,
+                   client = nil,
+                   default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       self.class.update_coercions!
       @default_locale = default_locale
 
@@ -33,13 +43,14 @@ module Contentful
 
       @properties = @properties.merge(
         extract_from_object(object, :property,
-                           self.class.property_coercions.keys)
+                            self.class.property_coercions.keys)
       )
       @request = request
       @client = client
       @raw = object
     end
 
+    # @private
     def inspect(info = nil)
       properties_info = properties.empty? ? '' : " @properties=#{properties.inspect}"
       "#<#{self.class}:#{properties_info}#{info}>"
@@ -50,6 +61,9 @@ module Contentful
       false
     end
 
+    # Returns true if resource is localized
+    #
+    # @return [Boolean]
     def localized?(value)
       return false unless value.is_a? ::Hash
       value.keys.any? { |possible_locale| Contentful::Constants::KNOWN_LOCALES.include?(possible_locale) }
@@ -75,88 +89,8 @@ module Contentful
       end
     end
 
-    private
-
-    def initialize_fields_for_localized_resource(object)
-      @fields = {}
-
-      object['fields'].each do |field_name, nested_child_object|
-        if localized?(nested_child_object)
-          nested_child_object.each do |object_locale, real_child_object|
-            @fields[object_locale] ||= {}
-            @fields[object_locale].merge! extract_from_object(
-              { field_name => real_child_object }, :fields
-            )
-          end
-        else
-          @fields[locale] ||= {}
-          @fields[locale].merge! extract_from_object({ field_name => nested_child_object }, :fields)
-        end
-      end
-    end
-
-    def extract_from_object(object, namespace, keys = nil)
-      if object
-        keys ||= object.keys
-        keys.each.with_object({}) do |name, res|
-          value = object.is_a?(::Array) ? object : object[name.to_s]
-          kind = self.class.public_send(:"#{namespace}_coercions")[name.to_sym]
-          res[name.to_sym] = coerce_value_or_array(value, kind)
-        end
-      else
-        {}
-      end
-    end
-
-    def coerce_value_or_array(value, what = nil)
-      if value.nil?
-        nil
-      elsif value.is_a? ::Array
-        value.map { |v| coerce_or_create_class(v, what) }
-      elsif should_coerce_hash?(value)
-        ::Hash[value.map { |k, v|
-          to_coerce = v.is_a?(Hash) ? v : v.to_s
-          coercion = v.is_a?(Numeric) ? v : coerce_or_create_class(to_coerce, what)
-          [k.to_sym, coercion]
-        }]
-      else
-        coerce_or_create_class(value, what)
-      end
-    end
-
-    def should_coerce_hash?(value)
-      value.is_a?(::Hash) &&
-        !self.is_a?(Asset) &&
-        !self.is_a?(Field) &&
-        !is_location?(value) &&
-        !is_link?(value) &&
-        !is_image?(value)
-    end
-
-    def is_location?(value)
-      value.has_key?("lat") || value.has_key?("lon")
-    end
-
-    def is_link?(value)
-      value.has_key?("sys") && value["sys"]["type"] == "Link"
-    end
-
-    def is_image?(value)
-      value.has_key?("image")
-    end
-
-    def coerce_or_create_class(value, what)
-      case what
-      when Symbol
-        COERCIONS[what] ? COERCIONS[what][value] : value
-      when Class
-        what.new(value, client)
-      else
-        value
-      end
-    end
-
     # Register the resources properties on class level by using the #property method
+    # @private
     module ClassMethods
       # By default, fields come flattened in the current locale. This is different for sync
       def property_coercions
@@ -201,8 +135,90 @@ module Contentful
       end
     end
 
+    # @private
     def self.included(base)
       base.extend(ClassMethods)
+    end
+
+    private
+
+    def initialize_fields_for_localized_resource(object)
+      @fields = {}
+
+      object['fields'].each do |field_name, nested_child_object|
+        if localized?(nested_child_object)
+          nested_child_object.each do |object_locale, real_child_object|
+            @fields[object_locale] ||= {}
+            @fields[object_locale].merge! extract_from_object(
+              { field_name => real_child_object }, :fields
+            )
+          end
+        else
+          @fields[locale] ||= {}
+          @fields[locale].merge! extract_from_object({ field_name => nested_child_object }, :fields)
+        end
+      end
+    end
+
+    def extract_from_object(object, namespace, keys = nil)
+      if object
+        keys ||= object.keys
+        keys.each.with_object({}) do |name, res|
+          value = object.is_a?(::Array) ? object : object[name.to_s]
+          kind = self.class.public_send(:"#{namespace}_coercions")[name.to_sym]
+          res[name.to_sym] = coerce_value_or_array(value, kind)
+        end
+      else
+        {}
+      end
+    end
+
+    def coerce_value_or_array(value, what = nil)
+      if value.nil?
+        nil
+      elsif value.is_a? ::Array
+        value.map { |v| coerce_or_create_class(v, what) }
+      elsif should_coerce_hash?(value)
+        ::Hash[value.map do |k, v|
+          to_coerce = v.is_a?(Hash) ? v : v.to_s
+          coercion = v.is_a?(Numeric) ? v : coerce_or_create_class(to_coerce, what)
+          [k.to_sym, coercion]
+        end]
+      else
+        coerce_or_create_class(value, what)
+      end
+    end
+
+    def should_coerce_hash?(value)
+      value.is_a?(::Hash) &&
+        !is_a?(Asset) &&
+        !is_a?(Field) &&
+        !location?(value) &&
+        !link?(value) &&
+        !image?(value)
+    end
+
+    def location?(value)
+      value.key?('lat') || value.key?('lon')
+    end
+
+    def link?(value)
+      value.key?('sys') && value['sys']['type'] == 'Link'
+    end
+
+    def image?(value)
+      value.key?('image')
+    end
+
+    def coerce_or_create_class(value, what)
+      case what
+      when Symbol
+        COERCIONS[what] ? COERCIONS[what][value] : value
+      when Class
+        what.new(value, client)
+      else
+        value
+      end
     end
   end
 end
