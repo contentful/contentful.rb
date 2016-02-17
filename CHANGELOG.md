@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+### Added
+* Added `:fl` parameter to `Asset#image_url` to support `progressive` File Layering
 
 ## 0.9.0
 ### Added
