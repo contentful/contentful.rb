@@ -16,6 +16,9 @@ module Contentful
     # @option options [Integer] :height
     # @option options [String] :format
     # @option options [String] :quality
+    # @option options [String] :focus
+    # @option options [String] :fit
+    # @option options [String] :fl File Layering - 'progressive'
     # @see _ https://www.contentful.com/developers/documentation/content-delivery-api/#image-asset-resizing
     #
     # @return [String] Image API URL
@@ -26,7 +29,8 @@ module Contentful
         fm: options[:fm] || options[:format],
         q: options[:q] || options[:quality],
         f: options[:f] || options[:focus],
-        fit: options[:fit]
+        fit: options[:fit],
+        fl: options[:fl]
       }.reject { |_k, v| v.nil? }
 
       if query.empty?
