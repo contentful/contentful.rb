@@ -3,6 +3,9 @@
 ### Added
 * Added `:fl` parameter to `Asset#image_url` to support `progressive` File Layering
 
+## Changed
+* Changed 503 error message to a less confusing one.
+
 ## 0.9.0
 ### Added
 * Added `Contentful::Resource::CustomResource` to automatically map fields to accessors [#79](https://github.com/contentful/contentful.rb/issues/79)
