@@ -9,6 +9,18 @@ module Contentful
     include Contentful::Resource::SystemProperties
     include Contentful::Resource::AssetFields
 
+    # @private
+    def marshal_dump
+      raw
+    end
+
+    # @private
+    def marshal_load(raw_object)
+      @properties = extract_from_object(raw_object, :property, self.class.property_coercions.keys)
+      @sys = raw_object.key?('sys') ? extract_from_object(raw_object['sys'], :sys) : {}
+      initialize_fields_for_localized_resource(raw_object)
+    end
+
     # Generates a URL for the Contentful Image API
     #
     # @param [Hash] options

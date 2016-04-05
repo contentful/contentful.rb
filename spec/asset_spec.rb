@@ -59,4 +59,12 @@ describe Contentful::Asset do
       expect(url).to include '?w=100&fm=jpg&q=50&f=top_right&fit=thumb&fl=progressive'
     end
   end
+
+  it 'can be marshalled' do
+    marshalled = Marshal.dump(asset)
+    unmarshalled = Marshal.load(marshalled)
+
+    expect(unmarshalled.title).to eq 'Nyan Cat'
+    expect(unmarshalled.file).to be_a Contentful::File
+  end
 end
