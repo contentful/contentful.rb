@@ -24,7 +24,7 @@ client = Contentful::Client.new(
 )
 ```
 
-If you plan on using the [Preview API](https://www.contentful.com/developers/documentation/content-delivery-api/ruby/#preview-api-usage) you need to specify the `api_url`:
+If you plan on using the [Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/) you need to specify the `api_url`:
 
 ```ruby
 client = Contentful::Client.new(
@@ -35,7 +35,7 @@ client = Contentful::Client.new(
 ```
 
 You can query for entries, assets, etc. very similar as described in the
-[Delivery API Documentation](https://www.contentful.com/developers/documentation/content-delivery-api/). Please note, that **all methods of the Ruby client library are snake_cased, instead of JavaScript's camelCase**:
+[Delivery API Documentation](https://www.contentful.com/developers/docs/references/content-delivery-api/). Please note, that **all methods of the Ruby client library are snake_cased, instead of JavaScript's camelCase**:
 
 ```ruby
 client.content_types
@@ -126,7 +126,7 @@ When requesting multiple locales, the object accessor shortcuts only work for th
 
 Contentful::Array has an `#each` method that delegates to its items. It also includes Ruby's Enumerable module, providing methods like `#min` or `#first`. See the Ruby core documentation for further details.
 
-Arrays also have a `#next_page` URL, which will rerun the request with a increased skip parameter, as described in [the documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#search-limit).
+Arrays also have a `#next_page` URL, which will rerun the request with a increased skip parameter, as described in [the documentation](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/skip).
 
 
 ### Links
@@ -313,7 +313,7 @@ end
 
 ## Synchronization
 
-The client also includes a wrapper for the synchronization endpoint. You can initialize it with the options described in the [Delivery API Documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#sync) or an URL you received from a previous sync:
+The client also includes a wrapper for the synchronization endpoint. You can initialize it with the options described in the [Delivery API Documentation](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization) or an URL you received from a previous sync:
 
 ```ruby
 client = Contentful::Client.new(
