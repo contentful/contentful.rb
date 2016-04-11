@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 0.10.0
 ### Added
 * Added `:fl` parameter to `Asset#image_url` to support `progressive` File Layering
 * Added Marshalling methods to `Asset` [#88](https://github.com/contentful/contentful.rb/issues/88)
