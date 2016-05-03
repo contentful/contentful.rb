@@ -174,9 +174,7 @@ module Contentful
     end
 
     def coerce_value_or_array(value, what = nil)
-      if value.nil?
-        nil
-      elsif value.is_a? ::Array
+      if value.is_a? ::Array
         value.map { |v| coerce_or_create_class(v, what) }
       elsif should_coerce_hash?(value)
         ::Hash[value.map do |k, v|
@@ -214,8 +212,10 @@ module Contentful
       case what
       when Symbol
         COERCIONS[what] ? COERCIONS[what][value] : value
+      when Proc
+        what[value]
       when Class
-        what.new(value, client)
+        what.new(value, client) if value
       else
         value
       end
