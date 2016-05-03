@@ -212,6 +212,8 @@ module Contentful
       case what
       when Symbol
         COERCIONS[what] ? COERCIONS[what][value] : value
+      when Proc
+        what[value]
       when Class
         what.new(value, client) if value
       else
