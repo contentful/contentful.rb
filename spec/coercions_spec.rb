@@ -16,8 +16,8 @@ describe 'Coercion Examples' do
     end
 
     it 'can use proc' do
-      cat = TestCar.new("parts" => nil)
-      expect(cat.parts).to be_empty
+      car = TestCar.new("parts" => nil)
+      expect(car.parts).to be_empty
     end
   end
 end
