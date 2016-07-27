@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'http', '~> 0.8'
   gem.add_dependency 'multi_json', '~> 1'
+  gem.add_dependency 'json', '~> 1.8'
 
   gem.add_development_dependency 'bundler', '~> 1.5'
   gem.add_development_dependency 'rake', '~> 10'
@@ -26,7 +27,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'guard-rspec'
   gem.add_development_dependency 'guard-rubocop'
   gem.add_development_dependency 'guard-yard'
-  gem.add_development_dependency 'rubocop'
+  gem.add_development_dependency 'rubocop', '~> 0.41.0'
   gem.add_development_dependency 'rspec', '~> 2'
   gem.add_development_dependency 'rr'
   gem.add_development_dependency 'vcr'

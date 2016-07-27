@@ -89,7 +89,7 @@ However, you can (and should) set `:dynamic_entries` to `:auto` in your client c
 client = Contentful::Client.new(
   access_token: 'b4c0n73n7fu1',
   space: 'cfexampleapi',
-  dynamic_entries: :auto,
+  dynamic_entries: :auto
 )
 
 entry = client.entry 'nyancat' # => #<Contentful::DynamicEntry[cat]: ...>
