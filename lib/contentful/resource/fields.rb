@@ -10,9 +10,9 @@ module Contentful
       # Returns all fields of the asset
       #
       # @return [Hash] fields for Resource on selected locale
-      def fields(wanted_locale = default_locale)
-        wanted_locale = wanted_locale.to_s
-        @fields.key?(wanted_locale) ? @fields[wanted_locale] : @fields[locale]
+      def fields(wanted_locale = nil)
+        wanted_locale = (locale || default_locale) if wanted_locale.nil?
+        @fields[wanted_locale.to_s] || {}
       end
 
       # Returns all fields of the asset with locales nested by field
