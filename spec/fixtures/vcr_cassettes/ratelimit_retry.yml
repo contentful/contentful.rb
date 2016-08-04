@@ -1,0 +1,294 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/assets
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.10.0
+      Authorization:
+      - Bearer 7699b6c6f6cee9b6abaa216c71fbcb3eee56cb6f082f57b5e21b2b50f86bdea0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Cf-No-Cache:
+      - foobar
+      Connection:
+      - close
+      Host:
+      - cdnorigin.flinkly.com
+  response:
+    status:
+      code: 429
+      message: Too Many Requests
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.management.v1+json
+      Date:
+      - Tue, 09 Aug 2016 08:46:00 GMT
+      Server:
+      - nginx
+      X-Contentful-Ratelimit-Reset:
+      - '1'
+      Content-Length:
+      - '304'
+      Connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Error",
+            "id": "RateLimitExceeded"
+          },
+          "message": "You have exceeded the rate limit of the Organization this Space belongs to by making too many API requests within a short timespan. Please wait a moment before trying the request again.",
+          "requestId": "395-766168967"
+        }
+    http_version: 
+  recorded_at: Tue, 09 Aug 2016 08:46:00 GMT
+- request:
+    method: get
+    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/assets
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.10.0
+      Authorization:
+      - Bearer 7699b6c6f6cee9b6abaa216c71fbcb3eee56cb6f082f57b5e21b2b50f86bdea0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Cf-No-Cache:
+      - foobar
+      Connection:
+      - close
+      Host:
+      - cdnorigin.flinkly.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Date:
+      - Tue, 09 Aug 2016 08:46:00 GMT
+      Etag:
+      - '"29f2c21be26360c424f617d8592cf6f9"'
+      Server:
+      - nginx
+      Surrogate-Control:
+      - max-age=21600
+      Surrogate-Key:
+      - space-164vhtp008kz organization-7Kp22ygMRaA3DCjACF64PF
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - 395-766168968
+      Content-Length:
+      - '97'
+      Connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 0,
+          "skip": 0,
+          "limit": 100,
+          "items": []
+        }
+    http_version: 
+  recorded_at: Tue, 09 Aug 2016 08:46:00 GMT
+- request:
+    method: get
+    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/assets
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.10.0
+      Authorization:
+      - Bearer 7699b6c6f6cee9b6abaa216c71fbcb3eee56cb6f082f57b5e21b2b50f86bdea0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Cf-No-Cache:
+      - foobar
+      Connection:
+      - close
+      Host:
+      - cdnorigin.flinkly.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Date:
+      - Tue, 09 Aug 2016 08:46:00 GMT
+      Etag:
+      - '"29f2c21be26360c424f617d8592cf6f9"'
+      Server:
+      - nginx
+      Surrogate-Control:
+      - max-age=21600
+      Surrogate-Key:
+      - space-164vhtp008kz organization-7Kp22ygMRaA3DCjACF64PF
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - 395-766168969
+      Content-Length:
+      - '97'
+      Connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 0,
+          "skip": 0,
+          "limit": 100,
+          "items": []
+        }
+    http_version: 
+  recorded_at: Tue, 09 Aug 2016 08:46:00 GMT
+- request:
+    method: get
+    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/assets
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.10.0
+      Authorization:
+      - Bearer 7699b6c6f6cee9b6abaa216c71fbcb3eee56cb6f082f57b5e21b2b50f86bdea0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Cf-No-Cache:
+      - foobar
+      Connection:
+      - close
+      Host:
+      - cdnorigin.flinkly.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Date:
+      - Tue, 09 Aug 2016 08:46:02 GMT
+      Etag:
+      - '"29f2c21be26360c424f617d8592cf6f9"'
+      Server:
+      - nginx
+      Surrogate-Control:
+      - max-age=21600
+      Surrogate-Key:
+      - space-164vhtp008kz organization-7Kp22ygMRaA3DCjACF64PF
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - 395-766168970
+      Content-Length:
+      - '97'
+      Connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 0,
+          "skip": 0,
+          "limit": 100,
+          "items": []
+        }
+    http_version: 
+  recorded_at: Tue, 09 Aug 2016 08:46:02 GMT
+recorded_with: VCR 3.0.3
