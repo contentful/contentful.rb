@@ -121,7 +121,7 @@ describe Contentful::Entry do
         expect(entry).to be_a Kategorie
         expect(entry.title).to eq "Some Title"
         expect(entry.slug).to eq "/asda.html"
-        expect(entry.featured_articles.first.is_a?(Contentful::Link)).to be_truthy
+        expect(entry.featured_articles.first.is_a?(Contentful::Entry)).to be_truthy
         expect(entry.top).to be_truthy
       }
     end

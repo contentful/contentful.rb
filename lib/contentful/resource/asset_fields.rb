@@ -17,7 +17,7 @@ module Contentful
       #
       # @return [Hash] localized fields
       def fields(wanted_locale = default_locale)
-        @fields[locale || wanted_locale]
+        @fields[locale || wanted_locale] || {}
       end
 
       # @private
