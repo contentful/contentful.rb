@@ -69,8 +69,9 @@ module Contentful
 
       unless @included_resources.empty?
         replace_links_in_included_resources_with_known_resources
-        replace_links_with_known_resources @resource
       end
+
+      replace_links_with_known_resources @resource
 
       @resource
     rescue UnparsableResource => error
