@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 0.11.0
 ### Fixed
 * Fixed Locale handling [#98](https://github.com/contentful/contentful.rb/issues/98)
 
