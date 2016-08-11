@@ -30,8 +30,12 @@ module Contentful
       proxy_host: nil,
       proxy_username: nil,
       proxy_password: nil,
-      proxy_port: nil
+      proxy_port: nil,
+      max_rate_limit_retries: 1,
+      max_rate_limit_wait: 60
     }
+    # Rate Limit Reset Header Key
+    RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
 
     attr_reader :configuration, :dynamic_entry_cache, :logger, :proxy
 
@@ -56,6 +60,8 @@ module Contentful
     # @option given_configuration [String] :proxy_username
     # @option given_configuration [String] :proxy_password
     # @option given_configuration [Number] :proxy_port
+    # @option given_configuration [Number] :max_rate_limit_retries
+    # @option given_configuration [Number] :max_rate_limit_wait
     # @option given_configuration [Boolean] :gzip_encoded
     # @option given_configuration [Boolean] :raw_mode
     # @option given_configuration [false, ::Logger] :logger
@@ -196,9 +202,44 @@ module Contentful
     #
     # @private
     def get(request, build_resource = true)
+      retries_left = configuration[:max_rate_limit_retries]
+      begin
+        response = run_request(request)
+
+        return response if !build_resource || configuration[:raw_mode]
+
+        result = do_build_resource(response)
+
+        fail result if result.is_a?(Error) && configuration[:raise_errors]
+      rescue Contentful::RateLimitExceeded => rate_limit_error
+        reset_time = rate_limit_error.response.raw[RATE_LIMIT_RESET_HEADER_KEY].to_i
+        if should_retry(retries_left, reset_time, configuration[:max_rate_limit_wait])
+          retries_left -= 1
+          retry_message = 'Contentful API Rate Limit Hit! '
+          retry_message += "Retrying - Retries left: #{retries_left}"
+          retry_message += "- Time until reset (seconds): #{reset_time}"
+          logger.info(retry_message) if logger
+          sleep(reset_time * Random.new.rand(1.0..1.2))
+          retry
+        end
+
+        raise
+      end
+
+      result
+    end
+
+    # @private
+    def should_retry(retries_left, reset_time, max_wait)
+      retries_left > 0 && max_wait > reset_time
+    end
+
+    # Runs request and parses Response
+    # @private
+    def run_request(request)
       url = request.absolute? ? request.url : base_url + request.url
       logger.info(request: { url: url, query: request.query, header: request_headers }) if logger
-      response = Response.new(
+      Response.new(
         self.class.get_http(
           url,
           request_query(request.query),
@@ -206,19 +247,19 @@ module Contentful
           proxy_params
         ), request
       )
+    end
 
-      return response if !build_resource || configuration[:raw_mode]
+    # Runs Resource Builder
+    # @private
+    def do_build_resource(response)
       logger.debug(response: response) if logger
-      result = configuration[:resource_builder].new(
+      configuration[:resource_builder].new(
         self,
         response,
         configuration[:resource_mapping],
         configuration[:entry_mapping],
         configuration[:default_locale]
       ).run
-
-      fail result if result.is_a?(Error) && configuration[:raise_errors]
-      result
     end
 
     # Use this method together with the client's :dynamic_entries configuration.
@@ -226,12 +267,12 @@ module Contentful
     # @private
     def update_dynamic_entry_cache!
       @dynamic_entry_cache = Hash[
-                             content_types(limit: 1000).map do |ct|
-                               [
-                                 ct.id.to_sym,
-                                 DynamicEntry.create(ct)
-                               ]
-                             end
+        content_types(limit: 1000).map do |ct|
+          [
+            ct.id.to_sym,
+            DynamicEntry.create(ct)
+          ]
+        end
       ]
     end
 

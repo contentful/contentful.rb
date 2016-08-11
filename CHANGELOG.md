@@ -5,6 +5,9 @@
 ### Fixed
 * Fixed Locale handling [#98](https://github.com/contentful/contentful.rb/issues/98)
 
+### Added
+* Added Rate Limit automatic handling
+
 ## 0.10.0
 ### Added
 * Added `:fl` parameter to `Asset#image_url` to support `progressive` File Layering
