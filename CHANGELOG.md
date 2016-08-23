@@ -1,8 +1,10 @@
 # Change Log
+
 ## Unreleased
+### Fixed
+* Fixed JSON Field Parsing [#96](https://github.com/contentful/contentful.rb/issues/96)
 
 ## 0.12.0
-
 ### Added
 * Added Rate Limit automatic handling
 

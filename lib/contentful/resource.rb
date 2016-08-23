@@ -178,12 +178,29 @@ module Contentful
         value.map { |v| coerce_or_create_class(v, what) }
       elsif should_coerce_hash?(value)
         ::Hash[value.map do |k, v|
-          to_coerce = v.is_a?(Hash) ? v : v.to_s
+          to_coerce = pre_coerce(v)
           coercion = v.is_a?(Numeric) ? v : coerce_or_create_class(to_coerce, what)
           [k.to_sym, coercion]
         end]
       else
         coerce_or_create_class(value, what)
+      end
+    end
+
+    def pre_coerce(value)
+      case value
+      when Numeric, true, false, nil
+        value
+      when Hash
+        result = {}
+        value.each_key do |k|
+          result[k.to_sym] = pre_coerce(value[k])
+        end
+        result
+      when ::Array
+        value.map { |e| pre_coerce(e) }
+      else
+        value.to_s
       end
     end
 
