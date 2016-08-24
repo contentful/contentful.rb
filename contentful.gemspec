@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.summary       = 'contentful'
   gem.description   = 'Ruby client for the https://www.contentful.com Content Delivery API'
   gem.license       = 'MIT'
-  gem.authors       = ['Contentful GmbH (Jan Lelis)', 'Contentful GmbH (Andreas Tiefenthaler)']
+  gem.authors       = ['Contentful GmbH (Jan Lelis)', 'Contentful GmbH (Andreas Tiefenthaler)', 'Contentful GmbH (David Litvak Bruno)']
   gem.email         = 'rubygems@contentful.com'
   gem.homepage      = 'https://github.com/contentful/contentful.rb'
 
