@@ -1,6 +1,44 @@
 # Change Log
 
 ## Unreleased
+
+## 1.0.0
+
+**ATTENTION**: Breaking changes on how JSON Fields are parsed. All keys are now symbolized, including
+nested hashes. Parsing errors have been fixed, particularly for `array`, `null` and `boolean` present on the first
+level of the JSON field. Also, on release 0.11.0, it was fixed that JSON Fields were being treated as locales.
+This change increases consistency for the SDK, treating everything the same way. We strive for consistency and
+quality in our tools.
+
+The following `diff` shows previous and current state. This is the contents of the JSON Field we test this feature against.
+
+```diff
+- {:null=>"",
+-  :text=>"some text",
+-  :array=>"[1, 2, 3]",
+-  :number=>123,
+-  :object=>
+-   {"null"=>nil,
+-    "text"=>"bar",
+-    "array"=>[1, 2, 3],
+-    "number"=>123,
+-    "object"=>{"foo"=>"bar"},
+-    "boolean"=>false},
+-  :boolean=>"true"}
++ {:null=>nil,
++  :text=>"some text",
++  :array=>[1, 2, 3],
++  :number=>123,
++  :object=>
++   {:null=>nil,
++   :text=>"bar",
++   :array=>[1, 2, 3],
++   :number=>123,
++   :object=>{:foo=>"bar"},
++   :boolean=>false},
++  :boolean=>true}
+```
+
 ### Fixed
 * Fixed JSON Field Parsing [#96](https://github.com/contentful/contentful.rb/issues/96)
 
