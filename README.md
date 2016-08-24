@@ -372,11 +372,6 @@ first_entry = client.sync(initial: true, type: 'Entry').first_page.items.first
 first_entry.fields('de-DE') # Returns German localizations
 ```
 
-## Rate-limit
-The library does not make assumptions on the rate limit but reacts to `HTTP 429` by raising or returning an error (see [Client Configuration Options](#client-configuration-options)).
-You should handle this within your code and either do the delay calculation naive (fixed amount of seconds) or more elaborated (exponential increase) depending by the structure of your code.
-
-
 ## Workarounds
 
 - When an entry has related entries that are unpublished, they still end up in the resource as unresolved links. We consider this correct, because it is in line with the API responses and our other SDKs. However, you can use the workaround from [issue #60](/../../issues/60) if you happen to want this working differently.
