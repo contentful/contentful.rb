@@ -1,6 +1,11 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fix Link resolution on localized content
+
+### Changed
+* Removed dependency lock specific for Ruby < 2.0 support
 
 ## 1.0.0
 

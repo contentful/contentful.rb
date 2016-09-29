@@ -61,14 +61,6 @@ module Contentful
       false
     end
 
-    # Returns true if resource is localized
-    #
-    # @return [Boolean]
-    def localized?(value)
-      return false unless value.is_a? ::Hash
-      value.keys.any? { |possible_locale| Contentful::Constants::KNOWN_LOCALES.include?(possible_locale) }
-    end
-
     # Resources that don't include SystemProperties return nil for #sys
     def sys
       nil
@@ -146,7 +138,7 @@ module Contentful
       @fields = {}
 
       object['fields'].each do |field_name, nested_child_object|
-        if localized?(nested_child_object)
+        if Support.localized?(nested_child_object)
           nested_child_object.each do |object_locale, real_child_object|
             @fields[object_locale] ||= {}
             @fields[object_locale].merge! extract_from_object(
