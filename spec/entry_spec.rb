@@ -80,6 +80,24 @@ describe Contentful::Entry do
           expect(nyancat.fields_with_locales[:name][:es]).to eq("Gato Nyan")
         }
       end
+
+      it 'can have references in multiple locales and they are properly solved' do
+        vcr('multi_locale_reference') {
+          client = create_client(
+            space: '1sjfpsn7l90g',
+            access_token: 'e451a3cdfced9000220be41ed9c899866e8d52aa430eaf7c35b09df8fc6326f9',
+            dynamic_entries: :auto
+          )
+
+          entry = client.entries(locale: '*').first
+
+          expect(entry.image).to be_a ::Contentful::Asset
+          expect(entry.fields('zh')[:image]).to be_a ::Contentful::Asset
+          expect(entry.fields('es')[:image]).to be_a ::Contentful::Asset
+
+          expect(entry.image.id).not_to eq entry.fields('zh')[:image].id
+        }
+      end
     end
   end
 

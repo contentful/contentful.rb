@@ -182,14 +182,34 @@ module Contentful
       @known_resources[res.type][res.id] = res if res.sys && res.id && res.type != 'Link'
     end
 
+    def localized_entry?(object, property_name, potential_objects)
+      object['sys']['type'] == 'Entry' &&
+        property_name == 'fields' &&
+        potential_objects.is_a?(::Hash) &&
+        potential_objects.any? { |_, p| Support.localized?(p) }
+    end
+
     def replace_children(res, object)
       object.each do |name, potential_objects|
+        replace_localized_children(res, object, name, potential_objects)
+
         detect_child_objects(potential_objects).each do |child_name, child_object|
           res.public_send(name)[child_name.to_sym] = create_resource(child_object)
         end
         next if name == 'includes'
         detect_child_arrays(potential_objects).each do |child_name, _child_array|
           replace_child_array res.public_send(name)[child_name.to_sym]
+        end
+      end
+    end
+
+    def replace_localized_children(result, object, property_name, potential_objects)
+      if localized_entry?(object, property_name, potential_objects)
+        localized_objects = potential_objects.select { |_, p| Support.localized?(p) }
+        localized_objects.each do |field_name, localized_object|
+          detect_child_objects(localized_object).each do |locale, child_object|
+            result.public_send(property_name, locale)[field_name.to_sym] = create_resource(child_object)
+          end
         end
       end
     end
@@ -214,9 +234,19 @@ module Contentful
     def replace_links_with_known_resources(res, seen_resource_ids = [])
       seen_resource_ids << res.id
 
-      property_containers = [:properties, :sys, :fields].map do |property_container_name|
+      property_containers = [:properties, :sys].map do |property_container_name|
         res.public_send(property_container_name)
-      end.compact
+      end
+
+      if res.is_a?(Entry)
+        res.locales.each do |locale|
+          property_containers << res.fields(locale)
+        end
+      else
+        property_containers << res.fields
+      end
+
+      property_containers.compact!
 
       property_containers.each do |property_container|
         replace_links_in_properties(property_container, seen_resource_ids)

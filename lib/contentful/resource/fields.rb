@@ -58,11 +58,11 @@ module Contentful
         end
       end
 
-      private
-
       def locales
         @fields.keys
       end
+
+      private
 
       def extract_fields_from_object!(object)
         initialize_fields_for_localized_resource(object)
