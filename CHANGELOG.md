@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 1.0.1
 ### Fixed
 * Fix Link resolution on localized content
 
