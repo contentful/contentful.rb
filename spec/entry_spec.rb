@@ -98,6 +98,30 @@ describe Contentful::Entry do
           expect(entry.image.id).not_to eq entry.fields('zh')[:image].id
         }
       end
+
+      it 'can have references with arrays in multiple locales and have them properly solved' do
+        vcr('multi_locale_array_reference') {
+          client = create_client(
+            space: 'cma9f9g4dxvs',
+            access_token: '3e4560614990c9ac47343b9eea762bdaaebd845766f619660d7230787fd545e1',
+            dynamic_entries: :auto
+          )
+
+          entry = client.entries(content_type: 'test', locale: '*').first
+
+          expect(entry.files).to be_a ::Array
+          expect(entry.references).to be_a ::Array
+          expect(entry.files.first).to be_a ::Contentful::Asset
+          expect(entry.references.first.entry?).to be_truthy
+
+          expect(entry.fields('zh')[:files]).to be_a ::Array
+          expect(entry.fields('zh')[:references]).to be_a ::Array
+          expect(entry.fields('zh')[:files].first).to be_a ::Contentful::Asset
+          expect(entry.fields('zh')[:references].first.entry?).to be_truthy
+
+          expect(entry.files.first.id).not_to eq entry.fields('zh')[:files].first.id
+        }
+      end
     end
   end
 

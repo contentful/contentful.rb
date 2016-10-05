@@ -204,12 +204,15 @@ module Contentful
     end
 
     def replace_localized_children(result, object, property_name, potential_objects)
-      if localized_entry?(object, property_name, potential_objects)
-        localized_objects = potential_objects.select { |_, p| Support.localized?(p) }
-        localized_objects.each do |field_name, localized_object|
-          detect_child_objects(localized_object).each do |locale, child_object|
-            result.public_send(property_name, locale)[field_name.to_sym] = create_resource(child_object)
-          end
+      return unless localized_entry?(object, property_name, potential_objects)
+
+      localized_objects = potential_objects.select { |_, p| Support.localized?(p) }
+      localized_objects.each do |field_name, localized_object|
+        detect_child_objects(localized_object).each do |locale, child_object|
+          result.public_send(property_name, locale)[field_name.to_sym] = create_resource(child_object)
+        end
+        detect_child_arrays(localized_object).each do |locale, _child_array|
+          replace_child_array result.public_send(property_name, locale)[field_name.to_sym]
         end
       end
     end

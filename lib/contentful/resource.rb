@@ -56,6 +56,11 @@ module Contentful
       "#<#{self.class}:#{properties_info}#{info}>"
     end
 
+    # Returns true for resources that are entries
+    def entry?
+      false
+    end
+
     # Returns true for resources that behave like an array
     def array?
       false

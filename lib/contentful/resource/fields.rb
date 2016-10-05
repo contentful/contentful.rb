@@ -58,6 +58,7 @@ module Contentful
         end
       end
 
+      # Provides a list of the available locales for a Resource
       def locales
         @fields.keys
       end
