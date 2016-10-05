@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 1.0.2
 ### Fixed
 * Fix Link resolution for Arrays on localized content
 
