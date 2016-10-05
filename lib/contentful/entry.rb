@@ -32,6 +32,11 @@ module Contentful
       processed_raw
     end
 
+    # Returns true for resources that are entries
+    def entry?
+      true
+    end
+
     private
 
     def known_link?(name)

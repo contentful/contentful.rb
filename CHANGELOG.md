@@ -1,6 +1,12 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fix Link resolution for Arrays on localized content
+
+### Added
+* Add `entry?` method to resources to easily detect entries
+* Add missing documentation for `#locales` method
 
 ## 1.0.1
 ### Fixed
