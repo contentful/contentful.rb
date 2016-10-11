@@ -149,6 +149,7 @@ module Contentful
     #
     # @return [Contentful::Array<Contentful::Entry>]
     def entries(query = {})
+      normalize_select!(query)
       Request.new(self, '/entries', query).get
     end
 
@@ -168,6 +169,7 @@ module Contentful
     #
     # @return [Contentful::Array<Contentful::Asset>]
     def assets(query = {})
+      normalize_select!(query)
       Request.new(self, '/assets', query).get
     end
 
@@ -295,6 +297,18 @@ module Contentful
     end
 
     private
+
+    # If the query contains the :select operator, we enforce :sys properties.
+    # The SDK requires sys.type to function properly, but as other of our SDKs
+    # require more parts of the :sys properties, we decided that every SDK should
+    # include the complete :sys block to provide consistency accross our SDKs.
+    def normalize_select!(query)
+      return unless query.key?(:select)
+
+      query[:select] = query[:select].split(',').map(&:strip) if query[:select].is_a? String
+      query[:select] = query[:select].reject { |p| p.start_with?('sys.') }
+      query[:select] << 'sys' unless query[:select].include?('sys')
+    end
 
     def normalize_configuration!
       [:space, :access_token, :api_url, :default_locale].each { |s| configuration[s] = configuration[s].to_s }
