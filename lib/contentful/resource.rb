@@ -142,7 +142,7 @@ module Contentful
     def initialize_fields_for_localized_resource(object)
       @fields = {}
 
-      object['fields'].each do |field_name, nested_child_object|
+      object.fetch('fields', {}).each do |field_name, nested_child_object|
         if Support.localized?(nested_child_object)
           nested_child_object.each do |object_locale, real_child_object|
             @fields[object_locale] ||= {}
@@ -151,8 +151,9 @@ module Contentful
             )
           end
         else
-          @fields[locale] ||= {}
-          @fields[locale].merge! extract_from_object({ field_name => nested_child_object }, :fields)
+          # if sys.locale property not present (due to select operator) use default_locale
+          @fields[locale || default_locale] ||= {}
+          @fields[locale || default_locale].merge! extract_from_object({ field_name => nested_child_object }, :fields)
         end
       end
     end

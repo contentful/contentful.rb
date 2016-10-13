@@ -67,4 +67,45 @@ describe Contentful::Asset do
     expect(unmarshalled.title).to eq 'Nyan Cat'
     expect(unmarshalled.file).to be_a Contentful::File
   end
+
+  describe 'select operator' do
+    let(:client) { create_client }
+
+    context 'with sys sent' do
+      it 'properly creates an entry' do
+        vcr('asset/select_only_sys') {
+          asset = client.assets(select: ['sys']).first
+          expect(asset.fields).to be_empty
+          expect(asset.sys).not_to be_empty
+        }
+      end
+
+      it 'can contain only one field' do
+        vcr('asset/select_one_field') {
+          asset = client.assets(select: ['sys', 'fields.file']).first
+          expect(asset.fields.keys).to eq([:file])
+        }
+      end
+    end
+
+    context 'without sys sent' do
+      it 'will enforce sys anyway' do
+        vcr('asset/select_no_sys') {
+          asset = client.assets(select: ['fields'], 'sys.id' => 'nyancat').first
+
+          expect(asset.id).to eq 'nyancat'
+          expect(asset.sys).not_to be_empty
+        }
+      end
+
+      it 'works with empty array as well, as sys is enforced' do
+        vcr('asset/select_empty_array') {
+          asset = client.assets(select: [], 'sys.id' => 'nyancat').first
+
+          expect(asset.id).to eq 'nyancat'
+          expect(asset.sys).not_to be_empty
+        }
+      end
+    end
+  end
 end

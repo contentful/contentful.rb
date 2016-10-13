@@ -240,4 +240,60 @@ describe Contentful::Entry do
       end
     end
   end
+
+  describe 'select operator' do
+    let(:client) { create_client }
+
+    context 'with sys sent' do
+      it 'properly creates an entry' do
+        vcr('entry/select_only_sys') {
+          entry = client.entries(select: ['sys'], 'sys.id' => 'nyancat').first
+          expect(entry.fields).to be_empty
+          expect(entry.entry?).to be_truthy
+        }
+      end
+
+      describe 'can contain only one field' do
+        context 'with content_type sent' do
+          it 'will properly create the entry with one field' do
+            vcr('entry/select_one_field_proper') {
+              entry = client.entries(content_type: 'cat', select: ['sys', 'fields.name'], 'sys.id' => 'nyancat').first
+              expect(entry.fields).not_to be_empty
+              expect(entry.entry?).to be_truthy
+              expect(entry.fields[:name]).to eq 'Nyan Cat'
+              expect(entry.fields).to eq({name: 'Nyan Cat'})
+            }
+          end
+        end
+
+        context 'without content_type sent' do
+          it 'will raise an error' do
+            vcr('entry/select_one_field') {
+              expect { client.entries(select: ['sys', 'fields.name'], 'sys.id' => 'nyancat') }.to raise_error Contentful::BadRequest
+            }
+          end
+        end
+      end
+    end
+
+    context 'without sys sent' do
+      it 'will enforce sys anyway' do
+        vcr('entry/select_no_sys') {
+          entry = client.entries(select: ['fields'], 'sys.id' => 'nyancat').first
+
+          expect(entry.id).to eq 'nyancat'
+          expect(entry.sys).not_to be_empty
+        }
+      end
+
+      it 'works with empty array as well, as sys is enforced' do
+        vcr('entry/select_empty_array') {
+          entry = client.entries(select: [], 'sys.id' => 'nyancat').first
+
+          expect(entry.id).to eq 'nyancat'
+          expect(entry.sys).not_to be_empty
+        }
+      end
+    end
+  end
 end

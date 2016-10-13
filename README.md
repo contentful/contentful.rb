@@ -13,8 +13,6 @@ Add to your Gemfile and bundle:
 gem 'contentful'
 ```
 
-
-
 ## Usage
 
 ```ruby

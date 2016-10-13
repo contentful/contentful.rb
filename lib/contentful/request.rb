@@ -3,7 +3,7 @@ module Contentful
   # with domain specific logic. The client later uses the Request's #url and #query methods
   # to execute the HTTP request.
   class Request
-    attr_reader :client, :type, :query, :id
+    attr_reader :client, :type, :query, :id, :endpoint
 
     def initialize(client, endpoint, query = {}, id = nil)
       @client = client
