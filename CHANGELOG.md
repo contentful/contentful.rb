@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 1.1.0
 ### Added
 * Add support for `select` operator in `#entries` and `#assets` call
 
