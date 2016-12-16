@@ -19,6 +19,7 @@ module Contentful
       @properties = extract_from_object(raw_object, :property, self.class.property_coercions.keys)
       @sys = raw_object.key?('sys') ? extract_from_object(raw_object['sys'], :sys) : {}
       initialize_fields_for_localized_resource(raw_object)
+      @raw = raw_object
     end
 
     # Generates a URL for the Contentful Image API

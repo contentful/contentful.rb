@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fix Re-Marshalling of already Un-Marshalled objects
 
 ## 1.1.0
 ### Added
