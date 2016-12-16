@@ -176,6 +176,7 @@ describe Contentful::Entry do
         property :lives
         property :bestFriend, Cat
         property :catPack
+        property :image, Contentful::Asset
       end
 
       def test_dump(nyancat)
@@ -209,6 +210,8 @@ describe Contentful::Entry do
         expect(new_cat.cat_pack.first.name).to eq "Happy Cat"
         expect(new_cat.cat_pack.first.cat_pack[0].name).to eq "Nyan Cat"
         expect(new_cat.cat_pack.first.cat_pack[1].name).to eq "Worried Cat"
+
+        expect(new_cat.image.file.url).to eq "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
       end
 
       it 'using entry_mapping' do
@@ -227,6 +230,20 @@ describe Contentful::Entry do
             end
           }).entries(include: 2, 'sys.id' => 'nyancat').first
           test_dump(nyancat)
+        }
+      end
+
+      it 'can remarshall an unmarshalled object' do
+        vcr('entry/marshall') {
+          nyancat = create_client(resource_mapping: {
+            'Entry' => ->(_json_object) do
+              return Cat if _json_object.fetch('sys', {}).fetch('contentType', {}).fetch('sys', {}).fetch('id', nil) == 'cat'
+              Contentful::Entry
+            end
+          }).entries(include: 2, 'sys.id' => 'nyancat').first
+
+          # The double load/dump is on purpose
+          test_dump(Marshal.load(Marshal.dump(nyancat)))
         }
       end
 

@@ -19,12 +19,13 @@ module Contentful
       @properties = extract_from_object(raw_object, :property, self.class.property_coercions.keys)
       @sys = raw_object.key?('sys') ? extract_from_object(raw_object['sys'], :sys) : {}
       extract_fields_from_object!(raw_object)
+      @raw = raw_object
     end
 
     # @private
     def raw_with_links
       links = properties.keys.select { |property| known_link?(property) }
-      processed_raw = Marshal.load(Marshal.dump(raw)) # Deep Copy
+      processed_raw = raw.clone
       raw['fields'].each do |k, v|
         processed_raw['fields'][k] = links.include?(k.to_sym) ? send(snakify(k)) : v
       end
