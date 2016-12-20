@@ -60,6 +60,18 @@ describe Contentful::Asset do
     end
   end
 
+  describe '#url' do
+    it 'returns #url of #file without parameter' do
+      expect(asset.url).to eq asset.file.url
+    end
+
+    it 'adds image options if given' do
+      url = asset.url(width: 100, format: 'jpg', quality: 50, focus: 'top_right', fit: 'thumb', fl: 'progressive')
+      expect(url).to include asset.file.url
+      expect(url).to include '?w=100&fm=jpg&q=50&f=top_right&fit=thumb&fl=progressive'
+    end
+  end
+
   it 'can be marshalled' do
     marshalled = Marshal.dump(asset)
     unmarshalled = Marshal.load(marshalled)
