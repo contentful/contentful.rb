@@ -42,17 +42,9 @@ describe Contentful::Resource do
 
     it 'can create a custom resource from API' do
       vcr('entry') {
-        cat = TestCat.new create_client(raw_mode: true).entry('nyancat').object["fields"]
+        cat = TestCat.new create_client(raw_mode: true).entry('nyancat').object["items"].first['fields']
         expect(cat.name).to eq "Nyan Cat"
       }
-    end
-  end
-
-  describe '#request' do
-    it 'will return a request object, if it has been initialized with one' do
-      request  = Contentful::Request.new(nil, 'content_types')
-      resource = Contentful::ContentType.new({}, request)
-      expect(resource.request).to eq request
     end
   end
 
@@ -60,16 +52,14 @@ describe Contentful::Resource do
     let(:client) { create_client }
     let(:entry) { vcr('entry') { client.entry 'nyancat' } }
 
-    it 'triggers the request connected to the resource (again)' do
-      stub(entry.request).get
-      entry.reload
-      expect(entry.request).to have_received.get
-    end
-
     it 'the reloaded resource is different from the original one' do
-      reloaded_entry = vcr('reloaded_entry') { entry.reload }
-      expect(reloaded_entry).to be_a Contentful::Entry
-      expect(reloaded_entry).not_to be entry
+      vcr('reloaded_entry') {
+        reloaded_entry = entry.reload(client)
+
+        expect(reloaded_entry).to be_a Contentful::Entry
+        expect(reloaded_entry).not_to be entry
+        expect(entry.raw).to match(reloaded_entry.raw)
+      }
     end
 
     it 'will return false if #request not available' do

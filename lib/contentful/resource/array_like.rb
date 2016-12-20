@@ -34,6 +34,13 @@ module Contentful
         items.size
       end
       alias length size
+
+      # Delegates to items#[]
+      #
+      # @return [Contentful::Entry, Contentful::Asset]
+      def [](index)
+        items[index]
+      end
     end
   end
 end

@@ -81,7 +81,11 @@ module Contentful
     # Creates a single resource from the response object
     def create_resource(object)
       res_class = detect_resource_class(object)
-      res = res_class.new(object, response.request, client, @default_locale)
+      res = if res_class.is_a?(Array)
+              res_class.new(object, @default_locale)
+            else
+              res_class.new(object, @default_locale, @response.request.endpoint)
+            end
 
       add_to_known_resources res
       replace_children res, object

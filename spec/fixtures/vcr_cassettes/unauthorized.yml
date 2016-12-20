@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/wrong/entries/nyancat
+    uri: https://cdn.contentful.com/spaces/wrong/entries?sys.id=nyancat
     body:
       encoding: US-ASCII
       string: ''

@@ -18,18 +18,23 @@ module Contentful
     property :skip, :integer
     property :items
 
+    attr_reader :endpoint
+
+    def initialize(object = nil,
+                   default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale],
+                   endpoint = '')
+      super(object, default_locale)
+      @endpoint = endpoint
+    end
+
     # Simplifies pagination
     #
     # @return [Contentful::Array, false]
-    def next_page
-      if request
-        new_skip    = (skip || 0) + (limit || DEFAULT_LIMIT)
-        new_request = request.copy
-        new_request.query[:skip] = new_skip
-        new_request.get
-      else
-        false
-      end
+    def next_page(client = nil)
+      return false if client.nil?
+
+      new_skip = (skip || 0) + (limit || DEFAULT_LIMIT)
+      client.send(endpoint.delete('/'), limit: limit, skip: new_skip)
     end
   end
 end

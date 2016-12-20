@@ -46,7 +46,7 @@ describe Contentful::Entry do
 
     it "contains the entry's fields" do
       expect(entry.fields[:color]).to eq 'rainbow'
-      expect(entry.fields[:bestFriend]).to be_a Contentful::Link
+      expect(entry.fields[:bestFriend]).to be_a Contentful::Entry
     end
   end
 
@@ -128,7 +128,7 @@ describe Contentful::Entry do
   it '#raw' do
     vcr('entry/raw') {
       nyancat = create_client.entry('nyancat')
-      expect(nyancat.raw).to eq(create_client(raw_mode: true).entry('nyancat').object)
+      expect(nyancat.raw).to eq(create_client(raw_mode: true).entry('nyancat').object['items'].first)
     }
   end
 

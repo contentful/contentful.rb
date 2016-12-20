@@ -10,5 +10,12 @@ module Contentful
 
     property :name, :string
     property :locales, Locale
+
+    # @private
+    def reload(client = nil)
+      return client.space unless client.nil?
+
+      false
+    end
   end
 end

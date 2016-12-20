@@ -4,10 +4,11 @@ describe Contentful::Request do
   describe '#get' do
     it 'calls client' do
       client = create_client
-      stub(client).get
       request = Contentful::Request.new(client, '/content_types', nil, 'nyancat')
+
+      expect(client).to receive(:get).with(request)
+
       request.get
-      expect(client).to have_received.get(request)
     end
   end
 

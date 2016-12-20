@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Contentful::Link do
+  let(:client) { create_client }
   let(:entry) { vcr('entry') { create_client.entry('nyancat') } }
   let(:link) { entry.space }
   let(:content_type_link) { entry.content_type }
@@ -27,13 +28,13 @@ describe Contentful::Link do
   describe '#resolve' do
     it 'queries the api for the resource' do
       vcr('space')do
-        expect(link.resolve).to be_a Contentful::Space
+        expect(link.resolve(client)).to be_a Contentful::Space
       end
     end
 
     it 'queries the api for the resource (different link object)' do
       vcr('content_type')do
-        expect(content_type_link.resolve).to be_a Contentful::ContentType
+        expect(content_type_link.resolve(client)).to be_a Contentful::ContentType
       end
     end
   end

@@ -26,13 +26,11 @@ module Contentful
     }
     # rubocop:enable Style/DoubleNegation
 
-    attr_reader :properties, :request, :client, :default_locale, :raw
+    attr_reader :properties, :default_locale, :raw
 
     # @private
     def initialize(object = nil,
-                   request = nil,
-                   client = nil,
-                   default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
+                   default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale], *)
       self.class.update_coercions!
       @default_locale = default_locale
 
@@ -45,8 +43,6 @@ module Contentful
         extract_from_object(object, :property,
                             self.class.property_coercions.keys)
       )
-      @request = request
-      @client = client
       @raw = object
     end
 
@@ -78,12 +74,10 @@ module Contentful
 
     # Issues the request that was made to fetch this response again.
     # Only works for top-level resources
-    def reload
-      if request
-        request.get
-      else
-        false
-      end
+    def reload(client = nil)
+      return client.send(Support.snakify(self.class.name.split('::').last), id) unless client.nil?
+
+      false
     end
 
     # Register the resources properties on class level by using the #property method
@@ -230,7 +224,7 @@ module Contentful
       when Proc
         what[value]
       when Class
-        what.new(value, client) if value
+        what.new(value) if value
       else
         value
       end

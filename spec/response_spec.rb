@@ -38,7 +38,7 @@ describe Contentful::Response do
 
     it 'returns :error for responses without content' do
       raw_response = ''
-      stub(raw_response).status { 204 }
+      allow(raw_response).to receive(:status) { 204 }
       no_content_response = Contentful::Response.new raw_response
       expect(no_content_response.status).to eq :no_content
     end

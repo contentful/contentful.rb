@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Contentful::Array do
-  let(:array) { vcr('array') { create_client.content_types } }
+  let(:client) { create_client }
+  let(:array) { vcr('array') { client.content_types } }
 
   describe 'SystemProperties' do
     it 'has a #sys getter returning a hash with symbol keys' do
@@ -55,7 +56,7 @@ describe Contentful::Array do
   describe '#next_page' do
     it 'requests more of the same content from the server, using its limit and skip values' do
       array_page_1 = vcr('array_page_1') { create_client.content_types(skip: 3, limit: 2) }
-      array_page_2 = vcr('array_page_2') { array_page_1.next_page }
+      array_page_2 = vcr('array_page_2') { array_page_1.next_page(client) }
 
       expect(array_page_2).to be_a Contentful::Array
       expect(array_page_2.limit).to eq 2

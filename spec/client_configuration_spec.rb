@@ -34,7 +34,7 @@ describe 'Client Configuration Options' do
   describe ':raise_errors' do
     it 'will raise response errors if set to true [default]' do
       expect_vcr('not found')do
-        create_client.entry 'not found'
+        create_client.content_type 'not found'
       end.to raise_error Contentful::NotFound
     end
 
@@ -42,7 +42,7 @@ describe 'Client Configuration Options' do
       res = nil
 
       expect_vcr('not found')do
-        res = create_client(raise_errors: false).entry 'not found'
+        res = create_client(raise_errors: false).content_type 'not found'
       end.not_to raise_error
       expect(res).to be_instance_of Contentful::NotFound
     end
@@ -84,9 +84,8 @@ describe 'Client Configuration Options' do
       let(:client) { create_client(dynamic_entries: :manual) }
 
       it 'will fetch all content_types' do
-        stub(client).content_types { {} }
+        expect(client).to receive(:content_types).with(limit: 1000) { {} }
         client.update_dynamic_entry_cache!
-        expect(client).to have_received.content_types(limit: 1000)
       end
 
       it 'will save dynamic entries in @dynamic_entry_cache' do

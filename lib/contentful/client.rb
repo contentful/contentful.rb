@@ -140,7 +140,13 @@ module Contentful
     #
     # @return [Contentful::Entry]
     def entry(id, query = {})
-      Request.new(self, '/entries', query, id).get
+      normalize_select!(query)
+      query['sys.id'] = id
+      entries = Request.new(self, '/entries', query).get
+
+      return entries if configuration[:raw_mode]
+
+      entries.first
     end
 
     # Gets a collection of entries
