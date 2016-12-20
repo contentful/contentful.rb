@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Added
+* Add alias for `image_url`
 
 ## 1.1.1
 ### Fixed

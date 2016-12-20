@@ -52,5 +52,7 @@ module Contentful
         "#{file.url}?#{URI.encode_www_form(query)}"
       end
     end
+
+    alias url image_url
   end
 end
