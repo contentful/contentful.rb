@@ -15,11 +15,19 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^spec/})
   gem.require_paths = ['lib']
 
-  gem.add_dependency 'http', '~> 1.0'
+  if RUBY_VERSION.start_with?('1.')
+    gem.add_dependency 'http', '> 0.8', '< 2'
+    gem.add_dependency 'json', '~> 1.0'
+    gem.add_development_dependency'term-ansicolor', '~> 1.3.0'
+    gem.add_development_dependency 'public_suffix', '< 1.5'
+  else
+    gem.add_dependency 'http', '> 0.8', '< 3.0'
+  end
+
   gem.add_dependency 'multi_json', '~> 1'
 
   gem.add_development_dependency 'bundler', '~> 1.5'
-  gem.add_development_dependency 'rake', '~> 10'
+  gem.add_development_dependency 'rake', '< 11.0'
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
 
   gem.add_development_dependency 'guard'
