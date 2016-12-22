@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 1.2.1
 ### Added
 * Update dependency versions
 
