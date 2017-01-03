@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed Symbol/Text field serialization when value is `null` [#117](https://github.com/contentful/contentful.rb/issues/117)
 
 ## 1.2.1
 ### Added

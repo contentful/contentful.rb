@@ -18,7 +18,7 @@ module Contentful
     # @private
     # rubocop:disable Style/DoubleNegation
     COERCIONS = {
-      string:  ->(v) { v.to_s },
+      string:  ->(v) { v.nil? ? nil : v.to_s },
       integer: ->(v) { v.to_i },
       float:   ->(v) { v.to_f },
       boolean: ->(v) { !!v },
