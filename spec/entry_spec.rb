@@ -313,4 +313,16 @@ describe Contentful::Entry do
       end
     end
   end
+
+  describe 'issues' do
+    it 'Symbol/Text field with null values should be serialized as nil - #117' do
+      vcr('entries/issue_117') {
+        client = create_client(space: '8jbbayggj9gj', access_token: '4ce0108f04e55c76476ba84ab0e6149734db73d67cd1b429323ef67f00977e07', dynamic_entries: :auto)
+        entry = client.entries.first
+
+        expect(entry.nil).to be_nil
+        expect(entry.nil).not_to eq ''
+      }
+    end
+  end
 end
