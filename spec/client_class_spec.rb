@@ -27,7 +27,7 @@ describe Contentful::Client do
     end
 
     it 'uses Request#query' do
-      expect(request).to receive(:query).and_call_original
+      expect(request).to receive(:query).twice.and_call_original
       vcr('content_type') { client.get(request) }
     end
 
@@ -46,7 +46,7 @@ describe Contentful::Client do
     describe 'build_resources parameter' do
       it 'returns Contentful::Resource object if second parameter is true [default]' do
         res = vcr('content_type') { client.get(request) }
-        expect(res).to be_a Contentful::Resource
+        expect(res).to be_a Contentful::BaseResource
       end
 
       it 'returns a Contentful::Response object if second parameter is not true' do

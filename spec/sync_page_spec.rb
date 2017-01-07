@@ -16,14 +16,9 @@ describe Contentful::SyncPage do
   end
 
   describe 'Properties' do
-    it 'has a #properties getter returning a hash with symbol keys' do
-      expect(page.properties).to be_a Hash
-      expect(page.properties.keys.sample).to be_a Symbol
-    end
-
     it 'has #items which contain resources' do
       expect(page_with_more.items).to be_a Array
-      expect(page_with_more.items.sample).to be_a Contentful::Resource
+      expect(page_with_more.items.sample).to be_a Contentful::BaseResource
     end
   end
 

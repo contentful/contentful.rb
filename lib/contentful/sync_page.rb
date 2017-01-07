@@ -1,18 +1,25 @@
-require_relative 'resource'
-require_relative 'resource/array_like'
+require_relative 'base_resource'
+require_relative 'array_like'
 
 module Contentful
   # Wrapper Class for Sync results
-  class SyncPage
-    attr_reader :sync
+  class SyncPage < BaseResource
+    include Contentful::ArrayLike
 
-    include Contentful::Resource
-    include Contentful::Resource::SystemProperties
-    include Contentful::Resource::ArrayLike
+    attr_reader :sync, :items, :next_sync_url, :next_page_url
 
-    property :items
-    property :nextSyncUrl
-    property :nextPageUrl
+    def initialize(item, default_locale, *)
+      super(item, { default_locale: default_locale }, true)
+
+      @items = item.fetch('items', [])
+      @next_sync_url = item.fetch('nextSyncUrl', nil)
+      @next_page_url = item.fetch('nextPageUrl', nil)
+    end
+
+    # @private
+    def inspect
+      "<#{repr_name} next_sync_url='#{next_sync_url}' last_page=#{last_page?}>"
+    end
 
     # Requests next sync page from API
     #

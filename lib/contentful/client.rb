@@ -2,6 +2,7 @@ require_relative 'request'
 require_relative 'response'
 require_relative 'resource_builder'
 require_relative 'sync'
+require_relative 'content_type_cache'
 
 require 'http'
 require 'logger'
@@ -37,7 +38,7 @@ module Contentful
     # Rate Limit Reset Header Key
     RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
 
-    attr_reader :configuration, :dynamic_entry_cache, :logger, :proxy
+    attr_reader :configuration, :logger, :proxy
 
     # Wraps the actual HTTP request via proxy
     # @private
@@ -76,11 +77,7 @@ module Contentful
       validate_configuration!
       setup_logger
 
-      if configuration[:dynamic_entries] == :auto
-        update_dynamic_entry_cache!
-      else
-        @dynamic_entry_cache = {}
-      end
+      update_dynamic_entry_cache! if configuration[:dynamic_entries] == :auto
     end
 
     # @private
@@ -211,22 +208,23 @@ module Contentful
     # @private
     def get(request, build_resource = true)
       retries_left = configuration[:max_rate_limit_retries]
+      result = nil
       begin
         response = run_request(request)
 
         return response if !build_resource || configuration[:raw_mode]
 
-        result = do_build_resource(response)
+        return fail_response(response) if response.status != :ok
 
-        fail result if result.is_a?(Error) && configuration[:raise_errors]
+        result = do_build_resource(response)
+      rescue UnparsableResource => error
+        raise error if configuration[:raise_errors]
+        return error
       rescue Contentful::RateLimitExceeded => rate_limit_error
         reset_time = rate_limit_error.response.raw[RATE_LIMIT_RESET_HEADER_KEY].to_i
         if should_retry(retries_left, reset_time, configuration[:max_rate_limit_wait])
           retries_left -= 1
-          retry_message = 'Contentful API Rate Limit Hit! '
-          retry_message += "Retrying - Retries left: #{retries_left}"
-          retry_message += "- Time until reset (seconds): #{reset_time}"
-          logger.info(retry_message) if logger
+          logger.info(retry_message(retries_left, reset_time)) if logger
           sleep(reset_time * Random.new.rand(1.0..1.2))
           retry
         end
@@ -235,6 +233,20 @@ module Contentful
       end
 
       result
+    end
+
+    # @private
+    def retry_message(retries_left, reset_time)
+      message = 'Contentful API Rate Limit Hit! '
+      message += "Retrying - Retries left: #{retries_left}"
+      message += "- Time until reset (seconds): #{reset_time}"
+      message
+    end
+
+    # @private
+    def fail_response(response)
+      fail response.object if configuration[:raise_errors]
+      response.object
     end
 
     # @private
@@ -262,11 +274,11 @@ module Contentful
     def do_build_resource(response)
       logger.debug(response: response) if logger
       configuration[:resource_builder].new(
-        self,
-        response,
-        configuration[:resource_mapping],
-        configuration[:entry_mapping],
-        configuration[:default_locale]
+        response.object,
+        configuration,
+        (response.request.query || {}).fetch(:locale, nil) == '*',
+        0,
+        response.request.endpoint
       ).run
     end
 
@@ -274,21 +286,24 @@ module Contentful
     # See README for details.
     # @private
     def update_dynamic_entry_cache!
-      @dynamic_entry_cache = Hash[
-        content_types(limit: 1000).map do |ct|
-          [
-            ct.id.to_sym,
-            DynamicEntry.create(ct)
-          ]
-        end
-      ]
+      content_types(limit: 1000).map do |ct|
+        ContentTypeCache.cache_set(
+          configuration[:space],
+          ct.id,
+          ct
+        )
+      end
     end
 
     # Use this method to manually register a dynamic entry
     # See examples/dynamic_entries.rb
     # @private
     def register_dynamic_entry(key, klass)
-      @dynamic_entry_cache[key.to_sym] = klass
+      ContentTypeCache.cache_set(
+        configuration[:space],
+        key,
+        klass
+      )
     end
 
     # Create a new synchronisation object
@@ -323,19 +338,13 @@ module Contentful
 
     def validate_configuration!
       fail ArgumentError, 'You will need to initialize a client with a :space' if configuration[:space].empty?
-
       fail ArgumentError, 'You will need to initialize a client with an :access_token' if configuration[:access_token].empty?
-
       fail ArgumentError, 'The client configuration needs to contain an :api_url' if configuration[:api_url].empty?
-
       fail ArgumentError, 'The client configuration needs to contain a :default_locale' if configuration[:default_locale].empty?
-
       fail ArgumentError, 'The :api_version must be a positive number or nil' unless configuration[:api_version].to_i >= 0
-
       fail ArgumentError, 'The authentication mechanism must be :header or :query_string' unless [:header, :query_string].include?(
         configuration[:authentication_mechanism]
       )
-
       fail ArgumentError, 'The :dynamic_entries mode must be :auto or :manual' unless [:auto, :manual].include?(
         configuration[:dynamic_entries]
       )

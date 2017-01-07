@@ -16,11 +16,6 @@ describe Contentful::Array do
   end
 
   describe 'Properties' do
-    it 'has a #properties getter returning a hash with symbol keys' do
-      expect(array.properties).to be_a Hash
-      expect(array.properties.keys.sample).to be_a Symbol
-    end
-
     it 'has #total' do
       expect(array.total).to eq 4
     end
@@ -35,7 +30,7 @@ describe Contentful::Array do
 
     it 'has #items which contain resources' do
       expect(array.items).to be_a Array
-      expect(array.items.sample).to be_a Contentful::Resource
+      expect(array.items.sample).to be_a Contentful::BaseResource
     end
   end
 

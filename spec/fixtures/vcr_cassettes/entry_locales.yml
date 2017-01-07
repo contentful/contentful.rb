@@ -2,17 +2,21 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?locale=*
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?locale=*&sys.id=nyancat
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.1
+      - RubyContentfulGem/1.2.2
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
       Host:
       - cdn.contentful.com
   response:
@@ -20,103 +24,81 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Date:
-      - Wed, 16 Apr 2014 09:00:23 GMT
-      Server:
-      - nginx/1.1.19
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - Etag
       Access-Control-Max-Age:
       - '86400'
       Cache-Control:
       - max-age=0
+      Content-Encoding:
+      - gzip
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Etag:
-      - "\"a9e11c59bf73598894bf05d4db7700cb\""
+      - W/"124a54e4a3072cd55acbc29108bc34d7"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
       X-Contentful-Request-Id:
-      - 71a-635712892
+      - 8810dc608c80de2e6645bdc900ee7718
       Content-Length:
-      - '882'
+      - '1124'
       Accept-Ranges:
       - bytes
+      Date:
+      - Thu, 05 Jan 2017 20:42:42 GMT
       Via:
       - 1.1 varnish
       Age:
-      - '1'
+      - '581'
+      Connection:
+      - close
       X-Served-By:
-      - cache-am72-AMS
+      - cache-gru7120-GRU
       X-Cache:
       - HIT
       X-Cache-Hits:
       - '1'
+      X-Timer:
+      - S1483648962.295214,VS0,VE0
       Vary:
       - Accept-Encoding
     body:
-      encoding: UTF-8
-      string: |
-        {
-          "sys": {
-            "type": "Array"
-          },
-          "total": 10,
-          "skip": 0,
-          "limit": 100,
-          "items": [
-            {
-              "fields": {
-                "name": {"en-US": "Nyan Cat", "es": "Gato Nyan"},
-                "likes": [
-                  "rainbows",
-                  "fish"
-                ],
-                "color": "rainbow",
-                "bestFriend": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Entry",
-                    "id": "happycat"
-                    }
-                },
-                "birthday": "2011-04-04T22:00:00+00:00",
-                "lives": 1337,
-                "image": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Asset",
-                    "id": "nyancat"
-                    }
-                  }
-                },
-              "sys": {
-                "space": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Space",
-                    "id": "cfexampleapi"
-                    }
-                  },
-                "type": "Entry",
-                "contentType": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "ContentType",
-                    "id": "cat"
-                    }
-                  },
-                "id": "nyancat",
-                "revision": 5,
-                "createdAt": "2013-06-27T22:46:19.513Z",
-                "updatedAt": "2013-09-04T09:19:39.027Z",
-                "locale": "en-US"
-              }
-            }
-          ]
-        }
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+VYXW/bNhR9z68w9LKHzjJJSdbHmxG0aICt2BAXAzIUAS3R
+        NmNZ1iQ5qVvkv+9Sn6REOW6RohgmBIlI8V5eHt5zeJmvV5OJkZ9yI5h8hVdo
+        FKeUQctYZBk9GdD3/KsYUxwKGkM/Llv5jqfQQGUj5nteiE+oavOC7YXDv0uH
+        ldveLOVMeUpDMVUzouqUYhEdZWcT02882Rlizu6B2ZPdso75tvTYG8AjsZxw
+        zT7TfRozmnKxquZ5bt/LdVaPUdkkJ5qEtJActpG8TYrsJH8IM0YLFi0EEAZB
+        2Jqi+ZS4S0ICex5g33SwdScbHNOob+BPkb1EPowOLN9ExFUMMvbIc35IYAJH
+        CjU8JAVLihqC18PyWvKrRxSQ0QNZ97aAGmvO4qjLMQGykdD9YPNZMv14KwD8
+        AMhPrhXoRRrE2/bj481mmx1+6SKQty/mO6ZOB9aN8yot263OKE9Wh6e8nzZr
+        nm/l9X3SJkp4iA9ZP4fbZdS+9UGuWF68yzhLRH4q+9bYy50aAtW5eoYcJTk7
+        evSTVkn2LU3Tk8h2hV4dPUAItAiseFZsI5CKkUUIMmBIbJHbQAaE4OdN+VsP
+        S8wfx/cOW5arjYLv6WY0nV4bx0WeM1kVtKJxCYwNUcq/At5PpaDyJIyPkYSC
+        Ue1cI6mdqGqzQius2pElES/PH528inDPCqycN/Vh0nKvsmwzT5aZUaWFCc9r
+        LUEmdrEsnWAyVFtISuwtsRM4XoCIibDXM5H01lMiG1fc1wB5XHc7qL+dpRoF
+        BncaDYbeVr7eC0kYyLBImUqI/zyG28lAiPubrBNjaRZVjsXubhn7sjpmG5ap
+        WtQpcH8KnQrLC9nUpUyTeNJZAcNGhVhyoUoIfJBrpsbty3QCw5cFGQap9Yci
+        JSqfzrFrRJllYAhC1hSjKfGWxNJrcx9rnT5LLrEUrAqzTqJ/OMJ6qW4R1h96
+        ZyHujh9FvUvlBr/VhP9LpR5irVNqKHLJEtuBMw8s2yRzpcgFAIdKjSoTJ8A4
+        ILZpzfviLik16bZHqpH16lfwIu7XDDI5Ovkbzek1P+dhIBrHTFyhjNms5EJu
+        1ifJ+hjD634m31Fm1u93fyQPd8ubfLe4udkdj4f8Os9nlkeo7UVrSsIVnoe2
+        S+HNJWt3RazVGvmzJqWfzId00ytqYXURKyiP+8VxpWBGzr8IQBzft3y15i9z
+        W8/g2vaJR4Uoz4lrDU3BeMv4ZituR5bflXCNcsplpuhTlKOcWyD9oboyGC8s
+        UT2fq6hnDynbXFTaNqxuFtFtokbz/2ul1vBGC9C2N/5BWXsBf230YqVV87el
+        /MBE4m93fMj3ue/jb3uJ/Bn0tTfpvKCLp7/s6/3t5rj/h7Ddx/3MjygKI+xb
+        c8/FKy9yiWVbzPMdilA0x3gmgr6Ha9g9cVD6+X6dQc6bafKdTMZES8cLmeyU
+        /8/pPx2TIcTB929j8uWr1ZJa4KJEMHJdbThd/hVl5PPV89W/uoVgxfsSAAA=
     http_version: 
-  recorded_at: Wed, 16 Apr 2014 09:00:23 GMT
-recorded_with: VCR 2.9.0
+  recorded_at: Thu, 05 Jan 2017 20:42:42 GMT
+recorded_with: VCR 3.0.3

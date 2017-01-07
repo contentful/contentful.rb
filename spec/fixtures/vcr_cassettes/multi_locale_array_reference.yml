@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/1.0.1
+      - RubyContentfulGem/1.2.2
       Authorization:
       - Bearer 3e4560614990c9ac47343b9eea762bdaaebd845766f619660d7230787fd545e1
       Content-Type:
@@ -44,19 +44,17 @@ http_interactions:
       - W/"d88da8bd0b663c91b528c893d220e530"
       Server:
       - Contentful
-      Strict-Transport-Security:
-      - max-age=15768000
       X-Content-Type-Options:
       - nosniff
       - nosniff
       X-Contentful-Request-Id:
-      - a0059b039268294c11c0f01a5debe341
+      - 4bfef527dcfdfd29345093a3880ae7b7
       Content-Length:
       - '466'
       Accept-Ranges:
       - bytes
       Date:
-      - Wed, 05 Oct 2016 10:24:47 GMT
+      - Thu, 05 Jan 2017 20:41:38 GMT
       Via:
       - 1.1 varnish
       Age:
@@ -64,13 +62,13 @@ http_interactions:
       Connection:
       - close
       X-Served-By:
-      - cache-gru7126-GRU
+      - cache-gru7122-GRU
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
       X-Timer:
-      - S1475663087.088657,VS0,VE163
+      - S1483648898.163319,VS0,VE341
       Vary:
       - Accept-Encoding
     body:
@@ -88,7 +86,7 @@ http_interactions:
         OlzDP2iNxYFRagJyK/ot/7gJzLwb9jkx1M9jUaRrTtuU5ZLPKcHcjH0OfzPt
         HdXSqrfvfQFKIERWiQcAAA==
     http_version: 
-  recorded_at: Wed, 05 Oct 2016 10:24:47 GMT
+  recorded_at: Thu, 05 Jan 2017 20:41:38 GMT
 - request:
     method: get
     uri: https://cdn.contentful.com/spaces/cma9f9g4dxvs/entries?content_type=test&locale=*
@@ -97,7 +95,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/1.0.1
+      - RubyContentfulGem/1.2.2
       Authorization:
       - Bearer 3e4560614990c9ac47343b9eea762bdaaebd845766f619660d7230787fd545e1
       Content-Type:
@@ -133,19 +131,17 @@ http_interactions:
       - W/"8edf1404b7716c31b2d3e1ee5e7bcf1d"
       Server:
       - Contentful
-      Strict-Transport-Security:
-      - max-age=15768000
       X-Content-Type-Options:
       - nosniff
       - nosniff
       X-Contentful-Request-Id:
-      - 4971acf3134093597e6a745b405ba08e
+      - cf89553cf35875de7c416bee28f1266b
       Content-Length:
       - '1349'
       Accept-Ranges:
       - bytes
       Date:
-      - Wed, 05 Oct 2016 10:24:47 GMT
+      - Thu, 05 Jan 2017 20:41:38 GMT
       Via:
       - 1.1 varnish
       Age:
@@ -153,13 +149,13 @@ http_interactions:
       Connection:
       - close
       X-Served-By:
-      - cache-gru7121-GRU
+      - cache-gru7124-GRU
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
       X-Timer:
-      - S1475663087.427541,VS0,VE185
+      - S1483648898.699738,VS0,VE290
       Vary:
       - Accept-Encoding
     body:
@@ -196,5 +192,5 @@ http_interactions:
         aFkGwmfRzmpo2AxgC1ETmYYBLA4LXrGDDnUdlTiUaCyHhsD9S+NBhbaW/g9B
         8dkXGqCqqqXJd2OkUhIoOuNFICAnkNV7rnD29xtvfzh4OPgFEE8NsqwhAAA=
     http_version: 
-  recorded_at: Wed, 05 Oct 2016 10:24:47 GMT
+  recorded_at: Thu, 05 Jan 2017 20:41:39 GMT
 recorded_with: VCR 3.0.3

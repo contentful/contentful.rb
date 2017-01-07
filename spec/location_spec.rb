@@ -12,11 +12,6 @@ describe Contentful::Location do
   end
 
   describe 'Properties' do
-    it 'has a #properties getter returning a hash with symbol keys' do
-      expect(location.properties).to be_a Hash
-      expect(location.properties.keys.sample).to be_a Symbol
-    end
-
     it 'has #lat' do
       expect(location.lat).to be_a Float
       expect(location.lat.to_i).to eq 36
@@ -24,7 +19,7 @@ describe Contentful::Location do
 
     it 'has #lon' do
       expect(location.lon).to be_a Float
-      expect(location.lon.to_i).to eq -94
+      expect(location.lon.to_i).to eq(-94)
     end
   end
 end

@@ -49,9 +49,8 @@ describe 'Client Configuration Options' do
   end
 
   describe ':dynamic_entries' do
-    it 'will create static if dynamic_entry_cache is empty' do
-      entry = vcr('nyancat') { create_client(dynamic_entries: :manual).entry('nyancat') }
-      expect(entry).not_to be_a Contentful::DynamicEntry
+    before :each do
+      Contentful::ContentTypeCache.clear!
     end
 
     it 'will create dynamic entries if dynamic_entry_cache is not empty' do
@@ -59,24 +58,22 @@ describe 'Client Configuration Options' do
       vcr('entry_cache') { client.update_dynamic_entry_cache! }
       entry = vcr('nyancat') { client.entry('nyancat') }
 
-      expect(entry).to be_a Contentful::DynamicEntry
+      expect(entry).to be_a Contentful::Entry
     end
 
     context ':auto' do
       it 'will call update dynamic_entry_cache on start-up' do
-        client = vcr('entry_cache')do
+        vcr('entry_cache') do
           create_client(dynamic_entries: :auto)
         end
-        expect(client.dynamic_entry_cache).not_to be_empty
-        expect(client.dynamic_entry_cache.values.first.ancestors).to \
-            include Contentful::DynamicEntry
+        expect(Contentful::ContentTypeCache.cache).not_to be_empty
       end
     end
 
     context ':manual' do
       it 'will not call #update_dynamic_entry_cache! on start-up' do
-        client = create_client(dynamic_entries: :manual)
-        expect(client.dynamic_entry_cache).to be_empty
+        create_client(dynamic_entries: :manual)
+        expect(Contentful::ContentTypeCache.cache).to be_empty
       end
     end
 
@@ -92,9 +89,7 @@ describe 'Client Configuration Options' do
         vcr('entry_cache')do
           client.update_dynamic_entry_cache!
         end
-        expect(client.dynamic_entry_cache).not_to be_empty
-        expect(client.dynamic_entry_cache.values.first.ancestors).to \
-            include Contentful::DynamicEntry
+        expect(Contentful::ContentTypeCache.cache).not_to be_empty
       end
     end
 
@@ -103,12 +98,9 @@ describe 'Client Configuration Options' do
 
       it 'can be used to register a dynamic entry manually' do
         cat = vcr('content_type') { client.content_type 'cat' }
-        CatEntry = Contentful::DynamicEntry.create(cat)
-        client.register_dynamic_entry 'cat', CatEntry
+        client.register_dynamic_entry 'cat', cat
 
-        entry = vcr('nyancat') { client.entry('nyancat') }
-        expect(entry).to be_a Contentful::DynamicEntry
-        expect(entry).to be_a CatEntry
+        expect(Contentful::ContentTypeCache.cache).not_to be_empty
       end
     end
   end
@@ -196,7 +188,6 @@ describe 'Client Configuration Options' do
   describe ':entry_mapping' do
     it 'lets you register your own entry classes for certain entry types' do
       class Cat < Contentful::Entry
-        # define methods based on :fields, etc
       end
 
       client = create_client(

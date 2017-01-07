@@ -1,30 +1,33 @@
-require_relative 'resource'
-require_relative 'resource/array_like'
+require_relative 'base_resource'
+require_relative 'array_like'
 
 module Contentful
   # Resource Class for Arrays (e.g. search results)
   # @see _ https://www.contentful.com/developers/documentation/content-delivery-api/#arrays
   # @note It also provides an #each method and includes Ruby's Enumerable module (gives you methods like #min, #first, etc)
-  class Array
+  class Array < BaseResource
     # @private
     DEFAULT_LIMIT = 100
 
-    include Contentful::Resource
-    include Contentful::Resource::SystemProperties
-    include Contentful::Resource::ArrayLike
+    include Contentful::ArrayLike
 
-    property :total, :integer
-    property :limit, :integer
-    property :skip, :integer
-    property :items
+    attr_reader :total, :limit, :skip, :items, :endpoint
 
-    attr_reader :endpoint
-
-    def initialize(object = nil,
+    def initialize(item = nil,
                    default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale],
-                   endpoint = '')
-      super(object, default_locale)
+                   endpoint = '', *)
+      super(item, { default_locale: default_locale })
+
       @endpoint = endpoint
+      @total = item.fetch('total', nil)
+      @limit = item.fetch('limit', nil)
+      @skip = item.fetch('skip', nil)
+      @items = item.fetch('items', [])
+    end
+
+    # @private
+    def inspect
+      "<#{repr_name} total=#{total} skip=#{skip} limit=#{limit}>"
     end
 
     # Simplifies pagination

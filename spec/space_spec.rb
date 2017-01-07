@@ -19,11 +19,6 @@ describe Contentful::Space do
   end
 
   describe 'Properties' do
-    it 'has a #properties getter returning a hash with symbol keys' do
-      expect(space.properties).to be_a Hash
-      expect(space.properties.keys.sample).to be_a Symbol
-    end
-
     it 'has #name' do
       expect(space.name).to eq 'Contentful Example API'
     end

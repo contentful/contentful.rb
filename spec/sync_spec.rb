@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Contentful::Sync do
+  before :each do
+    Contentful::ContentTypeCache.clear!
+  end
+
   let(:first_page) do
     vcr('sync_page')do
       create_client.sync(initial: true).first_page
@@ -76,7 +80,7 @@ describe Contentful::Sync do
       sync = create_client.sync(initial: true)
       vcr('sync_page'){ vcr('sync_page_2'){
         sync.each_item do |item|
-          expect(item).to be_a Contentful::Resource
+          expect(item).to be_a Contentful::BaseResource
         end
       }}
     end
@@ -88,12 +92,12 @@ describe Contentful::Sync do
       vcr('sync_page') {
         asset = sync.first_page.items.select { |item| item.is_a?(Contentful::Asset) }.first
 
-        expect(asset.file.properties[:fileName]).to eq 'doge.jpg'
-        expect(asset.file.properties[:contentType]).to eq 'image/jpeg'
-        expect(asset.file.properties[:details]['image']['width']).to eq 5800
-        expect(asset.file.properties[:details]['image']['height']).to eq 4350
-        expect(asset.file.properties[:details]['size']).to eq 522943
-        expect(asset.file.properties[:url]).to eq '//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg'
+        expect(asset.file.file_name).to eq 'doge.jpg'
+        expect(asset.file.content_type).to eq 'image/jpeg'
+        expect(asset.file.details['image']['width']).to eq 5800
+        expect(asset.file.details['image']['height']).to eq 4350
+        expect(asset.file.details['size']).to eq 522943
+        expect(asset.file.url).to eq '//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg'
       }
     end
   end

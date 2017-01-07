@@ -4,11 +4,6 @@ describe Contentful::File do
   let(:file) { vcr('asset') { create_client.asset('nyancat').file } }
 
   describe 'Properties' do
-    it 'has a #properties getter returning a hash with symbol keys' do
-      expect(file.properties).to be_a Hash
-      expect(file.properties.keys.sample).to be_a Symbol
-    end
-
     it 'has #file_name' do
       expect(file.file_name).to eq 'Nyan_cat_250px_frame.png'
     end
