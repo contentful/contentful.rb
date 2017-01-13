@@ -287,11 +287,7 @@ module Contentful
     # @private
     def update_dynamic_entry_cache!
       content_types(limit: 1000).map do |ct|
-        ContentTypeCache.cache_set(
-          configuration[:space],
-          ct.id,
-          ct
-        )
+        ContentTypeCache.cache_set(configuration[:space], ct.id, ct)
       end
     end
 
@@ -299,11 +295,7 @@ module Contentful
     # See examples/dynamic_entries.rb
     # @private
     def register_dynamic_entry(key, klass)
-      ContentTypeCache.cache_set(
-        configuration[:space],
-        key,
-        klass
-      )
+      ContentTypeCache.cache_set(configuration[:space], key, klass)
     end
 
     # Create a new synchronisation object
