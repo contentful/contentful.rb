@@ -24,7 +24,7 @@ module Contentful
         value.keys.any? { |possible_locale| Contentful::Constants::KNOWN_LOCALES.include?(possible_locale) }
       end
 
-      # Checks if value is a links
+      # Checks if value is a link
       #
       # @param value
       #

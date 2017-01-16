@@ -39,7 +39,7 @@ module Contentful
     end
 
     # Issues the request that was made to fetch this response again.
-    # Only works for top-level resources
+    # Only works for Entry, Asset, ContentType and Space
     def reload(client = nil)
       return client.send(Support.snakify(self.class.name.split('::').last), id) unless client.nil?
 

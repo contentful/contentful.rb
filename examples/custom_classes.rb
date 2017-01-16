@@ -22,7 +22,7 @@ p res.country # #<Contentful::Locale: ...
 p res.unknown_property # NoMethodError
 
 # To then have it mapped automatically from the client,
-# upon client instanciation, you set the :entry_mapping for your ContentType.
+# upon client instantiation, you set the :entry_mapping for your ContentType.
 
 client = Contentful::Client.new(
   space: 'your_space_id',
