@@ -6,7 +6,7 @@ client = Contentful::Client.new(
 )
 
 begin
-  p client.entry 'not found'
+  p client.asset 'not found'
 rescue => error
   p error
 end
@@ -17,4 +17,4 @@ client2 = Contentful::Client.new(
   raise_errors: false,
 )
 
-p client2.entry 'not found'
+p client2.asset 'not found'

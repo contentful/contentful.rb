@@ -6,50 +6,39 @@ describe Contentful::Client do
     let(:proxy_client) { create_client(proxy_host: '183.207.232.194',
                                        proxy_port: 8080,
                                        secure: false) }
-    let(:request) do
-      Contentful::Request.new(nil, '/content_types', nil, 'cat')
-    end
+    let(:request) { Contentful::Request.new(nil, '/content_types', nil, 'cat') }
 
     it 'uses #base_url' do
-      stub(client).base_url { 'https://cdn.contentful.com/spaces/cfexampleapi' }
-      vcr('content_type') { client.get(request) }
-      expect(client).to have_received.base_url
+      expect(client).to receive(:base_url).and_call_original
+
+      vcr('content_type') {
+        client.get(request)
+      }
     end
 
     it 'uses #request_headers' do
-      stub(client).request_headers do
-        {
-            'User-Agent' => 'RubyContentfulGem/0.1.0',
-            'Authorization' => 'Bearer b4c0n73n7fu1',
-            'Content-Type' => 'application/vnd.contentful.delivery.v1+json',
-        }
-      end
+      expect(client).to receive(:request_headers).and_call_original
       vcr('content_type') { client.get(request) }
-      expect(client).to have_received.request_headers
     end
 
     it 'uses Request#url' do
-      stub(request).url { '/content_types/cat' }
+      expect(request).to receive(:url).and_call_original
       vcr('content_type') { client.get(request) }
-      expect(request).to have_received.url
     end
 
     it 'uses Request#query' do
-      stub(request).query
+      expect(request).to receive(:query).twice.and_call_original
       vcr('content_type') { client.get(request) }
-      expect(request).to have_received.query
     end
 
     it 'calls #get_http' do
-      stub(client.class).get_http { raw_fixture('content_type') }
+      expect(client.class).to receive(:get_http).with(client.base_url + request.url, request.query, client.request_headers, client.proxy_params) { raw_fixture('content_type') }
       client.get(request)
-      expect(client.class).to have_received.get_http(client.base_url + request.url, request.query, client.request_headers, client.proxy_params)
     end
 
     it 'calls #get_http via proxy' do
-      stub(proxy_client.class).get_http { raw_fixture('content_type') }
+      expect(proxy_client.class).to receive(:get_http).with(proxy_client.base_url + request.url, request.query, proxy_client.request_headers, proxy_client.proxy_params) { raw_fixture('content_type') }
       proxy_client.get(request)
-      expect(proxy_client.class).to have_received.get_http(proxy_client.base_url + request.url, request.query, proxy_client.request_headers, proxy_client.proxy_params)
       expect(proxy_client.proxy_params[:host]).to eq '183.207.232.194'
       expect(proxy_client.proxy_params[:port]).to eq 8080
     end
@@ -57,7 +46,7 @@ describe Contentful::Client do
     describe 'build_resources parameter' do
       it 'returns Contentful::Resource object if second parameter is true [default]' do
         res = vcr('content_type') { client.get(request) }
-        expect(res).to be_a Contentful::Resource
+        expect(res).to be_a Contentful::BaseResource
       end
 
       it 'returns a Contentful::Response object if second parameter is not true' do

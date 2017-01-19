@@ -8,13 +8,11 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.8.0
+      - RubyContentfulGem/1.2.2
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
-      Accept-Encoding:
-      - gzip
       Connection:
       - close
       Host:
@@ -25,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
@@ -38,280 +36,258 @@ http_interactions:
       - max-age=0
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - W/"9707115047cc402819250f844939b2aa"
       Server:
-      - nginx
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
       X-Contentful-Request-Id:
-      - c40-593918282
+      - fdff368667a9181d8c0b1451c9499407
       Content-Length:
-      - '1015'
+      - '4201'
       Accept-Ranges:
       - bytes
       Date:
-      - Wed, 09 Dec 2015 22:59:07 GMT
+      - Thu, 05 Jan 2017 21:35:14 GMT
       Via:
       - 1.1 varnish
       Age:
-      - '3851'
+      - '284'
       Connection:
       - close
       X-Served-By:
-      - cache-iad2135-IAD
+      - cache-gru7120-GRU
       X-Cache:
       - HIT
       X-Cache-Hits:
       - '1'
+      X-Timer:
+      - S1483652114.308569,VS0,VE0
       Vary:
       - Accept-Encoding
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: |
         {
-           "sys":{
-              "type":"Array"
-           },
-           "total":1,
-           "skip":0,
-           "limit":100,
-           "items":[
-              {
-                 "fields":{
-                    "name":"Nyan Cat",
-                    "likes":[
-                       "rainbows",
-                       "fish"
-                    ],
-                    "color":"rainbow",
-                    "bestFriend":{
-                       "sys":{
-                          "type":"Link",
-                          "linkType":"Entry",
-                          "id":"happycat"
-                       }
-                    },
-                    "catPack": [
-                      {
-                         "sys":{
-                            "type":"Link",
-                            "linkType":"Entry",
-                            "id":"happycat"
-                         }
-                      },
-                      {
-                         "sys":{
-                            "type":"Link",
-                            "linkType":"Entry",
-                            "id":"worriedcat"
-                         }
-                      }
-                    ],
-                    "birthday":"2011-04-04T22:00:00+00:00",
-                    "lives":1337,
-                    "image":{
-                       "sys":{
-                          "type":"Link",
-                          "linkType":"Asset",
-                          "id":"nyancat"
-                       }
+          "sys": {
+            "type": "Array"
+          },
+          "total": 1,
+          "skip": 0,
+          "limit": 100,
+          "items": [
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "id": "nyancat",
+                "type": "Entry",
+                "createdAt": "2013-06-27T22:46:19.513Z",
+                "updatedAt": "2013-09-04T09:19:39.027Z",
+                "revision": 5,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "cat"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "name": "Nyan Cat",
+                "likes": [
+                  "rainbows",
+                  "fish"
+                ],
+                "color": "rainbow",
+                "bestFriend": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Entry",
+                    "id": "happycat"
+                  }
+                },
+                "birthday": "2011-04-04T22:00:00+00:00",
+                "lives": 1337,
+                "image": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Asset",
+                    "id": "nyancat"
+                  }
+                },
+                "catPack": [
+                  {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Entry",
+                      "id": "happycat"
                     }
-                 },
-                 "sys":{
-                    "space":{
-                       "sys":{
-                          "type":"Link",
-                          "linkType":"Space",
-                          "id":"cfexampleapi"
-                       }
-                    },
-                    "type":"Entry",
-                    "contentType":{
-                       "sys":{
-                          "type":"Link",
-                          "linkType":"ContentType",
-                          "id":"cat"
-                       }
-                    },
-                    "id":"nyancat",
-                    "revision":5,
-                    "createdAt":"2013-06-27T22:46:19.513Z",
-                    "updatedAt":"2013-09-04T09:19:39.027Z",
-                    "locale":"en-US"
-                 }
+                  },
+                  {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Entry",
+                      "id": "worriedcat"
+                    }
+                  }
+                ]
               }
-           ],
-           "includes":{
-              "Entry":[
-                 {
-                    "fields":{
-                       "name":"Happy Cat",
-                       "bestFriend":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"Entry",
-                             "id":"worriedcat"
-                          }
-                       },
-                       "catPack": [
-                         {
-                            "sys":{
-                               "type":"Link",
-                               "linkType":"Entry",
-                               "id":"nyancat"
-                            }
-                         },
-                         {
-                            "sys":{
-                               "type":"Link",
-                               "linkType":"Entry",
-                               "id":"worriedcat"
-                            }
-                         }
-                       ],
-                       "likes":[
-                          "cheezburger"
-                       ],
-                       "color":"gray",
-                       "birthday":"2003-10-28T23:00:00+00:00",
-                       "lives":1,
-                       "image":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"Asset",
-                             "id":"happycat"
-                          }
-                       }
-                    },
-                    "sys":{
-                       "space":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"Space",
-                             "id":"cfexampleapi"
-                          }
-                       },
-                       "type":"Entry",
-                       "contentType":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"ContentType",
-                             "id":"cat"
-                          }
-                       },
-                       "id":"happycat",
-                       "revision":8,
-                       "createdAt":"2013-06-27T22:46:20.171Z",
-                       "updatedAt":"2013-11-18T15:58:02.018Z",
-                       "locale":"en-US"
+            }
+          ],
+          "includes": {
+            "Entry": [
+              {
+                "sys": {
+                  "space": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "cfexampleapi"
                     }
-                 },
-                 {
-                    "fields":{
-                       "name":"Worried Cat",
-                       "bestFriend":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"Entry",
-                             "id":"nyancat"
-                          }
-                       },
-                       "likes":[
-                          "lasagna"
-                       ],
-                       "color":"taupe",
-                       "birthday":"2003-10-28T23:00:00+00:00",
-                       "lives":7
-                    },
-                    "sys":{
-                       "space":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"Space",
-                             "id":"cfexampleapi"
-                          }
-                       },
-                       "type":"Entry",
-                       "contentType":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"ContentType",
-                             "id":"cat"
-                          }
-                       },
-                       "id":"worriedcat",
-                       "revision":8,
-                       "createdAt":"2013-06-27T22:46:20.171Z",
-                       "updatedAt":"2013-11-18T15:58:02.018Z",
-                       "locale":"en-US"
+                  },
+                  "id": "happycat",
+                  "type": "Entry",
+                  "createdAt": "2013-06-27T22:46:20.171Z",
+                  "updatedAt": "2013-11-18T15:58:02.018Z",
+                  "revision": 8,
+                  "contentType": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "cat"
                     }
-                 }
-              ],
-              "Asset":[
-                 {
-                    "fields":{
-                       "file":{
-                          "fileName":"happycatw.jpg",
-                          "contentType":"image/jpeg",
-                          "details":{
-                             "image":{
-                                "width":273,
-                                "height":397
-                             },
-                             "size":59939
-                          },
-                          "url":"//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg"
-                       },
-                       "title":"Happy Cat"
-                    },
-                    "sys":{
-                       "space":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"Space",
-                             "id":"cfexampleapi"
-                          }
-                       },
-                       "type":"Asset",
-                       "id":"happycat",
-                       "revision":2,
-                       "createdAt":"2013-09-02T14:56:34.267Z",
-                       "updatedAt":"2013-09-02T15:11:24.361Z",
-                       "locale":"en-US"
+                  },
+                  "locale": "en-US"
+                },
+                "fields": {
+                  "name": "Happy Cat",
+                  "likes": [
+                    "cheezburger"
+                  ],
+                  "color": "gray",
+                  "bestFriend": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Entry",
+                      "id": "nyancat"
                     }
-                 },
-                 {
-                    "fields":{
-                       "title":"Nyan Cat",
-                       "file":{
-                          "fileName":"Nyan_cat_250px_frame.png",
-                          "contentType":"image/png",
-                          "details":{
-                             "image":{
-                                "width":250,
-                                "height":250
-                             },
-                             "size":12273
-                          },
-                          "url":"//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
-                       }
-                    },
-                    "sys":{
-                       "space":{
-                          "sys":{
-                             "type":"Link",
-                             "linkType":"Space",
-                             "id":"cfexampleapi"
-                          }
-                       },
-                       "type":"Asset",
-                       "id":"nyancat",
-                       "revision":1,
-                       "createdAt":"2013-09-02T14:56:34.240Z",
-                       "updatedAt":"2013-09-02T14:56:34.240Z",
-                       "locale":"en-US"
+                  },
+                  "birthday": "2003-10-28T23:00:00+00:00",
+                  "lives": 1,
+                  "image": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Asset",
+                      "id": "happycat"
                     }
-                 }
-              ]
-           }
+                  }
+                }
+              },
+              {
+                "sys": {
+                  "space": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "cfexampleapi"
+                    }
+                  },
+                  "id": "worriedcat",
+                  "type": "Entry",
+                  "createdAt": "2013-06-27T22:46:20.171Z",
+                  "updatedAt": "2013-11-18T15:58:02.018Z",
+                  "revision": 8,
+                  "contentType": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "cat"
+                    }
+                  },
+                  "locale": "en-US"
+                },
+                "fields": {
+                  "name": "Worried Cat"
+                }
+              }
+            ],
+            "Asset": [
+              {
+                "sys": {
+                  "space": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "cfexampleapi"
+                    }
+                  },
+                  "id": "happycat",
+                  "type": "Asset",
+                  "createdAt": "2013-09-02T14:56:34.267Z",
+                  "updatedAt": "2013-09-02T15:11:24.361Z",
+                  "revision": 2,
+                  "locale": "en-US"
+                },
+                "fields": {
+                  "title": "Happy Cat",
+                  "file": {
+                    "url": "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg",
+                    "details": {
+                      "size": 59939,
+                      "image": {
+                        "width": 273,
+                        "height": 397
+                      }
+                    },
+                    "fileName": "happycatw.jpg",
+                    "contentType": "image/jpeg"
+                  }
+                }
+              },
+              {
+                "sys": {
+                  "space": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "cfexampleapi"
+                    }
+                  },
+                  "id": "nyancat",
+                  "type": "Asset",
+                  "createdAt": "2013-09-02T14:56:34.240Z",
+                  "updatedAt": "2013-09-02T14:56:34.240Z",
+                  "revision": 1,
+                  "locale": "en-US"
+                },
+                "fields": {
+                  "title": "Nyan Cat",
+                  "file": {
+                    "url": "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png",
+                    "details": {
+                      "size": 12273,
+                      "image": {
+                        "width": 250,
+                        "height": 250
+                      }
+                    },
+                    "fileName": "Nyan_cat_250px_frame.png",
+                    "contentType": "image/png"
+                  }
+                }
+              }
+            ]
+          }
         }
     http_version: 
-  recorded_at: Wed, 09 Dec 2015 22:59:06 GMT
-recorded_with: VCR 2.9.3
+  recorded_at: Thu, 05 Jan 2017 21:35:14 GMT
+recorded_with: VCR 3.0.3

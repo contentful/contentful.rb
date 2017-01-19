@@ -13,11 +13,6 @@ describe Contentful::Field do
   } }
 
   describe 'Properties' do
-    it 'has a #properties getter returning a hash with symbol keys' do
-      expect(field.properties).to be_a Hash
-      expect(field.properties.keys.sample).to be_a Symbol
-    end
-
     it 'has #id' do
       expect(field.id).to eq 'name'
     end

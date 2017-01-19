@@ -2,17 +2,21 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries/not%20found
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types/not%20found
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.1
+      - RubyContentfulGem/1.2.0
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
       Host:
       - cdn.contentful.com
   response:
@@ -20,52 +24,53 @@ http_interactions:
       code: 404
       message: Not Found
     headers:
-      Date:
-      - Wed, 16 Apr 2014 09:00:22 GMT
-      Server:
-      - nginx/1.1.19
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - Etag
       Access-Control-Max-Age:
       - '86400'
       Cache-Control:
       - max-age=0
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
+      Server:
+      - Contentful
+      X-Contentful-Request-Id:
+      - 77047700ec63ba7bdf3b4f3b66770004
       Content-Length:
-      - '234'
+      - '150'
       Accept-Ranges:
       - bytes
+      Date:
+      - Tue, 20 Dec 2016 15:32:25 GMT
       Via:
       - 1.1 varnish
-      Age:
-      - '0'
+      Connection:
+      - close
       X-Served-By:
-      - cache-fra1223-FRA
+      - cache-fra1234-FRA
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
+      X-Timer:
+      - S1482247945.558499,VS0,VE107
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: |
         {
           "sys": {
             "type": "Error",
             "id": "NotFound"
           },
-          "details": {
-            "type": "Entry",
-            "space": "cfexampleapi",
-            "id": "not found"
-          },
-          "message": "The resource could not be found.",
-          "requestId": "71a-635716683"
+          "message": "Invalid resource id",
+          "requestId": "77047700ec63ba7bdf3b4f3b66770004"
         }
     http_version: 
-  recorded_at: Wed, 16 Apr 2014 09:00:22 GMT
-recorded_with: VCR 2.9.0
+  recorded_at: Tue, 20 Dec 2016 15:32:24 GMT
+recorded_with: VCR 3.0.3

@@ -58,5 +58,5 @@ module Contentful
   class UnparsableJson < Error; end
 
   # Raised when response is not parsable as a Contentful::Resource
-  class UnparsableResource < Error; end
+  class UnparsableResource < StandardError; end
 end

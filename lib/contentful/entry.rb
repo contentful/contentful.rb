@@ -1,44 +1,64 @@
-require_relative 'resource'
-require_relative 'resource/fields'
+require_relative 'fields_resource'
+require_relative 'content_type_cache'
 
 module Contentful
   # Resource class for Entry.
   # @see _ https://www.contentful.com/developers/documentation/content-delivery-api/#entries
-  class Entry
-    include Contentful::Resource
-    include Contentful::Resource::SystemProperties
-    include Contentful::Resource::Fields
-
-    # @private
-    def marshal_dump
-      raw_with_links
-    end
-
-    # @private
-    def marshal_load(raw_object)
-      @properties = extract_from_object(raw_object, :property, self.class.property_coercions.keys)
-      @sys = raw_object.key?('sys') ? extract_from_object(raw_object['sys'], :sys) : {}
-      extract_fields_from_object!(raw_object)
-      @raw = raw_object
-    end
-
-    # @private
-    def raw_with_links
-      links = properties.keys.select { |property| known_link?(property) }
-      processed_raw = raw.clone
-      raw['fields'].each do |k, v|
-        processed_raw['fields'][k] = links.include?(k.to_sym) ? send(snakify(k)) : v
-      end
-
-      processed_raw
-    end
-
+  class Entry < FieldsResource
     # Returns true for resources that are entries
     def entry?
       true
     end
 
     private
+
+    def coerce(field_id, value, localized, includes)
+      return build_nested_resource(value, localized, includes) if Support.link?(value)
+      return coerce_link_array(value, localized, includes) if Support.link_array?(value)
+
+      content_type = ContentTypeCache.cache_get(sys[:space].id, sys[:content_type].id)
+
+      unless content_type.nil?
+        content_type_field = content_type.field_for(field_id)
+        return content_type_field.coerce(value) unless content_type_field.nil?
+      end
+
+      super(field_id, value, localized, includes)
+    end
+
+    def coerce_link_array(value, localized, includes)
+      items = []
+      value.each do |link|
+        items << build_nested_resource(link, localized, includes)
+      end
+
+      items
+    end
+
+    def build_nested_resource(value, localized, includes)
+      # Maximum include Depth is 10 in the API, but we raise it to 20,
+      # in case one of the included items has a reference in an upper level,
+      # so we can keep the include chain for that object as well
+      # Any included object after the 20th level of depth will be just a Link
+      if @depth <= 20
+        resource = Support.resource_for_link(value, includes)
+        return resolve_include(resource, localized, includes) unless resource.nil?
+      end
+
+      build_link(value)
+    end
+
+    def resolve_include(resource, localized, includes)
+      require_relative 'resource_builder'
+
+      ResourceBuilder.new(
+        resource,
+        @configuration.merge(includes_for_single: includes),
+        localized,
+        @depth + 1,
+        includes
+      ).run
+    end
 
     def known_link?(name)
       field_name = name.to_sym
@@ -50,8 +70,10 @@ module Contentful
       (object.is_a?(Contentful::Entry) || object.is_a?(Contentful::Asset))
     end
 
-    def snakify(name)
-      Contentful::Support.snakify(name).to_sym
+    protected
+
+    def repr_name
+      "#{super}[#{sys[:content_type].id}]"
     end
   end
 end

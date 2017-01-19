@@ -8,11 +8,15 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.1
+      - RubyContentfulGem/1.2.0
       Authorization:
       - Bearer 0c6ef483524b5e46b3bafda1bf355f38f5f40b4830f7599f790a410860c7c271
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
       Host:
       - cdn.contentful.com
   response:
@@ -20,196 +24,90 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Date:
-      - Wed, 16 Apr 2014 09:00:26 GMT
-      Server:
-      - nginx/1.1.19
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - Etag
       Access-Control-Max-Age:
       - '86400'
       Cache-Control:
       - max-age=0
+      Content-Encoding:
+      - gzip
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Etag:
-      - "\"417841a5a8a9f6ffd1d2464705a04f82\""
+      - W/"e801ad802edde7bfb6cb64aa3ec11e90"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
       X-Contentful-Request-Id:
-      - f1c-737716796
+      - 7b6b3c568bc607a8c28cbadcc673dcd1
       Content-Length:
-      - '3063'
+      - '655'
       Accept-Ranges:
       - bytes
+      Date:
+      - Tue, 20 Dec 2016 16:26:49 GMT
       Via:
       - 1.1 varnish
       Age:
       - '0'
+      Connection:
+      - close
       X-Served-By:
-      - cache-fra1220-FRA
+      - cache-fra1232-FRA
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
+      X-Timer:
+      - S1482251208.877055,VS0,VE319
       Vary:
       - Accept-Encoding
     body:
-      encoding: UTF-8
-      string: |
-        {
-          "sys": {
-            "type": "Array"
-          },
-          "total": 2,
-          "skip": 0,
-          "limit": 1000,
-          "items": [
-            {
-              "fields": [
-                {
-                  "id": "name",
-                  "name": "Name",
-                  "type": "Symbol",
-                  "required": true,
-                  "localized": false
-                },
-                {
-                  "id": "description",
-                  "name": "Description",
-                  "type": "Text",
-                  "required": true,
-                  "localized": false
-                }
-              ],
-              "name": "Alien species",
-              "displayField": "name",
-              "sys": {
-                "space": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Space",
-                    "id": "lzjz8hygvfgu"
-                  }
-                },
-                "type": "ContentType",
-                "id": "110tmd3lykUqww2WYOQOYy",
-                "revision": 1,
-                "createdAt": "2013-06-20T14:49:44.002Z",
-                "updatedAt": "2013-06-20T14:49:44.002Z"
-              }
-            },
-            {
-              "fields": [
-                {
-                  "id": "locationName",
-                  "name": "Location name",
-                  "type": "Text",
-                  "required": true,
-                  "localized": false
-                },
-                {
-                  "id": "species",
-                  "name": "Species",
-                  "type": "Link",
-                  "required": true,
-                  "localized": false,
-                  "disabled": false,
-                  "linkType": "Entry"
-                },
-                {
-                  "id": "location",
-                  "name": "location",
-                  "type": "Location",
-                  "required": true,
-                  "localized": false
-                },
-                {
-                  "id": "description",
-                  "name": "Description",
-                  "type": "Text",
-                  "required": true,
-                  "localized": false
-                },
-                {
-                  "id": "shape",
-                  "name": "Shape",
-                  "type": "Symbol",
-                  "required": false,
-                  "localized": false
-                },
-                {
-                  "id": "reportedAt",
-                  "name": "Reported at",
-                  "type": "Date",
-                  "required": true,
-                  "localized": false
-                },
-                {
-                  "id": "sightedAt",
-                  "name": "Sighted at",
-                  "type": "Date",
-                  "required": true,
-                  "localized": false
-                },
-                {
-                  "id": "city",
-                  "name": "City",
-                  "type": "Symbol",
-                  "required": false,
-                  "localized": false
-                },
-                {
-                  "id": "state",
-                  "name": "State",
-                  "type": "Symbol",
-                  "required": false,
-                  "localized": false
-                },
-                {
-                  "id": "country",
-                  "name": "Country",
-                  "type": "Symbol",
-                  "required": false,
-                  "localized": false
-                }
-              ],
-              "name": "Ufo sighting",
-              "displayField": "locationName",
-              "sys": {
-                "space": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Space",
-                    "id": "lzjz8hygvfgu"
-                  }
-                },
-                "type": "ContentType",
-                "id": "7ocuA1dfoccWqWwWUY4UY",
-                "revision": 3,
-                "createdAt": "2013-06-20T14:49:49.380Z",
-                "updatedAt": "2013-06-29T10:26:12.757Z"
-              }
-            }
-          ]
-        }
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA91W3W/aMBB/56+I/LwiJ7DS8obo9lS12gAhNvUhTRzwMHGI
+        nbJQ8b/Xdj6widGqoqExC4mc7/N3vrPvteU4gOUM9J1X8SkInidIUGCQpn4O
+        xN7uk5ThlPtE7HuKYkucCAIqguAV5oJyISw2MEcrafGnsljYPXCjXLHED6Sv
+        SqLY1IKRG2qzCuoex0sgne6XcB8vx2XQI2XxQACHEg/Z/treLPL5SzTPJKxq
+        7epvBbRYoNDp0SAbuGFEg2C6nm6mk1l3MtPM13ENacxRzFUYmpUgRT5H4UBm
+        B3jQ7VzB6ysPjt1uv3srfu3ODfyhK2RJaFG4Hbuw7133Xa/d+9wzFFL0ghmm
+        sXDQKaOvYYAQs4T4+VeMSJECGvhcCD/4q32YIJaUiG8SUYfh+YLjeF7HBELE
+        ghQnUk0IxRkhFT4QSbv7c5aZM06yzLvNqZStHd+XEo6KRD+8Or9j9JubHCKU
+        CN4iCSzyCUOGXorWGU4Vk6eZyRNZ8Z/JEUUqSlmcWGXUVhsWjCxBAUbMjLDK
+        68jGPFrQ4DzAjGzpHfQl5qlq+2JpPWHBLWNVlWGYq4DbuTVyq+550L8Tnl77
+        VoR3WnNcZN0ufOPC0ppy1GRVJzfKV8+UfLAdm736F/oxRQlNi4vXem7fS77j
+        H9wqFcQ7cQt/EOBZ7ht5Tat3xQpvVLAvFV2AeW4HNmxwLqcmGW/UVP1CNFmX
+        gyugmXoyrJU4tDH/KWzlU/Ck/svX7oInVteFfBV2SL6crDcbbzp7/PY40w/n
+        xJG124bQe8fIWs+4TQVtZHX/OLIaI2E9MQ4IRrFzOHWdPqs2B9CqRR+OjqYn
+        vYbneCz+hynG7FJBPbV2rTd3xk9hvA4AAA==
     http_version: 
-  recorded_at: Wed, 16 Apr 2014 09:00:26 GMT
+  recorded_at: Tue, 20 Dec 2016 16:26:49 GMT
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/lzjz8hygvfgu/entries/3f6fq5ylFCi4kIYAQKsAYG
+    uri: https://cdn.contentful.com/spaces/lzjz8hygvfgu/entries?sys.id=3f6fq5ylFCi4kIYAQKsAYG
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.1.1
+      - RubyContentfulGem/1.2.0
       Authorization:
       - Bearer 0c6ef483524b5e46b3bafda1bf355f38f5f40b4830f7599f790a410860c7c271
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
       Host:
       - cdn.contentful.com
   response:
@@ -217,89 +115,79 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Date:
-      - Wed, 16 Apr 2014 09:00:26 GMT
-      Server:
-      - nginx/1.1.19
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
       - "*"
+      Access-Control-Expose-Headers:
+      - Etag
       Access-Control-Max-Age:
       - '86400'
       Cache-Control:
       - max-age=0
+      Content-Encoding:
+      - gzip
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Etag:
-      - "\"b40b427efac4e47710aa8124ef667f1b\""
+      - W/"b9ea319dfcc2f4b46bce6eca412749ad"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
       X-Contentful-Request-Id:
-      - 85f-649640034
+      - 8d8363fc7228b2dbefe3b9c1bea3414b
       Content-Length:
-      - '1464'
+      - '1017'
       Accept-Ranges:
       - bytes
+      Date:
+      - Tue, 20 Dec 2016 16:26:49 GMT
       Via:
       - 1.1 varnish
       Age:
-      - '2004'
+      - '0'
+      Connection:
+      - close
       X-Served-By:
-      - cache-fra1224-FRA
+      - cache-fra1241-FRA
       X-Cache:
-      - HIT
+      - MISS
       X-Cache-Hits:
-      - '1'
+      - '0'
+      X-Timer:
+      - S1482251209.369201,VS0,VE254
       Vary:
       - Accept-Encoding
     body:
-      encoding: UTF-8
-      string: |
-        {
-          "fields": {
-            "description": "Caller had left a message at 1355 hrs. on 18JA96. The caller reported that she and her husband had witnessed two beams of light to the northeast of their home that appeared to go straight up into the sky, perfectly parallel to one another.  They appeared to originate from behind a hill to the northeast of their home, and the beams were definitely separated from each other. They were looking toward Beaver Lake.  the University at Springdale is to the north. They called the local newspapers and the local airport(s).",
-            "locationName": "Fayetteville, AR",
-            "sightedAt": "1996-01-17T23:00:00Z",
-            "reportedAt": "1996-01-17T23:00:00Z",
-            "city": "Fayetteville",
-            "state": "Arkansas",
-            "country": "United States",
-            "location": {
-              "lat": 36.0625795,
-              "lon": -94.1574263
-            },
-            "species": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "5iBjcBn6eWskwS0GAOAsCA"
-              }
-            }
-          },
-          "sys": {
-            "space": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Space",
-                "id": "lzjz8hygvfgu"
-              }
-            },
-            "type": "Entry",
-            "contentType": {
-              "sys": {
-                "type": "Link",
-                "linkType": "ContentType",
-                "id": "7ocuA1dfoccWqWwWUY4UY"
-              }
-            },
-            "id": "3f6fq5ylFCi4kIYAQKsAYG",
-            "revision": 1,
-            "createdAt": "2013-06-27T14:38:44.504Z",
-            "updatedAt": "2013-06-27T14:38:44.504Z",
-            "locale": "en-US"
-          }
-        }
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA61WbW/bNhD+nl9x0KcNiA3Jr0m+KcFabC2WdnZgeEM/MNLJ
+        YiWTCknHUIv8991Rlt9mJx1QwYBF8u7hvT6n7xcAga1tcAPf6ZUWrq6QVkFs
+        jKgD2nu5ZBmnnShpP/IrW8iKFqFflHIpHR+FzVo6XDLgPx6wgT26xd9kK5Hw
+        Va1Es7lnC2/4zdamj1IVAd+5e+h2VUw3Nk884pGATNmd8tvXb1d5vXjOFiv2
+        qn1etu/ez+YJGp1+NsqehnX57k4Oit/n8ecPNp6/38PfGvabcqbeP0gMCodp
+        zHEJemHU74SjTm88jQY3/aubwaA7DAd/7yusqvT/KRh8llZq1eZkY3milUPl
+        NhH5eaG928M9GeCxTlZxlGY6SWZPs/XsYT54mL8d6VInovQFh6rzMGkVtskI
+        MolluqtPdjNgJUe+/ymWXvWdqNE5CkhZ4iXEf+0H1laYSDwEOFGNHvdH6+w4
+        3V65qZmhvP2a3KoRzmyxnoTv4/vY3sU/Fgd26bgfSr/VuR50o+F40Bv194Mf
+        lIILrD/qhqPecHw9PFnMKdrEyGqDHtwJipKBXKRQYuZAwBKtFQsE4SDqD4eQ
+        G9sFrSC6+iO+HnVhmiNQlljLYKUNFTa4nKQtHQiVQs54K/vo3wl3LZ0iTBZb
+        a3hEsbSgMyjlInfgNCkjKMLJUVjHJ/QmCUIvsQEWVYXCsL6GhQbrjPC6qwqk
+        2gDYor6ECk2GiStrqIRhE0tW0Yrt0oRqusDm17CPqI1cSEXtBpnRS7Ivl2S4
+        gJzq5w3zLr2/bH/j1RoNQoqZVMR6ZIVFtoMD5KFRJDls7PBmePlS60KqBV21
+        FiaFWxTPFMCPokCylrEflKQdKx3Z7WBSGZJOqU1A2gP7fGrqJjeNVb6dQOGa
+        yJViY7fmNgdCGs7fL/bX7n6PtFlt6Cq6vh51wqgTjae9/k0Y0u+AqiynouW2
+        t4QTcuK4RQ/a01G0WCA2hVBW2AMW1StPrHRMIeGoTljcblnC1ztT+Bc/iaRK
+        yhWV+7aJgqZT21m0m0YnGeDkRDop+RZbMEe9MZe2jHFuMjWO8U3eyYO+f5Vr
+        DiRbSvsvZQWvzajRTTTuDoe9/cSTxa9NqTMqp+cUYZ2fVD8j5Ofn1TbwURS6
+        Zdov6+Lhab3uzeb3n+/n/pNn9+w+D45TcGZwHYidGl50vdqMrRnzwOH3SnBE
+        1tTf0IihvYR1ri0xJ6lDpg1TxdJi+YzECoaah6ZBQ5nMIZ9QV8QYDbnC1KAH
+        YPoRsJmJfJgTJdTwKCskgiESXxJvypQAmd+9uFS5eJROKOdJnLGrUih08EHY
+        vK7roruLWRuv5v8LxfLl4uXiXynqqn1mCgAA
     http_version: 
-  recorded_at: Wed, 16 Apr 2014 09:00:26 GMT
-recorded_with: VCR 2.9.0
+  recorded_at: Tue, 20 Dec 2016 16:26:49 GMT
+recorded_with: VCR 3.0.3

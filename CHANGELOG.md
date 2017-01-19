@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+**ATTENTION**: Breaking Changes introduces in order to simplify code and improve the ability to add new features.
+
+## Changed
+
+* The removal of the Client and Request objects from the Resource objects, means that for example: Link#resolve and Array#next_page now require the client as a parameter.
+* Client#entry now uses /entries?sys.id=ENTRY_ID instead of /entries/ENTRY_ID to properly resolve includes.
+* Refactor locale handling code
+* Refactor ResourceBuilder
+* Update all specs to RSpec 3
+* Removed DynamicEntry and Resource
+* Moved ContentTypeCache outside of the client into it's own class
+* Added new base BaseResource and FieldsResource classes to handle common resource attributes and fields related attributes respectively
+* Coercions are now part of ContentType, each Field knows which coercion should be applied depending on Field#type
+* Resource #inspect now provides a clearer and better output, without all the noise that was previously there
+* CustomResource was removed, now subclasses of Entry should be used instead.
+* Updated LICENSE
+* Updated examples
+
 ## 1.2.2
 ### Fixed
 * Fixed Symbol/Text field serialization when value is `null` [#117](https://github.com/contentful/contentful.rb/issues/117)

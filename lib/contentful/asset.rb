@@ -1,14 +1,10 @@
-require_relative 'resource'
-require_relative 'resource/asset_fields'
+require_relative 'fields_resource'
+require_relative 'file'
 
 module Contentful
   # Resource class for Asset.
   # https://www.contentful.com/developers/documentation/content-delivery-api/#assets
-  class Asset
-    include Contentful::Resource
-    include Contentful::Resource::SystemProperties
-    include Contentful::Resource::AssetFields
-
+  class Asset < FieldsResource
     # @private
     def marshal_dump
       raw
@@ -16,10 +12,20 @@ module Contentful
 
     # @private
     def marshal_load(raw_object)
-      @properties = extract_from_object(raw_object, :property, self.class.property_coercions.keys)
-      @sys = raw_object.key?('sys') ? extract_from_object(raw_object['sys'], :sys) : {}
-      initialize_fields_for_localized_resource(raw_object)
-      @raw = raw_object
+      super(raw_object)
+      create_files!
+      define_asset_methods!
+    end
+
+    # @private
+    def inspect
+      "<#{repr_name} id='#{sys[:id]}' url='#{url}'>"
+    end
+
+    def initialize(*)
+      super
+      create_files!
+      define_asset_methods!
     end
 
     # Generates a URL for the Contentful Image API
@@ -54,5 +60,31 @@ module Contentful
     end
 
     alias url image_url
+
+    private
+
+    def create_files!
+      file_json = fields[:file]
+      return if file_json.nil?
+
+      is_localized = file_json.keys.none? { |f| %w(fileName contentType details url).include? f }
+      if is_localized
+        locales.each do |locale|
+          fields(locale)[:file] = ::Contentful::File.new(file_json[locale.to_s] || {})
+        end
+      else
+        fields[:file] = ::Contentful::File.new(file_json)
+      end
+    end
+
+    def define_asset_methods!
+      define_singleton_method :description do
+        fields.fetch(:description, nil)
+      end
+
+      define_singleton_method :file do |wanted_locale = nil|
+        fields(wanted_locale)[:file]
+      end
+    end
   end
 end

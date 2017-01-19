@@ -25,7 +25,7 @@ end
 describe 'Error Requests' do
   it 'will return 404 (Unauthorized) if resource not found' do
     expect_vcr('not found')do
-      create_client.entry 'not found'
+      create_client.content_type 'not found'
     end.to raise_error(Contentful::NotFound)
   end
 

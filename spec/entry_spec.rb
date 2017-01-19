@@ -46,20 +46,20 @@ describe Contentful::Entry do
 
     it "contains the entry's fields" do
       expect(entry.fields[:color]).to eq 'rainbow'
-      expect(entry.fields[:bestFriend]).to be_a Contentful::Link
+      expect(entry.fields[:best_friend]).to be_a Contentful::Entry
     end
   end
 
   describe 'multiple locales' do
     it 'can handle multiple locales' do
       vcr('entry_locales') {
-        cat = create_client.entries(locale: "*").items.first
-        expect(cat.fields('en-US')[:name]).to eq "Nyan Cat"
-        expect(cat.fields('es')[:name]).to eq "Gato Nyan"
+        nyancat = create_client.entries(locale: "*", 'sys.id' => 'nyancat').items.first
+        expect(nyancat.fields('en-US')[:name]).to eq "Nyan Cat"
+        expect(nyancat.fields('tlh')[:name]).to eq "Nyan vIghro'"
 
 
-        expect(cat.fields(:'en-US')[:name]).to eq "Nyan Cat"
-        expect(cat.fields(:es)[:name]).to eq "Gato Nyan"
+        expect(nyancat.fields(:'en-US')[:name]).to eq "Nyan Cat"
+        expect(nyancat.fields(:tlh)[:name]).to eq "Nyan vIghro'"
       }
     end
 
@@ -74,10 +74,10 @@ describe Contentful::Entry do
 
       it 'can handle entries with multiple locales' do
         vcr('entry_locales') {
-          nyancat = create_client.entries(locale: "*").items.first
+          nyancat = create_client.entries(locale: "*", 'sys.id' => 'nyancat').items.first
           expect(nyancat.fields_with_locales[:name].size).to eq(2)
           expect(nyancat.fields_with_locales[:name][:'en-US']).to eq("Nyan Cat")
-          expect(nyancat.fields_with_locales[:name][:es]).to eq("Gato Nyan")
+          expect(nyancat.fields_with_locales[:name][:tlh]).to eq("Nyan vIghro'")
         }
       end
 
@@ -128,133 +128,51 @@ describe Contentful::Entry do
   it '#raw' do
     vcr('entry/raw') {
       nyancat = create_client.entry('nyancat')
-      expect(nyancat.raw).to eq(create_client(raw_mode: true).entry('nyancat').object)
+      expect(nyancat.raw).to eq(create_client(raw_mode: true).entry('nyancat').object['items'].first)
     }
   end
 
-  describe 'custom resources' do
-    class Kategorie < Contentful::Entry
-      include ::Contentful::Resource::CustomResource
+  describe 'can be marshalled' do
+    def test_dump(nyancat)
+      dump = Marshal.dump(nyancat)
+      new_cat = Marshal.load(dump)
 
-      property :title
-      property :slug
-      property :image
-      property :top
-      property :subcategories
-      property :featuredArticles
-      property :catIntroHead
-      property :catIntroduction
-      property :seoText
-      property :metaKeywords
-      property :metaDescription
-      property :metaRobots
+      # Attributes
+      expect(new_cat).to be_a Contentful::Entry
+      expect(new_cat.name).to eq "Nyan Cat"
+      expect(new_cat.lives).to eq 1337
+
+      # Single linked objects
+      expect(new_cat.best_friend).to be_a Contentful::Entry
+      expect(new_cat.best_friend.name).to eq "Happy Cat"
+
+      # Array of linked objects
+      expect(new_cat.cat_pack.count).to eq 2
+      expect(new_cat.cat_pack[0].name).to eq "Happy Cat"
+      expect(new_cat.cat_pack[1].name).to eq "Worried Cat"
+
+      # Nested Links
+      expect(new_cat.best_friend.best_friend).to be_a Contentful::Entry
+      expect(new_cat.best_friend.best_friend.name).to eq "Nyan Cat"
+
+      # Asset
+      expect(new_cat.image.file.url).to eq "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
     end
 
-    it 'maps fields properly' do
-      vcr('entry/custom_resource') {
-        entry = create_client(
-          space: 'g2b4ltw00meh',
-          dynamic_entries: :auto,
-          entry_mapping: {
-            'kategorie' => Kategorie
-          }
-        ).entries.first
-
-        expect(entry).to be_a Kategorie
-        expect(entry.title).to eq "Some Title"
-        expect(entry.slug).to eq "/asda.html"
-        expect(entry.featured_articles.first.is_a?(Contentful::Entry)).to be_truthy
-        expect(entry.top).to be_truthy
+    it 'marshals properly' do
+      vcr('entry/marshall') {
+        nyancat = create_client(gzip_encoded: false).entries(include: 2, 'sys.id' => 'nyancat').first
+        test_dump(nyancat)
       }
     end
 
-    describe 'can be marshalled' do
-      class Cat < Contentful::Entry
-        include ::Contentful::Resource::CustomResource
+    it 'can remarshall an unmarshalled object' do
+      vcr('entry/marshall') {
+        nyancat = create_client.entries(include: 2, 'sys.id' => 'nyancat').first
 
-        property :name
-        property :lives
-        property :bestFriend, Cat
-        property :catPack
-        property :image, Contentful::Asset
-      end
-
-      def test_dump(nyancat)
-        dump = Marshal.dump(nyancat)
-        new_cat = Marshal.load(dump)
-
-        # Attributes
-        expect(new_cat).to be_a Cat
-        expect(new_cat.name).to eq "Nyan Cat"
-        expect(new_cat.lives).to eq 1337
-
-        # Single linked objects
-        expect(new_cat.best_friend).to be_a Cat
-        expect(new_cat.best_friend.name).to eq "Happy Cat"
-
-        # Array of linked objects
-        expect(new_cat.cat_pack.count).to eq 2
-        expect(new_cat.cat_pack[0].name).to eq "Happy Cat"
-        expect(new_cat.cat_pack[1].name).to eq "Worried Cat"
-
-        # Nested Links
-        expect(new_cat.best_friend.best_friend).to be_a Cat
-        expect(new_cat.best_friend.best_friend.name).to eq "Worried Cat"
-
-        # Nested array of linked objects
-        expect(new_cat.best_friend.cat_pack.count).to eq 2
-        expect(new_cat.best_friend.cat_pack[0].name).to eq "Nyan Cat"
-        expect(new_cat.best_friend.cat_pack[1].name).to eq "Worried Cat"
-
-        # Array of linked objects in a nested array of linked objects
-        expect(new_cat.cat_pack.first.name).to eq "Happy Cat"
-        expect(new_cat.cat_pack.first.cat_pack[0].name).to eq "Nyan Cat"
-        expect(new_cat.cat_pack.first.cat_pack[1].name).to eq "Worried Cat"
-
-        expect(new_cat.image.file.url).to eq "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
-      end
-
-      it 'using entry_mapping' do
-        vcr('entry/marshall') {
-          nyancat = create_client(entry_mapping: {'cat' => Cat}).entries(include: 2, 'sys.id' => 'nyancat').first
-          test_dump(nyancat)
-        }
-      end
-
-      it 'using resource_mapping' do
-        vcr('entry/marshall') {
-          nyancat = create_client(resource_mapping: {
-            'Entry' => ->(_json_object) do
-              return Cat if _json_object.fetch('sys', {}).fetch('contentType', {}).fetch('sys', {}).fetch('id', nil) == 'cat'
-              Contentful::Entry
-            end
-          }).entries(include: 2, 'sys.id' => 'nyancat').first
-          test_dump(nyancat)
-        }
-      end
-
-      it 'can remarshall an unmarshalled object' do
-        vcr('entry/marshall') {
-          nyancat = create_client(resource_mapping: {
-            'Entry' => ->(_json_object) do
-              return Cat if _json_object.fetch('sys', {}).fetch('contentType', {}).fetch('sys', {}).fetch('id', nil) == 'cat'
-              Contentful::Entry
-            end
-          }).entries(include: 2, 'sys.id' => 'nyancat').first
-
-          # The double load/dump is on purpose
-          test_dump(Marshal.load(Marshal.dump(nyancat)))
-        }
-      end
-
-      it 'newly created custom resources have property mappings' do
-        entry = Cat.new
-
-        expect(entry).to respond_to :name
-        expect(entry).to respond_to :lives
-        expect(entry).to respond_to :best_friend
-        expect(entry).to respond_to :cat_pack
-      end
+        # The double load/dump is on purpose
+        test_dump(Marshal.load(Marshal.dump(nyancat)))
+      }
     end
   end
 
@@ -317,12 +235,51 @@ describe Contentful::Entry do
   describe 'issues' do
     it 'Symbol/Text field with null values should be serialized as nil - #117' do
       vcr('entries/issue_117') {
-        client = create_client(space: '8jbbayggj9gj', access_token: '4ce0108f04e55c76476ba84ab0e6149734db73d67cd1b429323ef67f00977e07', dynamic_entries: :auto)
+        client = create_client(space: '8jbbayggj9gj', access_token: '4ce0108f04e55c76476ba84ab0e6149734db73d67cd1b429323ef67f00977e07')
         entry = client.entries.first
 
         expect(entry.nil).to be_nil
         expect(entry.nil).not_to eq ''
       }
+    end
+
+    describe 'JSON Fields should not be treated as locale data - #96' do
+      before do
+        vcr('entry/json_objects_client') {
+          @client = create_client(
+            space: 'h425t6gef30p',
+            access_token: '278f7aa72f2eb90c0e002d60f85bf2144c925acd2d37dd990d3ca274f25076cf',
+            dynamic_entries: :auto
+          )
+
+        }
+        vcr('entry/json_objects') {
+          @entry = @client.entries.first
+        }
+      end
+
+      it 'only has default locale' do
+        expect(@entry.locales).to eq ['en-US']
+      end
+
+      it 'can obtain all values properly' do
+        expect(@entry.name).to eq('Test')
+        expect(@entry.object_test).to eq({
+          null: nil,
+          text: 'some text',
+          array: [1, 2, 3],
+          number: 123,
+          boolean: true,
+          object: {
+            null: nil,
+            text: 'bar',
+            array: [1, 2, 3],
+            number: 123,
+            boolean: false,
+            object: {foo: 'bar'}
+          }
+        })
+      end
     end
   end
 end

@@ -1,42 +1,39 @@
-# Contentful resource classes are just plain Ruby classes that include the
-# Contentful::Resource module.
-#
-# You can then define properties of the class. This will create a getter method
-# with this name. You can optionally pass a type identifier (Symbol or Class).
-#
-# Classes will be instantiated for the properties,
-# Symbols will be looked up in Contentful::Resource::COERCIONS
-
 require 'contentful'
 
-class MyResource
-  include Contentful::Resource
-
-  property :some
-  property :age, :integer
-  property :country, Contentful::Locale
+# You can define your own custom classes that inherit from Contentful::Entry.
+# This allows you to define custom behaviour, for example, in this case, we want
+# the :country field to act as a Contentful::Locale
+class MyResource < Contentful::Entry
+  def country(locale = nil)
+    @country ||= Contentful::Locale.new(fields(locale)[:country])
+  end
 end
 
-res = MyResource.new(
+res = MyResource.new('fields' => {
   'some' => 'value',
   'age' => '25',
   'country' => { 'code' => 'de', 'name' => 'Deutschland' },
   'unknown_property' => 'ignored'
-)
+})
 
 p res.some # => "value"
 p res.age # => 25
 p res.country # #<Contentful::Locale: ...
 p res.unknown_property # NoMethodError
 
-# Another possibility to create customized resources is to just inherit from an
-# existing one:
+# To then have it mapped automatically from the client,
+# upon client instantiation, you set the :entry_mapping for your ContentType.
 
-class MyBetterArray < Contentful::Array
-  # e.g. define more methods that you need
-  def last
-    items.last
-  end
-end
+client = Contentful::Client.new(
+  space: 'your_space_id',
+  access_token: 'your_access_token',
+  entry_mapping: {
+    'myResource' => MyResource
+  }
+)
 
-# Read further in examples/resource_mapping.rb
+# We request the entries, entries of the 'myResource` content type,
+# will return MyResource class objects, while others will remain Contentful::Entry.
+client.entries.each { |e| puts e }
+# => <Contentful::Entry[other_content_type] id='foobar'>
+# => <MyResource[myResource] id='baz'>

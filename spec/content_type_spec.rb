@@ -19,11 +19,6 @@ describe Contentful::ContentType do
   end
 
   describe 'Properties' do
-    it 'has a #properties getter returning a hash with symbol keys' do
-      expect(content_type.properties).to be_a Hash
-      expect(content_type.properties.keys.sample).to be_a Symbol
-    end
-
     it 'has #name' do
       expect(content_type.name).to eq 'Cat'
     end
