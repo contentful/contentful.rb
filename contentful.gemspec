@@ -38,6 +38,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 3'
   gem.add_development_dependency 'rr'
   gem.add_development_dependency 'vcr'
+  gem.add_development_dependency 'simplecov'
   gem.add_development_dependency 'webmock', '~> 1', '>= 1.17.3'
   gem.add_development_dependency 'tins', '~> 1.6.0'
 end
