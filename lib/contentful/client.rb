@@ -33,7 +33,8 @@ module Contentful
       proxy_password: nil,
       proxy_port: nil,
       max_rate_limit_retries: 1,
-      max_rate_limit_wait: 60
+      max_rate_limit_wait: 60,
+      max_include_resolution_depth: 20
     }
     # Rate Limit Reset Header Key
     RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
@@ -63,6 +64,7 @@ module Contentful
     # @option given_configuration [Number] :proxy_port
     # @option given_configuration [Number] :max_rate_limit_retries
     # @option given_configuration [Number] :max_rate_limit_wait
+    # @option given_configuration [Number] :max_include_resolution_depth
     # @option given_configuration [Boolean] :gzip_encoded
     # @option given_configuration [Boolean] :raw_mode
     # @option given_configuration [false, ::Logger] :logger

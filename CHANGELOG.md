@@ -17,6 +17,7 @@
 * Coercions are now part of ContentType, each Field knows which coercion should be applied depending on Field#type
 * Resource #inspect now provides a clearer and better output, without all the noise that was previously there
 * CustomResource was removed, now subclasses of Entry should be used instead.
+* `max_include_resolution_depth` option added to the client, defaults to 20.
 * Updated LICENSE
 * Updated examples
 

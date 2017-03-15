@@ -35,12 +35,12 @@ module Contentful
       items
     end
 
+    # Maximum include depth is 10 in the API, but we raise it to 20 (by default),
+    # in case one of the included items has a reference in an upper level,
+    # so we can keep the include chain for that object as well
+    # Any included object after the maximum include resolution depth will be just a Link
     def build_nested_resource(value, localized, includes)
-      # Maximum include Depth is 10 in the API, but we raise it to 20,
-      # in case one of the included items has a reference in an upper level,
-      # so we can keep the include chain for that object as well
-      # Any included object after the 20th level of depth will be just a Link
-      if @depth <= 20
+      if @depth < @configuration.fetch(:max_include_resolution_depth, 20)
         resource = Support.resource_for_link(value, includes)
         return resolve_include(resource, localized, includes) unless resource.nil?
       end

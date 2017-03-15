@@ -161,14 +161,14 @@ describe Contentful::Entry do
 
     it 'marshals properly' do
       vcr('entry/marshall') {
-        nyancat = create_client(gzip_encoded: false).entries(include: 2, 'sys.id' => 'nyancat').first
+        nyancat = create_client(gzip_encoded: false, max_include_resolution_depth: 2).entries(include: 2, 'sys.id' => 'nyancat').first
         test_dump(nyancat)
       }
     end
 
     it 'can remarshall an unmarshalled object' do
       vcr('entry/marshall') {
-        nyancat = create_client.entries(include: 2, 'sys.id' => 'nyancat').first
+        nyancat = create_client(max_include_resolution_depth: 2).entries(include: 2, 'sys.id' => 'nyancat').first
 
         # The double load/dump is on purpose
         test_dump(Marshal.load(Marshal.dump(nyancat)))
@@ -229,6 +229,54 @@ describe Contentful::Entry do
           expect(entry.sys).not_to be_empty
         }
       end
+    end
+  end
+
+  describe 'include resolution' do
+    it 'defaults to 20 depth' do
+      vcr('entry/include_resolution') {
+        entry = create_client.entry('nyancat', include: 2)
+
+        expect(entry.best_friend.name).to eq 'Happy Cat'
+        expect(entry
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend.name).to eq 'Nyan Cat'
+
+        expect(entry
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend.best_friend
+               .best_friend).to be_a ::Contentful::Link
+      }
+    end
+
+    it 'can be configured arbitrarily' do
+      vcr('entry/include_resolution') {
+        entry = create_client(max_include_resolution_depth: 3).entry('nyancat', include: 2)
+
+        expect(entry.best_friend.name).to eq 'Happy Cat'
+        expect(entry
+               .best_friend.best_friend
+               .best_friend.name).to eq 'Happy Cat'
+        expect(entry
+               .best_friend.best_friend
+               .best_friend.best_friend).to be_a ::Contentful::Link
+      }
     end
   end
 

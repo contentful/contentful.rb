@@ -250,6 +250,12 @@ Maximum time to wait for next available request (in seconds). Default value is 6
 can have up to 60 minutes of blocked requests. It is set to a default of 60 seconds in order to avoid blocking processes for too long, as rate limit retry behaviour
 is blocking per execution thread.
 
+### :max_include_resolution_depth
+
+Maximum amount of levels to resolve includes for SDK entities (this is independent of API-level includes - it represents the maximum depth the include resolution
+tree is allowed to resolved before falling back to `Link` objects). This include resolution strategy is in place in order to avoid having infinite circular recursion
+on resources with circular dependencies. Defaults to 20. _Note_: If you're using something like `Rails::cache` it's advisable to considerably lower this value
+(around 5 has proven to be a good compromise - but keep it higher or equal than your maximum API-level include parameter if you need the entire tree resolution).
 
 ### Proxy example
 
