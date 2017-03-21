@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.0.0
+
 **ATTENTION**: Breaking Changes introduces in order to simplify code and improve the ability to add new features.
 
 ## Changed
