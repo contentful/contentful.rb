@@ -16,14 +16,6 @@ module Contentful
           .downcase
       end
 
-      # Returns true if resource is localized
-      #
-      # @return [true, false]
-      def localized?(value)
-        return false unless value.is_a? ::Hash
-        value.keys.any? { |possible_locale| Contentful::Constants::KNOWN_LOCALES.include?(possible_locale) }
-      end
-
       # Checks if value is a link
       #
       # @param value
