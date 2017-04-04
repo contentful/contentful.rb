@@ -63,7 +63,7 @@ module Contentful
     def known_link?(name)
       field_name = name.to_sym
       return true if known_contentful_object?(fields[field_name])
-      fields[field_name].is_a?(Enumerable) && known_contentful_object?(fields[field_name].first)
+      fields[field_name].is_a?(Enumerable) && fields[field_name].any? { |object| known_contentful_object?(object) }
     end
 
     def known_contentful_object?(object)
