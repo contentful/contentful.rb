@@ -11,7 +11,7 @@ module Contentful
       'Text'     => TextCoercion,
       'Symbol'   => SymbolCoercion,
       'Integer'  => IntegerCoercion,
-      'Float'    => FloatCoercion,
+      'Number'   => FloatCoercion,
       'Boolean'  => BooleanCoercion,
       'Date'     => DateCoercion,
       'Location' => LocationCoercion,

@@ -2,11 +2,14 @@
 
 ## Unreleased
 
+### Fixed
+* Fixed Integer/Decimal field serializations [#125](https://github.com/contentful/contentful.rb/issues/125)
+
 ## 2.0.0
 
 **ATTENTION**: Breaking Changes introduces in order to simplify code and improve the ability to add new features.
 
-## Changed
+### Changed
 
 * The removal of the Client and Request objects from the Resource objects, means that for example: Link#resolve and Array#next_page now require the client as a parameter.
 * Client#entry now uses /entries?sys.id=ENTRY_ID instead of /entries/ENTRY_ID to properly resolve includes.
@@ -20,6 +23,7 @@
 * Resource #inspect now provides a clearer and better output, without all the noise that was previously there
 * CustomResource was removed, now subclasses of Entry should be used instead.
 * `max_include_resolution_depth` option added to the client, defaults to 20.
+* `sys` properties now match accessors.
 * Updated LICENSE
 * Updated examples
 

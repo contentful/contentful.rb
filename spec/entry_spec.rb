@@ -329,5 +329,15 @@ describe Contentful::Entry do
         })
       end
     end
+
+    it 'Number (Integer and Decimal) values get properly serialized - #125' do
+      vcr('entries/issue_125') {
+        client = create_client(space: 'zui87wsu8q80', access_token: '64ff902c58cd14ea063d3ded810d1111a0266537e9aba283bad3319b1762c302', dynamic_entries: :auto)
+        entry = client.entries.first
+
+        expect(entry.integer).to eq 123
+        expect(entry.decimal).to eq 12.3
+      }
+    end
   end
 end
