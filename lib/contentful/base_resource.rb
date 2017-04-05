@@ -27,12 +27,17 @@ module Contentful
 
     # @private
     def marshal_dump
-      raw
+      {
+        configuration: @configuration,
+        raw: raw
+      }
     end
 
     # @private
     def marshal_load(raw_object)
-      @raw = raw_object
+      @raw = raw_object[:raw]
+      @configuration = raw_object[:configuration]
+      @default_locale = @configuration[:default_locale]
       @sys = hydrate_sys
       @depth = 0
       define_sys_methods!
