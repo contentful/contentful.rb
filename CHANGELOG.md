@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.0.1
+
 ### Fixed
 * Fixed Integer/Decimal field serializations [#125](https://github.com/contentful/contentful.rb/issues/125)
 * Fixed File coercion for Localized Assets [#129](https://github.com/contentful/contentful.rb/issues/129)
