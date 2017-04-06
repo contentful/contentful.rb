@@ -7,7 +7,10 @@ module Contentful
   class Asset < FieldsResource
     # @private
     def marshal_dump
-      raw
+      {
+        configuration: @configuration,
+        raw: raw
+      }
     end
 
     # @private
@@ -64,16 +67,16 @@ module Contentful
     private
 
     def create_files!
-      file_json = fields[:file]
+      file_json = raw.fetch('fields', {}).fetch('file', nil)
       return if file_json.nil?
 
       is_localized = file_json.keys.none? { |f| %w(fileName contentType details url).include? f }
       if is_localized
         locales.each do |locale|
-          fields(locale)[:file] = ::Contentful::File.new(file_json[locale.to_s] || {})
+          @fields[locale][:file] = ::Contentful::File.new(file_json[locale.to_s] || {})
         end
       else
-        fields[:file] = ::Contentful::File.new(file_json)
+        @fields[default_locale][:file] = ::Contentful::File.new(file_json)
       end
     end
 

@@ -120,4 +120,26 @@ describe Contentful::Asset do
       end
     end
   end
+
+  describe 'issues' do
+    it 'serializes files correctly for every locale - #129' do
+      vcr('assets/issues_129') {
+        client = create_client(
+          space: 'bht13amj0fva',
+          access_token: 'bb703a05e107148bed6ee246a9f6b3678c63fed7335632eb68fe1b689c801534'
+        )
+
+        asset = client.assets('sys.id' => '14bZJKTr6AoaGyeg4kYiWq', locale: '*').first
+
+        expect(asset.file).to be_a ::Contentful::File
+        expect(asset.file.file_name).to eq 'Flag_of_the_United_States.svg'
+
+        expect(asset.fields[:file]).to be_a ::Contentful::File
+        expect(asset.fields[:file].file_name).to eq 'Flag_of_the_United_States.svg'
+
+        expect(asset.fields('es')[:file]).to be_a ::Contentful::File
+        expect(asset.fields('es')[:file].file_name).to eq 'Flag_of_Spain.svg'
+      }
+    end
+  end
 end
