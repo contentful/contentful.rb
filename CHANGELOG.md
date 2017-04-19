@@ -32,6 +32,7 @@
 * CustomResource was removed, now subclasses of Entry should be used instead.
 * `max_include_resolution_depth` option added to the client, defaults to 20.
 * `sys` properties now match accessors.
+* `fields` properties now match accessors.
 * Updated LICENSE
 * Updated examples
 
