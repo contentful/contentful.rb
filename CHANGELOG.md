@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.0.2
+
 ### Fixed
 * Asset File Mapping now uses `#internal_resource_locale` to use `Resource#sys[:locale]` if available [jekyll-contentful-data-import #46](https://github.com/contentful/jekyll-contentful-data-import/issues/46)
 
