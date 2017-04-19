@@ -76,7 +76,7 @@ module Contentful
           @fields[locale][:file] = ::Contentful::File.new(file_json[locale.to_s] || {})
         end
       else
-        @fields[default_locale][:file] = ::Contentful::File.new(file_json)
+        @fields[internal_resource_locale][:file] = ::Contentful::File.new(file_json)
       end
     end
 

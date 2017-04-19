@@ -141,5 +141,19 @@ describe Contentful::Asset do
         expect(asset.fields('es')[:file].file_name).to eq 'Flag_of_Spain.svg'
       }
     end
+
+    it 'properly serializes files for non-default locales on localized requests - jekyll-contentful-data-import #46' do
+      vcr('assets/issues_jekyll_46') {
+        client = create_client(
+          space: 'bht13amj0fva',
+          access_token: 'bb703a05e107148bed6ee246a9f6b3678c63fed7335632eb68fe1b689c801534',
+        )
+
+        asset = client.assets('sys.id' => '14bZJKTr6AoaGyeg4kYiWq', locale: 'es').first
+
+        expect(asset.file).to be_a ::Contentful::File
+        expect(asset.file.file_name).to eq 'Flag_of_Spain.svg'
+      }
+    end
   end
 end

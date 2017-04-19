@@ -1,0 +1,115 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/bht13amj0fva/assets?locale=es&sys.id=14bZJKTr6AoaGyeg4kYiWq
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/2.0.1
+      Authorization:
+      - Bearer bb703a05e107148bed6ee246a9f6b3678c63fed7335632eb68fe1b689c801534
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - '"fd221ef596081681476844e76626d81e"'
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - 94c2a00df9e2c852f0d971f0bf6447cd
+      Content-Length:
+      - '901'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 19 Apr 2017 13:30:46 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-lax8647-LAX
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1492608646.119094,VS0,VE415
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 1,
+          "skip": 0,
+          "limit": 100,
+          "items": [
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "bht13amj0fva"
+                  }
+                },
+                "id": "14bZJKTr6AoaGyeg4kYiWq",
+                "type": "Asset",
+                "createdAt": "2016-10-05T14:31:36.082Z",
+                "updatedAt": "2016-10-05T14:31:36.082Z",
+                "revision": 1,
+                "locale": "es"
+              },
+              "fields": {
+                "title": "ES Title",
+                "description": "ES Description",
+                "file": {
+                  "url": "//assets.contentful.com/bht13amj0fva/14bZJKTr6AoaGyeg4kYiWq/5501c98c296af77b9acba1146ea3e211/Flag_of_Spain.svg",
+                  "details": {
+                    "size": 60255
+                  },
+                  "fileName": "Flag_of_Spain.svg",
+                  "contentType": "image/svg+xml"
+                }
+              }
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Wed, 19 Apr 2017 13:30:46 GMT
+recorded_with: VCR 3.0.3
