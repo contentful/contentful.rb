@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.0.3
+
 ### Fixed
 
 * `Contentful::Array` now marshalls properly, respecting all properties [#132](https://github.com/contentful/contentful.rb/issues/132)
