@@ -62,4 +62,16 @@ describe Contentful::Array do
       expect(Contentful::Array.new({}).reload).to be_falsey
     end
   end
+
+  describe 'marshalling' do
+    it 'marshals/unmarshals properly - #132' do
+      re_array = Marshal.load(Marshal.dump(array))
+
+      expect(re_array.endpoint).to eq array.endpoint
+      expect(re_array.total).to eq array.total
+      expect(re_array.limit).to eq array.limit
+      expect(re_array.skip).to eq array.skip
+      expect(re_array.items).to eq array.items
+    end
+  end
 end

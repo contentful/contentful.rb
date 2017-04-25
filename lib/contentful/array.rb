@@ -26,6 +26,21 @@ module Contentful
     end
 
     # @private
+    def marshal_dump
+      super.merge(endpoint: endpoint)
+    end
+
+    # @private
+    def marshal_load(raw_object)
+      super
+      @endpoint = raw_object[:endpoint]
+      @total = raw.fetch('total', nil)
+      @limit = raw.fetch('limit', nil)
+      @skip = raw.fetch('skip', nil)
+      @items = raw.fetch('items', [])
+    end
+
+    # @private
     def inspect
       "<#{repr_name} total=#{total} skip=#{skip} limit=#{limit}>"
     end
