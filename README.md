@@ -58,12 +58,6 @@ content_type = client.content_type 'cat'
 content_type.description # "Meow."
 ```
 
-Alternatively, the data can be accessed as Ruby `Hash` with symbolized keys (and in camelCase):
-
-```ruby
-content_type.properties # { name: '...', description: '...' }
-```
-
 System Properties behave the same and can be accessed via the `#sys` method.
 
 ```ruby
@@ -315,19 +309,6 @@ client = Contentful::Client.new(
 client.entry('nyancat') # is instance of Cat
 ```
 
-If you want to use the `property :field_name` syntax, you can do it the following way:
-
-```ruby
-class Cat < Contentful::Entry
-  include Contentful::Resource::CustomResource
-
-  property :name
-  property :lives
-  property :bestFriend
-  # ...
-end
-```
-
 ## Synchronization
 
 The client also includes a wrapper for the synchronization endpoint. You can initialize it with the options described in the [Delivery API Documentation](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization) or an URL you received from a previous sync:
@@ -382,9 +363,25 @@ first_entry.fields('de-DE') # Returns German localizations
 
 - When an entry has related entries that are unpublished, they still end up in the resource as unresolved links. We consider this correct, because it is in line with the API responses and our other SDKs. However, you can use the workaround from [issue #60](/../../issues/60) if you happen to want this working differently.
 
-- While this library doesn't directly allow parsing Contentful webhook responses, you can check out [this code snippet](https://gist.github.com/neonichu/17a987aeeb256d4bf6f3) for a way to do it.
+## Migrating to 2.x
 
+If you're a `0.x` or a `1.x` user of this gem, and are planning to migrate to the current `2.x` branch.
+There are a few breaking changes you have to take into account:
+
+* `Contentful::Link#resolve` and `Contentful::Array#next_page` now require a `Contentful::Client` instance as a parameter.
+* `Contentful::CustomResource` does no longer exist, custom entry classes can now inherit from `Contentful::Entry` and have proper marshalling working.
+* `Contentful::Resource` does no longer exist, all resource classes now inherit from `Contentful::BaseResource`. `Contentful::Entry` and `Contentful::Asset` inherit from `Contentful::FieldsResource` which is a subclass of `Contentful::BaseResource`.
+* `Contentful::DynamicEntry` does no longer exist, if code checked against that base class, it should now check against `Contentful::Entry` instead.
+* `Contentful::Client#dynamic_entry_cache` _(private)_ has been extracted to it's own class, and can be now manually cleared by using `Contentful::ContentTypeCache::clear`.
+* `Contentful::BaseResource#sys` and `Contentful::FieldsResource#fields` internal representation for keys are now snake cased to match the instance accessors. E.g. `entry.fields[:myField]` previously had the accessor `entry.my_field`, now it is `entry.fields[:my_field]`. The value in both cases would correspond to the same field, only change is to unify the style. If code accessed the values through the `#sys` or `#fields` methods, keys now need to be snake cased.
+* Circular references are handled as individual objects to simplify marshalling and reduce stack errors, this introduces a performance hit on extremely interconnected content. Therefore, to limit the impact of circular references, an additional configuration flag `max_include_resolution_depth` has been added. It is set to 20 by default (which corresponds to the maximum include level value * 2). This allows for non-circular but highly connected content to resolve properly. In very interconnected content, it also allows to reduce this number to improve performance. For a more in depth look into this you can read [this issue](https://github.com/contentful/contentful.rb/issues/124#issuecomment-287002469).
+* `#inspect` now offers a clearer and better output for all resources. If your code had assertions based on the string representation of the resources, update to the new format `<Contentful::#{RESOURCE_CLASS}#{additional_info} id="#{RESOURCE_ID}">`.
+
+For more information on the internal changes present in the 2.x release, please read the [CHANGELOG](CHANGELOG.md)
 
 ## License
 
-Copyright (c) 2014 Contentful GmbH - Jan Lelis. See LICENSE.txt for further details.
+Copyright (c) 2014 Contentful GmbH - Jan Lelis.
+Copyright (c) 2016 Contentfuk GmbH - David Litvak.
+
+See LICENSE.txt for further details.
