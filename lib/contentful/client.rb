@@ -34,7 +34,11 @@ module Contentful
       proxy_port: nil,
       max_rate_limit_retries: 1,
       max_rate_limit_wait: 60,
-      max_include_resolution_depth: 20
+      max_include_resolution_depth: 20,
+      application_name: nil,
+      application_version: nil,
+      integration_name: nil,
+      integration_version: nil
     }
     # Rate Limit Reset Header Key
     RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
@@ -73,6 +77,10 @@ module Contentful
     # @option given_configuration [::Array<String>] :dynamic_entries
     # @option given_configuration [::Hash<String, Contentful::Resource>] :resource_mapping
     # @option given_configuration [::Hash<String, Contentful::Resource>] :entry_mapping
+    # @option given_configuration [String] :application_name
+    # @option given_configuration [String] :application_version
+    # @option given_configuration [String] :integration_name
+    # @option given_configuration [String] :integration_version
     def initialize(given_configuration = {})
       @configuration = default_configuration.merge(given_configuration)
       normalize_configuration!
@@ -184,10 +192,83 @@ module Contentful
       "http#{configuration[:secure] ? 's' : ''}://#{configuration[:api_url]}/spaces/#{configuration[:space]}"
     end
 
+    # Returns the formatted part of the X-Contentful-User-Agent header
+    # @private
+    def format_user_agent_header(key, values)
+      header = "#{key} #{values[:name]}"
+      header = "#{header}/#{values[:version]}" if values[:version]
+      "#{header};"
+    end
+
+    # Returns the X-Contentful-User-Agent sdk data
+    # @private
+    def sdk_info
+      {
+        name: 'contentful.rb',
+        version: ::Contentful::VERSION
+      }
+    end
+
+    # Returns the X-Contentful-User-Agent app data
+    # @private
+    def app_info
+      {
+        name: configuration[:application_name],
+        version: configuration[:application_version]
+      }
+    end
+
+    # Returns the X-Contentful-User-Agent integration data
+    # @private
+    def integration_info
+      {
+        name: configuration[:integration_name],
+        version: configuration[:integration_version]
+      }
+    end
+
+    # Returns the X-Contentful-User-Agent platform data
+    # @private
+    def platform_info
+      {
+        name: 'ruby',
+        version: RUBY_VERSION
+      }
+    end
+
+    # Returns the X-Contentful-User-Agent os data
+    # @private
+    def os_info
+      {
+        name: Gem::Platform.local.os,
+        version: Gem::Platform.local.version
+      }
+    end
+
+    # Returns the X-Contentful-User-Agent
+    # @private
+    def contentful_user_agent
+      header = {
+        'sdk' => sdk_info,
+        'app' => app_info,
+        'integration' => integration_info,
+        'platform' => platform_info,
+        'os' => os_info
+      }
+
+      result = []
+      header.each do |key, values|
+        next unless values[:name]
+        result << format_user_agent_header(key, values)
+      end
+
+      result.join(' ')
+    end
+
     # Returns the headers used for the HTTP requests
     # @private
     def request_headers
-      headers = { 'User-Agent' => "RubyContentfulGem/#{Contentful::VERSION}" }
+      headers = { 'X-Contentful-User-Agent' => contentful_user_agent }
       headers['Authorization'] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
       headers['Content-Type'] = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
       headers['Accept-Encoding'] = 'gzip' if configuration[:gzip_encoded]
