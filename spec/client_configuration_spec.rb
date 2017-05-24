@@ -1,11 +1,5 @@
 require 'spec_helper'
 
-def os_info
-  header = Gem::Platform.local.os
-  header = "#{header}/#{Gem::Platform.local.version}" if Gem::Platform.local.version
-  "#{header};"
-end
-
 describe 'Client Configuration Options' do
   describe ':space' do
     it 'is required' do
@@ -214,13 +208,14 @@ describe 'Client Configuration Options' do
       expected = [
         "sdk contentful.rb/#{Contentful::VERSION};",
         "platform ruby/#{RUBY_VERSION};",
-        os_info
       ]
 
       client = create_client
       expected.each do |h|
         expect(client.contentful_user_agent).to include(h)
       end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux|Unknown)(\/.*)?;/i)
 
       ['integration', 'app'].each do |h|
         expect(client.contentful_user_agent).not_to include(h)
@@ -231,7 +226,6 @@ describe 'Client Configuration Options' do
       expected = [
         "sdk contentful.rb/#{Contentful::VERSION};",
         "platform ruby/#{RUBY_VERSION};",
-        os_info,
         "integration foobar;"
       ]
 
@@ -239,6 +233,8 @@ describe 'Client Configuration Options' do
       expected.each do |h|
         expect(client.contentful_user_agent).to include(h)
       end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux|Unknown)(\/.*)?;/i)
 
       ['app'].each do |h|
         expect(client.contentful_user_agent).not_to include(h)
@@ -249,7 +245,6 @@ describe 'Client Configuration Options' do
       expected = [
         "sdk contentful.rb/#{Contentful::VERSION};",
         "platform ruby/#{RUBY_VERSION};",
-        os_info,
         "integration foobar/0.1.0;"
       ]
 
@@ -257,6 +252,8 @@ describe 'Client Configuration Options' do
       expected.each do |h|
         expect(client.contentful_user_agent).to include(h)
       end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux|Unknown)(\/.*)?;/i)
 
       ['app'].each do |h|
         expect(client.contentful_user_agent).not_to include(h)
@@ -267,7 +264,6 @@ describe 'Client Configuration Options' do
       expected = [
         "sdk contentful.rb/#{Contentful::VERSION};",
         "platform ruby/#{RUBY_VERSION};",
-        os_info,
         "app fooapp;"
       ]
 
@@ -275,6 +271,8 @@ describe 'Client Configuration Options' do
       expected.each do |h|
         expect(client.contentful_user_agent).to include(h)
       end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux|Unknown)(\/.*)?;/i)
 
       ['integration'].each do |h|
         expect(client.contentful_user_agent).not_to include(h)
@@ -285,7 +283,6 @@ describe 'Client Configuration Options' do
       expected = [
         "sdk contentful.rb/#{Contentful::VERSION};",
         "platform ruby/#{RUBY_VERSION};",
-        os_info,
         "app fooapp/1.0.0;"
       ]
 
@@ -293,6 +290,8 @@ describe 'Client Configuration Options' do
       expected.each do |h|
         expect(client.contentful_user_agent).to include(h)
       end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux|Unknown)(\/.*)?;/i)
 
       ['integration'].each do |h|
         expect(client.contentful_user_agent).not_to include(h)
@@ -303,7 +302,6 @@ describe 'Client Configuration Options' do
       expected = [
         "sdk contentful.rb/#{Contentful::VERSION};",
         "platform ruby/#{RUBY_VERSION};",
-        os_info,
         "integration foobar/0.1.0;",
         "app fooapp/1.0.0;"
       ]
@@ -318,13 +316,14 @@ describe 'Client Configuration Options' do
       expected.each do |h|
         expect(client.contentful_user_agent).to include(h)
       end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux|Unknown)(\/.*)?;/i)
     end
 
     it 'when only version numbers, skips header' do
       expected = [
         "sdk contentful.rb/#{Contentful::VERSION};",
-        "platform ruby/#{RUBY_VERSION};",
-        os_info
+        "platform ruby/#{RUBY_VERSION};"
       ]
 
       client = create_client(
@@ -335,6 +334,8 @@ describe 'Client Configuration Options' do
       expected.each do |h|
         expect(client.contentful_user_agent).to include(h)
       end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux|Unknown)(\/.*)?;/i)
 
       ['integration', 'app'].each do |h|
         expect(client.contentful_user_agent).not_to include(h)

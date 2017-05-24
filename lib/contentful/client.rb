@@ -6,6 +6,7 @@ require_relative 'content_type_cache'
 
 require 'http'
 require 'logger'
+require 'rbconfig'
 
 module Contentful
   # The client object is initialized with a space and a key and then used
@@ -203,46 +204,37 @@ module Contentful
     # Returns the X-Contentful-User-Agent sdk data
     # @private
     def sdk_info
-      {
-        name: 'contentful.rb',
-        version: ::Contentful::VERSION
-      }
+      { name: 'contentful.rb', version: ::Contentful::VERSION }
     end
 
     # Returns the X-Contentful-User-Agent app data
     # @private
     def app_info
-      {
-        name: configuration[:application_name],
-        version: configuration[:application_version]
-      }
+      { name: configuration[:application_name], version: configuration[:application_version] }
     end
 
     # Returns the X-Contentful-User-Agent integration data
     # @private
     def integration_info
-      {
-        name: configuration[:integration_name],
-        version: configuration[:integration_version]
-      }
+      { name: configuration[:integration_name], version: configuration[:integration_version] }
     end
 
     # Returns the X-Contentful-User-Agent platform data
     # @private
     def platform_info
-      {
-        name: 'ruby',
-        version: RUBY_VERSION
-      }
+      { name: 'ruby', version: RUBY_VERSION }
     end
 
     # Returns the X-Contentful-User-Agent os data
     # @private
     def os_info
-      {
-        name: Gem::Platform.local.os,
-        version: Gem::Platform.local.version
-      }
+      os_name = case ::RbConfig::CONFIG['host_os']
+                when /(cygwin|mingw|mswin|windows)/i then 'Windows'
+                when /(darwin|macruby|mac os)/i      then 'macOS'
+                when /(linux|bsd|aix|solarix)/i      then 'Linux'
+                else                                      'Unknown'
+                end
+      { name: os_name, version: Gem::Platform.local.version }
     end
 
     # Returns the X-Contentful-User-Agent
@@ -261,7 +253,6 @@ module Contentful
         next unless values[:name]
         result << format_user_agent_header(key, values)
       end
-
       result.join(' ')
     end
 
