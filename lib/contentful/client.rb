@@ -232,7 +232,6 @@ module Contentful
                 when /(cygwin|mingw|mswin|windows)/i then 'Windows'
                 when /(darwin|macruby|mac os)/i      then 'macOS'
                 when /(linux|bsd|aix|solarix)/i      then 'Linux'
-                else                                      'Unknown'
                 end
       { name: os_name, version: Gem::Platform.local.version }
     end
