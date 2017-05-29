@@ -202,4 +202,149 @@ describe 'Client Configuration Options' do
       expect(finn).to be_a Contentful::Entry
     end
   end
+
+  describe 'X-Contentful-User-Agent headers' do
+    it 'default values' do
+      expected = [
+        "sdk contentful.rb/#{Contentful::VERSION};",
+        "platform ruby/#{RUBY_VERSION};",
+      ]
+
+      client = create_client
+      expected.each do |h|
+        expect(client.contentful_user_agent).to include(h)
+      end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux)(\/.*)?;/i)
+
+      ['integration', 'app'].each do |h|
+        expect(client.contentful_user_agent).not_to include(h)
+      end
+    end
+
+    it 'with integration name only' do
+      expected = [
+        "sdk contentful.rb/#{Contentful::VERSION};",
+        "platform ruby/#{RUBY_VERSION};",
+        "integration foobar;"
+      ]
+
+      client = create_client(integration_name: 'foobar')
+      expected.each do |h|
+        expect(client.contentful_user_agent).to include(h)
+      end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux)(\/.*)?;/i)
+
+      ['app'].each do |h|
+        expect(client.contentful_user_agent).not_to include(h)
+      end
+    end
+
+    it 'with integration' do
+      expected = [
+        "sdk contentful.rb/#{Contentful::VERSION};",
+        "platform ruby/#{RUBY_VERSION};",
+        "integration foobar/0.1.0;"
+      ]
+
+      client = create_client(integration_name: 'foobar', integration_version: '0.1.0')
+      expected.each do |h|
+        expect(client.contentful_user_agent).to include(h)
+      end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux)(\/.*)?;/i)
+
+      ['app'].each do |h|
+        expect(client.contentful_user_agent).not_to include(h)
+      end
+    end
+
+    it 'with application name only' do
+      expected = [
+        "sdk contentful.rb/#{Contentful::VERSION};",
+        "platform ruby/#{RUBY_VERSION};",
+        "app fooapp;"
+      ]
+
+      client = create_client(application_name: 'fooapp')
+      expected.each do |h|
+        expect(client.contentful_user_agent).to include(h)
+      end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux)(\/.*)?;/i)
+
+      ['integration'].each do |h|
+        expect(client.contentful_user_agent).not_to include(h)
+      end
+    end
+
+    it 'with application' do
+      expected = [
+        "sdk contentful.rb/#{Contentful::VERSION};",
+        "platform ruby/#{RUBY_VERSION};",
+        "app fooapp/1.0.0;"
+      ]
+
+      client = create_client(application_name: 'fooapp', application_version: '1.0.0')
+      expected.each do |h|
+        expect(client.contentful_user_agent).to include(h)
+      end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux)(\/.*)?;/i)
+
+      ['integration'].each do |h|
+        expect(client.contentful_user_agent).not_to include(h)
+      end
+    end
+
+    it 'with all' do
+      expected = [
+        "sdk contentful.rb/#{Contentful::VERSION};",
+        "platform ruby/#{RUBY_VERSION};",
+        "integration foobar/0.1.0;",
+        "app fooapp/1.0.0;"
+      ]
+
+      client = create_client(
+        integration_name: 'foobar',
+        integration_version: '0.1.0',
+        application_name: 'fooapp',
+        application_version: '1.0.0'
+      )
+
+      expected.each do |h|
+        expect(client.contentful_user_agent).to include(h)
+      end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux)(\/.*)?;/i)
+    end
+
+    it 'when only version numbers, skips header' do
+      expected = [
+        "sdk contentful.rb/#{Contentful::VERSION};",
+        "platform ruby/#{RUBY_VERSION};"
+      ]
+
+      client = create_client(
+        integration_version: '0.1.0',
+        application_version: '1.0.0'
+      )
+
+      expected.each do |h|
+        expect(client.contentful_user_agent).to include(h)
+      end
+
+      expect(client.contentful_user_agent).to match(/os (Windows|macOS|Linux)(\/.*)?;/i)
+
+      ['integration', 'app'].each do |h|
+        expect(client.contentful_user_agent).not_to include(h)
+      end
+    end
+
+    it 'headers include X-Contentful-User-Agent' do
+      client = create_client
+      expect(client.request_headers['X-Contentful-User-Agent']).to eq client.contentful_user_agent
+    end
+  end
 end

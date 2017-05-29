@@ -19,7 +19,7 @@ AllCops:
     - Rakefile
 
 Metrics/ClassLength:
-  Max: 230
+  Max: 250
 
 Style/MutableConstant:
   Enabled: false
