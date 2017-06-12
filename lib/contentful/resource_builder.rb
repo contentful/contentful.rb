@@ -101,6 +101,10 @@ module Contentful
         return fetch_custom_resource_mapping(item, 'Entry', Entry)
       when 'Asset'
         return fetch_custom_resource_mapping(item, 'Asset', Asset)
+      when 'DeletedEntry'
+        return fetch_custom_resource_mapping(item, 'DeletedEntry', DeletedEntry)
+      when 'DeletedAsset'
+        return fetch_custom_resource_mapping(item, 'DeletedAsset', DeletedAsset)
       end
     end
 
