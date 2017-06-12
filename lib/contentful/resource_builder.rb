@@ -88,7 +88,7 @@ module Contentful
     end
 
     def resource_class(item)
-      return fetch_custom_resource_class(item) if %w(Entry Asset).include?(item['sys']['type'])
+      return fetch_custom_resource_class(item) if %w(Entry DeletedEntry Asset DeletedAsset).include?(item['sys']['type'])
       resource_mapping[item['sys']['type']]
     end
 
@@ -101,6 +101,10 @@ module Contentful
         return fetch_custom_resource_mapping(item, 'Entry', Entry)
       when 'Asset'
         return fetch_custom_resource_mapping(item, 'Asset', Asset)
+      when 'DeletedEntry'
+        return fetch_custom_resource_mapping(item, 'DeletedEntry', DeletedEntry)
+      when 'DeletedAsset'
+        return fetch_custom_resource_mapping(item, 'DeletedAsset', DeletedAsset)
       end
     end
 
