@@ -3,10 +3,6 @@ rvm:
   - 2.4.0
   - 2.3.1
   - 2.2.1
-  - 2.1.2
-  - 2.1.1
-  - 2.1
-  - 2.0.0
 notifications:
   slack:
     secure: Zr3mKCiTb0vaTD4MPtTG8BbyYyErFuoxioM25QyrqePKVkDFeZC1MtGmg5klQQrJiWTKZPa/zB8NAHYkoUxg9I+z15JK0hYfz9KRubEpCrXCaqTC9Vzq88kJ3LN8YsTyBF66izaBH2KLsOfaJRxwplFzZqgpg4GG2DUBPtrGtes=
