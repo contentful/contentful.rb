@@ -382,6 +382,6 @@ For more information on the internal changes present in the 2.x release, please 
 ## License
 
 Copyright (c) 2014 Contentful GmbH - Jan Lelis.
-Copyright (c) 2016 Contentfuk GmbH - David Litvak.
+Copyright (c) 2016 Contentful GmbH - David Litvak.
 
 See LICENSE.txt for further details.
