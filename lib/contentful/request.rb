@@ -25,6 +25,10 @@ module Contentful
       "#{@endpoint}#{@type == :single ? "/#{id}" : ''}"
     end
 
+    def cache_key
+      [type, query, id, endpoint]
+    end
+
     # Delegates the actual HTTP work to the client
     def get
       client.get(self)

@@ -39,7 +39,8 @@ module Contentful
       application_name: nil,
       application_version: nil,
       integration_name: nil,
-      integration_version: nil
+      integration_version: nil,
+      cache: nil
     }
     # Rate Limit Reset Header Key
     RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
@@ -86,6 +87,8 @@ module Contentful
       @configuration = default_configuration.merge(given_configuration)
       normalize_configuration!
       validate_configuration!
+
+      setup_cache
       setup_logger
 
       update_dynamic_entry_cache! if configuration[:dynamic_entries] == :auto
@@ -95,6 +98,11 @@ module Contentful
     def setup_logger
       @logger = configuration[:logger]
       logger.level = configuration[:log_level] if logger
+    end
+
+    # @private
+    def setup_cache
+      @cache = configuration[:cache] if configuration[:cache]
     end
 
     # @private
@@ -283,13 +291,20 @@ module Contentful
       retries_left = configuration[:max_rate_limit_retries]
       result = nil
       begin
-        response = run_request(request)
+        object = @cache.read(request.cache_key) if !configuration[:raw_mode] && @cache
 
-        return response if !build_resource || configuration[:raw_mode]
+        unless object
+          response = run_request(request)
 
-        return fail_response(response) if response.status != :ok
+          return response if !build_resource || configuration[:raw_mode]
+          return fail_response(response) if response.status != :ok
 
-        result = do_build_resource(response)
+          object = response.object
+
+          @cache.write(request.cache_key,object) if !configuration[:raw_mode] && @cache
+        end
+
+        result = do_build_resource(request, object)
       rescue UnparsableResource => error
         raise error if configuration[:raise_errors]
         return error
@@ -338,20 +353,20 @@ module Contentful
           request_query(request.query),
           request_headers,
           proxy_params
-        ), request
+        )
       )
     end
 
     # Runs Resource Builder
     # @private
-    def do_build_resource(response)
+    def do_build_resource(request, object)
       logger.debug(response: response) if logger
       configuration[:resource_builder].new(
-        response.object,
+        object,
         configuration,
-        (response.request.query || {}).fetch(:locale, nil) == '*',
+        (request.query || {}).fetch(:locale, nil) == '*',
         0,
-        response.request.endpoint
+        request.endpoint
       ).run
     end
 
