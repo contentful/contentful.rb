@@ -41,6 +41,20 @@ module Contentful
       end
     end
 
+    # @private
+    def marshal_dump
+      {
+        object: raw.to_s,
+        status: @status
+      }
+    end
+
+    # @private
+    def marshal_load(raw_object)
+      @object = MultiJson.load(unzip_response(raw_object[:object]))
+      @status = raw_object[:status]
+    end
+
     private
 
     def error_object?
