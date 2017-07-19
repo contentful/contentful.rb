@@ -10,6 +10,10 @@ module Contentful
       true
     end
 
+    def cache_key
+      "#{space&.id}-#{id}-#{revision}"
+    end
+
     private
 
     def coerce(field_id, value, localized, includes)
