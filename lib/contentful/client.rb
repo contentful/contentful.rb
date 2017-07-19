@@ -360,7 +360,7 @@ module Contentful
     # Runs Resource Builder
     # @private
     def do_build_resource(request, object)
-      logger.debug(response: response) if logger
+      logger.debug(request: request) if logger
       configuration[:resource_builder].new(
         object,
         configuration,
