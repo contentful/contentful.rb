@@ -11,7 +11,7 @@ module Contentful
     end
 
     def cache_key
-      "#{space&.id}-#{id}-#{locale}-#{revision}"
+      "#{space&.id}-#{id}-#{revision}"
     end
 
     private
