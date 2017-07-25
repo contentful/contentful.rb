@@ -53,7 +53,10 @@ module Contentful
 
       ResourceBuilder.new(
         resource,
-        @configuration.merge(includes_for_single: includes),
+        @configuration.merge(
+          includes_for_single:
+            @configuration.fetch(:includes_for_single, []) + includes
+        ),
         localized,
         @depth + 1,
         includes

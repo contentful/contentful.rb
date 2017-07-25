@@ -174,6 +174,24 @@ describe Contentful::Entry do
         test_dump(Marshal.load(Marshal.dump(nyancat)))
       }
     end
+
+    it 'can properly marshal multiple level nested resources - #138' do
+      vcr('entry/marshal_138') {
+        parent = create_client(
+          space: 'j8tb59fszch7',
+          access_token: '5f711401f965951eb724ac72ac905e13d892294ba209268f13a9b32e896c8694',
+          dynamic_entries: :auto,
+          max_include_resolution_depth: 5
+        ).entry('5aV3O0l5jU0cwQ2OkyYsyU')
+
+        rehydrated = Marshal.load(Marshal.dump(parent))
+
+        expect(rehydrated.childs.first.image1.url).to eq '//images.contentful.com/j8tb59fszch7/7FjliblAmAoGMwU62MeQ6k/62509df90ef4bed38c0701bb9aa8c74c/Funny-Cat-Pictures-with-Captions-25.jpg'
+        expect(rehydrated.childs.first.image2.url).to eq '//images.contentful.com/j8tb59fszch7/1pbGuWZ27O6GMO0OGemgcA/a4185036a3640ad4491f38d8926003ab/Funny-Cat-Pictures-with-Captions-1.jpg'
+        expect(rehydrated.childs.last.image1.url).to eq '//images.contentful.com/j8tb59fszch7/4SXVTr0KEUyWiMMCOaUeUU/c9fa2246d5529a9c8e1ec6f5387dc4f6/e0194eca1c8135636ce0e014341548c3.jpg'
+        expect(rehydrated.childs.last.image2.url).to eq '//images.contentful.com/j8tb59fszch7/1NU1YcNQJGIA22gAKmKqWo/56fa672bb17a7b7ae2773d08e101d059/57ee64921c25faa649fc79288197c313.jpg'
+      }
+    end
   end
 
   describe 'select operator' do

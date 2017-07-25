@@ -1,6 +1,9 @@
 # Change Log
 
-## Unreleased
+## 2.1.1
+
+### Fixed
+* Fixed Marshalling for resources that have deeply nested resources. [#138](https://github.com/contentful/contentful.rb/issues/138)
 
 ## 2.1.0
 ### Added
