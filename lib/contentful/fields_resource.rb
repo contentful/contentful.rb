@@ -44,15 +44,16 @@ module Contentful
     def marshal_dump
       {
         configuration: @configuration,
-        raw: raw_with_links
+        raw: raw_with_links,
+        localized: locales.size > 1
       }
     end
 
     # @private
     def marshal_load(raw_object)
       super(raw_object)
-      localized = raw_object[:raw].fetch('fields', {}).all? { |_, v| v.is_a?(Hash) }
-      @fields = hydrate_fields(localized, [])
+      localized = raw_object[:localized]
+      @fields = hydrate_fields(localized, raw_object[:configuration].fetch(:includes_for_single, []))
       define_fields_methods!
     end
 
