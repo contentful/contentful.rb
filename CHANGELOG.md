@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.1.2
 ### Fixed
 * Fixed Marshalling for Arrays with deeply nested resources. [#138](https://github.com/contentful/contentful.rb/issues/138)
 
