@@ -4,10 +4,13 @@ require_relative 'base_resource'
 module Contentful
   # Base definition of a Contentful Resource containing Field properties
   class FieldsResource < BaseResource
+    attr_reader :localized
+
     def initialize(item, _configuration, localized = false, includes = [], *)
       super
 
-      @fields = hydrate_fields(localized, includes)
+      @localized = localized
+      @fields = hydrate_fields(includes)
 
       define_fields_methods!
     end
@@ -45,15 +48,15 @@ module Contentful
       {
         configuration: @configuration,
         raw: raw_with_links,
-        localized: locales.size > 1
+        localized: localized
       }
     end
 
     # @private
     def marshal_load(raw_object)
       super(raw_object)
-      localized = raw_object[:localized]
-      @fields = hydrate_fields(localized, raw_object[:configuration].fetch(:includes_for_single, []))
+      @localized = raw_object[:localized]
+      @fields = hydrate_fields(raw_object[:configuration].fetch(:includes_for_single, []))
       define_fields_methods!
     end
 
@@ -78,7 +81,7 @@ module Contentful
       end
     end
 
-    def hydrate_fields(localized, includes)
+    def hydrate_fields(includes)
       return {} unless raw.key?('fields')
 
       locale = internal_resource_locale
@@ -91,7 +94,6 @@ module Contentful
             result[loc][Support.snakify(name).to_sym] = coerce(
               Support.snakify(name),
               value,
-              localized,
               includes
             )
           end
@@ -101,7 +103,6 @@ module Contentful
           result[locale][Support.snakify(name).to_sym] = coerce(
             Support.snakify(name),
             value,
-            localized,
             includes
           )
         end
@@ -112,7 +113,7 @@ module Contentful
 
     protected
 
-    def coerce(_field_id, value, _localized, _includes)
+    def coerce(_field_id, value, _includes)
       value
     end
   end

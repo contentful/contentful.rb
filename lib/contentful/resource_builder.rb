@@ -78,13 +78,7 @@ module Contentful
     end
 
     def fetch_includes
-      includes = json['items'].dup
-      %w(Entry Asset).each do |type|
-        if json.fetch('includes', {}).key?(type)
-          includes.concat(json['includes'].fetch(type, []))
-        end
-      end
-      includes
+      Support.includes_from_response(json)
     end
 
     def resource_class(item)

@@ -37,7 +37,14 @@ module Contentful
       @total = raw.fetch('total', nil)
       @limit = raw.fetch('limit', nil)
       @skip = raw.fetch('skip', nil)
-      @items = raw.fetch('items', [])
+      @items = raw.fetch('items', []).map do |item|
+        require_relative 'resource_builder'
+        ResourceBuilder.new(
+          item.raw,
+          raw_object[:configuration].merge(includes_for_single: Support.includes_from_response(raw, false)),
+          item.respond_to?(:localized) ? item.localized : false
+        ).run
+      end
     end
 
     # @private

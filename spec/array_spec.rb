@@ -73,5 +73,26 @@ describe Contentful::Array do
       expect(re_array.skip).to eq array.skip
       expect(re_array.items).to eq array.items
     end
+
+    it 'marshals nested includes propertly - #138' do
+      vcr('array/nested_resources') {
+        client = create_client(
+          space: 'j8tb59fszch7',
+          access_token: '5f711401f965951eb724ac72ac905e13d892294ba209268f13a9b32e896c8694',
+          dynamic_entries: :auto,
+          max_include_resolution_depth: 5
+        )
+        entries = client.entries(content_type: 'child')
+        rehydrated = Marshal.load(Marshal.dump(entries))
+
+        expect(entries.inspect).to eq rehydrated.inspect
+
+        expect(entries.first.image1.url).to eq rehydrated.first.image1.url
+        expect(entries.last.image1.url).to eq rehydrated.last.image1.url
+
+        expect(entries.first.image2.url).to eq rehydrated.first.image2.url
+        expect(entries.last.image2.url).to eq rehydrated.last.image2.url
+      }
+    end
   end
 end
