@@ -14,9 +14,11 @@ module Contentful
     attr_reader :total, :limit, :skip, :items, :endpoint
 
     def initialize(item = nil,
-                   default_locale = Contentful::Client::DEFAULT_CONFIGURATION[:default_locale],
+                   configuration = {
+                     default_locale: Contentful::Client::DEFAULT_CONFIGURATION[:default_locale]
+                   },
                    endpoint = '', *)
-      super(item, { default_locale: default_locale })
+      super(item, configuration)
 
       @endpoint = endpoint
       @total = item.fetch('total', nil)
