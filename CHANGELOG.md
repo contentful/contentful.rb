@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed Marshalling for custom resources in Arrays. [#138](https://github.com/contentful/contentful.rb/issues/138)
 
 ## 2.1.2
 ### Fixed

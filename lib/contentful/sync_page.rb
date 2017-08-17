@@ -8,8 +8,11 @@ module Contentful
 
     attr_reader :sync, :items, :next_sync_url, :next_page_url
 
-    def initialize(item, default_locale, *)
-      super(item, { default_locale: default_locale }, true)
+    def initialize(item,
+                   configuration = {
+                     default_locale: Contentful::Client::DEFAULT_CONFIGURATION[:default_locale]
+                   }, *)
+      super(item, configuration, true)
 
       @items = item.fetch('items', [])
       @next_sync_url = item.fetch('nextSyncUrl', nil)

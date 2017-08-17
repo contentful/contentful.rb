@@ -60,7 +60,7 @@ module Contentful
         build_item(item, includes)
       end
       array_class = fetch_array_class
-      array_class.new(json.dup.merge('items' => result), default_locale, endpoint)
+      array_class.new(json.dup.merge('items' => result), @configuration, endpoint)
     end
 
     def build_single

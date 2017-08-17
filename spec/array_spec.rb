@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+class CustomClass < Contentful::Entry; end
+
 describe Contentful::Array do
   let(:client) { create_client }
   let(:array) { vcr('array') { client.content_types } }
@@ -92,6 +94,28 @@ describe Contentful::Array do
 
         expect(entries.first.image2.url).to eq rehydrated.first.image2.url
         expect(entries.last.image2.url).to eq rehydrated.last.image2.url
+      }
+    end
+
+    it 'marshals custom resources properly - #138' do
+      vcr('array/marshal_custom_classes') {
+        client = create_client(
+          space: 'j8tb59fszch7',
+          access_token: '5f711401f965951eb724ac72ac905e13d892294ba209268f13a9b32e896c8694',
+          dynamic_entries: :auto,
+          max_include_resolution_depth: 5,
+          entry_mapping: {
+            'parent' => CustomClass
+          }
+        )
+
+        entries = client.entries(content_type: 'parent')
+
+        expect(entries.first.inspect).to eq "<CustomClass[parent] id='5aV3O0l5jU0cwQ2OkyYsyU'>"
+
+        dehydrated = Marshal.load(Marshal.dump(entries))
+
+        expect(dehydrated.first.inspect).to eq "<CustomClass[parent] id='5aV3O0l5jU0cwQ2OkyYsyU'>"
       }
     end
   end
