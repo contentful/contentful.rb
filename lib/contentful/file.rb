@@ -11,8 +11,7 @@ module Contentful
 
     def define_fields!(json)
       json.each do |k, v|
-        method_name = @configuration[:use_camel_case] ? k : Support.snakify(k)
-        define_singleton_method method_name do
+        define_singleton_method Support.snakify(k, @configuration[:use_camel_case]) do
           v
         end
       end

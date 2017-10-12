@@ -5,9 +5,12 @@ module Contentful
       # Transforms CamelCase into snake_case (taken from zucker)
       #
       # @param [String] object camelCaseName
+      # @param [Boolean] skip if true, skips returns original object
       #
       # @return [String] snake_case_name
-      def snakify(object)
+      def snakify(object, skip = false)
+        return object if skip
+
         String(object)
           .gsub(/::/, '/')
           .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')

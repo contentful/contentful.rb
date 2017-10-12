@@ -69,8 +69,7 @@ module Contentful
         elsif %w(createdAt updatedAt deletedAt).include?(k)
           v = DateTime.parse(v)
         end
-        k = @configuration[:use_camel_case] ? k.to_sym : Support.snakify(k).to_sym
-        result[k] = v
+        result[Support.snakify(k, @configuration[:use_camel_case]).to_sym] = v
       end
       result
     end
