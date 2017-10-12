@@ -156,4 +156,13 @@ describe Contentful::Asset do
       }
     end
   end
+
+  describe 'camelCase' do
+    it 'properties now are accessed with camelcase' do
+      vcr('asset') {
+        asset = create_client(use_camel_case: true).asset('nyancat')
+        expect(asset.file.fileName).to eq 'Nyan_cat_250px_frame.png'
+      }
+    end
+  end
 end

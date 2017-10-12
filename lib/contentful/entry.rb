@@ -16,7 +16,8 @@ module Contentful
       return build_nested_resource(value, includes) if Support.link?(value)
       return coerce_link_array(value, includes) if Support.link_array?(value)
 
-      content_type = ContentTypeCache.cache_get(sys[:space].id, sys[:content_type].id)
+      content_type_key = Support.snakify('contentType', @configuration[:use_camel_case])
+      content_type = ContentTypeCache.cache_get(sys[:space].id, sys[content_type_key.to_sym].id)
 
       unless content_type.nil?
         content_type_field = content_type.field_for(field_id)
@@ -76,7 +77,8 @@ module Contentful
     protected
 
     def repr_name
-      "#{super}[#{sys[:content_type].id}]"
+      content_type_key = Support.snakify('contentType', @configuration[:use_camel_case]).to_sym
+      "#{super}[#{sys[content_type_key].id}]"
     end
   end
 end

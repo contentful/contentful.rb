@@ -36,6 +36,7 @@ module Contentful
       max_rate_limit_retries: 1,
       max_rate_limit_wait: 60,
       max_include_resolution_depth: 20,
+      use_camel_case: false,
       application_name: nil,
       application_version: nil,
       integration_name: nil,
@@ -70,6 +71,7 @@ module Contentful
     # @option given_configuration [Number] :max_rate_limit_retries
     # @option given_configuration [Number] :max_rate_limit_wait
     # @option given_configuration [Number] :max_include_resolution_depth
+    # @option given_configuration [Boolean] :use_camel_case
     # @option given_configuration [Boolean] :gzip_encoded
     # @option given_configuration [Boolean] :raw_mode
     # @option given_configuration [false, ::Logger] :logger

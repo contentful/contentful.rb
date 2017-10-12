@@ -25,4 +25,14 @@ describe 'DeletedAsset' do
       expect(deleted_asset.created_at).to be_a DateTime
     end
   end
+
+  describe 'camel case' do
+    it 'supports camel case' do
+      vcr('sync_deleted_asset') {
+        deleted_asset = create_client(use_camel_case: true).sync(initial: true, type: 'DeletedAsset').first_page.items[0]
+
+        expect(deleted_asset.createdAt).to be_a DateTime
+      }
+    end
+  end
 end

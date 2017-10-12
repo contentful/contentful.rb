@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Added
+* Added `:use_camel_case` option to client. [#142](https://github.com/contentful/contentful.rb/issues/142)
 
 ## 2.1.3
 ### Fixed

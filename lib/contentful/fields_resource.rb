@@ -65,7 +65,8 @@ module Contentful
       links = fields.keys.select { |property| known_link?(property) }
       processed_raw = raw.clone
       raw['fields'].each do |k, v|
-        processed_raw['fields'][k] = links.include?(Support.snakify(k).to_sym) ? send(Support.snakify(k)) : v
+        links_key = Support.snakify(k, @configuration[:use_camel_case])
+        processed_raw['fields'][k] = links.include?(links_key.to_sym) ? send(links_key) : v
       end
 
       processed_raw
@@ -91,8 +92,9 @@ module Contentful
         raw['fields'].each do |name, locales|
           locales.each do |loc, value|
             result[loc] ||= {}
-            result[loc][Support.snakify(name).to_sym] = coerce(
-              Support.snakify(name),
+            name = Support.snakify(name, @configuration[:use_camel_case])
+            result[loc][name.to_sym] = coerce(
+              name,
               value,
               includes
             )
@@ -100,8 +102,9 @@ module Contentful
         end
       else
         raw['fields'].each do |name, value|
-          result[locale][Support.snakify(name).to_sym] = coerce(
-            Support.snakify(name),
+          name = Support.snakify(name, @configuration[:use_camel_case])
+          result[locale][name.to_sym] = coerce(
+            name,
             value,
             includes
           )

@@ -36,4 +36,14 @@ describe Contentful::ContentType do
       expect(content_type).to respond_to :display_field
     end
   end
+
+  describe 'camel case' do
+    it 'supports camel case' do
+      vcr('content_type') {
+        content_type = create_client(use_camel_case: true).content_type 'cat'
+
+        expect(content_type.displayField).to eq 'name'
+      }
+    end
+  end
 end

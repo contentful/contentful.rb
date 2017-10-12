@@ -25,4 +25,14 @@ describe 'DeletedEntry' do
       expect(deleted_entry.created_at).to be_a DateTime
     end
   end
+
+  describe 'camel case' do
+    it 'supports camel case' do
+      vcr('sync_deleted_entry') {
+        deleted_entry = create_client(use_camel_case: true).sync(initial: true, type: 'DeletedEntry').first_page.items[0]
+
+        expect(deleted_entry.createdAt).to be_a DateTime
+      }
+    end
+  end
 end
