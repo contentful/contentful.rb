@@ -9,8 +9,8 @@ module Contentful
       @raw = item
       @default_locale = configuration[:default_locale]
       @depth = depth
-      @sys = hydrate_sys
       @configuration = configuration
+      @sys = hydrate_sys
 
       define_sys_methods!
     end
@@ -69,7 +69,8 @@ module Contentful
         elsif %w(createdAt updatedAt deletedAt).include?(k)
           v = DateTime.parse(v)
         end
-        result[Support.snakify(k).to_sym] = v
+        k = @configuration[:use_camel_case] ? k.to_sym : Support.snakify(k).to_sym
+        result[k] = v
       end
       result
     end
@@ -86,7 +87,7 @@ module Contentful
 
     def build_link(item)
       require_relative 'link'
-      ::Contentful::Link.new(item)
+      ::Contentful::Link.new(item, @configuration)
     end
   end
 end

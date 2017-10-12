@@ -22,6 +22,8 @@ module Contentful
       fields.detect { |f| Support.snakify(f.id) == Support.snakify(field_id) }
     end
 
+    alias displayField display_field
+
     protected
 
     def repr_name

@@ -251,6 +251,11 @@ tree is allowed to resolved before falling back to `Link` objects). This include
 on resources with circular dependencies. Defaults to 20. _Note_: If you're using something like `Rails::cache` it's advisable to considerably lower this value
 (around 5 has proven to be a good compromise - but keep it higher or equal than your maximum API-level include parameter if you need the entire tree resolution).
 
+### :use_camel_case
+
+When doing the v2 upgrade, all keys and accessors were changed to always use `snake_case`. This option introduces the ability to use `camelCase` for keys and method
+accessors. This is very useful for isomorphic applications.
+
 ### Proxy example
 
 ```ruby

@@ -358,4 +358,15 @@ describe Contentful::Entry do
       }
     end
   end
+
+  describe 'camel case' do
+    it 'supports camel case' do
+      vcr('entry') {
+        entry = create_client(use_camel_case: true).entry 'nyancat'
+
+        expect(entry.bestFriend.name).to eq 'Happy Cat'
+        expect(entry.createdAt).to be_a DateTime
+      }
+    end
+  end
 end

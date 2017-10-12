@@ -38,4 +38,13 @@ describe Contentful::Link do
       end
     end
   end
+
+  describe 'camel case' do
+    it 'supports camel case' do
+      vcr('entry') {
+        space_link = create_client(use_camel_case: true).entry('nyancat').space
+        expect(space_link.linkType).to eq 'Space'
+      }
+    end
+  end
 end

@@ -73,10 +73,10 @@ module Contentful
       is_localized = file_json.keys.none? { |f| %w(fileName contentType details url).include? f }
       if is_localized
         locales.each do |locale|
-          @fields[locale][:file] = ::Contentful::File.new(file_json[locale.to_s] || {})
+          @fields[locale][:file] = ::Contentful::File.new(file_json[locale.to_s] || {}, @configuration)
         end
       else
-        @fields[internal_resource_locale][:file] = ::Contentful::File.new(file_json)
+        @fields[internal_resource_locale][:file] = ::Contentful::File.new(file_json, @configuration)
       end
     end
 

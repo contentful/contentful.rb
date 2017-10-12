@@ -20,4 +20,14 @@ describe Contentful::File do
       expect(file.details).to be_instance_of Hash
     end
   end
+
+  describe 'camel case' do
+    it 'supports camel case' do
+      vcr('asset') {
+        file = create_client(use_camel_case: true).asset('nyancat').file
+        expect(file.contentType).to eq 'image/png'
+        expect(file.fileName).to eq 'Nyan_cat_250px_frame.png'
+      }
+    end
+  end
 end
