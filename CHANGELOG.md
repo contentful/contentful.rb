@@ -4,6 +4,9 @@
 ### Added
 * Added `:use_camel_case` option to client. [#142](https://github.com/contentful/contentful.rb/issues/142)
 
+### Fixed
+* Fixed JSON field coercion when field contains other valid JSON elements other than objects at the top level.
+
 ## 2.1.3
 ### Fixed
 * Fixed Marshalling for custom resources in Arrays. [#138](https://github.com/contentful/contentful.rb/issues/138)

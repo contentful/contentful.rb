@@ -58,4 +58,25 @@ describe Contentful::Field do
       expect(arrayField.items.link_type).to eq 'Entry'
     end
   end
+
+  describe 'issues' do
+    describe 'json field' do
+      it 'can coerce properly when top level is not object' do
+        coercion = Contentful::ObjectCoercion.new([{foo: 123}])
+        expect(coercion.coerce).to eq [{foo: 123}]
+
+        coercion = Contentful::ObjectCoercion.new('foobar')
+        expect(coercion.coerce).to eq 'foobar'
+
+        coercion = Contentful::ObjectCoercion.new(true)
+        expect(coercion.coerce).to eq true
+
+        coercion = Contentful::ObjectCoercion.new(123)
+        expect(coercion.coerce).to eq 123
+
+        coercion = Contentful::ObjectCoercion.new({foo: 123})
+        expect(coercion.coerce).to eq(foo: 123)
+      end
+    end
+  end
 end
