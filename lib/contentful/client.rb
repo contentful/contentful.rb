@@ -42,8 +42,6 @@ module Contentful
       integration_name: nil,
       integration_version: nil
     }
-    # Rate Limit Reset Header Key
-    RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
 
     attr_reader :configuration, :logger, :proxy
 
@@ -296,7 +294,7 @@ module Contentful
         raise error if configuration[:raise_errors]
         return error
       rescue Contentful::RateLimitExceeded => rate_limit_error
-        reset_time = rate_limit_error.response.raw[RATE_LIMIT_RESET_HEADER_KEY].to_i
+        reset_time = rate_limit_error.reset_time.to_i
         if should_retry(retries_left, reset_time, configuration[:max_rate_limit_wait])
           retries_left -= 1
           logger.info(retry_message(retries_left, reset_time)) if logger

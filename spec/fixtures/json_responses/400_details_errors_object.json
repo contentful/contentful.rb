@@ -1,0 +1,14 @@
+{
+  "sys": {
+    "type": "Error",
+    "id": "BadRequest"
+  },
+  "details": {
+    "errors": [
+        {
+            "details": "some error"
+        }
+    ]
+  },
+  "requestId": "85f-351076632"
+}

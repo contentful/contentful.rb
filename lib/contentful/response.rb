@@ -41,6 +41,11 @@ module Contentful
       end
     end
 
+    # Returns the JSON body of the response
+    def load_json
+      MultiJson.load(unzip_response(raw))
+    end
+
     private
 
     def error_object?
@@ -86,10 +91,6 @@ module Contentful
       @error_message = error.message
       @status = :error
       UnparsableJson.new(self)
-    end
-
-    def load_json
-      MultiJson.load(unzip_response(raw))
     end
 
     def unzip_response(response)

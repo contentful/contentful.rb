@@ -1,0 +1,13 @@
+{
+  "sys": {
+    "type": "Error",
+    "id": "AccessDenied"
+  },
+  "details": {
+    "reasons": [
+        "foo",
+        "bar"
+    ]
+  },
+  "requestId": "85f-351076632"
+}
