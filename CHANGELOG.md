@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.2.0
 ### Added
 * Added `:use_camel_case` option to client. [#142](https://github.com/contentful/contentful.rb/issues/142)
 * Added better error handling for all error types.
