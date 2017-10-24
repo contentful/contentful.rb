@@ -3,6 +3,7 @@
 ## Unreleased
 ### Added
 * Added `:use_camel_case` option to client. [#142](https://github.com/contentful/contentful.rb/issues/142)
+* Added better error handling for all error types.
 
 ### Fixed
 * Fixed JSON field coercion when field contains other valid JSON elements other than objects at the top level.

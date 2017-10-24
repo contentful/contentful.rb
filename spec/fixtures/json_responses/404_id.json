@@ -1,0 +1,11 @@
+{
+  "sys": {
+    "type": "Error",
+    "id": "NotFound"
+  },
+  "details": {
+    "type": "Asset",
+    "id": "foobar"
+  },
+  "requestId": "85f-351076632"
+}

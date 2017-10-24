@@ -1,0 +1,8 @@
+{
+  "sys": {
+    "type": "Error",
+    "id": "SomeError"
+  },
+  "message": "Some error occurred.",
+  "requestId": "85f-351076632"
+}
