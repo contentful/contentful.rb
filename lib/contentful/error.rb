@@ -120,6 +120,8 @@ module Contentful
     end
 
     def handle_details(details)
+      return details if details.is_a?(String)
+
       message = "The requested #{details['type']} could not be found."
 
       resource_id = details.fetch('id', nil)

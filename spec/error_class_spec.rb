@@ -154,6 +154,17 @@ describe Contentful::Error do
         end
 
         describe '404' do
+          it 'details is a string' do
+            response = Contentful::Response.new raw_fixture('404_details_string', 404)
+            error = Contentful::Error[response.raw.status].new(response)
+
+            message = "HTTP status code: 404\n"\
+                      "Message: The requested resource or endpoint could not be found.\n"\
+                      "Details: The resource could not be found\n"\
+                      "Request ID: 85f-351076632"
+            expect(error.message).to eq message
+          end
+
           it 'has a type' do
             response = Contentful::Response.new raw_fixture('404_type', 404)
             error = Contentful::Error[response.raw.status].new(response)
