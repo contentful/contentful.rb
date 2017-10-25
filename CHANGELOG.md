@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.2.1
+### Fixed
+* Fixed an edge case of 404 error having details as a string.
+
 ## 2.2.0
 ### Added
 * Added `:use_camel_case` option to client. [#142](https://github.com/contentful/contentful.rb/issues/142)
