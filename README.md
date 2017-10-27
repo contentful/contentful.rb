@@ -5,8 +5,6 @@ Ruby client for the [Contentful](https://www.contentful.com) Content Delivery AP
 
 [Contentful](https://www.contentful.com) is a content management platform for web applications, mobile apps and connected devices. It allows you to create, edit & manage content in the cloud and publish it anywhere via powerful API. Contentful offers tools for managing editorial teams and enabling cooperation between organizations.
 
-**IMPORTANT**: We're collecting feedback before releasing version 2.0.0 of the SDK, if you're interested in helping, please drop by this issue and help us improving: https://github.com/contentful/contentful.rb/issues/120
-
 ## Setup
 
 Add to your Gemfile and bundle:
