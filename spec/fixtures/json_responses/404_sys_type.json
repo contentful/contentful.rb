@@ -1,0 +1,12 @@
+{
+  "sys": {
+    "type": "Error",
+    "id": "NotFound"
+  },
+  "details": {
+    "sys": {
+      "type": "Space"
+    }
+  },
+  "requestId": "85f-351076632"
+}

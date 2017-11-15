@@ -165,15 +165,28 @@ describe Contentful::Error do
             expect(error.message).to eq message
           end
 
-          it 'has a type' do
-            response = Contentful::Response.new raw_fixture('404_type', 404)
-            error = Contentful::Error[response.raw.status].new(response)
+          describe 'has a type' do
+            it 'type is on the top level' do
+              response = Contentful::Response.new raw_fixture('404_type', 404)
+              error = Contentful::Error[response.raw.status].new(response)
 
-            message = "HTTP status code: 404\n"\
-                      "Message: The requested resource or endpoint could not be found.\n"\
-                      "Details: The requested Asset could not be found.\n"\
-                      "Request ID: 85f-351076632"
-            expect(error.message).to eq message
+              message = "HTTP status code: 404\n"\
+                        "Message: The requested resource or endpoint could not be found.\n"\
+                        "Details: The requested Asset could not be found.\n"\
+                        "Request ID: 85f-351076632"
+              expect(error.message).to eq message
+            end
+
+            it 'type is not on the top level' do
+              response = Contentful::Response.new raw_fixture('404_sys_type', 404)
+              error = Contentful::Error[response.raw.status].new(response)
+
+              message = "HTTP status code: 404\n"\
+                        "Message: The requested resource or endpoint could not be found.\n"\
+                        "Details: The requested Space could not be found.\n"\
+                        "Request ID: 85f-351076632"
+              expect(error.message).to eq message
+            end
           end
 
           it 'can specify the resource id' do
