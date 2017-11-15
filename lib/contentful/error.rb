@@ -122,7 +122,8 @@ module Contentful
     def handle_details(details)
       return details if details.is_a?(String)
 
-      message = "The requested #{details['type']} could not be found."
+      type = details['type'] || (details['sys'] || {})['type']
+      message = "The requested #{type} could not be found."
 
       resource_id = details.fetch('id', nil)
       message += " ID: #{resource_id}." if resource_id
