@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.2.2
 ### Fixed
 * Fixed 404 error when `details` object contains a top level `sys` key.
 
