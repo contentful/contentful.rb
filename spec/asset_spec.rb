@@ -80,6 +80,30 @@ describe Contentful::Asset do
     expect(unmarshalled.file).to be_a Contentful::File
   end
 
+
+  describe 'incoming links' do
+    let(:client) { create_client }
+
+    it 'will fetch entries referencing the asset using a query' do
+      vcr('entry/search_link_to_asset') {
+        entries = client.entries(links_to_asset: 'nyancat')
+        expect(entries).not_to be_empty
+        expect(entries.count).to eq 1
+        expect(entries.first.id).to eq 'nyancat'
+      }
+    end
+
+    it 'will fetch entries referencing the entry using instance method' do
+      vcr('entry/search_link_to_asset') {
+        entries = asset.getReferences client
+        expect(entries).not_to be_empty
+        expect(entries.count).to eq 1
+        expect(entries.first.id).to eq 'nyancat'
+      }
+    end
+
+  end
+
   describe 'select operator' do
     let(:client) { create_client }
 
