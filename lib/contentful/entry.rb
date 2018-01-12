@@ -6,7 +6,6 @@ module Contentful
   # Resource class for Entry.
   # @see _ https://www.contentful.com/developers/documentation/content-delivery-api/#entries
   class Entry < FieldsResource
-
     include Contentful::ResourceReferences
 
     # Returns true for resources that are entries

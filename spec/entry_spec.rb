@@ -208,7 +208,7 @@ describe Contentful::Entry do
 
     it 'will fetch entries referencing the entry using instance method' do
       vcr('entry/search_link_to_entry') {
-        entries = entry.getReferences client
+        entries = entry.get_references client
         expect(entries).not_to be_empty
         expect(entries.count).to eq 1
         expect(entries.first.id).to eq 'happycat'
@@ -217,7 +217,7 @@ describe Contentful::Entry do
 
     it 'will fetch entries referencing the entry using instance method + query' do
       vcr('entry/search_link_to_entry_with_custom_query') {
-        entries = entry.getReferences(client, { content_type: 'cat', select: ['fields.name'] })
+        entries = entry.get_references(client, { content_type: 'cat', select: ['fields.name'] })
         expect(entries).not_to be_empty
         expect(entries.count).to eq 1
         expect(entries.first.id).to eq 'happycat'

@@ -95,7 +95,7 @@ describe Contentful::Asset do
 
     it 'will fetch entries referencing the entry using instance method' do
       vcr('entry/search_link_to_asset') {
-        entries = asset.getReferences client
+        entries = asset.get_references client
         expect(entries).not_to be_empty
         expect(entries.count).to eq 1
         expect(entries.first.id).to eq 'nyancat'

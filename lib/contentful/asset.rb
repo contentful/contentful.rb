@@ -6,9 +6,8 @@ module Contentful
   # Resource class for Asset.
   # https://www.contentful.com/developers/documentation/content-delivery-api/#assets
   class Asset < FieldsResource
-
     include Contentful::ResourceReferences
-    
+
     # @private
     def marshal_dump
       {
