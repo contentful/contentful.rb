@@ -7,7 +7,7 @@ module Contentful
     # @param [Hash] query
     #
     # @return [Contentful::Array<Contentful::Entry>, false]
-    def get_references(client = nil, query = {})
+    def incoming_references(client = nil, query = {})
       return false unless client
 
       query = is_a?(Contentful::Entry) ? query.merge(links_to_entry: id) : query.merge(links_to_asset: id)
