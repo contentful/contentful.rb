@@ -194,6 +194,39 @@ describe Contentful::Entry do
     end
   end
 
+  describe 'incoming links' do
+    let(:client) { create_client }
+
+    it 'will fetch entries referencing the entry using a query' do
+      vcr('entry/search_link_to_entry') {
+        entries = client.entries(links_to_entry: 'nyancat')
+        expect(entries).not_to be_empty
+        expect(entries.count).to eq 1
+        expect(entries.first.id).to eq 'happycat'
+      }
+    end
+
+    it 'will fetch entries referencing the entry using instance method' do
+      vcr('entry/search_link_to_entry') {
+        entries = entry.incoming_references client
+        expect(entries).not_to be_empty
+        expect(entries.count).to eq 1
+        expect(entries.first.id).to eq 'happycat'
+      }
+    end
+
+    it 'will fetch entries referencing the entry using instance method + query' do
+      vcr('entry/search_link_to_entry_with_custom_query') {
+        entries = entry.incoming_references(client, { content_type: 'cat', select: ['fields.name'] })
+        expect(entries).not_to be_empty
+        expect(entries.count).to eq 1
+        expect(entries.first.id).to eq 'happycat'
+        expect(entries.first.fields.keys).to eq([:name])
+      }
+    end
+
+  end
+
   describe 'select operator' do
     let(:client) { create_client }
 
