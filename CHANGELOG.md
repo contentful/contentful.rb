@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.3.0
+### Added
+* Support for the new query parameters to find incoming links [to a specific entry](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-entry) or [to a specific asset](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset) in a space.
+
 ## 2.2.2
 ### Fixed
 * Fixed 404 error when `details` object contains a top level `sys` key.
