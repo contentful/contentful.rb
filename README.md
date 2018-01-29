@@ -238,7 +238,7 @@ non rate limited request is available, has passed. This is blocking per executio
 
 ### :max_rate_limit_wait
 
-Maximum time to wait for next available request (in seconds). Default value is 60 seconds. Keep in mind that if you hit the houly rate limit maximum, you
+Maximum time to wait for next available request (in seconds). Default value is 60 seconds. Keep in mind that if you hit the hourly rate limit maximum, you
 can have up to 60 minutes of blocked requests. It is set to a default of 60 seconds in order to avoid blocking processes for too long, as rate limit retry behaviour
 is blocking per execution thread.
 
