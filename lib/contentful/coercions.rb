@@ -59,6 +59,8 @@ module Contentful
   class DateCoercion < BaseCoercion
     # Coerces value to DateTime
     def coerce
+      return nil if value.nil?
+
       DateTime.parse(value)
     end
   end

@@ -359,6 +359,7 @@ module Contentful
     # See README for details.
     # @private
     def update_dynamic_entry_cache!
+      return if configuration[:raw_mode]
       content_types(limit: 1000).map do |ct|
         ContentTypeCache.cache_set(configuration[:space], ct.id, ct)
       end
