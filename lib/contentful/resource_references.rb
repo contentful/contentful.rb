@@ -12,7 +12,7 @@ module Contentful
 
       query = is_a?(Contentful::Entry) ? query.merge(links_to_entry: id) : query.merge(links_to_asset: id)
 
-      client.entries query
+      client.entries(query)
     end
   end
 end
