@@ -36,6 +36,7 @@ module Contentful
     # Coerces value to proper type
     def coerce(value)
       return value if type.nil?
+      return value if value.nil?
 
       options = {}
       options[:coercion_class] = KNOWN_TYPES[items.type] unless items.nil?
