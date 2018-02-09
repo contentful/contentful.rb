@@ -59,12 +59,12 @@ module Contentful
         resource,
         @configuration.merge(
           includes_for_single:
-            @configuration.fetch(:includes_for_single, []) + includes
+            @configuration.fetch(:includes_for_single, []) + includes,
+          _entries_cache: entries
         ),
         localized,
         @depth + 1,
-        includes,
-        entries
+        includes
       ).run
     end
 

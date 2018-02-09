@@ -36,7 +36,7 @@ module Contentful
       super
       create_files!
       define_asset_methods!
-    end 
+    end
 
     # Generates a URL for the Contentful Image API
     #

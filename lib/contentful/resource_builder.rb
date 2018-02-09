@@ -30,7 +30,7 @@ module Contentful
 
     attr_reader :json, :default_locale, :endpoint, :depth, :localized, :resource_mapping, :entry_mapping, :resource
 
-    def initialize(json, configuration = {}, localized = false, depth = 0, endpoint = nil, entries = nil)
+    def initialize(json, configuration = {}, localized = false, depth = 0, endpoint = nil)
       @json = json
       @default_locale = configuration.fetch(:default_locale, ::Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       @resource_mapping = default_resource_mapping.merge(configuration.fetch(:resource_mapping, {}))
@@ -40,7 +40,7 @@ module Contentful
       @depth = depth
       @endpoint = endpoint
       @configuration = configuration
-      @entries = entries
+      @entries = configuration[:_entries_cache] || {}
     end
 
     # Starts the parsing process.
@@ -76,22 +76,21 @@ module Contentful
       item_class = resource_class(item)
 
       reuse_entries = @configuration.fetch(:reuse_entries, true)
-      #reuse_entries = true
       entries = @entries ? @entries : {}
 
-      if reuse_entries 
-        id = item['sys']['type']+':'+item['sys']['id']
-        if !entries.has_key?(id)
+      if reuse_entries
+        id = "#{item['sys']['type']}:#{item['sys']['id']}"
+        if !entries.key?(id)
           entry = item_class.new(item, @configuration, localized?, 'skip', depth)
-          entries[id] = entry 
+          entries[id] = entry
           entry.hydrate(includes, entries)
-        else 
+        else
           entry = entries[id]
-        end 
-      else 
+        end
+      else
         entry = item_class.new(item, @configuration, localized?, 'skip', depth)
         entry.hydrate(includes, entries)
-      end 
+      end
 
       entry
     end

@@ -16,7 +16,7 @@ module Contentful
     def hydrate(includes, entries)
       @fields = hydrate_fields(includes, entries)
       define_fields_methods!
-    end 
+    end
 
     # Returns all fields of the asset
     #
@@ -85,29 +85,14 @@ module Contentful
       end
     end
 
-    def hydrate_fields(includes, entries)
-      return {} unless raw.key?('fields')
-
+    def hydrate_localized_fields(includes, entries)
       locale = internal_resource_locale
       result = { locale => {} }
-
-      if localized
-        raw['fields'].each do |name, locales|
-          locales.each do |loc, value|
-            result[loc] ||= {}
-            name = Support.snakify(name, @configuration[:use_camel_case])
-            result[loc][name.to_sym] = coerce(
-              name,
-              value,
-              includes,
-              entries
-            )
-          end
-        end
-      else
-        raw['fields'].each do |name, value|
+      raw['fields'].each do |name, locales|
+        locales.each do |loc, value|
+          result[loc] ||= {}
           name = Support.snakify(name, @configuration[:use_camel_case])
-          result[locale][name.to_sym] = coerce(
+          result[loc][name.to_sym] = coerce(
             name,
             value,
             includes,
@@ -117,6 +102,32 @@ module Contentful
       end
 
       result
+    end
+
+    def hydrate_nonlocalized_fields(includes, entries)
+      result = { locale => {} }
+      locale = internal_resource_locale
+      raw['fields'].each do |name, value|
+        name = Support.snakify(name, @configuration[:use_camel_case])
+        result[locale][name.to_sym] = coerce(
+          name,
+          value,
+          includes,
+          entries
+        )
+      end
+
+      result
+    end
+
+    def hydrate_fields(includes, entries)
+      return {} unless raw.key?('fields')
+
+      if localized
+        hydrate_localized_fields(includes, entries)
+      else
+        hydrate_nonlocalized_fields(includes, entries)
+      end
     end
 
     protected
