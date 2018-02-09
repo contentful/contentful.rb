@@ -10,10 +10,13 @@ module Contentful
       super
 
       @localized = localized
-      @fields = hydrate_fields(includes)
-
-      define_fields_methods!
+      hydrate(includes, nil) if includes != 'skip'
     end
+
+    def hydrate(includes, entries)
+      @fields = hydrate_fields(includes, entries)
+      define_fields_methods!
+    end 
 
     # Returns all fields of the asset
     #
@@ -56,7 +59,7 @@ module Contentful
     def marshal_load(raw_object)
       super(raw_object)
       @localized = raw_object[:localized]
-      @fields = hydrate_fields(raw_object[:configuration].fetch(:includes_for_single, []))
+      @fields = hydrate_fields(raw_object[:configuration].fetch(:includes_for_single, []), {})
       define_fields_methods!
     end
 
@@ -82,7 +85,7 @@ module Contentful
       end
     end
 
-    def hydrate_fields(includes)
+    def hydrate_fields(includes, entries)
       return {} unless raw.key?('fields')
 
       locale = internal_resource_locale
@@ -96,7 +99,8 @@ module Contentful
             result[loc][name.to_sym] = coerce(
               name,
               value,
-              includes
+              includes,
+              entries
             )
           end
         end
@@ -106,7 +110,8 @@ module Contentful
           result[locale][name.to_sym] = coerce(
             name,
             value,
-            includes
+            includes,
+            entries
           )
         end
       end
@@ -116,7 +121,7 @@ module Contentful
 
     protected
 
-    def coerce(_field_id, value, _includes)
+    def coerce(_field_id, value, _includes, _entries)
       value
     end
   end

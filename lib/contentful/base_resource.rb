@@ -15,6 +15,9 @@ module Contentful
       define_sys_methods!
     end
 
+    def hydrate(includes, entries)
+    end
+
     # @private
     def inspect
       "<#{repr_name} id='#{sys[:id]}'>"

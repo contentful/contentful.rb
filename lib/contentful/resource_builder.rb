@@ -30,7 +30,7 @@ module Contentful
 
     attr_reader :json, :default_locale, :endpoint, :depth, :localized, :resource_mapping, :entry_mapping, :resource
 
-    def initialize(json, configuration = {}, localized = false, depth = 0, endpoint = nil)
+    def initialize(json, configuration = {}, localized = false, depth = 0, endpoint = nil, entries = nil)
       @json = json
       @default_locale = configuration.fetch(:default_locale, ::Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       @resource_mapping = default_resource_mapping.merge(configuration.fetch(:resource_mapping, {}))
@@ -40,6 +40,7 @@ module Contentful
       @depth = depth
       @endpoint = endpoint
       @configuration = configuration
+      @entries = entries
     end
 
     # Starts the parsing process.
@@ -74,7 +75,25 @@ module Contentful
       fail UnparsableResource, 'Item type is not known, could not parse' if item_type.nil?
       item_class = resource_class(item)
 
-      item_class.new(item, @configuration, localized?, includes, depth)
+      reuse_entries = @configuration.fetch(:reuse_entries, false)
+      #reuse_entries = true
+      entries = @entries ? @entries : {}
+
+      if reuse_entries 
+        id = item['sys']['type']+':'+item['sys']['id']
+        if !entries.has_key?(id)
+          entry = item_class.new(item, @configuration, localized?, 'skip', depth)
+          entries[id] = entry 
+          entry.hydrate(includes, entries)
+        else 
+          entry = entries[id]
+        end 
+      else 
+        entry = item_class.new(item, @configuration, localized?, 'skip', depth)
+        entry.hydrate(includes, entries)
+      end 
+
+      entry
     end
 
     def fetch_includes

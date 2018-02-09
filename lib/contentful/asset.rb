@@ -30,9 +30,13 @@ module Contentful
 
     def initialize(*)
       super
+    end
+
+    def hydrate(includes, entries)
+      super
       create_files!
       define_asset_methods!
-    end
+    end 
 
     # Generates a URL for the Contentful Image API
     #
