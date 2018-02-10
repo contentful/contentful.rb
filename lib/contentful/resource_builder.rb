@@ -78,18 +78,11 @@ module Contentful
       reuse_entries = @configuration.fetch(:reuse_entries, true)
       entries = @entries ? @entries : {}
 
-      if reuse_entries
-        id = "#{item['sys']['type']}:#{item['sys']['id']}"
-        if !entries.key?(id)
-          entry = item_class.new(item, @configuration, localized?, 'skip', depth)
-          entries[id] = entry
-          entry.hydrate(includes, entries)
-        else
-          entry = entries[id]
-        end
+      id = "#{item['sys']['type']}:#{item['sys']['id']}"
+      if reuse_entries && entries.key?(id)
+        entry = entries[id]
       else
-        entry = item_class.new(item, @configuration, localized?, 'skip', depth)
-        entry.hydrate(includes, entries)
+        entry = item_class.new(item, @configuration, localized?, includes, entries, depth)
       end
 
       entry

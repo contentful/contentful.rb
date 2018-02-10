@@ -6,14 +6,10 @@ module Contentful
   class FieldsResource < BaseResource
     attr_reader :localized
 
-    def initialize(item, _configuration, localized = false, includes = [], *)
+    def initialize(item, _configuration, localized = false, includes = [], entries = {}, *)
       super
 
       @localized = localized
-      hydrate(includes, nil) if includes != 'skip'
-    end
-
-    def hydrate(includes, entries)
       @fields = hydrate_fields(includes, entries)
       define_fields_methods!
     end

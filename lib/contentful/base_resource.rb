@@ -5,7 +5,8 @@ module Contentful
   class BaseResource
     attr_reader :raw, :default_locale, :sys
 
-    def initialize(item, configuration = {}, _localized = false, _includes = [], depth = 0)
+    def initialize(item, configuration = {}, _localized = false, _includes = [], _entries = {}, depth = 0)
+      _entries["#{item['sys']['type']}:#{item['sys']['id']}"] = self if _entries && item.key?('sys')
       @raw = item
       @default_locale = configuration[:default_locale]
       @depth = depth
@@ -13,9 +14,6 @@ module Contentful
       @sys = hydrate_sys
 
       define_sys_methods!
-    end
-
-    def hydrate(includes, entries)
     end
 
     # @private
