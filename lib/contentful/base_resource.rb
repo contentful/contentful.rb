@@ -5,8 +5,8 @@ module Contentful
   class BaseResource
     attr_reader :raw, :default_locale, :sys
 
-    def initialize(item, configuration = {}, _localized = false, _includes = [], _entries = {}, depth = 0)
-      _entries["#{item['sys']['type']}:#{item['sys']['id']}"] = self if _entries && item.key?('sys')
+    def initialize(item, configuration = {}, _localized = false, _includes = [], entries = {}, depth = 0)
+      entries["#{item['sys']['type']}:#{item['sys']['id']}"] = self if entries && item.key?('sys')
       @raw = item
       @default_locale = configuration[:default_locale]
       @depth = depth

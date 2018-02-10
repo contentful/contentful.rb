@@ -79,11 +79,11 @@ module Contentful
       entries = @entries ? @entries : {}
 
       id = "#{item['sys']['type']}:#{item['sys']['id']}"
-      if reuse_entries && entries.key?(id)
-        entry = entries[id]
-      else
-        entry = item_class.new(item, @configuration, localized?, includes, entries, depth)
-      end
+      entry = if reuse_entries && entries.key?(id)
+                entries[id]
+              else
+                item_class.new(item, @configuration, localized?, includes, entries, depth)
+              end
 
       entry
     end
