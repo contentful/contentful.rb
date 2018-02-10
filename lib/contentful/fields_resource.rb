@@ -6,6 +6,7 @@ module Contentful
   class FieldsResource < BaseResource
     attr_reader :localized
 
+    # rubocop:disable Style/ParameterLists
     def initialize(item, _configuration, localized = false, includes = [], entries = {}, *)
       super
 

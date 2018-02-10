@@ -5,6 +5,7 @@ module Contentful
   class BaseResource
     attr_reader :raw, :default_locale, :sys
 
+    # rubocop:disable Style/ParameterLists
     def initialize(item, configuration = {}, _localized = false, _includes = [], entries = {}, depth = 0)
       entries["#{item['sys']['type']}:#{item['sys']['id']}"] = self if entries && item.key?('sys')
       @raw = item
