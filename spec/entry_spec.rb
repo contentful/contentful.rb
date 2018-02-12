@@ -283,10 +283,47 @@ describe Contentful::Entry do
     end
   end
 
+  describe 'reuse objects' do 
+    it 'should handle recursion as well as not reusing' do
+      vcr('entry/include_resolution') {
+        entry = create_client(reuse_objects: true).entry('nyancat', include: 2)
+        
+        expect(entry.best_friend.name).to eq 'Happy Cat'
+        expect(entry
+              .best_friend.best_friend
+              .best_friend.best_friend
+              .best_friend.best_friend
+              .best_friend.best_friend
+              .best_friend.best_friend
+              .best_friend.best_friend
+              .best_friend.best_friend
+              .best_friend.best_friend
+              .best_friend.best_friend
+              .best_friend.best_friend.name).to eq 'Nyan Cat'
+      }
+    end 
+    it 'should use the same object for the same entry' do
+      vcr('entry/include_resolution') {
+        entry = create_client(reuse_entries: true).entry('nyancat', include: 2)
+        
+        expect(entry.best_friend.name).to eq 'Happy Cat'
+        expect(entry.best_friend.best_friend).to be(entry)
+      }
+    end 
+  end 
+
   describe 'include resolution' do
+    it 'should not reuse objects by default' do
+      vcr('entry/include_resolution') {
+        entry = create_client(reuse_entries: false).entry('nyancat', include: 2)
+        
+        expect(entry.best_friend.name).to eq 'Happy Cat'
+        expect(entry.best_friend.best_friend).not_to be(entry)
+      }
+    end 
     it 'defaults to 20 depth' do
       vcr('entry/include_resolution') {
-        entry = create_client.entry('nyancat', include: 2)
+        entry = create_client(reuse_entries: false).entry('nyancat', include: 2)
 
         expect(entry.best_friend.name).to eq 'Happy Cat'
         expect(entry
@@ -318,7 +355,7 @@ describe Contentful::Entry do
 
     it 'can be configured arbitrarily' do
       vcr('entry/include_resolution') {
-        entry = create_client(max_include_resolution_depth: 3).entry('nyancat', include: 2)
+        entry = create_client(reuse_entries: false, max_include_resolution_depth: 3).entry('nyancat', include: 2)
 
         expect(entry.best_friend.name).to eq 'Happy Cat'
         expect(entry

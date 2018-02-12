@@ -40,6 +40,7 @@ module Contentful
       @depth = depth
       @endpoint = endpoint
       @configuration = configuration
+      @entries = configuration[:_entries_cache] || {}
     end
 
     # Starts the parsing process.
@@ -74,7 +75,17 @@ module Contentful
       fail UnparsableResource, 'Item type is not known, could not parse' if item_type.nil?
       item_class = resource_class(item)
 
-      item_class.new(item, @configuration, localized?, includes, depth)
+      reuse_entries = @configuration.fetch(:reuse_entries, false)
+      entries = @entries ? @entries : {}
+
+      id = "#{item['sys']['type']}:#{item['sys']['id']}"
+      entry = if reuse_entries && entries.key?(id)
+                entries[id]
+              else
+                item_class.new(item, @configuration, localized?, includes, entries, depth)
+              end
+
+      entry
     end
 
     def fetch_includes
