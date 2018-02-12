@@ -242,12 +242,18 @@ Maximum time to wait for next available request (in seconds). Default value is 6
 can have up to 60 minutes of blocked requests. It is set to a default of 60 seconds in order to avoid blocking processes for too long, as rate limit retry behaviour
 is blocking per execution thread.
 
+### :reuse_entries
+
+When true, reuse hydrated Entry and Asset objects within the same request when possible. Can result in a large speed increase and better handles cyclical object graphs. 
+This can be a good alternative to `max_include_resolution_depth` if your content model contains (or can contain) circular references.
+
 ### :max_include_resolution_depth
 
 Maximum amount of levels to resolve includes for SDK entities (this is independent of API-level includes - it represents the maximum depth the include resolution
 tree is allowed to resolved before falling back to `Link` objects). This include resolution strategy is in place in order to avoid having infinite circular recursion
 on resources with circular dependencies. Defaults to 20. _Note_: If you're using something like `Rails::cache` it's advisable to considerably lower this value
 (around 5 has proven to be a good compromise - but keep it higher or equal than your maximum API-level include parameter if you need the entire tree resolution).
+Note that when `reuse_entries` is enabled, the max include resolution depth only affects deep chains of unique objects (ie, not simple circular references).
 
 ### :use_camel_case
 

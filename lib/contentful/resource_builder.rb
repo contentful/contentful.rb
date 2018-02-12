@@ -75,7 +75,7 @@ module Contentful
       fail UnparsableResource, 'Item type is not known, could not parse' if item_type.nil?
       item_class = resource_class(item)
 
-      reuse_entries = @configuration.fetch(:reuse_entries, true)
+      reuse_entries = @configuration.fetch(:reuse_entries, false)
       entries = @entries ? @entries : {}
 
       id = "#{item['sys']['type']}:#{item['sys']['id']}"
