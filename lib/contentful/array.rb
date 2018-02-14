@@ -59,9 +59,18 @@ module Contentful
     # @return [Contentful::Array, false]
     def next_page(client = nil)
       return false if client.nil?
+      return false if items.first.nil?
 
       new_skip = (skip || 0) + (limit || DEFAULT_LIMIT)
-      client.send(endpoint.delete('/'), limit: limit, skip: new_skip)
+
+      plurals = {
+        'Space' => 'spaces',
+        'ContentType' => 'content_types',
+        'Entry' => 'entries',
+        'Asset' => 'assets',
+        'Locale' => 'locales'
+      }
+      client.public_send(plurals[items.first.type], limit: limit, skip: new_skip)
     end
   end
 end
