@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Added
+* Added `reuse_entries` option to client configuration. This is a performance improvement, which is disabled by default due to backwards compatibility. All users are highly encouraged to enable it and test it in their applications. [#164](https://github.com/contentful/contentful.rb/pull/164)
 
 ## 2.3.0
 ### Added

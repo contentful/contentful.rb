@@ -6,12 +6,12 @@ module Contentful
   class FieldsResource < BaseResource
     attr_reader :localized
 
-    def initialize(item, _configuration, localized = false, includes = [], *)
+    # rubocop:disable Metrics/ParameterLists
+    def initialize(item, _configuration, localized = false, includes = [], entries = {}, *)
       super
 
       @localized = localized
-      @fields = hydrate_fields(includes)
-
+      @fields = hydrate_fields(includes, entries)
       define_fields_methods!
     end
 
@@ -56,7 +56,7 @@ module Contentful
     def marshal_load(raw_object)
       super(raw_object)
       @localized = raw_object[:localized]
-      @fields = hydrate_fields(raw_object[:configuration].fetch(:includes_for_single, []))
+      @fields = hydrate_fields(raw_object[:configuration].fetch(:includes_for_single, []), {})
       define_fields_methods!
     end
 
@@ -82,31 +82,18 @@ module Contentful
       end
     end
 
-    def hydrate_fields(includes)
-      return {} unless raw.key?('fields')
-
+    def hydrate_localized_fields(includes, entries)
       locale = internal_resource_locale
       result = { locale => {} }
-
-      if localized
-        raw['fields'].each do |name, locales|
-          locales.each do |loc, value|
-            result[loc] ||= {}
-            name = Support.snakify(name, @configuration[:use_camel_case])
-            result[loc][name.to_sym] = coerce(
-              name,
-              value,
-              includes
-            )
-          end
-        end
-      else
-        raw['fields'].each do |name, value|
+      raw['fields'].each do |name, locales|
+        locales.each do |loc, value|
+          result[loc] ||= {}
           name = Support.snakify(name, @configuration[:use_camel_case])
-          result[locale][name.to_sym] = coerce(
+          result[loc][name.to_sym] = coerce(
             name,
             value,
-            includes
+            includes,
+            entries
           )
         end
       end
@@ -114,9 +101,35 @@ module Contentful
       result
     end
 
+    def hydrate_nonlocalized_fields(includes, entries)
+      result = { locale => {} }
+      locale = internal_resource_locale
+      raw['fields'].each do |name, value|
+        name = Support.snakify(name, @configuration[:use_camel_case])
+        result[locale][name.to_sym] = coerce(
+          name,
+          value,
+          includes,
+          entries
+        )
+      end
+
+      result
+    end
+
+    def hydrate_fields(includes, entries)
+      return {} unless raw.key?('fields')
+
+      if localized
+        hydrate_localized_fields(includes, entries)
+      else
+        hydrate_nonlocalized_fields(includes, entries)
+      end
+    end
+
     protected
 
-    def coerce(_field_id, value, _includes)
+    def coerce(_field_id, value, _includes, _entries)
       value
     end
   end
