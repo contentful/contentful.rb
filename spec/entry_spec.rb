@@ -283,11 +283,11 @@ describe Contentful::Entry do
     end
   end
 
-  describe 'reuse objects' do 
+  describe 'reuse objects' do
     it 'should handle recursion as well as not reusing' do
       vcr('entry/include_resolution') {
         entry = create_client(reuse_objects: true).entry('nyancat', include: 2)
-        
+
         expect(entry.best_friend.name).to eq 'Happy Cat'
         expect(entry
               .best_friend.best_friend
@@ -301,29 +301,58 @@ describe Contentful::Entry do
               .best_friend.best_friend
               .best_friend.best_friend.name).to eq 'Nyan Cat'
       }
-    end 
+    end
     it 'should use the same object for the same entry' do
       vcr('entry/include_resolution') {
         entry = create_client(reuse_entries: true).entry('nyancat', include: 2)
-        
+
         expect(entry.best_friend.name).to eq 'Happy Cat'
         expect(entry.best_friend.best_friend).to be(entry)
       }
-    end 
-  end 
+    end
+    it 'works on nested structures with unique objects' do
+      vcr('entry/include_resolution_uniques') {
+        entry = create_client(
+          space: 'v7cxgyxt0w5x',
+          access_token: '96e5d256e9a5349ce30e84356597e409f8f1bb485cb4719285b555e0f78aa27e',
+          reuse_entries: true
+        ).entry('1nLXjjWvk4MEeWeQCWmymc', include: 10)
+
+        expect(entry.title).to eq '1'
+        expect(entry
+                 .child.child
+                 .child.child
+                 .child.child
+                 .child.child
+                 .child.title).to eq '10'
+        expect(entry
+                 .child.child
+                 .child.child
+                 .child.child
+                 .child.child
+                 .child.child.title).to eq '1'
+        expect(entry
+                 .child.child.child.child
+                 .child.child.child.child
+                 .child.child.child.child
+                 .child.child.child.child
+                 .child.child.child.child.title).to eq '1'
+      }
+    end
+  end
 
   describe 'include resolution' do
     it 'should not reuse objects by default' do
       vcr('entry/include_resolution') {
-        entry = create_client(reuse_entries: false).entry('nyancat', include: 2)
-        
+        entry = create_client.entry('nyancat', include: 2)
+
         expect(entry.best_friend.name).to eq 'Happy Cat'
         expect(entry.best_friend.best_friend).not_to be(entry)
       }
-    end 
+    end
     it 'defaults to 20 depth' do
       vcr('entry/include_resolution') {
-        entry = create_client(reuse_entries: false).entry('nyancat', include: 2)
+        entry = create_client.entry('nyancat', include: 2)
 
         expect(entry.best_friend.name).to eq 'Happy Cat'
         expect(entry
@@ -355,7 +384,7 @@ describe Contentful::Entry do
 
     it 'can be configured arbitrarily' do
       vcr('entry/include_resolution') {
-        entry = create_client(reuse_entries: false, max_include_resolution_depth: 3).entry('nyancat', include: 2)
+        entry = create_client(max_include_resolution_depth: 3).entry('nyancat', include: 2)
 
         expect(entry.best_friend.name).to eq 'Happy Cat'
         expect(entry
@@ -364,6 +393,34 @@ describe Contentful::Entry do
         expect(entry
                .best_friend.best_friend
                .best_friend.best_friend).to be_a ::Contentful::Link
+      }
+    end
+    it 'works on nested structures with unique objects' do
+      vcr('entry/include_resolution_uniques') {
+        entry = create_client(
+          space: 'v7cxgyxt0w5x',
+          access_token: '96e5d256e9a5349ce30e84356597e409f8f1bb485cb4719285b555e0f78aa27e',
+        ).entry('1nLXjjWvk4MEeWeQCWmymc', include: 10)
+
+        expect(entry.title).to eq '1'
+        expect(entry
+                 .child.child
+                 .child.child
+                 .child.child
+                 .child.child
+                 .child.title).to eq '10'
+        expect(entry
+                 .child.child
+                 .child.child
+                 .child.child
+                 .child.child
+                 .child.child.title).to eq '1'
+        expect(entry
+                 .child.child.child.child
+                 .child.child.child.child
+                 .child.child.child.child
+                 .child.child.child.child
+                 .child.child.child.child.title).to eq '1'
       }
     end
   end

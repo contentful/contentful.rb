@@ -1,0 +1,81 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/v7cxgyxt0w5x/entries?include=10&sys.id=1nLXjjWvk4MEeWeQCWmymc
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.3.0; platform ruby/2.4.1; os macOS/16;
+      Authorization:
+      - Bearer 96e5d256e9a5349ce30e84356597e409f8f1bb485cb4719285b555e0f78aa27e
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/2.2.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - W/"61dce3f065024b11b5dce76f1e0b6c4d"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - d4bd8c6410d7abd46c1d4669c38f6357
+      Content-Length:
+      - '878'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 14 Feb 2018 10:17:53 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-hhn1548-HHN
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1518603473.158289,VS0,VE398
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+2ZS4+bMBCA7/srVpy7yLwhN5SlyWo3jSI2omy1B0po6hBICORBV/nvNQ8TkpqsqDggBQ4oNh6PZ+xvxnY+7u7vqTAOqd79B/qJClG8dlCJUjcbK6ZQ3fFL0iZaRdYS1TNpKXThGhVAWlhCD0bJJ5CVYeR4SYc/0g6zbi+0pJrCtWUnqnCLrLI0lqQircRjeoG+SyU6Tw/S7ruv+Zj1tMeLBnCWmLOT7MM8PkRgLxwSq/BzLH6ndmYPlckw/sv3xcLYufxIcwxn0je82LNL/RcD0/xoE5c/2BvHipyZmviFYgEjPwD2geFfGdBjhB6QaEaR3soC2/WsnsDG2cEQrnw8J/nI7ZUfOX6Ue6Q51/ZL/RIdHDlh9LljlyvbWqbry/EfpjoWKHxP/YLOcnZajolVVASjTIY5c/FvuEymtjkbL2cxVZ4tBS4+DIP9ePHmae5ozsoAgq2rVdibr6NsaSXv95QT6NvL7cwpsZYpxKScWCHQUsELsWXmtJwJAjNI6DNqCsOruEFxoUxReUlgelbKgJMfuT99bS+6q+0YPO9Z9YzOSn6Q+msE8T1BoRlBKBOERK4xVCFCpihRX8lREy6vpqlw/CVP1xxeQVUeu/PIQCALKSvY4s9nxibQ1YTlJMYKm324CL2nTTxUtbk3Z0dePx6JZcgunHCK3Rg5vA5PQeEsu+WuIGWeJowj5Z/CuP8niR0eBo7R/8oZtjsyNTZkbSDrjZCEchFDS4CtQVKFSEcSzlJcC0hiyMG3FLJvE6WKPH6WvvBu899QdTUpIS54WuSUeiiRRDqUMEpsC1CqiL43j5IgqlAJdGfwZNpxIKsGUCc8bCQr8T1epnlBroFShUiHEkZJbgFKQfAszR7h7pvKW9vpNLQCGXb7O0pQTOHnUDCkLeuG7ACo4/lorDVEksDRMsfUIoko0pGESRJbQJL+bMbuU8zMBxaiaDJyJroudyclwexvZ/owXE9FMQByoJnQXJkNkcQpNKi1veN7RJGOpOI+D7QApYpb3pvf35FDTBMnJXQXx9BArLe9I4p0KGGUpBaQVHEiuHmSyNeaDZEk0rwk1tvekUQ6kjBJQhtIIp8Ibp4k8gGyGZJ4npZBvb+UiCIdSZgkpQ0kkU8EdUhK276j9/HuePcXnaKW8jEhAAA=
+    http_version: 
+  recorded_at: Wed, 14 Feb 2018 10:17:52 GMT
+recorded_with: VCR 3.0.3
