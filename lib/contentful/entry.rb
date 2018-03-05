@@ -15,9 +15,11 @@ module Contentful
 
     private
 
-    def coerce(field_id, value, includes, entries = {})
-      return build_nested_resource(value, includes, entries) if Support.link?(value)
-      return coerce_link_array(value, includes, entries) if Support.link_array?(value)
+    def coerce(field_id, value, includes, errors, entries = {})
+      if Support.link?(value) && !Support.unresolvable?(value, errors)
+        return build_nested_resource(value, includes, entries)
+      end
+      return coerce_link_array(value, includes, errors, entries) if Support.link_array?(value)
 
       content_type_key = Support.snakify('contentType', @configuration[:use_camel_case])
       content_type = ContentTypeCache.cache_get(sys[:space].id, sys[content_type_key.to_sym].id)
@@ -27,13 +29,13 @@ module Contentful
         return content_type_field.coerce(value) unless content_type_field.nil?
       end
 
-      super(field_id, value, includes, entries)
+      super(field_id, value, includes, errors, entries)
     end
 
-    def coerce_link_array(value, includes, entries)
+    def coerce_link_array(value, includes, errors, entries)
       items = []
       value.each do |link|
-        items << build_nested_resource(link, includes, entries)
+        items << build_nested_resource(link, includes, entries) unless Support.unresolvable?(link, errors)
       end
 
       items

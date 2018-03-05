@@ -19,6 +19,10 @@ module Contentful
           .downcase
       end
 
+      def unresolvable?(value, errors)
+        errors.any? { |i| i.fetch('details', {}).fetch('id', nil) == value['sys']['id'] }
+      end
+
       # Checks if value is a link
       #
       # @param value

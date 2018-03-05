@@ -484,6 +484,15 @@ describe Contentful::Entry do
         expect(entry.decimal).to eq 12.3
       }
     end
+
+    it 'unresolvable entries get filtered from results' do
+      vcr('entries/unresolvable_filter') {
+        client = create_client(space: '011npgaszg5o', access_token: '42c9d93410a7319e9a735671fc1e415348f65e94a99fc768b70a7c649859d4fd', dynamic_entries: :auto)
+        entry = client.entry('1HR1QvURo4MoSqO0eqmUeO')
+
+        expect(entry.modules.size).to eq 2
+      }
+    end
   end
 
   describe 'camel case' do
