@@ -7,11 +7,11 @@ module Contentful
     attr_reader :localized
 
     # rubocop:disable Metrics/ParameterLists
-    def initialize(item, _configuration, localized = false, includes = [], entries = {}, *)
+    def initialize(item, _configuration, localized = false, includes = [], entries = {}, depth = 0, errors = [])
       super
 
       @localized = localized
-      @fields = hydrate_fields(includes, entries)
+      @fields = hydrate_fields(includes, entries, errors)
       define_fields_methods!
     end
 
@@ -56,7 +56,7 @@ module Contentful
     def marshal_load(raw_object)
       super(raw_object)
       @localized = raw_object[:localized]
-      @fields = hydrate_fields(raw_object[:configuration].fetch(:includes_for_single, []), {})
+      @fields = hydrate_fields(raw_object[:configuration].fetch(:includes_for_single, []), {}, [])
       define_fields_methods!
     end
 
@@ -82,7 +82,7 @@ module Contentful
       end
     end
 
-    def hydrate_localized_fields(includes, entries)
+    def hydrate_localized_fields(includes, errors, entries)
       locale = internal_resource_locale
       result = { locale => {} }
       raw['fields'].each do |name, locales|
@@ -93,6 +93,7 @@ module Contentful
             name,
             value,
             includes,
+            errors,
             entries
           )
         end
@@ -101,7 +102,7 @@ module Contentful
       result
     end
 
-    def hydrate_nonlocalized_fields(includes, entries)
+    def hydrate_nonlocalized_fields(includes, errors, entries)
       result = { locale => {} }
       locale = internal_resource_locale
       raw['fields'].each do |name, value|
@@ -110,6 +111,7 @@ module Contentful
           name,
           value,
           includes,
+          errors,
           entries
         )
       end
@@ -117,19 +119,19 @@ module Contentful
       result
     end
 
-    def hydrate_fields(includes, entries)
+    def hydrate_fields(includes, entries, errors)
       return {} unless raw.key?('fields')
 
       if localized
-        hydrate_localized_fields(includes, entries)
+        hydrate_localized_fields(includes, errors, entries)
       else
-        hydrate_nonlocalized_fields(includes, entries)
+        hydrate_nonlocalized_fields(includes, errors, entries)
       end
     end
 
     protected
 
-    def coerce(_field_id, value, _includes, _entries)
+    def coerce(_field_id, value, _includes, _errors, _entries)
       value
     end
   end

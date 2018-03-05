@@ -40,7 +40,7 @@ module Contentful
       @depth = depth
       @endpoint = endpoint
       @configuration = configuration
-      @entries = configuration[:_entries_cache] || {}
+      @resource_cache = configuration[:_entries_cache] || {}
     end
 
     # Starts the parsing process.
@@ -57,8 +57,11 @@ module Contentful
 
     def build_array
       includes = fetch_includes
+      errors = fetch_errors
+
       result = json['items'].map do |item|
-        build_item(item, includes)
+        next if Support.unresolvable?(item, errors)
+        build_item(item, includes, errors)
       end
       array_class = fetch_array_class
       array_class.new(json.dup.merge('items' => result), @configuration, endpoint)
@@ -69,27 +72,31 @@ module Contentful
       build_item(json, includes)
     end
 
-    def build_item(item, includes = [])
+    def build_item(item, includes = [], errors = [])
       buildables = %w(Entry Asset ContentType Space DeletedEntry DeletedAsset)
       item_type = buildables.detect { |b| b.to_s == item['sys']['type'] }
       fail UnparsableResource, 'Item type is not known, could not parse' if item_type.nil?
       item_class = resource_class(item)
 
       reuse_entries = @configuration.fetch(:reuse_entries, false)
-      entries = @entries ? @entries : {}
+      resource_cache = @resource_cache ? @resource_cache : {}
 
       id = "#{item['sys']['type']}:#{item['sys']['id']}"
-      entry = if reuse_entries && entries.key?(id)
-                entries[id]
-              else
-                item_class.new(item, @configuration, localized?, includes, entries, depth)
-              end
+      resource = if reuse_entries && resource_cache.key?(id)
+                   resource_cache[id]
+                 else
+                   item_class.new(item, @configuration, localized?, includes, resource_cache, depth, errors)
+                 end
 
-      entry
+      resource
     end
 
     def fetch_includes
       Support.includes_from_response(json)
+    end
+
+    def fetch_errors
+      json.fetch('errors', [])
     end
 
     def resource_class(item)
