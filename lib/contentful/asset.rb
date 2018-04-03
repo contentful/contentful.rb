@@ -44,19 +44,12 @@ module Contentful
     # @option options [String] :focus
     # @option options [String] :fit
     # @option options [String] :fl File Layering - 'progressive'
+    # @option options [String] :background
     # @see _ https://www.contentful.com/developers/documentation/content-delivery-api/#image-asset-resizing
     #
     # @return [String] Image API URL
     def image_url(options = {})
-      query = {
-        w: options[:w] || options[:width],
-        h: options[:h] || options[:height],
-        fm: options[:fm] || options[:format],
-        q: options[:q] || options[:quality],
-        f: options[:f] || options[:focus],
-        fit: options[:fit],
-        fl: options[:fl]
-      }.reject { |_k, v| v.nil? }
+      query = build_query(options)
 
       if query.empty?
         file.url
@@ -68,6 +61,19 @@ module Contentful
     alias url image_url
 
     private
+
+    def build_query(options)
+      {
+        w: options[:w] || options[:width],
+        h: options[:h] || options[:height],
+        fm: options[:fm] || options[:format],
+        q: options[:q] || options[:quality],
+        f: options[:f] || options[:focus],
+        bg: options[:bg] || options[:background],
+        fit: options[:fit],
+        fl: options[:fl]
+      }.reject { |_k, v| v.nil? }
+    end
 
     def create_files!
       file_json = raw.fetch('fields', {}).fetch('file', nil)
