@@ -54,9 +54,9 @@ describe Contentful::Asset do
     end
 
     it 'adds image options if given' do
-      url = asset.image_url(width: 100, format: 'jpg', quality: 50, focus: 'top_right', fit: 'thumb', fl: 'progressive')
+      url = asset.image_url(width: 100, format: 'jpg', quality: 50, focus: 'top_right', fit: 'thumb', fl: 'progressive', background: 'rgb:ff0000')
       expect(url).to include asset.file.url
-      expect(url).to include '?w=100&fm=jpg&q=50&f=top_right&fit=thumb&fl=progressive'
+      expect(url).to include '?w=100&fm=jpg&q=50&f=top_right&bg=rgb%3Aff0000&fit=thumb&fl=progressive'
     end
   end
 
@@ -66,9 +66,9 @@ describe Contentful::Asset do
     end
 
     it 'adds image options if given' do
-      url = asset.url(width: 100, format: 'jpg', quality: 50, focus: 'top_right', fit: 'thumb', fl: 'progressive')
+      url = asset.url(width: 100, format: 'jpg', quality: 50, focus: 'top_right', fit: 'thumb', fl: 'progressive', background: 'rgb:ff0000')
       expect(url).to include asset.file.url
-      expect(url).to include '?w=100&fm=jpg&q=50&f=top_right&fit=thumb&fl=progressive'
+      expect(url).to include '?w=100&fm=jpg&q=50&f=top_right&bg=rgb%3Aff0000&fit=thumb&fl=progressive'
     end
   end
 
