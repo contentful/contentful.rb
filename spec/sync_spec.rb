@@ -19,6 +19,12 @@ describe Contentful::Sync do
     end
   end
 
+  describe 'environments' do
+    it 'raises an error on non master environments' do
+      expect { create_client(environment: 'foo').sync }.to raise_exception
+    end
+  end
+
   describe '#initialize' do
     it 'takes an options hash on initialization' do
       expect do
