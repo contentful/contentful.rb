@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types/not%20found
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/content_types/not%20found
     body:
       encoding: US-ASCII
       string: ''

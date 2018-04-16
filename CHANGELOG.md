@@ -1,6 +1,11 @@
 # Change Log
 
 ## Unreleased
+### Changed
+* Makes all routes environment aware. This change is not backwards incompatible.
+
+### Added
+* Added `locales` endpoint to retrieve locales from an environment.
 
 ## 2.5.0
 ### Added

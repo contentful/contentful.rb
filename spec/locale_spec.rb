@@ -16,4 +16,22 @@ describe Contentful::Locale do
       expect(locale.default).to eq true
     end
   end
+
+  describe 'locales endpoint' do
+    it 'locales can be fetched from environments' do
+      vcr('locale_from_environment') {
+        client = create_client(
+          space: 'facgnwwgj5fe',
+          access_token: '<ACCESS_TOKEN>',
+          environment: 'testing'
+        )
+
+        locales = client.locales
+
+        expect(locales).to be_a ::Contentful::Array
+        expect(locales.first).to be_a ::Contentful::Locale
+        expect(locales.first.code).to eq 'en-US'
+      }
+    end
+  end
 end

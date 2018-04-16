@@ -20,6 +20,7 @@ module Contentful
       dynamic_entries: :manual,
       api_url: 'cdn.contentful.com',
       api_version: 1,
+      environment: 'master',
       authentication_mechanism: :header,
       resource_builder: ResourceBuilder,
       resource_mapping: {},
@@ -129,7 +130,7 @@ module Contentful
     #
     # @return [Contentful::ContentType]
     def content_type(id, query = {})
-      Request.new(self, '/content_types', query, id).get
+      Request.new(self, environment_url('/content_types'), query, id).get
     end
 
     # Gets a collection of content types
@@ -138,7 +139,7 @@ module Contentful
     #
     # @return [Contentful::Array<Contentful::ContentType>]
     def content_types(query = {})
-      Request.new(self, '/content_types', query).get
+      Request.new(self, environment_url('/content_types'), query).get
     end
 
     # Gets a specific entry
@@ -150,7 +151,7 @@ module Contentful
     def entry(id, query = {})
       normalize_select!(query)
       query['sys.id'] = id
-      entries = Request.new(self, '/entries', query).get
+      entries = Request.new(self, environment_url('/entries'), query).get
 
       return entries if configuration[:raw_mode]
 
@@ -164,7 +165,7 @@ module Contentful
     # @return [Contentful::Array<Contentful::Entry>]
     def entries(query = {})
       normalize_select!(query)
-      Request.new(self, '/entries', query).get
+      Request.new(self, environment_url('/entries'), query).get
     end
 
     # Gets a specific asset
@@ -174,7 +175,7 @@ module Contentful
     #
     # @return [Contentful::Asset]
     def asset(id, query = {})
-      Request.new(self, '/assets', query, id).get
+      Request.new(self, environment_url('/assets'), query, id).get
     end
 
     # Gets a collection of assets
@@ -184,13 +185,28 @@ module Contentful
     # @return [Contentful::Array<Contentful::Asset>]
     def assets(query = {})
       normalize_select!(query)
-      Request.new(self, '/assets', query).get
+      Request.new(self, environment_url('/assets'), query).get
+    end
+
+    # Gets a collection of locales for the current environment
+    #
+    # @param [Hash] query
+    #
+    # @return [Contentful::Array<Contentful::Locale>]
+    def locales(query = {})
+      Request.new(self, environment_url('/locales'), query).get
     end
 
     # Returns the base url for all of the client's requests
     # @private
     def base_url
       "http#{configuration[:secure] ? 's' : ''}://#{configuration[:api_url]}/spaces/#{configuration[:space]}"
+    end
+
+    # Returns the url aware of the currently selected environment
+    # @private
+    def environment_url(path)
+      "/environments/#{configuration[:environment]}#{path}"
     end
 
     # Returns the formatted part of the X-Contentful-User-Agent header
@@ -380,6 +396,8 @@ module Contentful
     #
     # @return [Contentful::Sync]
     def sync(options = { initial: true })
+      fail ArgumentError, 'Sync is not supported for non master environments' unless configuration[:environment] == 'master'
+
       Sync.new(self, options)
     end
 

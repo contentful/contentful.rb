@@ -6,7 +6,7 @@ describe Contentful::Client do
     let(:proxy_client) { create_client(proxy_host: '183.207.232.194',
                                        proxy_port: 8080,
                                        secure: false) }
-    let(:request) { Contentful::Request.new(nil, '/content_types', nil, 'cat') }
+    let(:request) { Contentful::Request.new(nil, client.environment_url('/content_types'), nil, 'cat') }
 
     it 'uses #base_url' do
       expect(client).to receive(:base_url).and_call_original

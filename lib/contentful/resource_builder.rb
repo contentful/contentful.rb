@@ -7,6 +7,7 @@ require_relative 'array'
 require_relative 'link'
 require_relative 'deleted_entry'
 require_relative 'deleted_asset'
+require_relative 'locale'
 
 module Contentful
   # Transforms a Contentful::Response into a Contentful::Resource or a Contentful::Error
@@ -22,7 +23,8 @@ module Contentful
       'Array' => Array,
       'Link' => Link,
       'DeletedEntry' => DeletedEntry,
-      'DeletedAsset' => DeletedAsset
+      'DeletedAsset' => DeletedAsset,
+      'Locale' => Locale
     }
     # Default Entry Mapping
     # @see _ README for more information on Entry Mapping
@@ -73,7 +75,7 @@ module Contentful
     end
 
     def build_item(item, includes = [], errors = [])
-      buildables = %w(Entry Asset ContentType Space DeletedEntry DeletedAsset)
+      buildables = %w(Entry Asset ContentType Space DeletedEntry DeletedAsset Locale)
       item_type = buildables.detect { |b| b.to_s == item['sys']['type'] }
       fail UnparsableResource, 'Item type is not known, could not parse' if item_type.nil?
       item_class = resource_class(item)

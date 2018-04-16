@@ -169,6 +169,14 @@ Required option. The name of the space you want to access.
 
 Required option. The space's secret token.
 
+### :default_locale
+
+Defines default locale for the client. Defaults to `en-US`.
+
+### :environment
+
+Defines default environment to access. Defaults to `master`.
+
 ### :secure
 
 Whether to use https. Defaults to `true`.

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/assets
+    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/environments/master/assets
     body:
       encoding: US-ASCII
       string: ''
@@ -65,7 +65,7 @@ http_interactions:
   recorded_at: Tue, 09 Aug 2016 08:46:00 GMT
 - request:
     method: get
-    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/assets
+    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/environments/master/assets
     body:
       encoding: US-ASCII
       string: ''
@@ -141,7 +141,7 @@ http_interactions:
   recorded_at: Tue, 09 Aug 2016 08:46:00 GMT
 - request:
     method: get
-    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/assets
+    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/environments/master/assets
     body:
       encoding: US-ASCII
       string: ''
@@ -217,7 +217,7 @@ http_interactions:
   recorded_at: Tue, 09 Aug 2016 08:46:00 GMT
 - request:
     method: get
-    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/assets
+    uri: https://cdnorigin.flinkly.com/spaces/164vhtp008kz/environments/master/assets
     body:
       encoding: US-ASCII
       string: ''

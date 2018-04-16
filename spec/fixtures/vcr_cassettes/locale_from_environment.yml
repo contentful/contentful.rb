@@ -2,15 +2,15 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries?content_type=cat&links_to_entry=nyancat&select=fields.name,sys
+    uri: https://cdn.contentful.com/spaces/facgnwwgj5fe/environments/testing/locales
     body:
       encoding: US-ASCII
       string: ''
     headers:
       X-Contentful-User-Agent:
-      - sdk contentful.rb/2.2.2; platform ruby/2.4.2; os macOS/16;
+      - sdk contentful.rb/2.4.0; platform ruby/2.4.1; os macOS/16;
       Authorization:
-      - Bearer b4c0n73n7fu1
+      - Bearer <ACCESS_TOKEN>
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Accept-Encoding:
@@ -41,33 +41,33 @@ http_interactions:
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Etag:
-      - '"73fc3e975a87e59301a93f54d56a2139"'
+      - '"933cd424e0bbb10faa1c119a7c478a36"'
       Server:
       - Contentful
       X-Content-Type-Options:
       - nosniff
       X-Contentful-Request-Id:
-      - 5e905364e78762fdc6c2f8f048c22c19
+      - b203a8e779b889882f508d217513881c
       Content-Length:
-      - '701'
+      - '779'
       Accept-Ranges:
       - bytes
       Date:
-      - Thu, 11 Jan 2018 17:14:41 GMT
+      - Tue, 27 Feb 2018 10:39:00 GMT
       Via:
       - 1.1 varnish
       Age:
-      - '0'
+      - '1019'
       Connection:
       - close
       X-Served-By:
-      - cache-hhn1531-HHN
+      - cache-hhn1545-HHN
       X-Cache:
-      - MISS
+      - HIT
       X-Cache-Hits:
-      - '0'
+      - '1'
       X-Timer:
-      - S1515690881.084169,VS0,VE404
+      - S1519727940.115595,VS0,VE1
       Vary:
       - Accept-Encoding
     body:
@@ -77,39 +77,45 @@ http_interactions:
           "sys": {
             "type": "Array"
           },
-          "total": 1,
+          "total": 3,
           "skip": 0,
-          "limit": 100,
+          "limit": 1000,
           "items": [
             {
-              "fields": {
-                "name": "Happy Cat"
-              },
+              "code": "en-US",
+              "name": "U.S. English",
+              "default": true,
+              "fallbackCode": null,
               "sys": {
-                "space": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Space",
-                    "id": "cfexampleapi"
-                  }
-                },
-                "id": "happycat",
-                "type": "Entry",
-                "createdAt": "2013-06-27T22:46:20.171Z",
-                "updatedAt": "2013-11-18T15:58:02.018Z",
-                "revision": 8,
-                "contentType": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "ContentType",
-                    "id": "cat"
-                  }
-                },
-                "locale": "en-US"
+                "id": "1NkEdf220AtNFVgJO9fFQ2",
+                "type": "Locale",
+                "version": 1
+              }
+            },
+            {
+              "code": "foo",
+              "name": "foobar",
+              "default": false,
+              "fallbackCode": null,
+              "sys": {
+                "id": "2QKRtwD3DKOkYKXJJsYdHk",
+                "type": "Locale",
+                "version": 1
+              }
+            },
+            {
+              "code": "foo-BB",
+              "name": "Foo (BarBaz)",
+              "default": false,
+              "fallbackCode": "en-US",
+              "sys": {
+                "id": "4YnLeSNLymCAZ6eYwJmhzu",
+                "type": "Locale",
+                "version": 1
               }
             }
           ]
         }
     http_version: 
-  recorded_at: Thu, 11 Jan 2018 17:14:41 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Tue, 27 Feb 2018 10:39:00 GMT
+recorded_with: VCR 3.0.3
