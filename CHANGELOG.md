@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.6.0
 ### Changed
 * Makes all routes environment aware. This change is not backwards incompatible.
 
