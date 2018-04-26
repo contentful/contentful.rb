@@ -70,6 +70,7 @@ module Contentful
         q: options[:q] || options[:quality],
         f: options[:f] || options[:focus],
         bg: options[:bg] || options[:background],
+        r: options[:r] || options[:radius],
         fit: options[:fit],
         fl: options[:fl]
       }.reject { |_k, v| v.nil? }
