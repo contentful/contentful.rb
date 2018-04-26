@@ -1,7 +1,9 @@
 # Change Log
 
 ## Unreleased
-## Added
+
+## 2.7.0
+### Added
 * Added support for `radius` cropping on the Asset `#url`.
 
 ## 2.6.0
