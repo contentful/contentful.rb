@@ -66,7 +66,7 @@ module Contentful
     def hydrate_sys
       result = {}
       raw.fetch('sys', {}).each do |k, v|
-        if %w(space contentType).include?(k)
+        if %w(space contentType environment).include?(k)
           v = build_link(v)
         elsif %w(createdAt updatedAt deletedAt).include?(k)
           v = DateTime.parse(v)

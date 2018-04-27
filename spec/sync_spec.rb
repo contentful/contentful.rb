@@ -20,8 +20,20 @@ describe Contentful::Sync do
   end
 
   describe 'environments' do
-    it 'raises an error on non master environments' do
-      expect { create_client(environment: 'foo').sync }.to raise_exception
+    it 'works for environments' do
+      vcr('sync_environment') {
+        page = nil
+        expect {
+          page = create_client(
+            space: 'a22o2qgm356c',
+            access_token: 'bfbc63cf745a037125dbcc64f716a9a0e9d091df1a79e84920b890f87a6e7ab9',
+            environment: 'staging'
+          ).sync(initial: true).first_page
+        }.not_to raise_exception
+
+        expect(page.items.first).to be_a ::Contentful::Entry
+        expect(page.items.first.environment.id).to eq 'staging'
+      }
     end
   end
 
@@ -34,7 +46,7 @@ describe Contentful::Sync do
 
     it 'takes a next_sync_url on initialization' do
       expect do
-        vcr('sync_page_2') { create_client.sync('https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg').first_page }
+        vcr('sync_page_2') { create_client.sync('https://cdn.contentful.com/spaces/cfexampleapi/environments/master/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg').first_page }
       end.not_to raise_exception
     end
   end
@@ -158,7 +170,7 @@ describe Contentful::Sync do
             }
           }
         ],
-        "nextSyncUrl" => "https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg"
+        "nextSyncUrl" => "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg"
       }
       vcr('sync_page_short') {
         expect(@sync.first_page.object).to eql expected

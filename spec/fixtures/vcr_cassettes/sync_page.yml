@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/sync?initial=true
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/sync?initial=true
     body:
       encoding: US-ASCII
       string: ''
@@ -630,7 +630,7 @@ http_interactions:
               }
             }
           ],
-          "nextPageUrl": "https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg"
+          "nextPageUrl": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg"
         }
     http_version:
   recorded_at: Mon, 21 Apr 2014 19:52:28 GMT
