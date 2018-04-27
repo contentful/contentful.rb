@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.8.0
 ### Added
 * Add support for `sync` on environments other than `master`.
 
