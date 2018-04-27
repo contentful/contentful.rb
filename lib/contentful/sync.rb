@@ -71,7 +71,7 @@ module Contentful
 
     def fetch_page(options_or_url)
       return Request.new(@client, options_or_url).get if options_or_url.is_a? String
-      Request.new(@client, '/sync', options_or_url).get
+      Request.new(@client, @client.environment_url('/sync'), options_or_url).get
     end
 
     def link_page_to_sync!(page)

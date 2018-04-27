@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Contentful::SyncPage do
   let(:page_with_more) { vcr('sync_page') { create_client.sync(initial: true).first_page } }
-  let(:page) { vcr('sync_page_2') { create_client.sync.get('https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg') } }
+  let(:page) { vcr('sync_page_2') { create_client.sync.get('https://cdn.contentful.com/spaces/cfexampleapi/environments/master/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCr8Okw6AYwqbDksO3ehvDpUPCgcKsKXbCiAwPC8K2w4LDvsOkw6nCjhPDpcOQADElWsOoU8KGR3HCtsOAwqd6wp_Dulp8w6LDsF_CtsK7Kk05wrMvwrLClMOgG2_Dn2sGPg') } }
 
   describe 'SystemProperties' do
     it 'has a #sys getter returning a hash with symbol keys' do

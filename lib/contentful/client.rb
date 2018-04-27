@@ -396,8 +396,6 @@ module Contentful
     #
     # @return [Contentful::Sync]
     def sync(options = { initial: true })
-      fail ArgumentError, 'Sync is not supported for non master environments' unless configuration[:environment] == 'master'
-
       Sync.new(self, options)
     end
 
