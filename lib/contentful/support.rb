@@ -70,7 +70,7 @@ module Contentful
                      json['items'].map(&:raw)
                    end
 
-        %w(Entry Asset).each do |type|
+        %w[Entry Asset].each do |type|
           if json.fetch('includes', {}).key?(type)
             includes.concat(json['includes'].fetch(type, []))
           end

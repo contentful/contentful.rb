@@ -414,7 +414,7 @@ module Contentful
     end
 
     def normalize_configuration!
-      [:space, :access_token, :api_url, :default_locale].each { |s| configuration[s] = configuration[s].to_s }
+      %i[space access_token api_url default_locale].each { |s| configuration[s] = configuration[s].to_s }
       configuration[:authentication_mechanism] = configuration[:authentication_mechanism].to_sym
     end
 
@@ -424,10 +424,10 @@ module Contentful
       fail ArgumentError, 'The client configuration needs to contain an :api_url' if configuration[:api_url].empty?
       fail ArgumentError, 'The client configuration needs to contain a :default_locale' if configuration[:default_locale].empty?
       fail ArgumentError, 'The :api_version must be a positive number or nil' unless configuration[:api_version].to_i >= 0
-      fail ArgumentError, 'The authentication mechanism must be :header or :query_string' unless [:header, :query_string].include?(
+      fail ArgumentError, 'The authentication mechanism must be :header or :query_string' unless %i[header query_string].include?(
         configuration[:authentication_mechanism]
       )
-      fail ArgumentError, 'The :dynamic_entries mode must be :auto or :manual' unless [:auto, :manual].include?(
+      fail ArgumentError, 'The :dynamic_entries mode must be :auto or :manual' unless %i[auto manual].include?(
         configuration[:dynamic_entries]
       )
     end

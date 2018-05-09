@@ -75,7 +75,7 @@ module Contentful
     end
 
     def build_item(item, includes = [], errors = [])
-      buildables = %w(Entry Asset ContentType Space DeletedEntry DeletedAsset Locale)
+      buildables = %w[Entry Asset ContentType Space DeletedEntry DeletedAsset Locale]
       item_type = buildables.detect { |b| b.to_s == item['sys']['type'] }
       fail UnparsableResource, 'Item type is not known, could not parse' if item_type.nil?
       item_class = resource_class(item)
@@ -102,7 +102,7 @@ module Contentful
     end
 
     def resource_class(item)
-      return fetch_custom_resource_class(item) if %w(Entry DeletedEntry Asset DeletedAsset).include?(item['sys']['type'])
+      return fetch_custom_resource_class(item) if %w[Entry DeletedEntry Asset DeletedAsset].include?(item['sys']['type'])
       resource_mapping[item['sys']['type']]
     end
 
@@ -112,13 +112,13 @@ module Contentful
         resource_class = entry_mapping[item['sys']['contentType']['sys']['id']]
         return resource_class unless resource_class.nil?
 
-        return fetch_custom_resource_mapping(item, 'Entry', Entry)
+        fetch_custom_resource_mapping(item, 'Entry', Entry)
       when 'Asset'
-        return fetch_custom_resource_mapping(item, 'Asset', Asset)
+        fetch_custom_resource_mapping(item, 'Asset', Asset)
       when 'DeletedEntry'
-        return fetch_custom_resource_mapping(item, 'DeletedEntry', DeletedEntry)
+        fetch_custom_resource_mapping(item, 'DeletedEntry', DeletedEntry)
       when 'DeletedAsset'
-        return fetch_custom_resource_mapping(item, 'DeletedAsset', DeletedAsset)
+        fetch_custom_resource_mapping(item, 'DeletedAsset', DeletedAsset)
       end
     end
 

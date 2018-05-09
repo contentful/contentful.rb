@@ -66,9 +66,9 @@ module Contentful
     def hydrate_sys
       result = {}
       raw.fetch('sys', {}).each do |k, v|
-        if %w(space contentType environment).include?(k)
+        if %w[space contentType environment].include?(k)
           v = build_link(v)
-        elsif %w(createdAt updatedAt deletedAt).include?(k)
+        elsif %w[createdAt updatedAt deletedAt].include?(k)
           v = DateTime.parse(v)
         end
         result[Support.snakify(k, @configuration[:use_camel_case]).to_sym] = v
