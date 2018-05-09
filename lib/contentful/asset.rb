@@ -80,7 +80,7 @@ module Contentful
       file_json = raw.fetch('fields', {}).fetch('file', nil)
       return if file_json.nil?
 
-      is_localized = file_json.keys.none? { |f| %w(fileName contentType details url).include? f }
+      is_localized = file_json.keys.none? { |f| %w[fileName contentType details url].include? f }
       if is_localized
         locales.each do |locale|
           @fields[locale][:file] = ::Contentful::File.new(file_json[locale.to_s] || {}, @configuration)
