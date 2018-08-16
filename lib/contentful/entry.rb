@@ -17,7 +17,7 @@ module Contentful
 
     def coerce(field_id, value, includes, errors, entries = {})
       if Support.link?(value) && !Support.unresolvable?(value, errors)
-        return build_nested_resource(value, includes, entries)
+        return build_nested_resource(value, includes, entries, errors)
       end
       return coerce_link_array(value, includes, errors, entries) if Support.link_array?(value)
 
@@ -35,7 +35,8 @@ module Contentful
     def coerce_link_array(value, includes, errors, entries)
       items = []
       value.each do |link|
-        items << build_nested_resource(link, includes, entries) unless Support.unresolvable?(link, errors)
+        nested_resource = build_nested_resource(link, includes, entries, errors) unless Support.unresolvable?(link, errors)
+        items << nested_resource unless nested_resource.nil?
       end
 
       items
@@ -45,16 +46,16 @@ module Contentful
     # in case one of the included items has a reference in an upper level,
     # so we can keep the include chain for that object as well
     # Any included object after the maximum include resolution depth will be just a Link
-    def build_nested_resource(value, includes, entries)
+    def build_nested_resource(value, includes, entries, errors)
       if @depth < @configuration.fetch(:max_include_resolution_depth, 20)
         resource = Support.resource_for_link(value, includes)
-        return resolve_include(resource, includes, entries) unless resource.nil?
+        return resolve_include(resource, includes, entries, errors) unless resource.nil?
       end
 
       build_link(value)
     end
 
-    def resolve_include(resource, includes, entries)
+    def resolve_include(resource, includes, entries, errors)
       require_relative 'resource_builder'
 
       ResourceBuilder.new(
@@ -66,7 +67,7 @@ module Contentful
         ),
         localized,
         @depth + 1,
-        includes
+        errors
       ).run
     end
 

@@ -493,6 +493,14 @@ describe Contentful::Entry do
         expect(entry.modules.size).to eq 2
       }
     end
+
+    it 'unresolvable entries get filtered from results in deeply nested objects - #177' do
+      vcr('entries/unresolvable_filter_deeply_nested') {
+        client = create_client(space: 'z471hdso7l1a', access_token: '8a0e09fe71f1cb41e8788ace86a8c8d9d084599fe43a40070f232045014d2585', dynamic_entries: :auto)
+        entry = client.entry('1hb8sipClkQ8ggeGaeSQWm', include: 3)
+        expect(entry.should_published.first.should_unpublished.size).to eq 0
+      }
+    end
   end
 
   describe 'camel case' do

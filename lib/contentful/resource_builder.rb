@@ -32,7 +32,7 @@ module Contentful
 
     attr_reader :json, :default_locale, :endpoint, :depth, :localized, :resource_mapping, :entry_mapping, :resource
 
-    def initialize(json, configuration = {}, localized = false, depth = 0, endpoint = nil)
+    def initialize(json, configuration = {}, localized = false, depth = 0, errors = [])
       @json = json
       @default_locale = configuration.fetch(:default_locale, ::Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       @resource_mapping = default_resource_mapping.merge(configuration.fetch(:resource_mapping, {}))
@@ -40,9 +40,10 @@ module Contentful
       @includes_for_single = configuration.fetch(:includes_for_single, [])
       @localized = localized
       @depth = depth
-      @endpoint = endpoint
+      @endpoint = configuration.fetch(:endpoint, nil)
       @configuration = configuration
       @resource_cache = configuration[:_entries_cache] || {}
+      @errors = errors
     end
 
     # Starts the parsing process.
@@ -58,8 +59,8 @@ module Contentful
     private
 
     def build_array
-      includes = fetch_includes
-      errors = fetch_errors
+      includes = fetch_includes || @includes_for_single
+      errors = fetch_errors || @errors
 
       result = json['items'].map do |item|
         next if Support.unresolvable?(item, errors)
@@ -70,8 +71,9 @@ module Contentful
     end
 
     def build_single
+      return if Support.unresolvable?(json, @errors)
       includes = @includes_for_single
-      build_item(json, includes)
+      build_item(json, includes, @errors)
     end
 
     def build_item(item, includes = [], errors = [])
