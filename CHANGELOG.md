@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.8.1
 ### Fixed
 * Fixed deeply nested resources now also filter unresolvable entries. [#177](https://github.com/contentful/contentful.rb/issues/177)
 
