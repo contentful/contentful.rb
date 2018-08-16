@@ -364,10 +364,9 @@ module Contentful
       logger.debug(response: response) if logger
       configuration[:resource_builder].new(
         response.object,
-        configuration,
+        configuration.merge(endpoint: response.request.endpoint),
         (response.request.query || {}).fetch(:locale, nil) == '*',
-        0,
-        response.request.endpoint
+        0
       ).run
     end
 

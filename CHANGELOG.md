@@ -1,10 +1,12 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed deeply nested resources now also filter unresolvable entries. [#177](https://github.com/contentful/contentful.rb/issues/177)
 
 ## 2.8.0
 ### Added
-* Add support for `sync` on environments other than `master`.
+* Added support for `sync` on environments other than `master`.
 
 ## 2.7.0
 ### Added
