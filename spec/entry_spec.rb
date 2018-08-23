@@ -513,4 +513,30 @@ describe Contentful::Entry do
       }
     end
   end
+
+  describe 'structured text support' do
+    it 'properly serializes and resolves includes' do
+      vcr('entries/structured_text') {
+        entry = create_client(
+          space: 'jd7yc4wnatx3',
+          access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
+          raise_errors: true,
+          dynamic_entries: :auto
+        ).entry('4BupPSmi4M02m0U48AQCSM')
+
+        expected_entry_occurrances = 2
+        embedded_entry_index = 1
+        entry.body['content'].each do |content|
+          if content['nodeType'] == 'embedded-entry-block'
+            expect(content['data']).to be_a Contentful::Entry
+            expect(content['data'].body).to eq "Embedded #{embedded_entry_index}"
+            expected_entry_occurrances -= 1
+            embedded_entry_index += 1
+          end
+        end
+
+        expect(expected_entry_occurrances).to eq 0
+      }
+    end
+  end
 end

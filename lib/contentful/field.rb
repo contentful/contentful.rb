@@ -7,17 +7,18 @@ module Contentful
   class Field
     # Coercions from Contentful Types to Ruby native types
     KNOWN_TYPES = {
-      'String'   => StringCoercion,
-      'Text'     => TextCoercion,
-      'Symbol'   => SymbolCoercion,
-      'Integer'  => IntegerCoercion,
-      'Number'   => FloatCoercion,
-      'Boolean'  => BooleanCoercion,
-      'Date'     => DateCoercion,
-      'Location' => LocationCoercion,
-      'Object'   => ObjectCoercion,
-      'Array'    => ArrayCoercion,
-      'Link'     => LinkCoercion
+      'String'         => StringCoercion,
+      'Text'           => TextCoercion,
+      'Symbol'         => SymbolCoercion,
+      'Integer'        => IntegerCoercion,
+      'Number'         => FloatCoercion,
+      'Boolean'        => BooleanCoercion,
+      'Date'           => DateCoercion,
+      'Location'       => LocationCoercion,
+      'Object'         => ObjectCoercion,
+      'Array'          => ArrayCoercion,
+      'Link'           => LinkCoercion,
+      'StructuredText' => StructuredTextCoercion
     }
 
     attr_reader :raw, :id, :name, :type, :link_type, :items, :required, :localized
@@ -34,13 +35,13 @@ module Contentful
     end
 
     # Coerces value to proper type
-    def coerce(value)
+    def coerce(value, configuration)
       return value if type.nil?
       return value if value.nil?
 
       options = {}
       options[:coercion_class] = KNOWN_TYPES[items.type] unless items.nil?
-      KNOWN_TYPES[type].new(value, options).coerce
+      KNOWN_TYPES[type].new(value, options).coerce(configuration)
     end
   end
 end

@@ -20,6 +20,8 @@ module Contentful
       end
 
       def unresolvable?(value, errors)
+        return true if value.nil?
+
         errors.any? { |i| i.fetch('details', {}).fetch('id', nil) == value['sys']['id'] }
       end
 
