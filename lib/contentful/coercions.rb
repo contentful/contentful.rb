@@ -10,7 +10,7 @@ module Contentful
     end
 
     # Coerces value
-    def coerce
+    def coerce(*)
       value
     end
   end
@@ -18,7 +18,7 @@ module Contentful
   # Coercion for String Types
   class StringCoercion < BaseCoercion
     # Coerces value to String
-    def coerce
+    def coerce(*)
       value.to_s
     end
   end
@@ -32,7 +32,7 @@ module Contentful
   # Coercion for Integer Types
   class IntegerCoercion < BaseCoercion
     # Coerces value to Integer
-    def coerce
+    def coerce(*)
       value.to_i
     end
   end
@@ -40,7 +40,7 @@ module Contentful
   # Coercion for Float Types
   class FloatCoercion < BaseCoercion
     # Coerces value to Float
-    def coerce
+    def coerce(*)
       value.to_f
     end
   end
@@ -48,7 +48,7 @@ module Contentful
   # Coercion for Boolean Types
   class BooleanCoercion < BaseCoercion
     # Coerces value to Boolean
-    def coerce
+    def coerce(*)
       # rubocop:disable Style/DoubleNegation
       !!value
       # rubocop:enable Style/DoubleNegation
@@ -58,7 +58,7 @@ module Contentful
   # Coercion for Date Types
   class DateCoercion < BaseCoercion
     # Coerces value to DateTime
-    def coerce
+    def coerce(*)
       return nil if value.nil?
 
       DateTime.parse(value)
@@ -68,7 +68,7 @@ module Contentful
   # Coercion for Location Types
   class LocationCoercion < BaseCoercion
     # Coerces value to Location
-    def coerce
+    def coerce(*)
       Location.new(value)
     end
   end
@@ -76,7 +76,7 @@ module Contentful
   # Coercion for Object Types
   class ObjectCoercion < BaseCoercion
     # Coerces value to hash, symbolizing each key
-    def coerce
+    def coerce(*)
       JSON.parse(JSON.dump(value), symbolize_names: true)
     end
   end
@@ -90,10 +90,73 @@ module Contentful
   # Coercion for Array Types
   class ArrayCoercion < BaseCoercion
     # Coerces value for each element
-    def coerce
+    def coerce(*)
       value.map do |e|
         options[:coercion_class].new(e).coerce
       end
+    end
+  end
+
+  # Coercion for StructuredText Types
+  class StructuredTextCoercion < BaseCoercion
+    # Resolves includes and removes unresolvable nodes
+    def coerce(configuration)
+      coerce_block(value, configuration)
+    end
+
+    private
+
+    def link?(node)
+      node['nodeClass'] == 'block' && node.key?('data')
+    end
+
+    def content_block?(node)
+      node['nodeClass'] == 'block' && node.key?('content')
+    end
+
+    def coerce_block(block, configuration)
+      return block unless block.is_a?(Hash) && block.key?('content')
+
+      invalid_nodes = []
+      block['content'].each_with_index do |node, index|
+        if link?(node)
+          link = coerce_link(node, configuration)
+
+          if !link.nil?
+            node['data'] = link
+          else
+            invalid_nodes << index
+          end
+        elsif content_block?(node)
+          node['content'] = coerce_block(node, configuration)
+        end
+      end
+
+      invalid_nodes.each do |index|
+        block['content'].delete_at(index)
+      end
+
+      block
+    end
+
+    def coerce_link(node, configuration)
+      return node unless node.key?('data') && node['data'].key?('target')
+      return node unless node['data']['target']['sys']['type'] == 'Link'
+
+      return nil if Support.unresolvable?(node['data']['target'], configuration[:errors])
+
+      resource = Support.resource_for_link(
+        node['data']['target'],
+        configuration[:includes_for_single]
+      )
+
+      ResourceBuilder.new(
+        resource,
+        configuration,
+        configuration[:localized],
+        configuration[:depth] + 1,
+        configuration[:errors]
+      ).run
     end
   end
 end

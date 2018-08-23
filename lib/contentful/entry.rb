@@ -26,7 +26,15 @@ module Contentful
 
       unless content_type.nil?
         content_type_field = content_type.field_for(field_id)
-        return content_type_field.coerce(value) unless content_type_field.nil?
+        coercion_configuration = @configuration.merge(
+          includes_for_single:
+            @configuration.fetch(:includes_for_single, []) + includes,
+          _entries_cache: entries,
+          localized: localized,
+          depth: @depth,
+          errors: errors
+        )
+        return content_type_field.coerce(value, coercion_configuration) unless content_type_field.nil?
       end
 
       super(field_id, value, includes, errors, entries)
