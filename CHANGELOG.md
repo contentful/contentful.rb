@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## 2.9.0
+## 2.9.1
 
 **Note:** This release includes support for `StructuredText`, this is an **alpha** feature and changes are to be expected. Further releases of this feature
 will not increase a major version even if changes are breaking.
@@ -12,6 +12,10 @@ will not increase a major version even if changes are breaking.
 
 ### Fixed
 * Fixed `DateCoercion` when value is already a `Date`, `DateTime` or `Time` object. [contentful_model/#121](https://github.com/contentful/contentful_model/issues/121)
+
+## 2.9.0 **YANKED**
+
+Yanked due to faulty release
 
 ## 2.8.1
 ### Fixed
