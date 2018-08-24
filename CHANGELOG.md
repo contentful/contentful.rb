@@ -1,8 +1,14 @@
 # Change Log
 
 ## Unreleased
+
+## 2.9.0
+
+**Note:** This release includes support for `StructuredText`, this is an **alpha** feature and changes are to be expected. Further releases of this feature
+will not increase a major version even if changes are breaking.
+
 ### Added
-* Added support for StructuredText field type.
+* Added support for `StructuredText` field type.
 
 ## 2.8.1
 ### Fixed
