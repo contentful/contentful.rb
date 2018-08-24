@@ -60,6 +60,7 @@ module Contentful
     # Coerces value to DateTime
     def coerce(*)
       return nil if value.nil?
+      return value if value.is_a?(Date)
 
       DateTime.parse(value)
     end
