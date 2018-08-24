@@ -10,6 +10,9 @@ will not increase a major version even if changes are breaking.
 ### Added
 * Added support for `StructuredText` field type.
 
+### Fixed
+* Fixed `DateCoercion` when value is already a `Date`, `DateTime` or `Time` object. [contentful_model/#121](https://github.com/contentful/contentful_model/issues/121)
+
 ## 2.8.1
 ### Fixed
 * Fixed deeply nested resources now also filter unresolvable entries. [#177](https://github.com/contentful/contentful.rb/issues/177)

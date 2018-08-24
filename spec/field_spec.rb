@@ -84,6 +84,12 @@ describe Contentful::Field do
         coercion = Contentful::DateCoercion.new(nil)
         expect(coercion.coerce).to eq(nil)
       end
+
+      it 'can coerce properly when value is already datetime' do
+        value = DateTime.new
+        coercion = Contentful::DateCoercion.new(value)
+        expect(coercion.coerce).to eq value
+      end
     end
   end
 end
