@@ -538,5 +538,49 @@ describe Contentful::Entry do
         expect(expected_entry_occurrances).to eq 0
       }
     end
+
+    it 'respects content in data attribute if its not a Link' do
+      vcr('entries/structured_text_nested_fields') {
+        entry = create_client(
+          space: 'jd7yc4wnatx3',
+          access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
+          raise_errors: true,
+          dynamic_entries: :auto
+        ).entry('6NGLswCREsGA28kGouScyY')
+
+        expect(entry.body['content'][0]).to eq({
+            'data' => {},
+            'content' => [
+                {'marks' => [], 'value' => 'A link to ', 'nodeType' => 'text', 'nodeClass' => 'text'},
+                {
+                    'data' => {'uri' => 'https://google.com'},
+                    'content' => [{'marks' => [], 'value' => 'google', 'nodeType' => 'text', 'nodeClass' => 'text'}],
+                    'nodeType' => 'hyperlink',
+                    'nodeClass' => 'inline'
+                },
+                {'marks' => [], 'value' => '', 'nodeType' => 'text', 'nodeClass' => 'text'}
+            ],
+            'nodeType' => 'paragraph',
+            'nodeClass' => 'block'
+        })
+      }
+    end
+
+    it 'supports includes in nested fields' do
+      vcr('entries/structured_text_nested_fields') {
+        entry = create_client(
+          space: 'jd7yc4wnatx3',
+          access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
+          raise_errors: true,
+          dynamic_entries: :auto
+        ).entry('6NGLswCREsGA28kGouScyY')
+
+        expect(entry.body['content'][3]['nodeType']).to eq('unordered-list')
+        expect(entry.body['content'][3]['content'][2]['content'][0]['data'].is_a?(Contentful::Entry)).to be_truthy
+
+        expect(entry.body['content'][4]['nodeType']).to eq('ordered-list')
+        expect(entry.body['content'][4]['content'][2]['content'][0]['data'].is_a?(Contentful::Entry)).to be_truthy
+      }
+    end
   end
 end
