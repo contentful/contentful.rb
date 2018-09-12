@@ -215,11 +215,6 @@ client = Contentful::Client.new(
       <td>Defines default locale for the client.</td>
     </tr>
     <tr>
-      <td><code>environment</code></td>
-      <td><code>'master'</code></td>
-      <td>Defines default environment to access.</td>
-    </tr>
-    <tr>
       <td><code>secure</code></td>
       <td><code>true</code></td>
       <td>Defines whether to use HTTPS or HTTP. By default we use HTTPS.</td>
