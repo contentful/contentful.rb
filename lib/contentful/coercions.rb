@@ -108,17 +108,18 @@ module Contentful
     private
 
     def link?(node)
-      node['nodeClass'] == 'block' && node.key?('data')
+      !node.fetch('data', {}).empty? && node['data']['target']
     end
 
     def content_block?(node)
-      node['nodeClass'] == 'block' && node.key?('content')
+      !node.fetch('content', []).empty?
     end
 
     def coerce_block(block, configuration)
       return block unless block.is_a?(Hash) && block.key?('content')
 
       invalid_nodes = []
+      coerced_nodes = {}
       block['content'].each_with_index do |node, index|
         if link?(node)
           link = coerce_link(node, configuration)
@@ -129,8 +130,12 @@ module Contentful
             invalid_nodes << index
           end
         elsif content_block?(node)
-          node['content'] = coerce_block(node, configuration)
+          coerced_nodes[index] = coerce_block(node, configuration)
         end
+      end
+
+      coerced_nodes.each do |index, coerced_node|
+        block['content'][index] = coerced_node
       end
 
       invalid_nodes.each do |index|
