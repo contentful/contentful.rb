@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Added safeguard for re-serialization of `StructuredText` nodes.
 
 ## 2.9.2
 ### Added

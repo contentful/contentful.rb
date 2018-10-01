@@ -108,7 +108,9 @@ module Contentful
     private
 
     def link?(node)
-      !node.fetch('data', {}).empty? && node['data']['target']
+      !node['data'].is_a?(::Contentful::Entry) &&
+        !node.fetch('data', {}).empty? &&
+        node['data']['target']
     end
 
     def content_block?(node)
