@@ -96,7 +96,7 @@ describe Contentful::Error do
           error = Contentful::Error[response.raw.status].new(response)
 
           message = "HTTP status code: 503\n"\
-                    "Message: The request was malformed or missing a required parameter.\n"\
+                    "Message: The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.\n"\
                     "Request ID: 85f-351076632"
           expect(error.message).to eq message
         end
