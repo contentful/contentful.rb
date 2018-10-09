@@ -186,7 +186,7 @@ module Contentful
     protected
 
     def default_error_message
-      'The request was malformed or missing a required parameter.'
+      'The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.'
     end
   end
 

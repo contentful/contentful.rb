@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed incorrect default error message for `503 Service Unavailable` errors. [#183](https://github.com/contentful/contentful.rb/issues/183)
 
 ## 2.9.3
 ### Fixed
