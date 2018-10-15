@@ -7,18 +7,18 @@ module Contentful
   class Field
     # Coercions from Contentful Types to Ruby native types
     KNOWN_TYPES = {
-      'String'         => StringCoercion,
-      'Text'           => TextCoercion,
-      'Symbol'         => SymbolCoercion,
-      'Integer'        => IntegerCoercion,
-      'Number'         => FloatCoercion,
-      'Boolean'        => BooleanCoercion,
-      'Date'           => DateCoercion,
-      'Location'       => LocationCoercion,
-      'Object'         => ObjectCoercion,
-      'Array'          => ArrayCoercion,
-      'Link'           => LinkCoercion,
-      'StructuredText' => StructuredTextCoercion
+      'String'   => StringCoercion,
+      'Text'     => TextCoercion,
+      'Symbol'   => SymbolCoercion,
+      'Integer'  => IntegerCoercion,
+      'Number'   => FloatCoercion,
+      'Boolean'  => BooleanCoercion,
+      'Date'     => DateCoercion,
+      'Location' => LocationCoercion,
+      'Object'   => ObjectCoercion,
+      'Array'    => ArrayCoercion,
+      'Link'     => LinkCoercion,
+      'RichText' => RichTextCoercion
     }
 
     attr_reader :raw, :id, :name, :type, :link_type, :items, :required, :localized

@@ -514,14 +514,15 @@ describe Contentful::Entry do
     end
   end
 
-  describe 'structured text support' do
+  describe 'rich text support' do
     it 'properly serializes and resolves includes' do
-      vcr('entries/structured_text') {
+      vcr('entries/rich_text') {
         entry = create_client(
           space: 'jd7yc4wnatx3',
           access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
           raise_errors: true,
-          dynamic_entries: :auto
+          dynamic_entries: :auto,
+          gzip_encoded: false
         ).entry('4BupPSmi4M02m0U48AQCSM')
 
         expected_entry_occurrances = 2
@@ -540,12 +541,13 @@ describe Contentful::Entry do
     end
 
     it 'respects content in data attribute if its not a Link' do
-      vcr('entries/structured_text_nested_fields') {
+      vcr('entries/rich_text_nested_fields') {
         entry = create_client(
           space: 'jd7yc4wnatx3',
           access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
           raise_errors: true,
-          dynamic_entries: :auto
+          dynamic_entries: :auto,
+          gzip_encoded: false
         ).entry('6NGLswCREsGA28kGouScyY')
 
         expect(entry.body['content'][0]).to eq({
@@ -567,12 +569,13 @@ describe Contentful::Entry do
     end
 
     it 'supports includes in nested fields' do
-      vcr('entries/structured_text_nested_fields') {
+      vcr('entries/rich_text_nested_fields') {
         entry = create_client(
           space: 'jd7yc4wnatx3',
           access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
           raise_errors: true,
-          dynamic_entries: :auto
+          dynamic_entries: :auto,
+          gzip_encoded: false
         ).entry('6NGLswCREsGA28kGouScyY')
 
         expect(entry.body['content'][3]['nodeType']).to eq('unordered-list')
