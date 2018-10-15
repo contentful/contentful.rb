@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Changed
+* Renamed `StructuredText` to `RichText`.
 
 ## 2.9.4
 ### Fixed

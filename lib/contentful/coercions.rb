@@ -98,8 +98,8 @@ module Contentful
     end
   end
 
-  # Coercion for StructuredText Types
-  class StructuredTextCoercion < BaseCoercion
+  # Coercion for RichText Types
+  class RichTextCoercion < BaseCoercion
     # Resolves includes and removes unresolvable nodes
     def coerce(configuration)
       coerce_block(value, configuration)
