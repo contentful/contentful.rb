@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.10.1
 ### Fixed
 * Fixed `Marshal.load` for entries with unpublished related entries.
 
