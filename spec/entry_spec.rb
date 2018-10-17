@@ -192,6 +192,32 @@ describe Contentful::Entry do
         expect(rehydrated.childs.last.image2.url).to eq '//images.contentful.com/j8tb59fszch7/1NU1YcNQJGIA22gAKmKqWo/56fa672bb17a7b7ae2773d08e101d059/57ee64921c25faa649fc79288197c313.jpg'
       }
     end
+
+    it 'filters out unpublished resources after rehydration' do
+      vcr('entry/marshal_unpublished') {
+        parent = create_client(
+          space: 'z3eix6mwjid2',
+          access_token: '9047c4394a2130dff8e9dc544a7a3ec299703fdac8e52575eb5a6678be06c468',
+          dynamic_entries: :auto
+        ).entry('5Etc0jWzIWwMeSu4W0SCi8')
+
+        rehydrated = Marshal.load(Marshal.dump(parent))
+
+        expect(rehydrated.children).to be_empty
+
+        preview_parent = create_client(
+          space: 'z3eix6mwjid2',
+          access_token: '38153b942011a70b5482fda61c6a3a9d22f5e8a512662dac00fcf7eb344b75f4',
+          dynamic_entries: :auto,
+          api_url: 'preview.contentful.com'
+        ).entry('5Etc0jWzIWwMeSu4W0SCi8')
+
+        preview_rehydrated = Marshal.load(Marshal.dump(preview_parent))
+
+        expect(preview_rehydrated.children).not_to be_empty
+        expect(preview_rehydrated.children.first.title).to eq 'Child'
+      }
+    end
   end
 
   describe 'incoming links' do
