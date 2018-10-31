@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
     gem.add_development_dependency'term-ansicolor', '~> 1.3.0'
     gem.add_development_dependency 'public_suffix', '< 1.5'
   else
-    gem.add_dependency 'http', '> 0.8', '< 3.0'
+    gem.add_dependency 'http', '> 0.8', '< 4.0'
   end
 
   gem.add_dependency 'multi_json', '~> 1'
@@ -39,6 +39,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rr'
   gem.add_development_dependency 'vcr'
   gem.add_development_dependency 'simplecov'
-  gem.add_development_dependency 'webmock', '~> 1', '>= 1.17.3'
+  gem.add_development_dependency 'webmock'
   gem.add_development_dependency 'tins', '~> 1.6.0'
 end
