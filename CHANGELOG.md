@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.11.0
 ### Added
 * Added `:raise_for_empty_fields` configuration option. [#190](https://github.com/contentful/contentful.rb/issues/190)
 
