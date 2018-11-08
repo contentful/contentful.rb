@@ -1,6 +1,9 @@
 # Change Log
 
 ## Unreleased
+### Added
+* Added `:raise_for_empty_fields` configuration option. [#190](https://github.com/contentful/contentful.rb/issues/190)
+
 ### Fixed
 * Links in `RichText` fields, that are published but unreachable, due to not having enough include depth on the request, are now returned as `Link` objects.
 

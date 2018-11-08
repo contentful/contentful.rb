@@ -540,6 +540,45 @@ describe Contentful::Entry do
     end
   end
 
+  describe 'empty fields' do
+    it 'raises an exception by default' do
+      vcr('entries/empty_fields') {
+        entry = create_client(
+          space: 'z4ssexir3p93',
+          access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+          dynamic_entries: :auto
+        ).entry('2t1x77MgUA4SM2gMiaUcsy')
+
+        expect { entry.title }.to raise_error Contentful::EmptyFieldError
+      }
+    end
+
+    it 'returns nil if raise_for_empty_fields is false' do
+      vcr('entries/empty_fields') {
+        entry = create_client(
+          space: 'z4ssexir3p93',
+          access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+          dynamic_entries: :auto,
+          raise_for_empty_fields: false
+        ).entry('2t1x77MgUA4SM2gMiaUcsy')
+
+        expect(entry.title).to be_nil
+      }
+    end
+
+    it 'will properly raise NoMethodError for non-fields' do
+      vcr('entries/empty_fields') {
+        entry = create_client(
+          space: 'z4ssexir3p93',
+          access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+          dynamic_entries: :auto
+        ).entry('2t1x77MgUA4SM2gMiaUcsy')
+
+        expect { entry.unexisting_field }.to raise_error NoMethodError
+      }
+    end
+  end
+
   describe 'rich text support' do
     it 'properly serializes and resolves includes' do
       vcr('entries/rich_text') {

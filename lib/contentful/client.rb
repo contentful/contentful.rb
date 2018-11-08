@@ -17,6 +17,7 @@ module Contentful
     DEFAULT_CONFIGURATION = {
       secure: true,
       raise_errors: true,
+      raise_for_empty_fields: true,
       dynamic_entries: :manual,
       api_url: 'cdn.contentful.com',
       api_version: 1,
@@ -76,6 +77,7 @@ module Contentful
     # @option given_configuration [false, ::Logger] :logger
     # @option given_configuration [::Logger::DEBUG, ::Logger::INFO, ::Logger::WARN, ::Logger::ERROR] :log_level
     # @option given_configuration [Boolean] :raise_errors
+    # @option given_configuration [Boolean] :raise_for_empty_fields
     # @option given_configuration [::Array<String>] :dynamic_entries
     # @option given_configuration [::Hash<String, Contentful::Resource>] :resource_mapping
     # @option given_configuration [::Hash<String, Contentful::Resource>] :entry_mapping

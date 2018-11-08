@@ -230,6 +230,11 @@ client = Contentful::Client.new(
       <td>Determines whether errors are raised or returned.</td>
     </tr>
     <tr>
+      <td><code>raise_for_empty_fields</code></td>
+      <td><code>true</code></td>
+      <td>Determines whether <code>EmptyFieldError</code> is raised when empty fields are requested on an entry or <code>nil</code> is returned.</td>
+    </tr>
+    <tr>
       <td><code>dynamic_entries</code></td>
       <td><code>:manual</code></td>
       <td>
