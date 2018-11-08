@@ -1,6 +1,11 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Links in `RichText` fields, that are published but unreachable, due to not having enough include depth on the request, are now returned as `Link` objects.
+
+### Changed
+* Included resources for embedded entries and assets in Rich Text fields are now properly serialized to `data.target` instead of the top level `data`.
 
 ## 2.10.1
 ### Fixed

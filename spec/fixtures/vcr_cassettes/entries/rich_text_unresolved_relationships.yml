@@ -1,0 +1,983 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/jd7yc4wnatx3/environments/master/content_types?limit=1000
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.10.1; platform ruby/2.4.1; os macOS/16;
+      Authorization:
+      - Bearer 6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda_cached
+      Etag:
+      - W/"c214174cf04bf1116db90ecd71642f13"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Contentful-Request-Id:
+      - '085e7d1350b08f255c8838fbc2eb45a2'
+      Content-Length:
+      - '4220'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Thu, 08 Nov 2018 03:12:25 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-sin18026-SIN
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1541646745.108479,VS0,VE489
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 4,
+          "skip": 0,
+          "limit": 1000,
+          "items": [
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "jd7yc4wnatx3"
+                  }
+                },
+                "id": "stTest",
+                "type": "ContentType",
+                "createdAt": "2018-08-22T10:43:50.802Z",
+                "updatedAt": "2018-10-17T09:39:10.176Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "revision": 4
+              },
+              "displayField": "name",
+              "name": "StTest",
+              "description": "",
+              "fields": [
+                {
+                  "id": "name",
+                  "name": "Name",
+                  "type": "Symbol",
+                  "localized": false,
+                  "required": false,
+                  "disabled": false,
+                  "omitted": false
+                },
+                {
+                  "id": "body",
+                  "name": "Body",
+                  "type": "RichText",
+                  "localized": false,
+                  "required": false,
+                  "disabled": false,
+                  "omitted": false
+                }
+              ]
+            },
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "jd7yc4wnatx3"
+                  }
+                },
+                "id": "parent",
+                "type": "ContentType",
+                "createdAt": "2018-11-08T03:09:07.946Z",
+                "updatedAt": "2018-11-08T03:09:07.946Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "revision": 1
+              },
+              "displayField": "name",
+              "name": "Parent",
+              "description": "",
+              "fields": [
+                {
+                  "id": "name",
+                  "name": "Name",
+                  "type": "Symbol",
+                  "localized": false,
+                  "required": false,
+                  "disabled": false,
+                  "omitted": false
+                },
+                {
+                  "id": "richTextChild",
+                  "name": "RichTextChild",
+                  "type": "Link",
+                  "localized": false,
+                  "required": false,
+                  "disabled": false,
+                  "omitted": false,
+                  "linkType": "Entry"
+                }
+              ]
+            },
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "jd7yc4wnatx3"
+                  }
+                },
+                "id": "embedded",
+                "type": "ContentType",
+                "createdAt": "2018-08-22T10:44:07.886Z",
+                "updatedAt": "2018-08-22T10:44:07.886Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "revision": 1
+              },
+              "displayField": "body",
+              "name": "Embedded",
+              "description": "",
+              "fields": [
+                {
+                  "id": "body",
+                  "name": "Body",
+                  "type": "Symbol",
+                  "localized": false,
+                  "required": false,
+                  "disabled": false,
+                  "omitted": false
+                }
+              ]
+            },
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "jd7yc4wnatx3"
+                  }
+                },
+                "id": "markdownContentType",
+                "type": "ContentType",
+                "createdAt": "2018-10-25T14:00:13.975Z",
+                "updatedAt": "2018-10-25T14:00:13.975Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "revision": 1
+              },
+              "displayField": "name",
+              "name": "MarkdownContentType",
+              "description": "",
+              "fields": [
+                {
+                  "id": "name",
+                  "name": "name",
+                  "type": "Symbol",
+                  "localized": false,
+                  "required": false,
+                  "disabled": false,
+                  "omitted": false
+                },
+                {
+                  "id": "markdownBody",
+                  "name": "markdown body",
+                  "type": "Text",
+                  "localized": false,
+                  "required": false,
+                  "disabled": false,
+                  "omitted": false
+                }
+              ]
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Thu, 08 Nov 2018 03:12:27 GMT
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/jd7yc4wnatx3/environments/master/entries?sys.id=4fvSwl5Ob6UEWKg6MQicuC
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.10.1; platform ruby/2.4.1; os macOS/16;
+      Authorization:
+      - Bearer 6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda_cached
+      Etag:
+      - W/"8e50c2400821b697d2f8b1d30b181239"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Contentful-Request-Id:
+      - 6ae052bff036ce6852d642b57bfc69f3
+      Content-Length:
+      - '18769'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Thu, 08 Nov 2018 03:12:27 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-sin18030-SIN
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1541646746.449270,VS0,VE792
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 1,
+          "skip": 0,
+          "limit": 100,
+          "items": [
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "jd7yc4wnatx3"
+                  }
+                },
+                "id": "4fvSwl5Ob6UEWKg6MQicuC",
+                "type": "Entry",
+                "createdAt": "2018-11-08T03:09:27.268Z",
+                "updatedAt": "2018-11-08T03:09:27.268Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "revision": 1,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "parent"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "name": "Parent",
+                "richTextChild": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Entry",
+                    "id": "3pIlhtl7kkA0CyqIS2mq0M"
+                  }
+                }
+              }
+            }
+          ],
+          "includes": {
+            "Entry": [
+              {
+                "sys": {
+                  "space": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "jd7yc4wnatx3"
+                    }
+                  },
+                  "id": "3pIlhtl7kkA0CyqIS2mq0M",
+                  "type": "Entry",
+                  "createdAt": "2018-10-23T13:03:26.119Z",
+                  "updatedAt": "2018-10-23T14:39:43.470Z",
+                  "environment": {
+                    "sys": {
+                      "id": "master",
+                      "type": "Link",
+                      "linkType": "Environment"
+                    }
+                  },
+                  "revision": 2,
+                  "contentType": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "stTest"
+                    }
+                  },
+                  "locale": "en-US"
+                },
+                "fields": {
+                  "name": "All Features - v2",
+                  "body": {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Heading 1",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "heading-1"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Heading 2",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "heading-2"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Heading 3",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "heading-3"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Heading 4",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "heading-4"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Heading 5",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "heading-5"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Heading 6",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "heading-6"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Normal Text",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [
+                              {
+                                "type": "bold"
+                              }
+                            ],
+                            "value": "Bold Text",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [
+                              {
+                                "type": "italic"
+                              }
+                            ],
+                            "value": "Italic Text",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [
+                              {
+                                "type": "underline"
+                              }
+                            ],
+                            "value": "Underline Text",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [
+                              {
+                                "type": "code"
+                              }
+                            ],
+                            "value": "Code Text",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [
+                              {
+                                "type": "bold"
+                              },
+                              {
+                                "type": "italic"
+                              }
+                            ],
+                            "value": "Combined Marks",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "content": [
+                              {
+                                "data": {},
+                                "marks": [],
+                                "value": "A quote",
+                                "nodeType": "text"
+                              }
+                            ],
+                            "nodeType": "paragraph"
+                          }
+                        ],
+                        "nodeType": "blockquote"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {
+                              "uri": "https://example.com"
+                            },
+                            "content": [
+                              {
+                                "data": {},
+                                "marks": [],
+                                "value": "A Hyperlink",
+                                "nodeType": "text"
+                              }
+                            ],
+                            "nodeType": "hyperlink"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {
+                              "target": {
+                                "sys": {
+                                  "id": "49rofLvvxCOiIMIi6mk8ai",
+                                  "type": "Link",
+                                  "linkType": "Entry"
+                                }
+                              }
+                            },
+                            "content": [
+                              {
+                                "data": {},
+                                "marks": [],
+                                "value": "Entry Hyperlink",
+                                "nodeType": "text"
+                              }
+                            ],
+                            "nodeType": "entry-hyperlink"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {
+                              "target": {
+                                "sys": {
+                                  "id": "4j1JCmvF6MqQymaMqi6OSu",
+                                  "type": "Link",
+                                  "linkType": "Asset"
+                                }
+                              }
+                            },
+                            "content": [
+                              {
+                                "data": {},
+                                "marks": [],
+                                "value": "Asset Hyp",
+                                "nodeType": "text"
+                              },
+                              {
+                                "data": {},
+                                "marks": [
+                                  {
+                                    "type": "italic"
+                                  }
+                                ],
+                                "value": "erlink",
+                                "nodeType": "text"
+                              }
+                            ],
+                            "nodeType": "asset-hyperlink"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "content": [
+                              {
+                                "data": {},
+                                "content": [
+                                  {
+                                    "data": {},
+                                    "marks": [],
+                                    "value": "Unordered List",
+                                    "nodeType": "text"
+                                  }
+                                ],
+                                "nodeType": "paragraph"
+                              }
+                            ],
+                            "nodeType": "list-item"
+                          },
+                          {
+                            "data": {},
+                            "content": [
+                              {
+                                "data": {},
+                                "content": [
+                                  {
+                                    "data": {},
+                                    "marks": [],
+                                    "value": "With Multiple Items",
+                                    "nodeType": "text"
+                                  }
+                                ],
+                                "nodeType": "paragraph"
+                              },
+                              {
+                                "data": {},
+                                "content": [
+                                  {
+                                    "data": {},
+                                    "content": [
+                                      {
+                                        "data": {},
+                                        "content": [
+                                          {
+                                            "data": {},
+                                            "marks": [],
+                                            "value": "With Nested Values",
+                                            "nodeType": "text"
+                                          }
+                                        ],
+                                        "nodeType": "paragraph"
+                                      },
+                                      {
+                                        "data": {},
+                                        "content": [
+                                          {
+                                            "data": {},
+                                            "content": [
+                                              {
+                                                "data": {},
+                                                "content": [
+                                                  {
+                                                    "data": {},
+                                                    "marks": [],
+                                                    "value": "With Nested Ordered",
+                                                    "nodeType": "text"
+                                                  }
+                                                ],
+                                                "nodeType": "paragraph"
+                                              }
+                                            ],
+                                            "nodeType": "list-item"
+                                          }
+                                        ],
+                                        "nodeType": "ordered-list"
+                                      }
+                                    ],
+                                    "nodeType": "list-item"
+                                  }
+                                ],
+                                "nodeType": "unordered-list"
+                              }
+                            ],
+                            "nodeType": "list-item"
+                          }
+                        ],
+                        "nodeType": "unordered-list"
+                      },
+                      {
+                        "data": {},
+                        "content": [],
+                        "nodeType": "hr"
+                      },
+                      {
+                        "data": {
+                          "target": {
+                            "sys": {
+                              "id": "4j1JCmvF6MqQymaMqi6OSu",
+                              "type": "Link",
+                              "linkType": "Asset"
+                            }
+                          }
+                        },
+                        "content": [],
+                        "nodeType": "embedded-asset-block"
+                      },
+                      {
+                        "data": {
+                          "target": {
+                            "sys": {
+                              "id": "5ZF9Q4K6iWSYIU2OUs0UaQ",
+                              "type": "Link",
+                              "linkType": "Entry"
+                            }
+                          }
+                        },
+                        "content": [],
+                        "nodeType": "embedded-entry-block"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "An Inline Embed ",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {
+                              "target": {
+                                "sys": {
+                                  "id": "5ZF9Q4K6iWSYIU2OUs0UaQ",
+                                  "type": "Link",
+                                  "linkType": "Entry"
+                                }
+                              }
+                            },
+                            "content": [],
+                            "nodeType": "embedded-entry-inline"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Unpublished embed",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      },
+                      {
+                        "data": {
+                          "target": {
+                            "sys": {
+                              "id": "q2hGXkd5tICym64AcgeKK",
+                              "type": "Link",
+                              "linkType": "Entry"
+                            }
+                          }
+                        },
+                        "content": [],
+                        "nodeType": "embedded-entry-block"
+                      },
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "document"
+                  }
+                }
+              }
+            ],
+            "Asset": [
+              {
+                "sys": {
+                  "space": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "jd7yc4wnatx3"
+                    }
+                  },
+                  "id": "4j1JCmvF6MqQymaMqi6OSu",
+                  "type": "Asset",
+                  "createdAt": "2018-10-23T12:54:57.548Z",
+                  "updatedAt": "2018-10-23T12:54:57.548Z",
+                  "environment": {
+                    "sys": {
+                      "id": "master",
+                      "type": "Link",
+                      "linkType": "Environment"
+                    }
+                  },
+                  "revision": 1,
+                  "locale": "en-US"
+                },
+                "fields": {
+                  "title": "cat",
+                  "file": {
+                    "url": "//images.ctfassets.net/jd7yc4wnatx3/4j1JCmvF6MqQymaMqi6OSu/d0013ff28dd2db0371315ea7e63a6e0b/cat.jpg",
+                    "details": {
+                      "size": 75713,
+                      "image": {
+                        "width": 640,
+                        "height": 423
+                      }
+                    },
+                    "fileName": "cat",
+                    "contentType": "image/jpeg"
+                  }
+                }
+              }
+            ]
+          }
+        }
+    http_version: 
+  recorded_at: Thu, 08 Nov 2018 03:12:29 GMT
+recorded_with: VCR 4.0.0

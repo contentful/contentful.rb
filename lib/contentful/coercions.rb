@@ -1,4 +1,5 @@
 require_relative 'location'
+require_relative 'link'
 
 module Contentful
   # Basic Coercion
@@ -127,7 +128,7 @@ module Contentful
           link = coerce_link(node, configuration)
 
           if !link.nil?
-            node['data'] = link
+            node['data']['target'] = link
           else
             invalid_nodes << index
           end
@@ -157,6 +158,9 @@ module Contentful
         node['data']['target'],
         configuration[:includes_for_single]
       )
+
+      # Resource is valid but unreachable
+      return Link.new(node['data']['target'], configuration) if resource.nil?
 
       ResourceBuilder.new(
         resource,
