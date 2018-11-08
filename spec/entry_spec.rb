@@ -555,8 +555,8 @@ describe Contentful::Entry do
         embedded_entry_index = 1
         entry.body['content'].each do |content|
           if content['nodeType'] == 'embedded-entry-block'
-            expect(content['data']).to be_a Contentful::Entry
-            expect(content['data'].body).to eq "Embedded #{embedded_entry_index}"
+            expect(content['data']['target']).to be_a Contentful::Entry
+            expect(content['data']['target'].body).to eq "Embedded #{embedded_entry_index}"
             expected_entry_occurrances -= 1
             embedded_entry_index += 1
           end
@@ -605,10 +605,25 @@ describe Contentful::Entry do
         ).entry('6NGLswCREsGA28kGouScyY')
 
         expect(entry.body['content'][3]['nodeType']).to eq('unordered-list')
-        expect(entry.body['content'][3]['content'][2]['content'][0]['data'].is_a?(Contentful::Entry)).to be_truthy
+        expect(entry.body['content'][3]['content'][2]['content'][0]['data']['target'].is_a?(Contentful::Entry)).to be_truthy
 
         expect(entry.body['content'][4]['nodeType']).to eq('ordered-list')
-        expect(entry.body['content'][4]['content'][2]['content'][0]['data'].is_a?(Contentful::Entry)).to be_truthy
+        expect(entry.body['content'][4]['content'][2]['content'][0]['data']['target'].is_a?(Contentful::Entry)).to be_truthy
+      }
+    end
+
+    it 'returns a link when resource is valid but unreachable' do
+      vcr('entries/rich_text_unresolved_relationships') {
+        parent = create_client(
+          space: 'jd7yc4wnatx3',
+          access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
+          raise_errors: true,
+          dynamic_entries: :auto,
+          gzip_encoded: false
+        ).entry('4fvSwl5Ob6UEWKg6MQicuC')
+
+        entry = parent.rich_text_child
+        expect(entry.body['content'][19]['data']['target'].is_a?(Contentful::Link)).to be_truthy
       }
     end
   end
