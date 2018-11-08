@@ -201,4 +201,11 @@ module Contentful
 
   # Raised when response is not parsable as a Contentful::Resource
   class UnparsableResource < StandardError; end
+
+  # Raised when an undefined field is requested
+  class EmptyFieldError < StandardError
+    def initialize(name)
+      super("The field '#{name}' is empty and unavailable in the response")
+    end
+  end
 end

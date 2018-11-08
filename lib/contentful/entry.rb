@@ -1,3 +1,4 @@
+require_relative 'error'
 require_relative 'fields_resource'
 require_relative 'content_type_cache'
 require_relative 'resource_references'
@@ -89,7 +90,33 @@ module Contentful
       (object.is_a?(Contentful::Entry) || object.is_a?(Contentful::Asset))
     end
 
+    def method_missing(name, *args, &block)
+      return empty_field_error(name) if content_type_field?(name)
+
+      super
+    end
+
+    def respond_to_missing?(name, include_private = false)
+      content_type_field?(name) || super
+    end
+
     protected
+
+    def content_type_field?(name)
+      content_type = ContentTypeCache.cache_get(
+        sys[:space].id,
+        sys[:content_type].id
+      )
+
+      return false if content_type.nil?
+
+      !content_type.field_for(name).nil?
+    end
+
+    def empty_field_error(name)
+      return nil unless @configuration[:raise_for_empty_fields]
+      fail EmptyFieldError, name
+    end
 
     def repr_name
       content_type_key = Support.snakify('contentType', @configuration[:use_camel_case]).to_sym
