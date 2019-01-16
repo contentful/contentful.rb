@@ -150,7 +150,8 @@ module Contentful
 
     def coerce_link(node, configuration)
       return node unless node.key?('data') && node['data'].key?('target')
-      return node unless node['data']['target'].is_a?(Hash) && node['data']['target']['sys']['type'] == 'Link'
+      return node['data']['target'] unless node['data']['target'].is_a?(Hash)
+      return node unless node['data']['target']['sys']['type'] == 'Link'
 
       return nil if Support.unresolvable?(node['data']['target'], configuration[:errors])
 
