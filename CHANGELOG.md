@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.11.1
 ### Fixed
 * Fixed coercion error when same entry was included more than once in the same RichText field. [#194](https://github.com/contentful/contentful.rb/pull/194)
 
