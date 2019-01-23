@@ -605,6 +605,25 @@ describe Contentful::Entry do
       }
     end
 
+    it 'doesnt hydrate the same entry twice - #194' do
+      vcr('entries/rich_text_hydration_issue') {
+        entry = nil
+
+        expect {
+          entry = create_client(
+            space: 'fds721b88p6b',
+            access_token: '45ba81cc69423fcd2e3f0a4779de29481bb5c11495bc7e14649a996cf984e98e',
+            raise_errors: true,
+            dynamic_entries: :auto,
+            gzip_encoded: false
+          ).entry('1tBAu0wP9qAQEg6qCqMics')
+        }.not_to raise_error
+
+        expect(entry.children[0].id).to eq entry.children[1].id
+        expect(entry.children[0].body).to eq entry.children[1].body
+      }
+    end
+
     it 'respects content in data attribute if its not a Link' do
       vcr('entries/rich_text_nested_fields') {
         entry = create_client(
