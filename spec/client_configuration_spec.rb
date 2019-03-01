@@ -368,7 +368,7 @@ describe 'Client Configuration Options' do
       1.upto(2) do |options_count|
         full_options.keys.combination(options_count).each do |option_keys|
           expect do
-            create_client(full_options.slice(*option_keys))
+            create_client(full_options.select { |key, _| option_keys.include?(key) })
           end.to raise_error(ArgumentError)
         end
       end

@@ -124,7 +124,7 @@ module Contentful
         connect: configuration[:timeout_connect],
         read: configuration[:timeout_read],
         write: configuration[:timeout_write]
-      }.compact
+      }.reject { |_, value| value.nil? }
     end
 
     # Returns the default configuration
