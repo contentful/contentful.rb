@@ -65,12 +65,15 @@ module Contentful
       end
     end
 
+    LINKS = %w[space contentType environment].freeze
+    TIMESTAMPS = %w[createdAt updatedAt deletedAt].freeze
+
     def hydrate_sys
       result = {}
       raw.fetch('sys', {}).each do |k, v|
-        if %w[space contentType environment].include?(k)
+        if LINKS.include?(k)
           v = build_link(v)
-        elsif %w[createdAt updatedAt deletedAt].include?(k)
+        elsif TIMESTAMPS.include?(k)
           v = DateTime.parse(v)
         end
         result[Support.snakify(k, @configuration[:use_camel_case]).to_sym] = v
