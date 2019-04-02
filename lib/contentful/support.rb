@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Contentful
   # Utility methods used by the contentful gem
   module Support
