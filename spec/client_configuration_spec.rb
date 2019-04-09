@@ -347,4 +347,31 @@ describe 'Client Configuration Options' do
       expect(client.request_headers['X-Contentful-User-Agent']).to eq client.contentful_user_agent
     end
   end
+
+  describe 'timeout options' do
+    let(:full_options) { { timeout_connect: 1, timeout_read: 2, timeout_write: 3 } }
+
+    it 'allows the three options to be present together' do
+      expect do
+        create_client(full_options)
+      end.not_to raise_error
+    end
+
+    it 'allows the three options to be omitted' do
+      expect do
+        create_client()
+      end.not_to raise_error
+    end
+
+    it 'does not allow only some options to be set' do
+      # Test that any combination of 1 or 2 keys is rejected
+      1.upto(2) do |options_count|
+        full_options.keys.combination(options_count).each do |option_keys|
+          expect do
+            create_client(full_options.select { |key, _| option_keys.include?(key) })
+          end.to raise_error(ArgumentError)
+        end
+      end
+    end
+  end
 end

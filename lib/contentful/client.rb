@@ -35,6 +35,9 @@ module Contentful
       proxy_username: nil,
       proxy_password: nil,
       proxy_port: nil,
+      timeout_connect: nil,
+      timeout_read: nil,
+      timeout_write: nil,
       max_rate_limit_retries: 1,
       max_rate_limit_wait: 60,
       max_include_resolution_depth: 20,
@@ -49,11 +52,13 @@ module Contentful
 
     # Wraps the actual HTTP request via proxy
     # @private
-    def self.get_http(url, query, headers = {}, proxy = {})
+    def self.get_http(url, query, headers = {}, proxy = {}, timeout = {})
+      http = HTTP[headers]
+      http = http.timeout(timeout) if timeout.any?
       if proxy[:host]
-        HTTP[headers].via(proxy[:host], proxy[:port], proxy[:username], proxy[:password]).get(url, params: query)
+        http.via(proxy[:host], proxy[:port], proxy[:username], proxy[:password]).get(url, params: query)
       else
-        HTTP[headers].get(url, params: query)
+        http.get(url, params: query)
       end
     end
 
@@ -68,6 +73,9 @@ module Contentful
     # @option given_configuration [String] :proxy_username
     # @option given_configuration [String] :proxy_password
     # @option given_configuration [Number] :proxy_port
+    # @option given_configuration [Number] :timeout_read
+    # @option given_configuration [Number] :timeout_write
+    # @option given_configuration [Number] :timeout_connect
     # @option given_configuration [Number] :max_rate_limit_retries
     # @option given_configuration [Number] :max_rate_limit_wait
     # @option given_configuration [Number] :max_include_resolution_depth
@@ -108,6 +116,15 @@ module Contentful
         username: configuration[:proxy_username],
         password: configuration[:proxy_password]
       }
+    end
+
+    # @private
+    def timeout_params
+      {
+        connect: configuration[:timeout_connect],
+        read: configuration[:timeout_read],
+        write: configuration[:timeout_write]
+      }.reject { |_, value| value.nil? }
     end
 
     # Returns the default configuration
@@ -355,7 +372,8 @@ module Contentful
           url,
           request_query(request.query),
           request_headers,
-          proxy_params
+          proxy_params,
+          timeout_params
         ), request
       )
     end
@@ -431,6 +449,7 @@ module Contentful
       fail ArgumentError, 'The :dynamic_entries mode must be :auto or :manual' unless %i[auto manual].include?(
         configuration[:dynamic_entries]
       )
+      fail ArgumentError, 'Timeout parameters must be all omitted or all present' unless timeout_params.empty? || timeout_params.length == 3
     end
   end
 end

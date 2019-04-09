@@ -338,6 +338,21 @@ client = Contentful::Client.new(
       <td>Password for proxy authentication.</td>
     </tr>
     <tr>
+      <td><code>timeout_read</code></td>
+      <td><code>nil</code></td>
+      <td>Number of seconds the request waits to read from the server before timing out.</td>
+    </tr>
+    <tr>
+      <td><code>timeout_write</code></td>
+      <td><code>nil</code></td>
+      <td>Number of seconds the request waits when writing to the server before timing out.</td>
+    </tr>
+    <tr>
+      <td><code>timeout_connect</code></td>
+      <td><code>nil</code></td>
+      <td>Number of seconds the request waits to connect to the server before timing out.</td>
+    </tr>
+    <tr>
       <td><code>logger</code></td>
       <td><code>nil</code></td>
       <td>To enable logging pass a logger instance compatible with <code>::Logger</code>.</td>
