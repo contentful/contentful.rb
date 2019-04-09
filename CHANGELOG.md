@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Added
+* Add HTTP timeout configuration. [#196](https://github.com/contentful/contentful.rb/pull/196)
 
 ## 2.11.1
 ### Fixed
