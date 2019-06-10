@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
     gem.add_development_dependency'term-ansicolor', '~> 1.3.0'
     gem.add_development_dependency 'public_suffix', '< 1.5'
   else
-    gem.add_dependency 'http', '> 0.8', '< 4.0'
+    gem.add_dependency 'http', '> 0.8', '< 5.0'
   end
 
   gem.add_dependency 'multi_json', '~> 1'
