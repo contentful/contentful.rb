@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.13.0
+### Changed
+* Updated HTTP gem version limits. [#202](https://github.com/contentful/contentful.rb/pull/202)
+
 ## 2.12.0
 ### Added
 * Add HTTP timeout configuration. [#196](https://github.com/contentful/contentful.rb/pull/196)
