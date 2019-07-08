@@ -103,9 +103,11 @@ module Contentful
     protected
 
     def content_type_field?(name)
+      content_type_key = Support.snakify('contentType', @configuration[:use_camel_case])
+
       content_type = ContentTypeCache.cache_get(
         sys[:space].id,
-        sys[:content_type].id
+        sys[content_type_key.to_sym].id
       )
 
       return false if content_type.nil?

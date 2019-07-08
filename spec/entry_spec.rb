@@ -541,41 +541,85 @@ describe Contentful::Entry do
   end
 
   describe 'empty fields' do
-    it 'raises an exception by default' do
-      vcr('entries/empty_fields') {
-        entry = create_client(
-          space: 'z4ssexir3p93',
-          access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
-          dynamic_entries: :auto
-        ).entry('2t1x77MgUA4SM2gMiaUcsy')
+    context 'when default configuration' do
+      it 'raises an exception by default' do
+        vcr('entries/empty_fields') {
+          entry = create_client(
+            space: 'z4ssexir3p93',
+            access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+            dynamic_entries: :auto
+          ).entry('2t1x77MgUA4SM2gMiaUcsy')
 
-        expect { entry.title }.to raise_error Contentful::EmptyFieldError
-      }
+          expect { entry.title }.to raise_error Contentful::EmptyFieldError
+        }
+      end
+
+      it 'returns nil if raise_for_empty_fields is false' do
+        vcr('entries/empty_fields') {
+          entry = create_client(
+            space: 'z4ssexir3p93',
+            access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+            dynamic_entries: :auto,
+            raise_for_empty_fields: false
+          ).entry('2t1x77MgUA4SM2gMiaUcsy')
+
+          expect(entry.title).to be_nil
+        }
+      end
+
+      it 'will properly raise NoMethodError for non-fields' do
+        vcr('entries/empty_fields') {
+          entry = create_client(
+            space: 'z4ssexir3p93',
+            access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+            dynamic_entries: :auto
+          ).entry('2t1x77MgUA4SM2gMiaUcsy')
+
+          expect { entry.unexisting_field }.to raise_error NoMethodError
+        }
+      end
     end
 
-    it 'returns nil if raise_for_empty_fields is false' do
-      vcr('entries/empty_fields') {
-        entry = create_client(
-          space: 'z4ssexir3p93',
-          access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
-          dynamic_entries: :auto,
-          raise_for_empty_fields: false
-        ).entry('2t1x77MgUA4SM2gMiaUcsy')
+    context 'when use_camel_case is true it should still work' do
+      it 'raises an exception by default' do
+        vcr('entries/empty_fields') {
+          entry = create_client(
+            space: 'z4ssexir3p93',
+            access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+            dynamic_entries: :auto,
+            use_camel_case: true
+          ).entry('2t1x77MgUA4SM2gMiaUcsy')
 
-        expect(entry.title).to be_nil
-      }
-    end
+          expect { entry.title }.to raise_error Contentful::EmptyFieldError
+        }
+      end
 
-    it 'will properly raise NoMethodError for non-fields' do
-      vcr('entries/empty_fields') {
-        entry = create_client(
-          space: 'z4ssexir3p93',
-          access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
-          dynamic_entries: :auto
-        ).entry('2t1x77MgUA4SM2gMiaUcsy')
+      it 'returns nil if raise_for_empty_fields is false' do
+        vcr('entries/empty_fields') {
+          entry = create_client(
+            space: 'z4ssexir3p93',
+            access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+            dynamic_entries: :auto,
+            raise_for_empty_fields: false,
+            use_camel_case: true
+          ).entry('2t1x77MgUA4SM2gMiaUcsy')
 
-        expect { entry.unexisting_field }.to raise_error NoMethodError
-      }
+          expect(entry.title).to be_nil
+        }
+      end
+
+      it 'will properly raise NoMethodError for non-fields' do
+        vcr('entries/empty_fields') {
+          entry = create_client(
+            space: 'z4ssexir3p93',
+            access_token: 'e157fdaf7b325b71d07a94b7502807d4cfbbb1a34e69b7856838e25b92777bc6',
+            dynamic_entries: :auto,
+            use_camel_case: true
+          ).entry('2t1x77MgUA4SM2gMiaUcsy')
+
+          expect { entry.unexisting_field }.to raise_error NoMethodError
+        }
+      end
     end
   end
 
