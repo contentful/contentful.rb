@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed detection of empty fields when `:use_camel_case` is `true`. [#203](https://github.com/contentful/contentful.rb/issues/203)
 
 ## 2.13.0
 ### Changed
