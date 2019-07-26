@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.13.2
 ### Fixed
 * Removed unnecessary object dups and moved some static arrays that were regenerated each time to constants.
 
