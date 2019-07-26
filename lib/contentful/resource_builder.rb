@@ -25,10 +25,11 @@ module Contentful
       'DeletedEntry' => DeletedEntry,
       'DeletedAsset' => DeletedAsset,
       'Locale' => Locale
-    }
+    }.freeze
     # Default Entry Mapping
     # @see _ README for more information on Entry Mapping
-    DEFAULT_ENTRY_MAPPING = {}
+    DEFAULT_ENTRY_MAPPING = {}.freeze
+    BUILDABLES = %w[Entry Asset ContentType Space DeletedEntry DeletedAsset Locale].freeze
 
     attr_reader :json, :default_locale, :endpoint, :depth, :localized, :resource_mapping, :entry_mapping, :resource
 
@@ -67,7 +68,7 @@ module Contentful
         build_item(item, includes, errors)
       end
       array_class = fetch_array_class
-      array_class.new(json.dup.merge('items' => result), @configuration, endpoint)
+      array_class.new(json.merge('items' => result), @configuration, endpoint)
     end
 
     def build_single
@@ -77,8 +78,7 @@ module Contentful
     end
 
     def build_item(item, includes = [], errors = [])
-      buildables = %w[Entry Asset ContentType Space DeletedEntry DeletedAsset Locale]
-      item_type = buildables.detect { |b| b.to_s == item['sys']['type'] }
+      item_type = BUILDABLES.detect { |b| b == item['sys']['type'] }
       fail UnparsableResource, 'Item type is not known, could not parse' if item_type.nil?
       item_class = resource_class(item)
 
@@ -155,12 +155,12 @@ module Contentful
 
     # The default mapping for #detect_resource_class
     def default_resource_mapping
-      DEFAULT_RESOURCE_MAPPING.dup
+      DEFAULT_RESOURCE_MAPPING
     end
 
     # The default entry mapping
     def default_entry_mapping
-      DEFAULT_ENTRY_MAPPING.dup
+      DEFAULT_ENTRY_MAPPING
     end
   end
 end
