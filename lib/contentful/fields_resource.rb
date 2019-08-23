@@ -110,8 +110,8 @@ module Contentful
     end
 
     def hydrate_nonlocalized_fields(includes, errors, entries)
-      result = { locale => {} }
       locale = internal_resource_locale
+      result = { locale => {} }
       raw['fields'].each do |name, value|
         name = Support.snakify(name, @configuration[:use_camel_case])
         result[locale][name.to_sym] = coerce(

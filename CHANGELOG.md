@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed unfiltered unresolvable entries and assets from re-marshalled entries. [#207](https://github.com/contentful/contentful.rb/pull/207)
 
 ## 2.13.2
 ### Fixed
