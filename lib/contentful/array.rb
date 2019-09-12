@@ -44,7 +44,9 @@ module Contentful
         ResourceBuilder.new(
           item.raw,
           raw_object[:configuration].merge(includes_for_single: Support.includes_from_response(raw, false)),
-          item.respond_to?(:localized) ? item.localized : false
+          item.respond_to?(:localized) ? item.localized : false,
+          0,
+          raw_object[:configuration][:errors] || []
         ).run
       end
     end
