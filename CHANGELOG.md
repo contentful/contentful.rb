@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.14.0
+### Added
+* Allow user defined methods to override properties created by the SDK, if you want to access overriden fields or sys properties use `#fields[]` or `#sys[]` as accessors. [#210](https://github.com/contentful/contentful.rb/pull/210)
+
 ## 2.13.3
 ### Fixed
 * Fixed unfiltered unresolvable entries and assets from re-marshalled entries. [#207](https://github.com/contentful/contentful.rb/pull/207)
