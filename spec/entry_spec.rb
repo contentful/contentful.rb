@@ -3,6 +3,19 @@ require 'spec_helper'
 describe Contentful::Entry do
   let(:entry) { vcr('entry') { create_client.entry 'nyancat' } }
 
+  let(:subclass) do
+    Class.new(described_class) do
+      # An overridden sys method:
+      def created_at; 'yesterday'; end
+
+      # An overridden field method:
+      def best_friend; 'octocat'; end
+    end
+  end
+
+  let(:raw) { entry.raw }
+  let(:subclassed_entry) { subclass.new(raw, create_client.configuration) }
+
   describe 'SystemProperties' do
     it 'has a #sys getter returning a hash with symbol keys' do
       expect(entry.sys).to be_a Hash
@@ -36,6 +49,12 @@ describe Contentful::Entry do
     it 'has #revision' do
       expect(entry.revision).to eq 5
     end
+
+    context 'when subclassed' do
+      it 'does not redefine existing methods' do
+        expect(subclassed_entry.created_at).to eq 'yesterday'
+      end
+    end
   end
 
   describe 'Fields' do
@@ -47,6 +66,12 @@ describe Contentful::Entry do
     it "contains the entry's fields" do
       expect(entry.fields[:color]).to eq 'rainbow'
       expect(entry.fields[:best_friend]).to be_a Contentful::Entry
+    end
+
+    context 'when subclassed' do
+      it 'does not redefine existing methods' do
+        expect(subclassed_entry.best_friend).to eq 'octocat'
+      end
     end
   end
 

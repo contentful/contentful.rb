@@ -83,9 +83,7 @@ module Contentful
 
     def define_fields_methods!
       fields.each do |k, v|
-        define_singleton_method k do
-          v
-        end
+        define_singleton_method(k) { v } unless self.class.method_defined?(k)
       end
     end
 
