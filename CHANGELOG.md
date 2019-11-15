@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.15.0
 ### Added
 * Added the capability for `Array#next_page` to support carry-over of query parameters.
 
