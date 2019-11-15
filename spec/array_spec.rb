@@ -63,6 +63,25 @@ describe Contentful::Array do
     it 'will return false if #request not available' do
       expect(Contentful::Array.new({}).reload).to be_falsey
     end
+
+    it 'respects query parameters' do
+      array_page_1 = vcr('query_array_1') { client.entries(content_type: 'cat', limit: 1) }
+      array_page_2 = vcr('query_array_2') { array_page_1.next_page(client) }
+
+      expect(array_page_1).to be_a Contentful::Array
+      expect(array_page_2).to be_a Contentful::Array
+
+      expect(array_page_1.query).to include(content_type: 'cat')
+      expect(array_page_2.query).to include(content_type: 'cat')
+
+      expect(array_page_1.size).to eq 1
+      expect(array_page_2.size).to eq 1
+
+      expect(array_page_1[0].content_type.id).to eq 'cat'
+      expect(array_page_2[0].content_type.id).to eq 'cat'
+
+      expect(array_page_1[0].id).not_to eq array_page_2[0].id
+    end
   end
 
   describe 'marshalling' do
