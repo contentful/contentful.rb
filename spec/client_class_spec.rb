@@ -28,7 +28,7 @@ describe Contentful::Client do
     end
 
     it 'uses Request#query' do
-      expect(request).to receive(:query).twice.and_call_original
+      expect(request).to receive(:query).thrice.and_call_original
       vcr('content_type') { client.get(request) }
     end
 

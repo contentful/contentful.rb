@@ -21,6 +21,9 @@ AllCops:
 Metrics/ClassLength:
   Max: 280
 
+Metrics/ParameterLists:
+  Max: 6
+
 Style/MutableConstant:
   Enabled: false
 

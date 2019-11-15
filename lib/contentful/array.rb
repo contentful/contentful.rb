@@ -11,13 +11,13 @@ module Contentful
 
     include Contentful::ArrayLike
 
-    attr_reader :total, :limit, :skip, :items, :endpoint
+    attr_reader :total, :limit, :skip, :items, :endpoint, :query
 
     def initialize(item = nil,
                    configuration = {
                      default_locale: Contentful::Client::DEFAULT_CONFIGURATION[:default_locale]
                    },
-                   endpoint = '', *)
+                   endpoint = '', query = {}, *)
       super(item, configuration)
 
       @endpoint = endpoint
@@ -25,11 +25,12 @@ module Contentful
       @limit = item.fetch('limit', nil)
       @skip = item.fetch('skip', nil)
       @items = item.fetch('items', [])
+      @query = query
     end
 
     # @private
     def marshal_dump
-      super.merge(endpoint: endpoint)
+      super.merge(endpoint: endpoint, query: query)
     end
 
     # @private
@@ -39,6 +40,7 @@ module Contentful
       @total = raw.fetch('total', nil)
       @limit = raw.fetch('limit', nil)
       @skip = raw.fetch('skip', nil)
+      @query = raw_object[:query]
       @items = raw.fetch('items', []).map do |item|
         require_relative 'resource_builder'
         ResourceBuilder.new(
@@ -72,7 +74,8 @@ module Contentful
         'Asset' => 'assets',
         'Locale' => 'locales'
       }
-      client.public_send(plurals[items.first.type], limit: limit, skip: new_skip)
+
+      client.public_send(plurals[items.first.type], query.merge(limit: limit, skip: new_skip))
     end
   end
 end

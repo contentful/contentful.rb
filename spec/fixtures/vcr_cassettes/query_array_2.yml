@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries?content_type=cat&limit=1&skip=1
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.14.0; platform ruby/2.6.3; os macOS/18;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/4.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '400'
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cf-Environment-Id:
+      - master
+      Cf-Environment-Uuid:
+      - b0e55a5c-6ee0-4c81-b32a-3bd22a568e43
+      Cf-Organization-Id:
+      - 7BLDDu2FYCNoN4QIWys1BR
+      Cf-Space-Id:
+      - cfexampleapi
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda_cached
+      Etag:
+      - W/"12211725640257057039"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 15 Nov 2019 09:46:47 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-bma1624-BMA
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding
+      X-Contentful-Request-Id:
+      - 74c9dc83-4a97-4ac3-8780-8c3d2540f815
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA41TTW/CMAy98ytQrhtTGiagvaEJ7bIb7LKJg9cGZjVNqzSgVYj/viT9ChVSySGKndjv2X65TKZTUlYliaYXczSGrgpuLLJWCipifNdn+0bnGoTxz51VplgYI3CGwAx1Z6HmmU337dLVSQcYDqcsILZA7Yva6TGxDudsGX2gTIlF7JfBlumuYbx1GQcPMLHFxAf+B1khOBRoa2rXtTu7KutF6pgjqANykXgZOyobqVXlX8SKg+bJ2vaBMBrMZ3QxY8sdY9HrImL0ZcWCLz/gVCTDgJUNCGhEw4guX0IW3gRweUaVy4xLizHetbqIDErN1bApj3Z042GOdk3xM5aYS8OOec2Mc6kN52ZI47wf5fbm5b0/c9DjoxZ5DMLpncvZ57YN6NRAnAT672EVQiRkLuT9jkIEpryXfyMoASUcJfR09jcNErmy6XIF8ugLmPyg0r+J+YbmNgiXoRVVsNqxeUSNTOiT231VCTw4dHkSwoMQeHbusBliLXu77yfXyT+v5gceBAQAAA==
+    http_version: 
+  recorded_at: Fri, 15 Nov 2019 09:46:47 GMT
+recorded_with: VCR 5.0.0

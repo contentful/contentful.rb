@@ -386,7 +386,9 @@ module Contentful
         response.object,
         configuration.merge(endpoint: response.request.endpoint),
         (response.request.query || {}).fetch(:locale, nil) == '*',
-        0
+        0,
+        [],
+        response.request.query || {}
       ).run
     end
 

@@ -32,9 +32,9 @@ module Contentful
     # Buildable Resources
     BUILDABLES = %w[Entry Asset ContentType Space DeletedEntry DeletedAsset Locale].freeze
 
-    attr_reader :json, :default_locale, :endpoint, :depth, :localized, :resource_mapping, :entry_mapping, :resource
+    attr_reader :json, :default_locale, :endpoint, :depth, :localized, :resource_mapping, :entry_mapping, :resource, :query
 
-    def initialize(json, configuration = {}, localized = false, depth = 0, errors = [])
+    def initialize(json, configuration = {}, localized = false, depth = 0, errors = [], query = {})
       @json = json
       @default_locale = configuration.fetch(:default_locale, ::Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       @resource_mapping = default_resource_mapping.merge(configuration.fetch(:resource_mapping, {}))
@@ -46,6 +46,7 @@ module Contentful
       @configuration = configuration
       @resource_cache = configuration[:_entries_cache] || {}
       @errors = errors
+      @query = query
     end
 
     # Starts the parsing process.
@@ -69,7 +70,7 @@ module Contentful
         build_item(item, includes, errors)
       end
       array_class = fetch_array_class
-      array_class.new(json.merge('items' => result), @configuration, endpoint)
+      array_class.new(json.merge('items' => result), @configuration, endpoint, query)
     end
 
     def build_single
