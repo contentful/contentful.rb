@@ -17,7 +17,9 @@ module Contentful
                    configuration = {
                      default_locale: Contentful::Client::DEFAULT_CONFIGURATION[:default_locale]
                    },
-                   endpoint = '', query = {}, *)
+                   endpoint = '',
+                   query = {},
+                   *)
       super(item, configuration)
 
       @endpoint = endpoint
