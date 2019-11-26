@@ -10,10 +10,7 @@ module Contentful
 
     # @private
     def marshal_dump
-      {
-        configuration: @configuration,
-        raw: raw
-      }
+      super.merge(raw: raw)
     end
 
     # @private
@@ -21,6 +18,11 @@ module Contentful
       super(raw_object)
       create_files!
       define_asset_methods!
+    end
+
+    # @private
+    def known_link?(*)
+      false
     end
 
     # @private

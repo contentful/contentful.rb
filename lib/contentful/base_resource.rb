@@ -31,14 +31,27 @@ module Contentful
 
     # @private
     def marshal_dump
+      entry_mapping = @configuration[:entry_mapping].each_with_object({}) do |(k, v), res|
+        res[k] = v.to_s
+      end
+
       {
-        configuration: @configuration,
+        configuration: @configuration.merge(entry_mapping: entry_mapping),
         raw: raw
       }
     end
 
     # @private
     def marshal_load(raw_object)
+      raw_object[:configuration][:entry_mapping] = raw_object[:configuration].fetch(:entry_mapping, {}).each_with_object({}) do |(k, v), res|
+        begin
+          v = v.to_s unless v.is_a?(::String)
+          res[k] = v.split('::').inject(Object) { |o, c| o.const_get c }
+        rescue
+          next
+        end
+      end
+
       @raw = raw_object[:raw]
       @configuration = raw_object[:configuration]
       @default_locale = @configuration[:default_locale]
