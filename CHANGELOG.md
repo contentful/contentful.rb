@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.15.1
+### Fixed
+* Fixed how `entry_mapping` is cached in order to avoid errors when deserializing resources that have been serialized with previously deleted mapping classes. [#212](https://github.com/contentful/contentful.rb/issues/212)
+
 ## 2.15.0
 ### Added
 * Added the capability for `Array#next_page` to support carry-over of query parameters.
