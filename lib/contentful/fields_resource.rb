@@ -48,11 +48,7 @@ module Contentful
 
     # @private
     def marshal_dump
-      {
-        configuration: @configuration,
-        raw: raw_with_links,
-        localized: localized
-      }
+      super.merge(raw: raw_with_links, localized: localized)
     end
 
     # @private

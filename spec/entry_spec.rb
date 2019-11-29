@@ -160,6 +160,7 @@ describe Contentful::Entry do
   describe 'can be marshalled' do
     def test_dump(nyancat)
       dump = Marshal.dump(nyancat)
+      yield if block_given?
       new_cat = Marshal.load(dump)
 
       # Attributes
@@ -182,6 +183,14 @@ describe Contentful::Entry do
 
       # Asset
       expect(new_cat.image.file.url).to eq "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
+    end
+
+    it 'marshals properly when entry_mapping changed' do
+      vcr('entry/marshall') {
+        class TestEntryMapping; end
+        nyancat = create_client(gzip_encoded: false, max_include_resolution_depth: 2, entry_mapping: { 'irrelevant_model' => TestEntryMapping }).entries(include: 2, 'sys.id' => 'nyancat').first
+        test_dump(nyancat) { Object.send(:remove_const, :TestEntryMapping) }
+      }
     end
 
     it 'marshals properly' do
