@@ -486,6 +486,17 @@ describe Contentful::Entry do
   end
 
   describe 'issues' do
+    it 'filters out unresolvable assets' do
+      vcr('entries/unresolvable_assets') {
+        client = create_client(space: 'facgnwwgj5fe', access_token: '4d0f55d940975f78139daae5d965b463c0816e88ad16062d2c1ee3d6cb930521')
+        entry = client.entry('gLVzQlb09IeOeU181fwtz')
+
+        expect(entry.single_asset).to be_nil
+        expect(entry.multi_asset.size).to eq 1
+        expect(entry.raw["fields"]["multiAsset"].size).to eq 2
+      }
+    end
+
     it 'Symbol/Text field with null values should be serialized as nil - #117' do
       vcr('entries/issue_117') {
         client = create_client(space: '8jbbayggj9gj', access_token: '4ce0108f04e55c76476ba84ab0e6149734db73d67cd1b429323ef67f00977e07')

@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed unresolvable single linked entries and assets returning a JSON Link rather than being `nil`, the same way they are filtered from Link arrays.
 
 ## 2.15.1
 ### Fixed
