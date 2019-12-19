@@ -17,7 +17,8 @@ module Contentful
     private
 
     def coerce(field_id, value, includes, errors, entries = {})
-      if Support.link?(value) && !Support.unresolvable?(value, errors)
+      if Support.link?(value)
+        return nil if Support.unresolvable?(value, errors)
         return build_nested_resource(value, includes, entries, errors)
       end
       return coerce_link_array(value, includes, errors, entries) if Support.link_array?(value)
