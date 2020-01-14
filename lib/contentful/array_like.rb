@@ -37,8 +37,8 @@ module Contentful
     # Delegates to items#[]
     #
     # @return [Contentful::Entry, Contentful::Asset]
-    def [](index)
-      items[index]
+    def [](*args)
+      items[*args]
     end
 
     # Delegates to items#last
