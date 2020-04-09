@@ -200,6 +200,13 @@ describe Contentful::Entry do
       }
     end
 
+    it 'marshals with a logger set' do
+      vcr('entry/marshall') {
+        nyancat = create_client(gzip_encoded: false, max_include_resolution_depth: 2, logger: Logger.new(IO::NULL)).entries(include: 2, 'sys.id' => 'nyancat').first
+        test_dump(nyancat)
+      }
+    end
+
     it 'can remarshall an unmarshalled object' do
       vcr('entry/marshall') {
         nyancat = create_client(max_include_resolution_depth: 2).entries(include: 2, 'sys.id' => 'nyancat').first
