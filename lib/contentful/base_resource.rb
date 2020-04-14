@@ -31,13 +31,13 @@ module Contentful
 
     # @private
     def marshal_dump
-      @configuration[:logger] = nil # loggers usually have a file handle that can't be marshalled
       entry_mapping = @configuration[:entry_mapping].each_with_object({}) do |(k, v), res|
         res[k] = v.to_s
       end
 
       {
-        configuration: @configuration.merge(entry_mapping: entry_mapping),
+        # loggers usually have a file handle that can't be marshalled, so let's not return that
+        configuration: @configuration.merge(entry_mapping: entry_mapping, logger: nil),
         raw: raw
       }
     end

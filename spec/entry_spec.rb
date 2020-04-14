@@ -200,10 +200,13 @@ describe Contentful::Entry do
       }
     end
 
-    it 'marshals with a logger set' do
+    it 'marshals with a logger set but keeps the instance' do
+      logger = Logger.new(IO::NULL)
       vcr('entry/marshall') {
-        nyancat = create_client(gzip_encoded: false, max_include_resolution_depth: 2, logger: Logger.new(IO::NULL)).entries(include: 2, 'sys.id' => 'nyancat').first
+        nyancat = create_client(gzip_encoded: false, max_include_resolution_depth: 2, logger: logger).entries(include: 2, 'sys.id' => 'nyancat').first
+        expect(nyancat.instance_variable_get(:@configuration)[:logger]).to eq(logger)
         test_dump(nyancat)
+        expect(nyancat.instance_variable_get(:@configuration)[:logger]).to eq(logger)
       }
     end
 
