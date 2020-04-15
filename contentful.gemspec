@@ -27,7 +27,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'multi_json', '~> 1'
 
   gem.add_development_dependency 'bundler'
-  gem.add_development_dependency 'rake', '< 11.0'
+  gem.add_development_dependency 'rake', '>= 12.3.3'
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
 
   gem.add_development_dependency 'guard'

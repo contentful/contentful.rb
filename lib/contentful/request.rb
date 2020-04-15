@@ -13,7 +13,12 @@ module Contentful
 
       if id
         @type = :single
-        @id = URI.escape(id)
+        # Given the deprecation of `URI::escape` and `URI::encode`
+        # it is needed to replace it with `URI::encode_www_form_component`.
+        # This method, does replace spaces with `+` instead of `%20`.
+        # Therefore, to keep backwards compatibility, we're replacing the resulting `+`
+        # back with `%20`.
+        @id = URI.encode_www_form_component(id).gsub('+', '%20')
       else
         @type = :multi
         @id = nil
