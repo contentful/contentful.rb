@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.15.3
 ### Fixed
 * Fixed a deprecation warning in Ruby 2.7.0 for `URI::escape` and replaced it with a backwards compatible mechanism. [#217](https://github.com/contentful/contentful.rb/issues/217)
 
