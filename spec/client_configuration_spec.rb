@@ -48,6 +48,23 @@ describe 'Client Configuration Options' do
     end
   end
 
+  describe ':log_level' do
+
+    let(:logger) { Logger.new(STDOUT) }
+
+    it 'changes the level of the logger instance when given' do
+      expect do
+        create_client(logger: logger, log_level: ::Logger::WARN)
+      end.to change { logger.level }.from(::Logger::DEBUG).to(::Logger::WARN)
+    end
+
+    it 'does not change the level of the logger instance when not given' do
+      expect do
+        create_client(logger: logger)
+      end.not_to change { logger.level }
+    end
+  end
+
   describe ':dynamic_entries' do
     before :each do
       Contentful::ContentTypeCache.clear!
