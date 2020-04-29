@@ -104,7 +104,7 @@ module Contentful
     # @private
     def setup_logger
       @logger = configuration[:logger]
-      logger.level = configuration[:log_level] if logger and configuration.has_key?(:log_level)
+      logger.level = configuration[:log_level] if logger && configuration.key?(:log_level)
     end
 
     # @private
