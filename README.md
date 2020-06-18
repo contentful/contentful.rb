@@ -363,6 +363,8 @@ client = Contentful::Client.new(
       <td>
         The default severity is set to INFO and logs only the request attributes (headers, parameters and url).
         Setting it to DEBUG will also log the raw JSON response.
+        WARNING: Setting this will override the level on the logger instance. Leave out this key to preserve
+        the original log_level on the logger, for example when using Rails.logger.
       </td>
     </tr>
   </tbody>

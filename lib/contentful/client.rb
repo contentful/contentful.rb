@@ -30,7 +30,6 @@ module Contentful
       raw_mode: false,
       gzip_encoded: true,
       logger: false,
-      log_level: Logger::INFO,
       proxy_host: nil,
       proxy_username: nil,
       proxy_password: nil,
@@ -105,7 +104,7 @@ module Contentful
     # @private
     def setup_logger
       @logger = configuration[:logger]
-      logger.level = configuration[:log_level] if logger
+      logger.level = configuration[:log_level] if logger && configuration.key?(:log_level)
     end
 
     # @private
