@@ -5,10 +5,10 @@
 ## 2.15.4
 
 ### Fixed
-* Fixed an issue where the `log_level` of `Logger` was changed unintentionally [#222]
-* Fixed an issue cause by a `Logger` not being correctly thrown away, causing an exception. [#220]
-* Added `title` field to assets to prevent Error raising when the field is empty. [#218]
-* Fixed an issue with `ArrayLike` not taking multiple arguments leading to Errors when using it with pagination libraries. [#215]
+* Fixed an issue where the `log_level` of `Logger` was changed unintentionally [#222](https://github.com/contentful/contentful.rb/pull/222)
+* Fixed an issue cause by a `Logger` not being correctly thrown away, causing an exception. [#220](https://github.com/contentful/contentful.rb/pull/220)
+* Added `title` field to assets to prevent Error raising when the field is empty. [#218](https://github.com/contentful/contentful.rb/pull/218)
+* Fixed an issue with `ArrayLike` not taking multiple arguments leading to Errors when using it with pagination libraries. [#215](https://github.com/contentful/contentful.rb/pull/215)
 
 ## 2.15.3
 ### Fixed
