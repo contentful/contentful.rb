@@ -36,6 +36,16 @@ describe Contentful::Array do
     end
   end
 
+  describe '#[]' do
+    it 'provides access to items by index' do
+      expect(array[0]).to be_a Contentful::BaseResource
+    end
+
+    it 'provides access to items by two indices' do
+      expect(array[0, 4]).to eq array.items
+    end
+  end
+
   describe '#each' do
     it 'is an Enumerator' do
       expect(array.each).to be_a Enumerator
