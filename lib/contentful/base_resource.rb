@@ -36,7 +36,8 @@ module Contentful
       end
 
       {
-        configuration: @configuration.merge(entry_mapping: entry_mapping),
+        # loggers usually have a file handle that can't be marshalled, so let's not return that
+        configuration: @configuration.merge(entry_mapping: entry_mapping, logger: nil),
         raw: raw
       }
     end

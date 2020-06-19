@@ -200,6 +200,16 @@ describe Contentful::Entry do
       }
     end
 
+    it 'marshals with a logger set but keeps the instance' do
+      logger = Logger.new(IO::NULL)
+      vcr('entry/marshall') {
+        nyancat = create_client(gzip_encoded: false, max_include_resolution_depth: 2, logger: logger).entries(include: 2, 'sys.id' => 'nyancat').first
+        expect(nyancat.instance_variable_get(:@configuration)[:logger]).to eq(logger)
+        test_dump(nyancat)
+        expect(nyancat.instance_variable_get(:@configuration)[:logger]).to eq(logger)
+      }
+    end
+
     it 'can remarshall an unmarshalled object' do
       vcr('entry/marshall') {
         nyancat = create_client(max_include_resolution_depth: 2).entries(include: 2, 'sys.id' => 'nyancat').first
