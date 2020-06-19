@@ -93,6 +93,10 @@ module Contentful
     end
 
     def define_asset_methods!
+      define_singleton_method :title do
+        fields.fetch(:title, nil)
+      end
+
       define_singleton_method :description do
         fields.fetch(:description, nil)
       end
