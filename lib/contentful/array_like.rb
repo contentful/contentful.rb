@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Contentful
   # Useful methods for array-like resources that can be included if an
   # :items property exists
@@ -46,6 +48,13 @@ module Contentful
     # @return [Contentful::Entry, Contentful::Asset]
     def last
       items.last
+    end
+
+    # Delegates to items#to_ary
+    #
+    # @return [Contentful::Entry, Contentful::Asset]
+    def to_ary
+      items
     end
   end
 end

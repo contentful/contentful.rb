@@ -60,6 +60,16 @@ describe Contentful::Array do
     end
   end
 
+  describe "#to_ary" do
+    it 'is an array' do
+      expect(array.to_ary).to be_a ::Array
+    end
+
+    it 'returns items' do
+      expect(array.to_ary).to eq array.items
+    end
+  end
+
   describe '#next_page' do
     it 'requests more of the same content from the server, using its limit and skip values' do
       array_page_1 = vcr('array_page_1') { create_client.content_types(skip: 3, limit: 2) }
