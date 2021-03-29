@@ -1,0 +1,238 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/content_types?limit=1000
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.15.4; platform ruby/2.7.1; os macOS/19;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '731'
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cf-Environment-Id:
+      - master
+      Cf-Environment-Uuid:
+      - a8fd17fd-5c8e-465f-bf8d-eb67f144dca0
+      Cf-Organization-Id:
+      - 4kQeJmhUWIKtNNmMkketza
+      Cf-Space-Id:
+      - cfexampleapi
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda_cached
+      Etag:
+      - W/"1428365732249037051"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Contentful-Route:
+      - "/spaces/:space/environments/:environment/content_types"
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sun, 28 Mar 2021 12:13:52 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '87766'
+      X-Served-By:
+      - cache-bom4721-BOM
+      X-Cache-Hits:
+      - '1'
+      X-Timer:
+      - S1616933633.514348,VS0,VE1
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - HIT
+      X-Contentful-Request-Id:
+      - 4452e776-4432-4002-b3ea-ef8e597daa42
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+1XTY/aMBC9769APhdkJyEsuaFqK1XqqcupFUIGzGKRrzqGlq747x07OImDWVB3FxWpvoA9nhnP8+R55vmu00HFrkBR5xn+wkTucgYzNBKC7hCs7T+oPTKTNIZ1X8+KNc9hgvUk5gmXMCMYlwtcskRZ/K4tlnZbbrSrIqdz5cvsKBcbh1ELetEc6gtP10g5rQe4T9fjw6EftcXWBr5Q8WTBKnwa/vTzLOMqLDP21X8daDlQqSNZIb2GueocH7NUslRqtw2tuWBUssVIoYE87JEu9rqkP8ZhFPgRwb3Qv//WVNjki2MFDxSCyB9EhPSCYGgpsHTLRZYm4Pwi4Mo4ElpIJtq4XArqQ8PnWeAE2/KCZ6nKB++wuwIWLXiRx3T3ibNYX0rCJAUEaHU0lNJEp58NPVqwYi54LkvLqN6/VKbqZFPXZ6VTCUBOUyv6ys2RwIDyGS74qYUZirM5jflvps6+pHHBmpmGBPux4eKEECKns/iEMIMPCPLGWHVlpCOoI/BU8FVkbqkJ73GXzLLYxuTq0R3inOjfQ5LcMFvQjVxlza/sr+gCh2Pcj/phhMOeT4LzdKEUYLcXBUFvMOzfLF2cZwvJZVzzbZXpIxv313IF3QIh2WRZuXLJTtLotejCIqHmazgqCibrt67xvjnYRPD5asx+STdPuqUm9K9O3avzSQ2EIz47eSyqHFt5pUX/efJ9q6p25WTwvrywIl2PjAmGIiki/R4Jw3NMCQrAlMMI+1GAe/cDuxK7pcLKC84WVqp8murayF1aTTXg5oN5LWWmm2TGBHFTRymctqRvU2dJsbFrsHcosxxQ2uwBUNuRm9iO6fTfokQg9bV8ifId0jei/GtcnGBLJljaagirt/yE2ARY9r/223qd8t/yaXrp5ot2piHeQo8CTRW0SrovmjTt6Xa97pcfUil0k29Goxu2q3OYTe72d38AoWM06DAQAAA=
+  recorded_at: Sun, 28 Mar 2021 12:13:52 GMT
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries?sys.id=52GcYcPOPhuhlaogl05DIh
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.15.4; platform ruby/2.7.1; os macOS/19;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '956'
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cf-Environment-Id:
+      - master
+      Cf-Environment-Uuid:
+      - a8fd17fd-5c8e-465f-bf8d-eb67f144dca0
+      Cf-Organization-Id:
+      - 4kQeJmhUWIKtNNmMkketza
+      Cf-Space-Id:
+      - cfexampleapi
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda_cached
+      Etag:
+      - '"18024233839947354630"'
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Contentful-Route:
+      - "/spaces/:space/environments/:environment/entries"
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sun, 28 Mar 2021 12:13:52 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-bom4749-BOM
+      X-Cache-Hits:
+      - '1'
+      X-Timer:
+      - S1616933633.546080,VS0,VE285
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - HIT
+      X-Contentful-Request-Id:
+      - 129a8fd6-d7a1-4873-8d23-b61c7fe7b62b
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 1,
+          "skip": 0,
+          "limit": 100,
+          "items": [
+            {
+              "metadata": {
+                "tags": [
+                  {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Tag",
+                      "id": "mobQa"
+                    }
+                  }
+                ]
+              },
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "id": "52GcYcPOPhuhlaogl05DIh",
+                "type": "Entry",
+                "createdAt": "2021-02-21T06:31:58.023Z",
+                "updatedAt": "2021-02-25T04:29:51.706Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "revision": 3,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "test2"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "title": {
+                              "en-US": "Can't publish this"
+                            },
+                            "shortDescription": {
+                              "en-US": "What is going on here can I still write? changed"
+                            }
+              }
+            }
+          ]
+        }
+  recorded_at: Sun, 28 Mar 2021 12:13:52 GMT
+recorded_with: VCR 6.0.0

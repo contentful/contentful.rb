@@ -189,4 +189,32 @@ describe Contentful::Asset do
       }
     end
   end
+
+  describe 'tags metadata' do
+    let(:asset_id) { '686aLBcjj1f47uFWxrepj6' }
+
+    it 'can load an asset with tags' do
+      vcr('asset/with_tags') {
+        expect {
+          asset = create_client.asset(asset_id)
+        }.not_to raise_error
+      }
+    end
+
+    it 'hydrates tags' do
+      vcr('asset/with_tags') {
+        asset = create_client.asset(asset_id)
+        expect(asset._metadata[:tags].first).to be_a Contentful::Link
+      }
+    end
+
+    it 'loads tag links with their proper attributes' do
+      vcr('asset/with_tags') {
+        asset = create_client.asset(asset_id)
+        tag = asset._metadata[:tags].first
+        expect(tag.id).to eq 'mobQa'
+        expect(tag.link_type).to eq 'Tag'
+      }
+    end
+  end
 end
