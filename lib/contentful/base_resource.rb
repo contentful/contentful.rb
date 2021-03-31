@@ -5,7 +5,7 @@ require_relative 'support'
 module Contentful
   # Base definition of a Contentful Resource containing Sys properties
   class BaseResource
-    attr_reader :raw, :default_locale, :sys
+    attr_reader :raw, :default_locale, :sys, :_metadata
 
     # rubocop:disable Metrics/ParameterLists
     def initialize(item, configuration = {}, _localized = false, _includes = [], entries = {}, depth = 0, _errors = [])
@@ -15,6 +15,7 @@ module Contentful
       @depth = depth
       @configuration = configuration
       @sys = hydrate_sys
+      @_metadata = hydrate_metadata
 
       define_sys_methods!
     end
@@ -57,6 +58,7 @@ module Contentful
       @configuration = raw_object[:configuration]
       @default_locale = @configuration[:default_locale]
       @sys = hydrate_sys
+      @_metadata = hydrate_metadata
       @depth = 0
       define_sys_methods!
     end
@@ -88,6 +90,15 @@ module Contentful
         elsif TIMESTAMPS.include?(k)
           v = DateTime.parse(v)
         end
+        result[Support.snakify(k, @configuration[:use_camel_case]).to_sym] = v
+      end
+      result
+    end
+
+    def hydrate_metadata
+      result = {}
+      raw.fetch('metadata', {}).each do |k, v|
+        v.map! { |tag| build_link(tag) } if k == 'tags'
         result[Support.snakify(k, @configuration[:use_camel_case]).to_sym] = v
       end
       result

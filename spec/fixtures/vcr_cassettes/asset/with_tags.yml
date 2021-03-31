@@ -1,0 +1,138 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/assets/686aLBcjj1f47uFWxrepj6
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.15.4; platform ruby/2.7.1; os macOS/19;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '1106'
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cf-Environment-Id:
+      - master
+      Cf-Environment-Uuid:
+      - a8fd17fd-5c8e-465f-bf8d-eb67f144dca0
+      Cf-Organization-Id:
+      - 4kQeJmhUWIKtNNmMkketza
+      Cf-Space-Id:
+      - cfexampleapi
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda_cached
+      Etag:
+      - W/"3103305513039094952"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Contentful-Route:
+      - "/spaces/:space/environments/:environment/assets/:id"
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 29 Mar 2021 10:27:50 GMT
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-dca17737-DCA, cache-bom4746-BOM
+      X-Cache-Hits:
+      - 0, 0
+      X-Timer:
+      - S1617013670.812930,VS0,VE282
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS
+      X-Contentful-Request-Id:
+      - a82aa39b-c5fb-4f2c-8848-f1b26cc7d313
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "metadata": {
+            "tags": [
+              {
+                "sys": {
+                  "type": "Link",
+                  "linkType": "Tag",
+                  "id": "mobQa"
+                }
+              }
+            ]
+          },
+          "sys": {
+            "space": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "cfexampleapi"
+              }
+            },
+            "id": "686aLBcjj1f47uFWxrepj6",
+            "type": "Asset",
+            "createdAt": "2021-02-06T05:59:37.794Z",
+            "updatedAt": "2021-03-29T10:22:06.152Z",
+            "environment": {
+              "sys": {
+                "id": "master",
+                "type": "Link",
+                "linkType": "Environment"
+              }
+            },
+            "revision": 2,
+            "locale": "en-US"
+          },
+          "fields": {
+            "title": "Avatar",
+            "description": "my photo",
+            "file": {
+              "url": "//images.ctfassets.net/cfexampleapi/686aLBcjj1f47uFWxrepj6/3bd27e35028b8210ca732eb037f4b567/WhatsApp_Image_2019-06-25_at_12.17.04.jpeg",
+              "details": {
+                "size": 108963,
+                "image": {
+                  "width": 868,
+                  "height": 1000
+                }
+              },
+              "fileName": "Avatar.jpeg",
+              "contentType": "image/jpeg"
+            }
+          }
+        }
+  recorded_at: Mon, 29 Mar 2021 10:27:49 GMT
+recorded_with: VCR 6.0.0

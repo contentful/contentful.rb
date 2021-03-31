@@ -784,4 +784,32 @@ describe Contentful::Entry do
       }
     end
   end
+
+  describe 'tags metadata' do
+    let(:entry_id) { '52GcYcPOPhuhlaogl05DIh' }
+
+    it 'can load an entry with tags' do
+      vcr('entry/with_tags') {
+        expect {
+          entry = create_client.entry(entry_id)
+        }.not_to raise_error
+      }
+    end
+
+    it 'hydrates tags' do
+      vcr('entry/with_tags') {
+        entry = create_client.entry(entry_id)
+        expect(entry._metadata[:tags].first).to be_a Contentful::Link
+      }
+    end
+
+    it 'loads tag links with their proper attributes' do
+      vcr('entry/with_tags') {
+        entry = create_client.entry(entry_id)
+        tag = entry._metadata[:tags].first
+        expect(tag.id).to eq 'mobQa'
+        expect(tag.link_type).to eq 'Tag'
+      }
+    end
+  end
 end

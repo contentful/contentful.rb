@@ -424,6 +424,15 @@ entry.color # 'rainbow'
 entry.birthday # #<DateTime: 2011-04-04T22:00:00+00:00 ((2455656j,79200s,0n),+0s,2299161j)>
 ```
 
+#### Accessing tags
+
+Tags can be accessed via the `#_metadata` method.
+
+```ruby
+entry = client.entry 'nyancat'
+entry._metadata[:tags] # => [<Contentful::Link id='tagID'>]
+```
+
 #### Dynamic entries
 
 However, you can (and should) set `:dynamic_entries` to `:auto` in your client configuration.
