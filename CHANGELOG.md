@@ -2,8 +2,11 @@
 
 ## Unreleased
 
+## 2.16.0
+
 ### Added
 * Added `Contentful::ArrayLike#to_ary`. [#200](https://github.com/contentful/contentful.rb/issues/200)
+* Added `_metadata[:tags]` to read metadata tags on `entry` and `asset`.
 
 ## 2.15.4
 
