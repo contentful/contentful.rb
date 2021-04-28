@@ -10,7 +10,8 @@ Gem::Specification.new do |gem|
   gem.email         = 'rubygems@contentful.com'
   gem.homepage      = 'https://github.com/contentful/contentful.rb'
 
-  gem.files         = Dir['{**/}{.*,*}'].select { |path| File.file?(path) && !path.start_with?('pkg') }
+  gem.files         = Dir["lib/**/*", "CHANGELOG.md", "LICENSE.txt", "README.md"]
+
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^spec/})
   gem.require_paths = ['lib']
