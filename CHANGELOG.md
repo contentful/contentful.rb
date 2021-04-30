@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 2.16.1
+* Removed unncessary files from gem release package.
+
 ## 2.16.0
 
 ### Added
