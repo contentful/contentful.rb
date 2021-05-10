@@ -99,7 +99,7 @@ module Contentful
     end
 
     def fetch_includes
-      Support.includes_from_response(json)
+      Includes.from_response(json)
     end
 
     def fetch_errors

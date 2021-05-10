@@ -10,6 +10,22 @@ module Contentful
       @lookup = lookup || build_lookup
     end
     
+    def self.from_response(json, raw = true)
+      includes = if raw
+                   json['items'].dup
+                 else
+                   json['items'].map(&:raw)
+                 end
+
+      %w[Entry Asset].each do |type|
+        if json.fetch('includes', {}).key?(type)
+          includes.concat(json['includes'].fetch(type, []))
+        end
+      end
+      
+      new includes
+    end
+    
     def +(other)
       dup.tap do |copy|
         copy.includes += other.includes
