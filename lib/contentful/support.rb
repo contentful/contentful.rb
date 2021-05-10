@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'includes'
+
 module Contentful
   # Utility methods used by the contentful gem
   module Support
@@ -80,7 +82,7 @@ module Contentful
           end
         end
 
-        includes
+        Includes.new(includes)
       end
     end
   end

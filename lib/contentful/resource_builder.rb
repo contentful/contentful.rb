@@ -8,6 +8,7 @@ require_relative 'link'
 require_relative 'deleted_entry'
 require_relative 'deleted_asset'
 require_relative 'locale'
+require_relative 'includes'
 
 module Contentful
   # Transforms a Contentful::Response into a Contentful::Resource or a Contentful::Error
@@ -39,7 +40,7 @@ module Contentful
       @default_locale = configuration.fetch(:default_locale, ::Contentful::Client::DEFAULT_CONFIGURATION[:default_locale])
       @resource_mapping = default_resource_mapping.merge(configuration.fetch(:resource_mapping, {}))
       @entry_mapping = default_entry_mapping.merge(configuration.fetch(:entry_mapping, {}))
-      @includes_for_single = configuration.fetch(:includes_for_single, [])
+      @includes_for_single = configuration.fetch(:includes_for_single, Includes.new)
       @localized = localized
       @depth = depth
       @endpoint = configuration.fetch(:endpoint, nil)
@@ -79,7 +80,7 @@ module Contentful
       build_item(json, includes, @errors)
     end
 
-    def build_item(item, includes = [], errors = [])
+    def build_item(item, includes = Includes.new, errors = [])
       item_type = BUILDABLES.detect { |b| b == item['sys']['type'] }
       fail UnparsableResource, 'Item type is not known, could not parse' if item_type.nil?
       item_class = resource_class(item)
