@@ -10,7 +10,7 @@ module Contentful
     attr_reader :localized
 
     # rubocop:disable Metrics/ParameterLists
-    def initialize(item, _configuration, localized = false, includes = [], entries = {}, depth = 0, errors = [])
+    def initialize(item, _configuration, localized = false, includes = Includes.new, entries = {}, depth = 0, errors = [])
       super
 
       @configuration[:errors] = errors
