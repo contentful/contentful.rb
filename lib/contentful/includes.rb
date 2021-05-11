@@ -1,13 +1,15 @@
+require_relative 'array_like'
+
 module Contentful
   # The includes hashes returned when include_level is specified
   class Includes
-    include Enumerable
+    include ArrayLike
     
-    attr_accessor :includes
+    attr_accessor :items
     attr_accessor :lookup
     
-    def initialize(array_of_hashes=[], lookup=nil)
-      self.includes = array_of_hashes
+    def initialize(items=[], lookup=nil)
+      self.items = items
       self.lookup = lookup || build_lookup
     end
     
@@ -32,37 +34,33 @@ module Contentful
       lookup[key]
     end
     
-    # Below are methods to make it behave more like an Array to provide
-    # backwards compatibility in a performant way.
+    # Override some of the features of Array to take into account the lookup
+    # field in a performant way.
     
     def +(other)
       dup.tap do |copy|
-        copy.includes += other.includes
+        copy.items += other.items
         copy.lookup.merge!(other.lookup)
       end
     end
     
     def dup
-      Includes.new(includes.dup, lookup.dup)
-    end
-    
-    def each(&block)
-      includes.each(&block)
+      Includes.new(items.dup, lookup.dup)
     end
 
     def marshal_dump
-      includes
+      items
     end
     
     def marshal_load(array)
-      self.includes = array
+      self.items = array
       self.lookup = build_lookup
     end
     
     private
     
     def build_lookup
-      includes.inject({}) do |h,i|
+      items.inject({}) do |h,i|
         key = "#{i['sys']['type']}:#{i['sys']['id']}"
         h[key] = i
         h
