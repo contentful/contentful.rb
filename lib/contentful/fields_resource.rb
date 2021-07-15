@@ -67,6 +67,7 @@ module Contentful
     def raw_with_links
       links = fields.keys.select { |property| known_link?(property) }
       processed_raw = raw.clone
+      processed_raw['fields'] = processed_raw['fields'].clone
       raw['fields'].each do |k, v|
         links_key = Support.snakify(k, @configuration[:use_camel_case])
         processed_raw['fields'][k] = links.include?(links_key.to_sym) ? send(links_key) : v
