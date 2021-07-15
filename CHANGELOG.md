@@ -1,6 +1,7 @@
 # Change Log
 
 ## Unreleased
+* Fix marshalling of objects with deep nested resources.
 
 ## 2.16.1
 * Removed unncessary files from gem release package.
