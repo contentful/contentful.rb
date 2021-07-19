@@ -1,5 +1,6 @@
 require_relative 'base_resource'
 require_relative 'array_like'
+require_relative 'includes'
 
 module Contentful
   # Resource Class for Arrays (e.g. search results)
@@ -47,7 +48,7 @@ module Contentful
         require_relative 'resource_builder'
         ResourceBuilder.new(
           item.raw,
-          raw_object[:configuration].merge(includes_for_single: Support.includes_from_response(raw, false)),
+          raw_object[:configuration].merge(includes_for_single: Includes.from_response(raw, false)),
           item.respond_to?(:localized) ? item.localized : false,
           0,
           raw_object[:configuration][:errors] || []

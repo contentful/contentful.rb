@@ -2,6 +2,7 @@
 
 require_relative 'support'
 require_relative 'base_resource'
+require_relative 'includes'
 
 module Contentful
   # Base definition of a Contentful Resource containing Field properties
@@ -9,7 +10,7 @@ module Contentful
     attr_reader :localized
 
     # rubocop:disable Metrics/ParameterLists
-    def initialize(item, _configuration, localized = false, includes = [], entries = {}, depth = 0, errors = [])
+    def initialize(item, _configuration, localized = false, includes = Includes.new, entries = {}, depth = 0, errors = [])
       super
 
       @configuration[:errors] = errors
@@ -56,7 +57,7 @@ module Contentful
       super(raw_object)
       @localized = raw_object[:localized]
       @fields = hydrate_fields(
-        raw_object[:configuration].fetch(:includes_for_single, []),
+        raw_object[:configuration].fetch(:includes_for_single, Includes.new),
         {},
         raw_object[:configuration].fetch(:errors, [])
       )
