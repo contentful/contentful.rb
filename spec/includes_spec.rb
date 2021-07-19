@@ -67,9 +67,17 @@ describe Contentful::Includes do
     let(:other) { described_class.new(example_array_2) }
     it 'adds the arrays and lookups together' do
       sum = subject + other
+      expect(sum.object_id).not_to eq(subject.object_id)
       expect(sum.length).to eq(4)
       expect(sum.lookup).to have_key("Entry:2fCmT4nxtO6eI6usgoEkQG")
       expect(sum.lookup).to have_key("Entry:49fzjGhfBCAu6iOqIeg8yQ")
+    end
+    context 'other is the same as subject' do
+      let(:other) { described_class.from_response(example_json) }
+      it 'just returns the subject unchanged' do
+        sum = subject + other
+        expect(sum.object_id).to eq(subject.object_id)
+      end
     end
   end
   

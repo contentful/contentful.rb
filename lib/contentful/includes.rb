@@ -34,7 +34,15 @@ module Contentful
     # Override some of the features of Array to take into account the lookup
     # field in a performant way.
 
+    # If the lookups are the same then these two objects are effectively the same    
+    def ==(other)
+      lookup == other.lookup
+    end
+
     def +(other)
+      # If we're being asked to add to itself, just return without duplicating
+      return self if self == other
+      
       dup.tap do |copy|
         copy.items += other.items
         copy.lookup.merge!(other.lookup)
