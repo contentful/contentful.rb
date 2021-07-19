@@ -79,6 +79,13 @@ describe Contentful::Includes do
         expect(sum.object_id).to eq(subject.object_id)
       end
     end
+    context 'other is the exact same object as subject' do
+      let(:other) { subject }
+      it 'just returns the subject unchanged' do
+        sum = subject + other
+        expect(sum.object_id).to eq(subject.object_id)
+      end
+    end
   end
   
   describe '#dup' do

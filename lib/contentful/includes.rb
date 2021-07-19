@@ -36,7 +36,7 @@ module Contentful
 
     # If the lookups are the same then these two objects are effectively the same    
     def ==(other)
-      lookup == other.lookup
+      object_id == other.object_id || lookup == other.lookup
     end
 
     def +(other)
