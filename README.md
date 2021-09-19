@@ -21,8 +21,8 @@
     <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License" />
   </a>
   &nbsp;
-  <a href="https://travis-ci.org/contentful/contentful.rb">
-    <img src="https://travis-ci.org/contentful/contentful.rb.svg?branch=master" alt="Build Status">
+  <a href="https://app.travis-ci.com/contentful/contentful.rb">
+    <img src="https://app.travis-ci.com/contentful/contentful.rb.svg?branch=master" alt="Build Status">
   </a>
 </p>
 
