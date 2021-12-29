@@ -1,0 +1,94 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries?sys.id=nyancat
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.16.1; platform ruby/2.7.1; os macOS/21;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '2903'
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cf-Environment-Id:
+      - master
+      Cf-Environment-Uuid:
+      - a8fd17fd-5c8e-465f-bf8d-eb67f144dca0
+      Cf-Organization-Id:
+      - 4kQeJmhUWIKtNNmMkketza
+      Cf-Space-Id:
+      - cfexampleapi
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda
+      Etag:
+      - W/"2787063741009175332"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Contentful-Route:
+      - "/spaces/:space/environments/:environment/entries"
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      Contentful-Cache:
+      - MISS
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 22 Dec 2021 14:41:36 GMT
+      Age:
+      - '411204'
+      X-Served-By:
+      - cache-iad-kcgs7200055-IAD, cache-bom4751-BOM
+      X-Cache-Hits:
+      - 0, 1
+      X-Timer:
+      - S1640184096.325230,VS0,VE1
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - HIT
+      X-Contentful-Request-Id:
+      - 3cf4a189-b45e-4203-bc86-8008f2653307
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+  recorded_at: Wed, 22 Dec 2021 14:41:36 GMT
+recorded_with: VCR 6.0.0
