@@ -1,0 +1,92 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries?sys.id=nyancat
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.16.1; platform ruby/2.6.5; os macOS/21;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '1110'
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cf-Environment-Id:
+      - master
+      Cf-Environment-Uuid:
+      - b0e55a5c-6ee0-4c81-b32a-3bd22a568e43
+      Cf-Organization-Id:
+      - 7BLDDu2FYCNoN4QIWys1BR
+      Cf-Space-Id:
+      - cfexampleapi
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda
+      Etag:
+      - W/"15360091980694725464"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Contentful-Route:
+      - "/spaces/:space/environments/:environment/entries"
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 29 Dec 2021 09:34:40 GMT
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-iad-kcgs7200074-IAD, cache-bom4741-BOM
+      X-Cache-Hits:
+      - 0, 0
+      X-Timer:
+      - S1640770480.430571,VS0,VE342
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS
+      X-Contentful-Request-Id:
+      - a40605d4-51d8-4cb3-acf3-a3d7cba98b11
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+2YW2/bNhTH3/MpAr1ulkjqrjcj6LAAWzEgLgZkKAJaomXGuk2ik7pFvvtISrKpq93WLy0mBI7Fm87585yfDv3l5vZWqw6VFtx+4V/5DTsUhN9py7LEB423vf0qxrCc4YS3Q3lX7WjBb4C8SWhKmegC9T1lJBUL/iMXrJflw1LCcIQZPj6qfhyO5diPcnDzNNmjWlU3FDgUprUrjo6Sja0Pf9BspwkbTxe3NtutGh8f5Iq9ATQS7ocb8gmnRUJwQYUK7fV2/C51qS+tnpMdcBZipix4tORdxsqD2hGWBDMSLYVwGgLQXABngdwVQoHlBNDXbWg+qhP2BRevO8FfAGsFfD46MH0dILczgWQvtMyzlGTiGedFq31IccVI2dfkUkHfKc88K1pJXmhF84xbZytahnnGuM3NHp23+1Lb7pR1x7ecb91Zo5M8xIlMEJItPjy0E47BoG0oSaJTPokA0TKcyinveYDc3nUjJKE7csqWJp5KTLN1/lp19oEvXW1PFn7saJbkpXhCM1ENnDWp2G8lJZmI6+vJ2Y9o6WgdQ1tcFAeRCGfVXNOSbSPOmToJIA9oEdM8CQDgf7/IT9WZhL5ItaBpumr+pTi+LhqWVUXUTFbca9N83LumteaE+JT7pNEsTPaRtL0BbS1gi8kTKKdQKbjWg6WCyxFgiqYRZI6OlO7NZBLvPQdO4eQsOrm1qmRqDvYDp9PXmjWMOG2eogjo0IUqFLmNQ45CuIDeCtqB7QUA6QB6vSnTJJ3WcoamX6X0BFHntFS46nWEnCbrtB+Xx8Q0X0+R0WXCnBMTnO1G/Ahr+bNa2v4uMNTDrYzjIXB5c7gl5PN6X8b87aeEqUJZMShvOBuL4qgj7iRmr6HtMPTneTSnbJe5wFxAsEDeCpkTzJWSNdTt5uwIdK/h7Bh6jyE09m7peXvcvRY39f9mJ7V6+f+5O/bCHuXucD/GuMuLUbSCVmA7gWnpyOkUo3z7htwF9RQ7gDBAlm46fVT/uNxFHSG/g2WMsrranIDZhsputawTWpfiqKYZBhUpWukh22BRz1R6RpihHm0M88/Hv7Lnx9V9tVve3+/2+7y6qyrD9BC2vGiDUbiGTmi5mH9z0cZdI3O9Ab7R5uGr/lzE/eNCxI96NOkWwU1lW9HPwmDb901fFamOxlGiyK5XGrEtn4hcsz+N924JjbfimGP6rgJvMVOtOTpvD7ms0O99U53PutR9d2pSWOO5IPFEkduWga2xpx0aPwhzW3726m54PBZOtz83DOrtCyBjgbPFXQOZI5cGU35cyMifYtpLuwZkRs6nTY58F2OsuHAYXr7+bd2lD/E+/ReR3YfU8CMMwgj6puO5cO1FLjItk3i+jQGIHAgNYc4TP0c+IRsUn542JU9Uvci+ATcQjXCjTuKBZ5ILR9zY8jet7nXCDTfsm3FzqXej5BEqqIepqZqHt7/dvN38B8dkF8fnEwAA
+  recorded_at: Wed, 29 Dec 2021 09:34:40 GMT
+recorded_with: VCR 6.0.0

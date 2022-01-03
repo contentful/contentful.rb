@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+* Fixed an issue where entry's `raw['fields']` was unexpectedly overwritten by `FieldsResource#raw_with_links` method.
 
 ## 2.16.1
 * Removed unncessary files from gem release package.
