@@ -5,6 +5,7 @@
 ## 2.16.2
 ### Fixed
 * Fixed an issue where entry's `raw['fields']` was unexpectedly overwritten by `FieldsResource#raw_with_links` method.
+* Fixed an issue where `raw['metadata']` was unexpectedly overwritten by `BaseResource#hydrate_metadata` method.
 
 ## 2.16.1
 * Removed unncessary files from gem release package.
