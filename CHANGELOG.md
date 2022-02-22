@@ -1,6 +1,7 @@
 # Change Log
 
 ## Unreleased
+* Updated `http` gem version
 
 ## 2.16.1
 * Removed unncessary files from gem release package.
