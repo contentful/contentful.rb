@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Changed
+* CI/CD vendor from travis to circleci
 
 ## 2.16.3
 ### Fixed
