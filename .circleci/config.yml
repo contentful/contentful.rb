@@ -1,0 +1,23 @@
+version: 2.1
+
+jobs:
+  test_and_lint:
+    parameters:
+      ruby-version:
+        type: string
+    docker:
+      - image: cimg/ruby:<< parameters.ruby-version >>
+    steps:
+      - checkout
+      - run: gem install bundler:1.10.6
+      - run: bundle install
+      - run: bundle exec rake rspec_rubocop
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - test_and_lint:
+          matrix:
+            parameters:
+              ruby-version: ["2.6", "2.7", "3.0"]

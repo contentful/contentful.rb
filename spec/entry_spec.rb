@@ -157,6 +157,16 @@ describe Contentful::Entry do
     }
   end
 
+  it '#raw_with_links does not modify original raw' do
+    vcr('entry/raw_with_links') {
+      nyancat = create_client.entry('nyancat')
+      marshal_nyancat = Marshal.load(Marshal.dump(nyancat.raw))
+      nyancat.raw_with_links
+
+      expect(marshal_nyancat).to eq(nyancat.raw)
+    }
+  end
+
   describe 'can be marshalled' do
     def test_dump(nyancat)
       dump = Marshal.dump(nyancat)
