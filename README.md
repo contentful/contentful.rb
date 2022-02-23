@@ -615,6 +615,8 @@ until sync.completed?
 end
 ```
 
+
+
 Or directly iterative over all resources:
 
 ```ruby
