@@ -1,6 +1,10 @@
 # Change Log
 
 ## Unreleased
+
+### Updated
+* Updated `http` gem version
+
 ### Changed
 * CI/CD vendor from travis to circleci
 
