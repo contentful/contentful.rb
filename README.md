@@ -174,6 +174,7 @@ To help you get the most out of this library, we've prepared all available clien
 
 The client constructor supports several options you may set to achieve the expected behavior:
 
+
 ```ruby
 client = Contentful::Client.new(
   # ... your options here ...
