@@ -21,8 +21,8 @@
     <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License" />
   </a>
   &nbsp;
-  <a href="https://travis-ci.org/contentful/contentful.rb">
-    <img src="https://travis-ci.org/contentful/contentful.rb.svg?branch=master" alt="Build Status">
+  <a href="https://app.circleci.com/pipelines/github/contentful/contentful.rb?branch=master">
+    <img src="https://circleci.com/gh/contentful/contentful.rb/tree/master.svg?style=svg" alt="CircleCI">
   </a>
 </p>
 
