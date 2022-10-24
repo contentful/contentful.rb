@@ -7,6 +7,7 @@
 
 ### Changed
 * CI/CD vendor from travis to circleci
+* Refactored `includes` to be a model (`Contentful::Includes`) with a lookup table instead of a plain Ruby array, for improved performance when `include_level` is set. Two related methods from `Support` have been moved to this new class. Any code that uses the undocumented `includes_for_single` option to any method will need to be updated. [#235](https://github.com/contentful/contentful.rb/pull/235)
 
 ## 2.16.3
 ### Fixed
