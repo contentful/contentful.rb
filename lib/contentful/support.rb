@@ -47,41 +47,6 @@ module Contentful
 
         false
       end
-
-      # Returns the resource that matches the link
-      #
-      # @param [Hash] link
-      # @param [::Array] includes
-      #
-      # @return [Hash]
-      def resource_for_link(link, includes)
-        includes.detect do |i|
-          i['sys']['id'] == link['sys']['id'] &&
-            i['sys']['type'] == link['sys']['linkType']
-        end
-      end
-
-      # Returns combined include array from an API Response
-      #
-      # @param [Hash] json JSON Response
-      # @param [Bool] raw Response pre-proccessed?
-      #
-      # @return [Array]
-      def includes_from_response(json, raw = true)
-        includes = if raw
-                     json['items'].dup
-                   else
-                     json['items'].map(&:raw)
-                   end
-
-        %w[Entry Asset].each do |type|
-          if json.fetch('includes', {}).key?(type)
-            includes.concat(json['includes'].fetch(type, []))
-          end
-        end
-
-        includes
-      end
     end
   end
 end

@@ -8,7 +8,7 @@ module Contentful
     attr_reader :raw, :default_locale, :sys, :_metadata
 
     # rubocop:disable Metrics/ParameterLists
-    def initialize(item, configuration = {}, _localized = false, _includes = [], entries = {}, depth = 0, _errors = [])
+    def initialize(item, configuration = {}, _localized = false, _includes = Includes.new, entries = {}, depth = 0, _errors = [])
       entries["#{item['sys']['type']}:#{item['sys']['id']}"] = self if entries && item.key?('sys')
       @raw = item
       @default_locale = configuration[:default_locale]

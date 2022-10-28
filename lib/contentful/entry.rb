@@ -2,6 +2,7 @@ require_relative 'error'
 require_relative 'fields_resource'
 require_relative 'content_type_cache'
 require_relative 'resource_references'
+require_relative 'includes'
 
 module Contentful
   # Resource class for Entry.
@@ -30,7 +31,7 @@ module Contentful
         content_type_field = content_type.field_for(field_id)
         coercion_configuration = @configuration.merge(
           includes_for_single:
-            @configuration.fetch(:includes_for_single, []) + includes,
+            @configuration.fetch(:includes_for_single, Includes.new) + includes,
           _entries_cache: entries,
           localized: localized,
           depth: @depth,
@@ -58,7 +59,7 @@ module Contentful
     # Any included object after the maximum include resolution depth will be just a Link
     def build_nested_resource(value, includes, entries, errors)
       if @depth < @configuration.fetch(:max_include_resolution_depth, 20)
-        resource = Support.resource_for_link(value, includes)
+        resource = includes.find_link(value)
         return resolve_include(resource, includes, entries, errors) unless resource.nil?
       end
 
@@ -72,7 +73,7 @@ module Contentful
         resource,
         @configuration.merge(
           includes_for_single:
-            @configuration.fetch(:includes_for_single, []) + includes,
+            @configuration.fetch(:includes_for_single, Includes.new) + includes,
           _entries_cache: entries
         ),
         localized,

@@ -155,10 +155,7 @@ module Contentful
 
       return nil if Support.unresolvable?(node['data']['target'], configuration[:errors])
 
-      resource = Support.resource_for_link(
-        node['data']['target'],
-        configuration[:includes_for_single]
-      )
+      resource = configuration[:includes_for_single].find_link(node['data']['target'])
 
       # Resource is valid but unreachable
       return Link.new(node['data']['target'], configuration) if resource.nil?
