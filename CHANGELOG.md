@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased
+## 2.17.0
 
 ### Updated
 * Updated `http` gem version
