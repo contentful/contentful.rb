@@ -4,6 +4,7 @@
 
 ### Updated
 * Updated `http` gem version
+* Updated Ruby versions in CI to 3.0, 3.1 and 3.2
 
 ### Changed
 * CI/CD vendor from travis to circleci
