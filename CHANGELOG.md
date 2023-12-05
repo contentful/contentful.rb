@@ -4,6 +4,7 @@
 
 ### Updated
 * Updated `http` gem version
+* Fixed typo in documentation
 
 ### Changed
 * CI/CD vendor from travis to circleci
