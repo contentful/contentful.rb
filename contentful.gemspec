@@ -35,7 +35,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'guard-rspec'
   gem.add_development_dependency 'guard-rubocop'
   gem.add_development_dependency 'guard-yard'
-  gem.add_development_dependency 'rubocop', '~> 0.49.1'
+  gem.add_development_dependency 'rubocop', '~> 1.60.2'
   gem.add_development_dependency 'rspec', '~> 3'
   gem.add_development_dependency 'rr'
   gem.add_development_dependency 'vcr'
