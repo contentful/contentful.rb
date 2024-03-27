@@ -1,12 +1,22 @@
 # Change Log
 
+## Unreleased
+
+### Fixed
+* Fixed typo in documentation
+* Fixed changelog discrepancies
+
+### Updated
+* Updated `json` gem version
+
+### Added
+* Added ruby versions 3.1, 3.2 and 3.3 to CI. Removed 2.6 and 2.7.
+
 ## 2.17.0
 
 ### Updated
 * Updated `http` gem version
-* Fixed typo in documentation
-* Added ruby versions 3.1, 3.2 and 3.3 to CI. Removed 2.6 and 2.7.
-* Updated `json` gem version
+
 
 ### Changed
 * CI/CD vendor from travis to circleci
