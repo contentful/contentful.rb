@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.17.1
+
 ### Fixed
 * Fixed typo in documentation
 * Fixed changelog discrepancies
