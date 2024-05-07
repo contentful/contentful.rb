@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: contentful.rb 
+  description: Ruby library for Contentful's Delivery API (node & browser).
+  annotations:
+    github.com/project-slug: contentful/contentful.rb 
+    contentful.com/service-tier: "4" #1, 2, 3, 4
+spec:
+  type: library 
+  lifecycle: production  
+  system: unknown #optional
+  owner: group:team-developer-experience
