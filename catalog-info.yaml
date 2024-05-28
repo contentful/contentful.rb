@@ -10,4 +10,4 @@ spec:
   type: library 
   lifecycle: production  
   system: unknown #optional
-  owner: group:team-developer-experience
+  owner: group:team-tundra
