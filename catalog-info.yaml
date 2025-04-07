@@ -5,9 +5,10 @@ metadata:
   description: Ruby library for Contentful's Delivery API (node & browser).
   annotations:
     github.com/project-slug: contentful/contentful.rb 
-    contentful.com/service-tier: "4" #1, 2, 3, 4
+    contentful.com/service-tier: "4"
+  tags:
+    - tier-4
 spec:
   type: library 
-  lifecycle: production  
-  system: unknown #optional
-  owner: group:team-tundra
+  lifecycle: production
+  owner: group:team-developer-experience
