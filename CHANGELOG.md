@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Fixed
+* Fixed test output visibility in response spec for unparsable JSON errors
+
 ## 2.17.1
 
 ### Fixed
