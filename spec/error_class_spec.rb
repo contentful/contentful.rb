@@ -288,7 +288,7 @@ describe Contentful::Error do
       it 'returns the json parser\'s message' do
         uj = Contentful::Response.new raw_fixture('unparsable')
         expect(Contentful::UnparsableJson.new(uj).message).to \
-            include 'unexpected token'
+            include "expected ',' or '}' after object value"
       end
     end
   end

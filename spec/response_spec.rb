@@ -50,7 +50,7 @@ describe Contentful::Response do
     end
 
     it 'returns json parser error message for json parse errors' do
-      expect(unparsable_response.error_message).to include 'unexpected token'
+      expect(unparsable_response.error_message).to include "expected ',' or '}' after object value"
     end
 
     it 'returns a ServiceUnavailable error on a 503' do
