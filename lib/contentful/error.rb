@@ -36,7 +36,7 @@ module Contentful
       if details.is_a?(Hash)
         details.map { |k, v| "#{k.inspect}=>#{v.inspect}" }.join(', ').then { |s| "{#{s}}" }
       else
-      details.to_s
+        details.to_s
       end
     end
 
