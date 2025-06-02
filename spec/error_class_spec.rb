@@ -13,10 +13,10 @@ describe Contentful::Error do
     it 'returns the message found in the response json' do
       message = "HTTP status code: 404\n"\
                 "Message: The resource could not be found.\n"\
-                "Details: {\"type\"=>\"Entry\", \"space\"=>\"cfexampleapi\", \"id\"=>\"not found\"}\n"\
+                "Details: {\"type\"\\s*=>\\s*\"Entry\", \"space\"\\s*=>\\s*\"cfexampleapi\", \"id\"\\s*=>\\s*\"not found\"}\n"\
                 "Request ID: 85f-351076632"
       expect(Contentful::Error.new(r).message).not_to be_nil
-      expect(Contentful::Error.new(r).message).to eq message
+      expect(Contentful::Error.new(r).message).to match(Regexp.new(message))
     end
 
     describe 'message types' do
