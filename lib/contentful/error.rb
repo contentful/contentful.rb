@@ -33,7 +33,11 @@ module Contentful
     end
 
     def handle_details(details)
+      if details.is_a?(Hash)
+        details.map { |k, v| "#{k.inspect}=>#{v.inspect}" }.join(', ').then { |s| "{#{s}}" }
+      else
       details.to_s
+      end
     end
 
     def additional_info?
