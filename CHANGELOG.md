@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Fixed
+* Fixed test output visibility in response spec for unparsable JSON errors
+* Fixed hash string representation in error messages for Ruby 3.4 compatibility
+
+### Updated
+* Updated CircleCI configuration to use Ruby 3.4
+
 ## 2.17.1
 
 ### Fixed
