@@ -33,12 +33,12 @@ describe Contentful::Client do
     end
 
     it 'calls #get_http' do
-      expect(client.class).to receive(:get_http).with(client.base_url + request.url, request.query, client.request_headers, client.proxy_params, client.timeout_params) { raw_fixture('content_type') }
+      expect(client.class).to receive(:get_http).with(client.base_url + request.url, request.query, client.request_headers, client.proxy_params, client.timeout_params, nil) { raw_fixture('content_type') }
       client.get(request)
     end
 
     it 'calls #get_http via proxy' do
-      expect(proxy_client.class).to receive(:get_http).with(proxy_client.base_url + request.url, request.query, proxy_client.request_headers, proxy_client.proxy_params, client.timeout_params) { raw_fixture('content_type') }
+      expect(proxy_client.class).to receive(:get_http).with(proxy_client.base_url + request.url, request.query, proxy_client.request_headers, proxy_client.proxy_params, client.timeout_params, nil) { raw_fixture('content_type') }
       proxy_client.get(request)
       expect(proxy_client.proxy_params[:host]).to eq '183.207.232.194'
       expect(proxy_client.proxy_params[:port]).to eq 8080
@@ -47,7 +47,7 @@ describe Contentful::Client do
     describe 'timeout params' do
       context 'with timeouts configured' do
         it 'calls #get_http with timeouts' do
-          expect(timeout_client.class).to receive(:get_http).with(timeout_client.base_url + request.url, request.query, timeout_client.request_headers, timeout_client.proxy_params, timeout_client.timeout_params) { raw_fixture('content_type') }
+          expect(timeout_client.class).to receive(:get_http).with(timeout_client.base_url + request.url, request.query, timeout_client.request_headers, timeout_client.proxy_params, timeout_client.timeout_params, nil) { raw_fixture('content_type') }
           timeout_client.get(request)
           expect(timeout_client.timeout_params[:connect]).to eq 1
           expect(timeout_client.timeout_params[:read]).to eq 2
@@ -57,7 +57,7 @@ describe Contentful::Client do
 
       context 'without timeouts' do
         it 'calls #get_http with timeouts' do
-          expect(client.class).to receive(:get_http).with(client.base_url + request.url, request.query, client.request_headers, client.proxy_params, client.timeout_params) { raw_fixture('content_type') }
+          expect(client.class).to receive(:get_http).with(client.base_url + request.url, request.query, client.request_headers, client.proxy_params, client.timeout_params, nil) { raw_fixture('content_type') }
           client.get(request)
           expect(client.timeout_params).to eq({})
         end
@@ -73,6 +73,41 @@ describe Contentful::Client do
       it 'returns a Contentful::Response object if second parameter is not true' do
         res = vcr('content_type') { client.get(request, false) }
         expect(res).to be_a Contentful::Response
+      end
+    end
+
+    describe 'instrumenter' do
+      before do
+        test_instrumenter = Class.new(HTTP::Features::Instrumentation::NullInstrumenter) do
+          attr_reader :output
+
+          def initialize
+            @output = {}
+          end
+
+          def start(_name, payload)
+            output[:start] = payload
+          end
+
+          def finish(_name, payload)
+            output[:finish] = payload
+          end
+        end
+
+        stub_const("TestInstrumenter", test_instrumenter)
+      end
+
+      context "when an instrumenter is given to client" do
+        let(:instrumenter) { TestInstrumenter.new }
+        let(:instrumented_client) { create_client(http_instrumenter: instrumenter) }
+
+
+        it 'calls #get_http with TestInstrumenter' do
+          expect(instrumented_client.configuration[:http_instrumenter]).to eq instrumenter
+
+          expect(instrumented_client.class).to receive(:get_http).with(instrumented_client.base_url + request.url, request.query, instrumented_client.request_headers, instrumented_client.proxy_params, instrumented_client.timeout_params, instrumenter) { raw_fixture('content_type') }
+          instrumented_client.get(request)
+        end
       end
     end
 
