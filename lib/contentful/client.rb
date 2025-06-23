@@ -215,6 +215,16 @@ module Contentful
       Request.new(self, environment_url('/locales'), query).get
     end
 
+    # Gets a specific taxonomy concept
+    #
+    # @param [String] id
+    # @param [Hash] query
+    #
+    # @return [Contentful::TaxonomyConcept]
+    def taxonomy_concept(id, query = {})
+      Request.new(self, environment_url('/taxonomy/concepts'), query, id).get
+    end
+
     # Returns the base url for all of the client's requests
     # @private
     def base_url

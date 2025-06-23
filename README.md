@@ -381,6 +381,37 @@ nyancat = client.entry 'nyancat'
 entries = client.entries
 assets = client.assets
 nyancat_asset = client.asset 'nyancat'
+taxonomy_concept = client.taxonomy_concept '3DMf5gdax6J22AfcJ6fvsC'
+```
+
+#### Taxonomy Concepts
+
+You can retrieve taxonomy concepts using the taxonomy_concept method:
+
+```ruby
+# Get a specific taxonomy concept
+concept = client.taxonomy_concept('3DMf5gdax6J22AfcJ6fvsC')
+
+# Access basic properties
+concept.sys[:id] # => '3DMf5gdax6J22AfcJ6fvsC'
+concept.sys[:type] # => 'TaxonomyConcept'
+concept.uri # => nil or URI string
+
+# Access localized fields
+concept.pref_label # => 'sofa'
+concept.alt_labels # => []
+concept.definition # => ''
+concept.note # => ''
+
+# Access relationships
+concept.broader # => Array of broader concept links
+concept.related # => Array of related concept links
+concept.concept_schemes # => Array of concept scheme links
+
+# Check resource type
+concept.taxonomy_concept? # => true
+concept.entry? # => false
+concept.asset? # => false
 ```
 
 #### Filtering options

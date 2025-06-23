@@ -83,4 +83,48 @@ describe Contentful::Client do
       expect(create_client.sync).to be_a Contentful::Sync
     end
   end
+
+  describe '#taxonomy_concept' do
+    let(:client) { create_client }
+
+    it 'creates a request with the correct endpoint' do
+      expect(Contentful::Request).to receive(:new).with(
+        client,
+        client.environment_url('/taxonomy/concepts'),
+        {},
+        'test-concept-id'
+      ).and_return(double('request', get: double('response')))
+
+      client.taxonomy_concept('test-concept-id')
+    end
+
+    it 'passes query parameters correctly' do
+      query = { locale: 'en-US' }
+      expect(Contentful::Request).to receive(:new).with(
+        client,
+        client.environment_url('/taxonomy/concepts'),
+        query,
+        'test-concept-id'
+      ).and_return(double('request', get: double('response')))
+
+      client.taxonomy_concept('test-concept-id', query)
+    end
+
+    it 'returns a TaxonomyConcept object' do
+      vcr('taxonomy_concept') do
+        result = client.taxonomy_concept('3DMf5gdax6J22AfcJ6fvsC')
+        expect(result).to be_a Contentful::TaxonomyConcept
+        expect(result.sys[:id]).to eq '3DMf5gdax6J22AfcJ6fvsC'
+      end
+    end
+
+    it 'returns raw response when raw_mode is enabled' do
+      raw_client = create_client(raw_mode: true)
+      vcr('taxonomy_concept') do
+        result = raw_client.taxonomy_concept('3DMf5gdax6J22AfcJ6fvsC')
+        expect(result).to be_a Contentful::Response
+        expect(result.object['sys']['id']).to eq '3DMf5gdax6J22AfcJ6fvsC'
+      end
+    end
+  end
 end
