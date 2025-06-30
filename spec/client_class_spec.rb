@@ -126,5 +126,21 @@ describe Contentful::Client do
         expect(result.object['sys']['id']).to eq '3DMf5gdax6J22AfcJ6fvsC'
       end
     end
+
+    it 'can retrieve taxonomy concepts' do
+      vcr('taxonomy_concepts') do
+        concepts = client.taxonomy_concepts
+        expect(concepts).to be_a Contentful::Array
+        expect(concepts.first).to be_a Contentful::TaxonomyConcept
+      end
+    end
+
+    it 'can retrieve taxonomy concepts with query parameters' do
+      vcr('taxonomy_concepts_query') do
+        concepts = client.taxonomy_concepts(limit: 5, order: 'sys.createdAt')
+        expect(concepts).to be_a Contentful::Array
+        expect(concepts.limit).to eq 5
+      end
+    end
   end
 end
