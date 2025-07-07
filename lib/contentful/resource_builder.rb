@@ -10,6 +10,7 @@ require_relative 'deleted_asset'
 require_relative 'locale'
 require_relative 'includes'
 require_relative 'taxonomy_concept'
+require_relative 'taxonomy_concept_scheme'
 
 module Contentful
   # Transforms a Contentful::Response into a Contentful::Resource or a Contentful::Error
@@ -27,13 +28,14 @@ module Contentful
       'DeletedEntry' => DeletedEntry,
       'DeletedAsset' => DeletedAsset,
       'Locale' => Locale,
-      'TaxonomyConcept' => TaxonomyConcept
+      'TaxonomyConcept' => TaxonomyConcept,
+      'TaxonomyConceptScheme' => TaxonomyConceptScheme
     }.freeze
     # Default Entry Mapping
     # @see _ README for more information on Entry Mapping
     DEFAULT_ENTRY_MAPPING = {}.freeze
     # Buildable Resources
-    BUILDABLES = %w[Entry Asset ContentType Space DeletedEntry DeletedAsset Locale TaxonomyConcept].freeze
+    BUILDABLES = %w[Entry Asset ContentType Space DeletedEntry DeletedAsset Locale TaxonomyConcept TaxonomyConceptScheme].freeze
 
     attr_reader :json, :default_locale, :endpoint, :depth, :localized, :resource_mapping, :entry_mapping, :resource, :query
 

@@ -56,6 +56,8 @@
     - [Configuration](#configuration)
     - [Reference documentation](#reference-documentation)
       - [Basic queries](#basic-queries)
+      - [Taxonomy Concepts](#taxonomy-concepts)
+      - [Taxonomy Concept Schemes](#taxonomy-concept-schemes)
       - [Filtering options](#filtering-options)
       - [Accessing fields and sys properties](#accessing-fields-and-sys-properties)
       - [Dynamic entries](#dynamic-entries)
@@ -382,9 +384,24 @@ entries = client.entries
 assets = client.assets
 nyancat_asset = client.asset 'nyancat'
 taxonomy_concept = client.taxonomy_concept '3DMf5gdax6J22AfcJ6fvsC'
+taxonomy_concept_scheme = client.taxonomy_concept_scheme '7CzXPy6XvYYd0D7SomitgI'
 ```
 
-#### Taxonomy Concepts
+### Assets
+
+There is a helpful method to add image resize options for an asset image:
+
+```ruby
+client.asset('happycat').url
+# => "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/
+#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg"
+
+client.asset('happycat').url(width: 300, height: 200, format: 'jpg', quality: 100)
+# => "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/
+#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg?w=300&h=200&fm=jpg&q=100"
+```
+
+### Taxonomy Concepts
 
 You can retrieve taxonomy concepts using the taxonomy_concept method:
 
@@ -407,11 +424,32 @@ concept.note # => ''
 concept.broader # => Array of broader concept links
 concept.related # => Array of related concept links
 concept.concept_schemes # => Array of concept scheme links
+```
 
-# Check resource type
-concept.taxonomy_concept? # => true
-concept.entry? # => false
-concept.asset? # => false
+### Taxonomy Concept Schemes
+
+You can retrieve taxonomy concept schemes using the taxonomy_concept_scheme method:
+
+```ruby
+# Get a specific taxonomy concept scheme
+scheme = client.taxonomy_concept_scheme('7CzXPy6XvYYd0D7SomitgI')
+
+# Access basic properties
+scheme.sys[:id] # => '7CzXPy6XvYYd0D7SomitgI'
+scheme.sys[:type] # => 'TaxonomyConceptScheme'
+scheme.uri # => nil or URI string
+scheme.total_concepts # => 1
+
+# Access localized fields
+scheme.pref_label # => 'furniture'
+scheme.definition # => ''
+
+# Access relationships
+scheme.top_concepts # => Array of top concept links
+scheme.concepts # => Array of concept links
+
+# Get all taxonomy concept schemes
+schemes = client.taxonomy_concept_schemes
 ```
 
 #### Filtering options
@@ -523,20 +561,6 @@ happycat = client.entry 'happycat'
 happycat.image
 # => #<Contentful::Link: @sys={:type=>"Link", :linkType=>"Asset", :id=>"happycat"}>
 happycat.image.resolve(client) # => #<Contentful::Asset: @fields={ ...
-```
-
-### Assets
-
-There is a helpful method to add image resize options for an asset image:
-
-```ruby
-client.asset('happycat').url
-# => "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/
-#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg"
-
-client.asset('happycat').url(width: 300, height: 200, format: 'jpg', quality: 100)
-# => "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/
-#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg?w=300&h=200&fm=jpg&q=100"
 ```
 
 #### Resource options
