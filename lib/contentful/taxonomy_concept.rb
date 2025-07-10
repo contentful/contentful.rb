@@ -92,4 +92,4 @@ module Contentful
       scope_note.is_a?(Hash) ? scope_note.fetch(locale.to_s, '') : scope_note
     end
   end
-end 
+end

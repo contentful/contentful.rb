@@ -48,4 +48,4 @@ module Contentful
       definition.is_a?(Hash) ? definition.fetch(locale.to_s, '') : definition
     end
   end
-end 
+end
