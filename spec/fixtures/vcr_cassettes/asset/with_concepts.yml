@@ -1,0 +1,92 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/assets/3v0s5QAHjGFqCS5aBfd1dX
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.17.2; platform ruby/3.3.6; os macOS/24;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/5.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '727'
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Cf-Space-Id:
+      - cfexampleapi
+      Cf-Environment-Id:
+      - master
+      Cf-Environment-Uuid:
+      - a8fd17fd-5c8e-465f-bf8d-eb67f144dca0
+      Cf-Organization-Id:
+      - 4kQeJmhUWIKtNNmMkketza
+      X-Contentful-Route:
+      - "/spaces/:space/environments/:environment/assets/:id"
+      Etag:
+      - '"1319372289739574934"'
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - Contentful
+      X-Contentful-Region:
+      - us-east-1
+      Contentful-Api:
+      - cda
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Resource-Resolution
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
+      Date:
+      - Thu, 10 Jul 2025 07:16:03 GMT
+      X-Served-By:
+      - cache-ewr-kewr1740032-EWR, cache-bom4744-BOM
+      X-Cache-Hits:
+      - 0, 0
+      X-Timer:
+      - S1752131764.738347,VS0,VE247
+      X-Cache:
+      - MISS
+      X-Contentful-Request-Id:
+      - c639e93e-7f66-4ce1-9a6c-e22b17fc1c71
+    body:
+      encoding: ASCII-8BIT
+      string: '{"metadata":{"tags":[],"concepts":[{"sys":{"type":"Link","linkType":"TaxonomyConcept","id":"5iRG7dAusVFUOh9SrexDqQ"}}]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"cfexampleapi"}},"id":"3v0s5QAHjGFqCS5aBfd1dX","type":"Asset","createdAt":"2025-07-10T07:15:47.953Z","updatedAt":"2025-07-10T07:15:47.953Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-US"},"fields":{"title":"Funny
+        Cat","file":{"url":"https://images.secure.ctfassets.net/cfexampleapi/3v0s5QAHjGFqCS5aBfd1dX/744932c743a5de15182df16417ddcb13/images.jpeg","details":{"size":6561,"image":{"width":225,"height":225}},"fileName":"images.jpeg","contentType":"image/jpeg"}}}
+
+        '
+  recorded_at: Thu, 10 Jul 2025 07:16:03 GMT
+recorded_with: VCR 6.3.1

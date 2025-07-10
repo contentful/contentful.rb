@@ -493,13 +493,14 @@ entry.color # 'rainbow'
 entry.birthday # #<DateTime: 2011-04-04T22:00:00+00:00 ((2455656j,79200s,0n),+0s,2299161j)>
 ```
 
-#### Accessing tags
+#### Accessing tags and concepts
 
-Tags can be accessed via the `#_metadata` method.
+Tags and concepts can be accessed via the `#_metadata` method.
 
 ```ruby
 entry = client.entry 'nyancat'
 entry._metadata[:tags] # => [<Contentful::Link id='tagID'>]
+entry._metadata[:concepts] # => [<Contentful::Link id='conceptID'>]
 ```
 
 #### Dynamic entries

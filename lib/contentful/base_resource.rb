@@ -98,7 +98,9 @@ module Contentful
     def hydrate_metadata
       result = {}
       raw.fetch('metadata', {}).each do |k, v|
-        v = v.map { |tag| build_link(tag) } if k == 'tags'
+        if k == 'tags' || k == 'concepts'
+          v = v.map { |item| build_link(item) }
+        end
         result[Support.snakify(k, @configuration[:use_camel_case]).to_sym] = v
       end
       result
