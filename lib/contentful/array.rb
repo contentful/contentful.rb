@@ -75,7 +75,8 @@ module Contentful
         'ContentType' => 'content_types',
         'Entry' => 'entries',
         'Asset' => 'assets',
-        'Locale' => 'locales'
+        'Locale' => 'locales',
+        'TaxonomyConcept' => 'taxonomy_concepts'
       }
 
       client.public_send(plurals[items.first.type], query.merge(limit: limit, skip: new_skip))
