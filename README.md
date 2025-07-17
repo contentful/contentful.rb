@@ -450,6 +450,22 @@ scheme.concepts # => Array of concept links
 
 # Get all taxonomy concept schemes
 schemes = client.taxonomy_concept_schemes
+
+# You can also use query parameters for filtering and pagination
+schemes = client.taxonomy_concept_schemes(limit: 10, order: 'sys.createdAt')
+schemes = client.taxonomy_concept_schemes(limit: 5, skip: 10)
+
+# The result is a Contentful::Array that you can iterate over
+schemes.each do |scheme|
+  puts "Scheme: #{scheme.pref_label} (ID: #{scheme.sys[:id]})"
+  puts "Total concepts: #{scheme.total_concepts}"
+end
+
+# Access pagination information
+if schemes.next_page_url
+  next_page = schemes.next_page_url
+  # You can use this URL to get the next page of results
+end
 ```
 
 #### Filtering options
