@@ -56,6 +56,8 @@
     - [Configuration](#configuration)
     - [Reference documentation](#reference-documentation)
       - [Basic queries](#basic-queries)
+      - [Taxonomy Concepts](#taxonomy-concepts)
+      - [Taxonomy Concept Schemes](#taxonomy-concept-schemes)
       - [Filtering options](#filtering-options)
       - [Accessing fields and sys properties](#accessing-fields-and-sys-properties)
       - [Dynamic entries](#dynamic-entries)
@@ -381,6 +383,89 @@ nyancat = client.entry 'nyancat'
 entries = client.entries
 assets = client.assets
 nyancat_asset = client.asset 'nyancat'
+taxonomy_concept = client.taxonomy_concept '3DMf5gdax6J22AfcJ6fvsC'
+taxonomy_concept_scheme = client.taxonomy_concept_scheme '7CzXPy6XvYYd0D7SomitgI'
+```
+
+### Assets
+
+There is a helpful method to add image resize options for an asset image:
+
+```ruby
+client.asset('happycat').url
+# => "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/
+#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg"
+
+client.asset('happycat').url(width: 300, height: 200, format: 'jpg', quality: 100)
+# => "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/
+#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg?w=300&h=200&fm=jpg&q=100"
+```
+
+### Taxonomy Concepts
+
+You can retrieve taxonomy concepts using the taxonomy_concept method:
+
+```ruby
+# Get a specific taxonomy concept
+concept = client.taxonomy_concept('3DMf5gdax6J22AfcJ6fvsC')
+
+# Access basic properties
+concept.sys[:id] # => '3DMf5gdax6J22AfcJ6fvsC'
+concept.sys[:type] # => 'TaxonomyConcept'
+concept.uri # => nil or URI string
+
+# Access localized fields
+concept.pref_label # => 'sofa'
+concept.alt_labels # => []
+concept.definition # => ''
+concept.note # => ''
+
+# Access relationships
+concept.broader # => Array of broader concept links
+concept.related # => Array of related concept links
+concept.concept_schemes # => Array of concept scheme links
+```
+
+### Taxonomy Concept Schemes
+
+You can retrieve taxonomy concept schemes using the taxonomy_concept_scheme method:
+
+```ruby
+# Get a specific taxonomy concept scheme
+scheme = client.taxonomy_concept_scheme('7CzXPy6XvYYd0D7SomitgI')
+
+# Access basic properties
+scheme.sys[:id] # => '7CzXPy6XvYYd0D7SomitgI'
+scheme.sys[:type] # => 'TaxonomyConceptScheme'
+scheme.uri # => nil or URI string
+scheme.total_concepts # => 1
+
+# Access localized fields
+scheme.pref_label # => 'furniture'
+scheme.definition # => ''
+
+# Access relationships
+scheme.top_concepts # => Array of top concept links
+scheme.concepts # => Array of concept links
+
+# Get all taxonomy concept schemes
+schemes = client.taxonomy_concept_schemes
+
+# You can also use query parameters for filtering and pagination
+schemes = client.taxonomy_concept_schemes(limit: 10, order: 'sys.createdAt')
+schemes = client.taxonomy_concept_schemes(limit: 5, skip: 10)
+
+# The result is a Contentful::Array that you can iterate over
+schemes.each do |scheme|
+  puts "Scheme: #{scheme.pref_label} (ID: #{scheme.sys[:id]})"
+  puts "Total concepts: #{scheme.total_concepts}"
+end
+
+# Access pagination information
+if schemes.next_page_url
+  next_page = schemes.next_page_url
+  # You can use this URL to get the next page of results
+end
 ```
 
 #### Filtering options
@@ -424,13 +509,14 @@ entry.color # 'rainbow'
 entry.birthday # #<DateTime: 2011-04-04T22:00:00+00:00 ((2455656j,79200s,0n),+0s,2299161j)>
 ```
 
-#### Accessing tags
+#### Accessing tags and concepts
 
-Tags can be accessed via the `#_metadata` method.
+Tags and concepts can be accessed via the `#_metadata` method.
 
 ```ruby
 entry = client.entry 'nyancat'
 entry._metadata[:tags] # => [<Contentful::Link id='tagID'>]
+entry._metadata[:concepts] # => [<Contentful::Link id='conceptID'>]
 ```
 
 #### Dynamic entries
@@ -492,20 +578,6 @@ happycat = client.entry 'happycat'
 happycat.image
 # => #<Contentful::Link: @sys={:type=>"Link", :linkType=>"Asset", :id=>"happycat"}>
 happycat.image.resolve(client) # => #<Contentful::Asset: @fields={ ...
-```
-
-### Assets
-
-There is a helpful method to add image resize options for an asset image:
-
-```ruby
-client.asset('happycat').url
-# => "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/
-#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg"
-
-client.asset('happycat').url(width: 300, height: 200, format: 'jpg', quality: 100)
-# => "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/
-#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg?w=300&h=200&fm=jpg&q=100"
 ```
 
 #### Resource options
