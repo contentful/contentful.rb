@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+
+## 2.18.0
 * Added support for Taxonomy endpoints
 
 ## 2.17.2
