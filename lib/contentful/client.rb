@@ -55,7 +55,7 @@ module Contentful
     def self.get_http(url, query, headers = {}, proxy = {}, timeout = {}, instrumenter)
       http = HTTP[headers]
       http = http.timeout(timeout) if timeout.any?
-      http = http.use(instrumentation: {instrumenter: instrumenter}) if instrumenter
+      http = http.use(instrumentation: { instrumenter: instrumenter }) if instrumenter
       if proxy[:host]
         http.via(proxy[:host], proxy[:port], proxy[:username], proxy[:password]).get(url, params: query)
       else
@@ -94,6 +94,10 @@ module Contentful
     # @option given_configuration [String] :application_version
     # @option given_configuration [String] :integration_name
     # @option given_configuration [String] :integration_version
+    # @option given_configuration [HTTP::Features::Instrumentation::Instrumenter, nil] :http_instrumenter
+    #   An HTTP instrumenter object that implements the instrumentation interface.
+    #   When provided, it will be used to instrument all HTTP requests made by the client.
+    #   This is useful for monitoring, logging, or tracking HTTP requests.
     def initialize(given_configuration = {})
       @configuration = default_configuration.merge(given_configuration)
       normalize_configuration!
