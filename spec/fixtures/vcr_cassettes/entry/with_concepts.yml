@@ -1,0 +1,92 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries?sys.id=tIb8i9uSg9giCeDIWCvi1
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.17.2; platform ruby/3.3.6; os macOS/24;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/5.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '1008'
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Cf-Space-Id:
+      - cfexampleapi
+      Cf-Environment-Id:
+      - master
+      Cf-Environment-Uuid:
+      - a8fd17fd-5c8e-465f-bf8d-eb67f144dca0
+      Cf-Organization-Id:
+      - 4kQeJmhUWIKtNNmMkketza
+      X-Contentful-Route:
+      - "/spaces/:space/environments/:environment/entries"
+      Etag:
+      - W/"12537661270802049851"
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - Contentful
+      X-Contentful-Region:
+      - us-east-1
+      Contentful-Api:
+      - cda
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Resource-Resolution
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Content-Encoding:
+      - gzip
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
+      Date:
+      - Thu, 10 Jul 2025 07:12:53 GMT
+      X-Served-By:
+      - cache-ewr-kewr1740091-EWR, cache-maa10223-MAA
+      X-Cache-Hits:
+      - 0, 0
+      X-Timer:
+      - S1752131573.874099,VS0,VE299
+      X-Cache:
+      - MISS
+      X-Contentful-Request-Id:
+      - 9ae0759b-eaed-420a-9e19-6dd8cf710dbe
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA71VS27cRhDd5xQFbrIZCSMniqPZBIrkBAIM2LHGDpBAiyJZJMvT7Kb7MyNGEOBDZJMj5By5iU+S1+RYkW04ziLwjuyurqr3qe6bIoyhWN0UcRykWBWn3vNY3C6K6CKbYnW0KMJGh2K1XBRGe41YWuJbo/Q49+tN0UvkmiNPSbjNi1eLonK2kiHOIe+WeKx2U+RsdrOei6752lnXj2fzIWxqjV6O9dmPD+vTFF788PxJd3Lp5fr81U/F7e0V+tvnDANX6PvmPRgf1ricAveZ3dfdN+3J7qvBOUW+/Wq8KL/Vk3TZnrR6JucXP59t9QhH9tQ8stGP+K28cJT6FFQUD5YPjg+WDw+OluvlQzCzOj45PDo++gVhaQArnw4Tu1XvbC8W+e5gTPh7DlH8Pw18COrRvcMZxpBKo6GT+oX4oM4Wq+NF4WWr8w/EhC4RpWbiP80aFLkL37NUGtc+dSFOvBlXscm+EXvw/DL7plEx9ewojdPWxBvtNHb0VmhgKl09ZsDW1bK3Qe2qNPGwKPaGQr59w5PV7sUO7Ln1PHT/JTjKdU66ZZNyQ2tX80ghsoc+c2OxEwou2ZpcQzveSqDKc+jUtuRSDFoL9SOV3JfOUZciqaWnhkemWgydsUfjh3RBpZcdkjLSQ9WWqjTklJVrGpEFuUEstpHK8BDdsCBGzTBiWGpC6MQSdqNwj2rVJtf5XjyG5ZDW2gv95iyas44M0osnpDVkdCMI916h+5vXvwPO+KUXeplCJFAVcw8Zo+/G2PWHIKNnv9nP6luy81z9bySfNvAu7SDRkEkEtuDQfgW5KTtSdmHCXhmF5AQbmbAAgRC1LGeKyowqx/h8iDPgCUTlMBhsKHpWs6AwuBhzjUGMVmwD1bqVg9L1ZV5VG910LCb/KjkNUFr4kB4nW3XQGm0ghVYjbaVlS2UCjTjCERvIO6I815MDKm7++pN8QtCIzQZ029qMaCgNRvDvenrC11zx52B4DUyyFZtBlt6ltssdg+3NgfMMc1BINggWQSGjyb5PVuNIo2sBWUK+FAieh04Dmx58ioRsYqCCApmzPCgvXfKW4UCoOAVPw4LpgV5QK0qTDDVuXi/ZMMxMpcSdiKUB2qUq6jYXzo00KFKDp9iB4NhpgHkbCXEEgaVHkfA5uDvXVrOF8OpwraEnDfbN6z/iPDHQ3YMDDJJGrGaH9GprcHlIpyDShkpdgs+kmm5Wgl3KpCbTnNHM4BqNgT4yae/O2Xv30+jSvWN3T3NuWKviFq/r3cT+ax40C8K7fGFEM34HYXcumXoGiuGBozVOyrHFtQDuP0791W1+dr/4G9UNmgQvCAAA
+  recorded_at: Thu, 10 Jul 2025 07:12:53 GMT
+recorded_with: VCR 6.3.1

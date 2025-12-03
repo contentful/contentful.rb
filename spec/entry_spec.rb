@@ -822,4 +822,32 @@ describe Contentful::Entry do
       }
     end
   end
+
+  describe 'concepts metadata' do
+    let(:entry_id) { 'tIb8i9uSg9giCeDIWCvi1' }
+
+    it 'can load an entry with concepts' do
+      vcr('entry/with_concepts') {
+        expect {
+          entry = create_client.entry(entry_id)
+        }.not_to raise_error
+      }
+    end
+
+    it 'hydrates concepts' do
+      vcr('entry/with_concepts') {
+        entry = create_client.entry(entry_id)
+        expect(entry._metadata[:concepts].first).to be_a Contentful::Link
+      }
+    end
+
+    it 'loads concept links with their proper attributes' do
+      vcr('entry/with_concepts') {
+        entry = create_client.entry(entry_id)
+        concept = entry._metadata[:concepts].first
+        expect(concept.id).to eq '5iRG7dAusVFUOh9SrexDqQ'
+        expect(concept.link_type).to eq 'TaxonomyConcept'
+      }
+    end
+  end
 end

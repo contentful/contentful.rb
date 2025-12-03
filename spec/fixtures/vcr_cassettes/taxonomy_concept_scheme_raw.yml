@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/taxonomy/concept-schemes/4EQT881T6sG9XpzNwb9y9R
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.17.2; platform ruby/3.3.6; os macOS/24;
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/5.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '473'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Contentful-Route:
+      - "/spaces/:spaceId/environments/:environmentId/taxonomy/concept-schemes/:id"
+      Etag:
+      - '"17517549705853456527"'
+      Cache-Control:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - Contentful
+      X-Contentful-Region:
+      - us-east-1
+      Contentful-Api:
+      - cda
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Resource-Resolution
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 07 Jul 2025 09:31:09 GMT
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-ewr-kewr1740056-EWR, cache-maa10222-MAA
+      X-Cache-Hits:
+      - 0, 1
+      X-Timer:
+      - S1751880670.534702,VS0,VE1
+      X-Cache:
+      - HIT
+      X-Contentful-Request-Id:
+      - 8a3a3fa0-8e70-48b2-816e-e739a0bd7389
+    body:
+      encoding: UTF-8
+      string: '{"sys":{"id":"4EQT881T6sG9XpzNwb9y9R","type":"TaxonomyConceptScheme","createdAt":"2025-03-21T05:53:46.063Z","updatedAt":"2025-03-21T05:55:26.969Z","version":2},"uri":"https://example.com/testscheme","topConcepts":[{"sys":{"id":"5iRG7dAusVFUOh9SrexDqQ","type":"Link","linkType":"TaxonomyConcept"}}],"concepts":[{"sys":{"id":"5iRG7dAusVFUOh9SrexDqQ","type":"Link","linkType":"TaxonomyConcept"}}],"totalConcepts":1,"prefLabel":{"en-US":"TestScheme"},"definition":{"en-US":""}}'
+  recorded_at: Mon, 07 Jul 2025 09:31:09 GMT
+recorded_with: VCR 6.3.1

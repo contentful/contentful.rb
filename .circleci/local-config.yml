@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  test_and_lint:
+    docker:
+      - image: cimg/ruby:3.4
+    steps:
+      - checkout
+      - run: gem install bundler:1.10.6
+      - run: bundle install
+      - run: bundle exec rake rspec_rubocop
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test_and_lint 

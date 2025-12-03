@@ -217,4 +217,32 @@ describe Contentful::Asset do
       }
     end
   end
+
+  describe 'concepts metadata' do
+    let(:asset_id) { '3v0s5QAHjGFqCS5aBfd1dX' }
+
+    it 'can load an asset with concepts' do
+      vcr('asset/with_concepts') {
+        expect {
+          asset = create_client.asset(asset_id)
+        }.not_to raise_error
+      }
+    end
+
+    it 'hydrates concepts' do
+      vcr('asset/with_concepts') {
+        asset = create_client.asset(asset_id)
+        expect(asset._metadata[:concepts].first).to be_a Contentful::Link
+      }
+    end
+
+    it 'loads concept links with their proper attributes' do
+      vcr('asset/with_concepts') {
+        asset = create_client.asset(asset_id)
+        concept = asset._metadata[:concepts].first
+        expect(concept.id).to eq '5iRG7dAusVFUOh9SrexDqQ'
+        expect(concept.link_type).to eq 'TaxonomyConcept'
+      }
+    end
+  end
 end
