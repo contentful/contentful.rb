@@ -369,6 +369,15 @@ client = Contentful::Client.new(
         the original log_level on the logger, for example when using Rails.logger.
       </td>
     </tr>
+    <tr>
+      <td><code>http_instrumenter</code></td>
+      <td><code>nil</code></td>
+      <td>
+        An HTTP instrumenter object that implements the <code>HTTP::Features::Instrumentation::Instrumenter</code> interface.
+        When provided, it will be used to instrument all HTTP requests made by the client.
+        This is useful for monitoring, logging, or tracking HTTP requests.
+      </td>
+    </tr>
   </tbody>
 </table>
 

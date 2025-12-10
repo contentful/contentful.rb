@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+* Added `http_instrumenter` configuration option to allow instrumenting HTTP requests. [#266](https://github.com/contentful/contentful.rb/pull/266)
+* Updated `http` gem version to `> 4`
+
 ## 2.18.0
 * Added support for Taxonomy endpoints
 
