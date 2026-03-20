@@ -7,9 +7,13 @@
       "RUBY_VERSION": "${localEnv:RUBY_VERSION:3.4}"
     }
   },
+  "containerEnv": {
+    "BUNDLE_APP_CONFIG": "/home/vscode/.bundle",
+    "BUNDLE_PATH": "/home/vscode/.bundle/vendor"
+  },
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "remoteUser": "vscode",
-  "postCreateCommand": "bundle install",
+  "postCreateCommand": "bundle _2.3.26_ install",
   "customizations": {
     "vscode": {
       "extensions": [

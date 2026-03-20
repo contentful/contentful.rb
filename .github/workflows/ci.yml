@@ -26,4 +26,4 @@ jobs:
           RUBY_VERSION: ${{ matrix.ruby-version }}
         with:
           push: never
-          runCmd: bundle exec rake rspec_rubocop
+          runCmd: bundle _2.3.26_ exec rake rspec_rubocop
