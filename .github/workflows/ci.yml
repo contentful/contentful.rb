@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-lint:
+    name: Test and lint (Ruby ${{ matrix.ruby-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ["3.2", "3.3", "3.4"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run tests and lint checks in dev container
+        uses: devcontainers/ci@v0.3
+        env:
+          RUBY_VERSION: ${{ matrix.ruby-version }}
+        with:
+          push: never
+          runCmd: bundle exec rake rspec_rubocop

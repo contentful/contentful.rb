@@ -21,8 +21,8 @@
     <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License" />
   </a>
   &nbsp;
-  <a href="https://app.circleci.com/pipelines/github/contentful/contentful.rb?branch=master">
-    <img src="https://circleci.com/gh/contentful/contentful.rb/tree/master.svg?style=svg" alt="CircleCI">
+  <a href="https://github.com/contentful/contentful.rb/actions/workflows/ci.yml">
+    <img src="https://github.com/contentful/contentful.rb/actions/workflows/ci.yml/badge.svg" alt="CI">
   </a>
 </p>
 
@@ -757,6 +757,14 @@ For more information on the internal changes present in the 2.x release, please 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?maxAge=31557600)](http://makeapullrequest.com)
 
 We appreciate any help on our repositories. For more details about how to contribute see our [CONTRIBUTING.md](CONTRIBUTING.md) document.
+
+For a reproducible local setup, open this repository in its included dev container. The container installs the project dependencies automatically when it is created.
+
+After the container is ready, run:
+
+```bash
+bundle exec rake rspec_rubocop
+```
 
 ## License
 
