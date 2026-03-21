@@ -6,9 +6,20 @@ Thanks for helping improve `contentful.rb`.
 
 This repository includes a `.devcontainer` configuration for a reproducible local setup. GitHub Actions uses the same devcontainer configuration for CI.
 
-1. Install Docker and a devcontainer-compatible editor. Visual Studio Code with the Dev Containers extension works well.
-2. Open the repository in the dev container and wait for the post-create setup to finish.
-3. Verify the environment:
+### Visual Studio Code
+
+Open the repository in Visual Studio Code, install the Dev Containers extension if needed, then run `Dev Containers: Reopen in Container`. Wait for the container build and post-create setup to finish.
+
+### Terminal or other editors
+
+Install Docker and the Dev Container CLI (`npm install -g @devcontainers/cli`). From the repository root, run:
+
+```bash
+devcontainer up --workspace-folder .
+devcontainer exec --workspace-folder . bash
+```
+
+### Verify the environment
 
 ```bash
 bundle exec rake rspec_rubocop
