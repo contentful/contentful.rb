@@ -18,12 +18,14 @@ jobs:
       matrix:
         ruby-version: ["3.2", "3.3", "3.4"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli@0
 
       - name: Run tests and lint checks in dev container
-        uses: devcontainers/ci@v0.3
         env:
           RUBY_VERSION: ${{ matrix.ruby-version }}
-        with:
-          push: never
-          runCmd: bundle _2.3.26_ exec rake rspec_rubocop
+        run: |
+          devcontainer up --workspace-folder .
+          devcontainer exec --workspace-folder . bash -lc "bundle _2.3.26_ exec rake rspec_rubocop"
