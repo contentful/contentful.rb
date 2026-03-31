@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-lint:
+    name: Test and lint (Ruby ${{ matrix.ruby-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ["3.2", "3.3", "3.4"]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli@0
+
+      - name: Run tests and lint checks in dev container
+        env:
+          RUBY_VERSION: ${{ matrix.ruby-version }}
+        run: |
+          devcontainer up --workspace-folder .
+          devcontainer exec --workspace-folder . bash -lc "bundle _2.3.26_ exec rake rspec_rubocop"
