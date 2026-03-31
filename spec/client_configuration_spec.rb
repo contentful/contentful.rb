@@ -365,6 +365,30 @@ describe 'Client Configuration Options' do
     end
   end
 
+  describe ':additional_headers' do
+    it 'defaults to empty hash' do
+      expect(create_client.configuration[:additional_headers]).to eq({})
+    end
+
+    it 'includes custom headers in request headers' do
+      client = create_client(additional_headers: { 'x-contentful-resource-resolution' => 'include' })
+      expect(client.request_headers['x-contentful-resource-resolution']).to eq 'include'
+    end
+
+    it 'does not override default headers when no custom headers given' do
+      client = create_client
+      expect(client.request_headers).to have_key('X-Contentful-User-Agent')
+      expect(client.request_headers).to have_key('Authorization')
+    end
+
+    it 'allows multiple custom headers' do
+      custom = { 'X-Custom-One' => 'foo', 'X-Custom-Two' => 'bar' }
+      client = create_client(additional_headers: custom)
+      expect(client.request_headers['X-Custom-One']).to eq 'foo'
+      expect(client.request_headers['X-Custom-Two']).to eq 'bar'
+    end
+  end
+
   describe 'timeout options' do
     let(:full_options) { { timeout_connect: 1, timeout_read: 2, timeout_write: 3 } }
 
