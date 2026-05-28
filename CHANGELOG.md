@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+* Allow `http` gem `6.x` by widening the dependency constraint to `'> 0.8', '< 7.0'`. Resolves [#278](https://github.com/contentful/contentful.rb/issues/278).
+* Adapted error response handling for `http` 6.x: status codes are now coerced to integers for class lookup (`HTTP::Response::Status` no longer inherits from `Delegator`), and the rate-limit reset header is read via `raw.headers[...]` (the `[]` delegator on `HTTP::Response` was removed).
 
 ## 2.19.0
 * Added `http_instrumenter` configuration option to allow instrumenting HTTP requests. [#266](https://github.com/contentful/contentful.rb/pull/266)

@@ -58,31 +58,35 @@ module Contentful
       parse_http_error
     end
 
+    def status_code
+      raw.status.to_i
+    end
+
     def valid_http_response?
-      [200, 201].include?(raw.status)
+      [200, 201].include?(status_code)
     end
 
     def service_unavailable_response?
-      @raw.status == 503
+      status_code == 503
     end
 
     def service_unavailable_error
       @status = :error
       @error_message = '503 - Service Unavailable'
-      @object = Error[@raw.status].new(self)
+      @object = Error[status_code].new(self)
     end
 
     def parse_http_error
       @status = :error
-      @object = Error[raw.status].new(self)
+      @object = Error[status_code].new(self)
     end
 
     def invalid_response?
-      [400, 404].include?(raw.status)
+      [400, 404].include?(status_code)
     end
 
     def no_content_response?
-      raw.to_s == '' && raw.status == 204
+      raw.to_s == '' && status_code == 204
     end
 
     def parse_json!
