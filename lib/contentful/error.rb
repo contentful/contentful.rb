@@ -149,7 +149,7 @@ module Contentful
 
     # Time until next available request, in seconds.
     def reset_time
-      @reset_time ||= @response.raw[RATE_LIMIT_RESET_HEADER_KEY]
+      @reset_time ||= @response.raw.headers[RATE_LIMIT_RESET_HEADER_KEY]
     end
 
     protected
