@@ -1,5 +1,5 @@
 # Contentful Namespace
 module Contentful
   # Gem Version
-  VERSION = '2.19.0'
+  VERSION = '2.20.0'
 end
