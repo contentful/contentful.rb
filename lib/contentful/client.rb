@@ -45,7 +45,8 @@ module Contentful
       application_version: nil,
       integration_name: nil,
       integration_version: nil,
-      http_instrumenter: nil
+      http_instrumenter: nil,
+      additional_headers: {}
     }
 
     attr_reader :configuration, :logger, :proxy
@@ -340,7 +341,7 @@ module Contentful
       headers['Authorization'] = "Bearer #{configuration[:access_token]}" if configuration[:authentication_mechanism] == :header
       headers['Content-Type'] = "application/vnd.contentful.delivery.v#{configuration[:api_version].to_i}+json" if configuration[:api_version]
       headers['Accept-Encoding'] = 'gzip' if configuration[:gzip_encoded]
-      headers
+      headers.merge(configuration[:additional_headers])
     end
 
     # Patches a query hash with the client configurations for queries
