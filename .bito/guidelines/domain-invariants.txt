@@ -1,0 +1,34 @@
+Critical invariants for the contentful.rb Ruby SDK:
+
+READ-ONLY SDK
+- This library wraps the Content Delivery API only. Never add write, create, update, or delete operations — those belong to contentful-management.rb.
+
+SNAKE_CASE DEFAULT
+- All public field accessors and hash keys must use snake_case by default. Support.snakify must always receive @configuration[:use_camel_case] as its second argument — missing this flag causes camelCase fields to be inaccessible when use_camel_case: true is set (this has been a recurring bug).
+
+RESOURCE REGISTRATION
+- Every new resource type must be added to ResourceBuilder::DEFAULT_RESOURCE_MAPPING and BUILDABLES in resource_builder.rb, or it will not be instantiated from API responses.
+
+INCLUDE RESOLUTION DEPTH
+- Never remove or bypass max_include_resolution_depth when resolving linked resources. Content models can be circular; this cap prevents infinite recursion and stack overflow.
+
+REUSE_ENTRIES + CACHING INCOMPATIBILITY
+- reuse_entries: true must not be enabled alongside caching frameworks (Rails.cache, etc.). Document this clearly in any feature that interacts with entry hydration or marshalling.
+
+MARSHALLING
+- BaseResource#marshal_dump excludes the logger (file handles can't be serialized). Do not add non-serializable objects to @configuration without a corresponding marshal_dump exclusion.
+
+BUNDLER VERSION
+- All scripts and CI commands must use bundle _2.3.26_ install, not bare bundle install. The devcontainer pins this version for reproducibility.
+
+NO ENV VARS
+- The library reads no environment variables. All configuration is explicit via Client.new(...). Do not introduce ENV reads.
+
+MASTER BRANCH
+- The default branch is master, not main. CI workflows and merge rules target master.
+
+CONTENT TYPE CACHE SCOPE
+- ContentTypeCache is a global, module-level cache. In multi-space applications, cache_get/set is keyed by space_id:content_type_id. Be aware of potential collisions if two spaces happen to use the same content type ID.
+
+RUBOCOP SCOPE
+- RuboCop is configured to lint lib/ only. spec/, examples/, Gemfile, Rakefile, and contentful.gemspec are excluded. Do not add RuboCop enforcement to spec files.
