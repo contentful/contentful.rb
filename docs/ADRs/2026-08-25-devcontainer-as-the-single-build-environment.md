@@ -64,9 +64,12 @@ image, with the same Bundler, executing the same Rake task a contributor runs lo
   directory still exists. Its contents have also drifted: it pins `cimg/ruby:3.4` and
   `bundler:1.10.6`, which matches neither the current matrix nor the container's Bundler.
   Anyone reading it as current guidance would be misled.
-- **CodeQL scanning is no longer configured in this repository.** The workflow was removed in
-  the same commit. Whether scanning is now provided at the organization level is not
-  established by anything in this repository.
+- **CodeQL scanning is no longer configured *in this repository*.** The workflow was removed in
+  the same commit. Scanning itself did not stop: `Analyze (ruby)` and `Analyze (actions)`
+  checks still run on pull requests, so code scanning is now supplied outside this repo's
+  `.github/workflows/` — GitHub's default setup or an organization-level configuration.
+  Nothing in this repository records which, so treat the workflow's removal as a move rather
+  than a removal of coverage, and verify in repository settings before assuming either.
 
 ## Evidence
 
