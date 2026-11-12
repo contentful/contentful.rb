@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   if RUBY_VERSION.start_with?('1.')
     gem.add_dependency 'http', '> 4'
     gem.add_dependency 'json', '~> 2.7'
-    gem.add_development_dependency'term-ansicolor', '~> 1.3.0'
+    gem.add_development_dependency'term-ansicolor', '~> 1.11.0'
     gem.add_development_dependency 'public_suffix', '< 1.6'
   else
     gem.add_dependency 'http', '> 0.8', '< 7.0'
