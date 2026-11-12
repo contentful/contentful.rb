@@ -41,5 +41,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'vcr'
   gem.add_development_dependency 'simplecov'
   gem.add_development_dependency 'webmock'
-  gem.add_development_dependency 'tins', '~> 1.6.0'
+  gem.add_development_dependency 'tins', '~> 1.62.0'
 end
